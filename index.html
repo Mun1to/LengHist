@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +31,11 @@
   /* ============================================================
      LENGHIST — variables de tema
      ============================================================ */
+  /* SmartDefaults Tier A: el tema sigue SIEMPRE al sistema del visitante, en vivo,
+     sin botón ni JavaScript. Base = oscuro; el bloque @media de abajo aplica el
+     claro solo cuando el sistema/navegador lo pide. */
   :root {
+    color-scheme: dark;
     --bg: #09090b;
     --surface: #18181b;
     --surface-2: #1f1f23;
@@ -50,22 +54,25 @@
     --radius: 14px;
     --maxw: 1280px;
   }
-  html[data-theme="light"] {
-    --bg: #fafafa;
-    --surface: #ffffff;
-    --surface-2: #f4f4f5;
-    --border: #e4e4e7;
-    --border-strong: #d4d4d8;
-    --text: #09090b;
-    --text-dim: #52525b;
-    --text-faint: #a1a1aa;
-    --accent: #4f46e5;
-    --accent-hover: #4338ca;
-    --accent-soft: rgba(79, 70, 229, 0.08);
-    --code-bg: #0c0c0f;
-    --good: #059669;
-    --bad: #dc2626;
-    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.06);
+  @media (prefers-color-scheme: light) {
+    :root {
+      color-scheme: light;
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --surface-2: #f4f4f5;
+      --border: #e4e4e7;
+      --border-strong: #d4d4d8;
+      --text: #09090b;
+      --text-dim: #52525b;
+      --text-faint: #a1a1aa;
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-soft: rgba(79, 70, 229, 0.08);
+      --code-bg: #0c0c0f;
+      --good: #059669;
+      --bad: #dc2626;
+      --shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.06);
+    }
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -168,10 +175,6 @@
   .iconbtn:hover { color: var(--text); border-color: var(--border-strong); transform: translateY(-1px); }
   .iconbtn:active { transform: translateY(0); }
   .iconbtn svg { display: block; }
-  /* icono de tema: anima al cambiar */
-  #themeBtn .sun, #themeBtn .moon { transition: opacity .25s, transform .4s; }
-  html[data-theme="dark"] #themeBtn .moon { display: none; }
-  html[data-theme="light"] #themeBtn .sun { display: none; }
   /* botón idioma */
   #langBtn .lang-code { font-family: 'JetBrains Mono', monospace; letter-spacing: .03em; }
   #langBtn .globe { transition: transform .5s ease; }
@@ -656,8 +659,10 @@
   }
   .aurora::before { background: radial-gradient(circle, rgba(99,102,241,.38), transparent 70%); top: -18vw; left: -12vw; animation: float1 24s ease-in-out infinite; }
   .aurora::after  { background: radial-gradient(circle, rgba(129,140,248,.24), transparent 70%); bottom: -22vw; right: -12vw; animation: float2 28s ease-in-out infinite; }
-  html[data-theme="light"] .aurora::before { opacity: .3; }
-  html[data-theme="light"] .aurora::after { opacity: .22; }
+  @media (prefers-color-scheme: light) {
+    .aurora::before { opacity: .3; }
+    .aurora::after { opacity: .22; }
+  }
   @keyframes float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(9vw,7vw) scale(1.18); } }
   @keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-8vw,-6vw) scale(1.12); } }
   @media (prefers-reduced-motion: reduce) { .aurora::before, .aurora::after { animation: none; } }
@@ -724,11 +729,6 @@
         <button class="iconbtn" id="langBtn" aria-label="Cambiar idioma" title="Cambiar idioma">
           <svg class="globe" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>
           <span class="lang-code" id="langCode">ES</span>
-        </button>
-        <!-- BOTÓN DE TEMA -->
-        <button class="iconbtn" id="themeBtn" aria-label="Cambiar tema" title="Cambiar tema">
-          <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-          <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         </button>
       </div>
     </div>
@@ -2678,7 +2678,15 @@ const BLOG = [
 /* ============================================================
    ESTADO
    ============================================================ */
-let lang = localStorage.getItem('lang') || 'es';
+/* Idioma (SmartDefaults): la elección guardada manda siempre; si no la hay
+   (primera visita), se detecta el idioma del navegador y se elige el soportado
+   más cercano. Si ninguno coincide, español (idioma nativo de la web). */
+let lang = localStorage.getItem('lang');
+if (!lang) {
+  const wanted = (navigator.languages || [navigator.language || 'es'])
+    .map(l => String(l).slice(0, 2).toLowerCase());
+  lang = wanted.find(l => l === 'es' || l === 'en') || 'es';
+}
 let activeCat = 'all';
 let query = '';
 let view = 'grid';            // 'grid' | 'timeline'
@@ -2736,26 +2744,10 @@ function parseURL() {
 }
 
 /* ============================================================
-   TEMA
+   TEMA — SmartDefaults Tier A: lo resuelve el CSS solo
+   (@media prefers-color-scheme), sin JS ni botón. Sigue al
+   sistema del visitante en vivo.
    ============================================================ */
-function initTheme() {
-  const saved = localStorage.getItem('theme');
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  const theme = saved || (prefersLight ? 'light' : 'dark');
-  document.documentElement.setAttribute('data-theme', theme);
-}
-function setTheme(next) {
-  const apply = () => {
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  };
-  if (document.startViewTransition) document.startViewTransition(apply);
-  else apply();
-}
-$('#themeBtn').addEventListener('click', () => {
-  const cur = document.documentElement.getAttribute('data-theme');
-  setTheme(cur === 'light' ? 'dark' : 'light');
-});
 
 /* ============================================================
    IDIOMA
@@ -3294,7 +3286,6 @@ document.addEventListener('keydown', e => {
    INIT
    ============================================================ */
 parseURL();
-initTheme();
 applyLang();
 if (pendingOpen) {
   const i = LANGS.findIndex(l => l.name === pendingOpen);
