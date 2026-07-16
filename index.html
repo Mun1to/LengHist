@@ -10,7 +10,7 @@
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
-<link rel="canonical" href="https://mun1to.github.io/lenghist/">
+<link rel="canonical" href="https://mun1to.github.io/LengHist/">
 <!-- Favicon SVG inline (sin archivos externos) -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='7'%20fill='%236366f1'/%3E%3Ctext%20x='16'%20y='22'%20font-family='monospace'%20font-size='14'%20font-weight='bold'%20fill='white'%20text-anchor='middle'%3E%26lt;/%26gt;%3C/text%3E%3C/svg%3E">
 <!-- Open Graph / Twitter -->
@@ -18,12 +18,12 @@
 <meta property="og:site_name" content="Lenghist">
 <meta property="og:title" content="Lenghist — Guía de Lenguajes de Programación">
 <meta property="og:description" content="100 lenguajes de programación: su historia, usos, paradigmas y extensiones. Interactivo, bilingüe y con modo claro/oscuro.">
-<meta property="og:url" content="https://mun1to.github.io/lenghist/">
-<meta property="og:image" content="https://mun1to.github.io/lenghist/og.png">
+<meta property="og:url" content="https://mun1to.github.io/LengHist/">
+<meta property="og:image" content="https://mun1to.github.io/LengHist/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Lenghist — Guía de Lenguajes de Programación">
 <meta name="twitter:description" content="100 lenguajes de programación: historia, usos, paradigmas y extensiones. Interactivo y bilingüe.">
-<meta name="twitter:image" content="https://mun1to.github.io/lenghist/og.png">
+<meta name="twitter:image" content="https://mun1to.github.io/LengHist/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -850,7 +850,7 @@ const I18N = {
     conceptsCta: "Conceptos web",
     conceptsTitle: "Conceptos de diseño web",
     conceptsSub: "Base de técnicas de diseño web y scroll interactivo, para recordarlas de un vistazo.",
-    conceptsCats: { scroll:"Scroll interactivo", pointer:"Puntero y micro-interacciones", visual:"Estética y efectos", perf:"Rendimiento y buenas prácticas" },
+    conceptsCats: { scroll:"Scroll interactivo", pointer:"Puntero y micro-interacciones", visual:"Estética y efectos", cssmod:"CSS moderno", perf:"Rendimiento y buenas prácticas" },
     conceptUse: "Para qué",
     quizCta: "¿Qué lenguaje aprender?",
     quizTitle: "¿Qué lenguaje deberías aprender?",
@@ -909,7 +909,7 @@ const I18N = {
     conceptsCta: "Web concepts",
     conceptsTitle: "Web design concepts",
     conceptsSub: "A base of web design and interactive-scroll techniques, to remember them at a glance.",
-    conceptsCats: { scroll:"Interactive scroll", pointer:"Pointer & micro-interactions", visual:"Aesthetics & effects", perf:"Performance & best practices" },
+    conceptsCats: { scroll:"Interactive scroll", pointer:"Pointer & micro-interactions", visual:"Aesthetics & effects", cssmod:"Modern CSS", perf:"Performance & best practices" },
     conceptUse: "For",
     quizCta: "Which language to learn?",
     quizTitle: "Which language should you learn?",
@@ -2736,7 +2736,13 @@ const CONCEPTS = [
       en:{ what:"Sideways movement driven by the vertical scroll.", use:"Galleries, timelines and portfolios." } },
     { name:"Marquee", tag:"CSS · JS",
       es:{ what:"Cinta de texto o logos que se repite en bucle infinito.", use:"Tiras de logos de clientes y titulares en movimiento." },
-      en:{ what:"A strip of text or logos looping infinitely.", use:"Client logo strips and moving headlines." } }
+      en:{ what:"A strip of text or logos looping infinitely.", use:"Client logo strips and moving headlines." } },
+    { name:"Scrollytelling", tag:"JS",
+      es:{ what:"Contar una historia guiada por el scroll, con texto y visuales sincronizados.", use:"Reportajes interactivos, secciones de 'cómo funciona', datos narrados." },
+      en:{ what:"Telling a story driven by scroll, with text and visuals in sync.", use:"Interactive features, 'how it works' sections, narrated data." } },
+    { name:"Page transitions", tag:"View Transitions · barba.js",
+      es:{ what:"Transición animada al navegar entre páginas o vistas.", use:"Que la navegación se sienta de app, sin recargas bruscas." },
+      en:{ what:"Animated transition when navigating between pages or views.", use:"Make navigation feel app-like, without harsh reloads." } }
   ]},
   { cat:"pointer", color:"#8b5cf6", items:[
     { name:"Tilt 3D", tag:"JS · CSS",
@@ -2750,7 +2756,13 @@ const CONCEPTS = [
       en:{ what:"A custom cursor that follows the mouse with easing (linear interpolation).", use:"Creative brands and portfolios with personality." } },
     { name:"Micro-interacciones", tag:"CSS",
       es:{ what:"Pequeños feedbacks en hover, focus y click (escala, color, sombra).", use:"Hacen la interfaz viva y agradable; refuerzan cada acción." },
-      en:{ what:"Tiny feedbacks on hover, focus and click (scale, color, shadow).", use:"They make the UI feel alive; they reinforce each action." } }
+      en:{ what:"Tiny feedbacks on hover, focus and click (scale, color, shadow).", use:"They make the UI feel alive; they reinforce each action." } },
+    { name:"Cursor blend", tag:"mix-blend-mode",
+      es:{ what:"Cursor o formas que invierten el color de lo que hay debajo.", use:"Efecto llamativo en portfolios y marcas creativas." },
+      en:{ what:"A cursor or shapes that invert the color of what's underneath.", use:"Eye-catching effect in portfolios and creative brands." } },
+    { name:"Spotlight / glow", tag:"radial-gradient · JS",
+      es:{ what:"Un resplandor que sigue al cursor dentro de una tarjeta o botón.", use:"Da vida a las cards (se usa en esta misma web al pasar el ratón)." },
+      en:{ what:"A glow that follows the cursor inside a card or button.", use:"Brings cards to life (used on this very site on hover)." } }
   ]},
   { cat:"visual", color:"#06b6d4", items:[
     { name:"Glassmorphism", tag:"backdrop-filter",
@@ -2770,7 +2782,16 @@ const CONCEPTS = [
       en:{ what:"Native animated transition between two states or pages.", use:"Theme changes and smooth navigation (used by this site's theme toggle)." } },
     { name:"Skeleton loaders", tag:"CSS",
       es:{ what:"Placeholders grises animados que se muestran mientras carga el contenido real.", use:"Percepción de rapidez; evitan pantallas en blanco." },
-      en:{ what:"Animated gray placeholders shown while the real content loads.", use:"Perceived speed; they avoid blank screens." } }
+      en:{ what:"Animated gray placeholders shown while the real content loads.", use:"Perceived speed; they avoid blank screens." } },
+    { name:"Tipografía cinética", tag:"GSAP SplitText",
+      es:{ what:"Animar el texto por letras o palabras (aparecer, deslizar, distorsionar).", use:"Titulares con impacto e intros de marca." },
+      en:{ what:"Animate text by letters or words (appear, slide, distort).", use:"High-impact headlines and brand intros." } },
+    { name:"Noise / grain", tag:"SVG · CSS",
+      es:{ what:"Textura de grano sutil sobre fondos y degradados.", use:"Da un acabado cálido y analógico, menos plano." },
+      en:{ what:"Subtle grain texture over backgrounds and gradients.", use:"Gives a warm, analog finish, less flat." } },
+    { name:"Preloader", tag:"JS",
+      es:{ what:"Pantalla o barra de carga inicial mientras se prepara la web.", use:"Cubrir la carga de recursos pesados, con mesura (nunca eternos)." },
+      en:{ what:"An initial loading screen or bar while the site gets ready.", use:"Cover heavy resource loading, in moderation (never endless)." } }
   ]},
   { cat:"perf", color:"#10b981", items:[
     { name:"Animar transform/opacity", tag:"GPU",
@@ -2790,7 +2811,39 @@ const CONCEPTS = [
       en:{ what:"Content works and reads without JS; the effect goes on top.", use:"Robustness: if JS fails, the site is still usable." } },
     { name:"Responsive / mobile-first", tag:"CSS",
       es:{ what:"Diseñar primero para móvil y escalar hacia arriba.", use:"La mayoría del tráfico es móvil; los efectos deben ir a 60fps también ahí." },
-      en:{ what:"Design for mobile first and scale up.", use:"Most traffic is mobile; effects must run at 60fps there too." } }
+      en:{ what:"Design for mobile first and scale up.", use:"Most traffic is mobile; effects must run at 60fps there too." } },
+    { name:"Lazy loading", tag:'loading="lazy"',
+      es:{ what:"Cargar imágenes y recursos solo cuando se acercan al viewport.", use:"Acelera la carga inicial y ahorra datos." },
+      en:{ what:"Load images and resources only as they approach the viewport.", use:"Speeds up initial load and saves data." } },
+    { name:"Debounce y throttle", tag:"JS",
+      es:{ what:"Limitar cuántas veces se ejecuta una función en eventos frecuentes (scroll, resize, input).", use:"Evita trabajo de más y mantiene la fluidez." },
+      en:{ what:"Limit how often a function runs on frequent events (scroll, resize, input).", use:"Avoids extra work and keeps things smooth." } },
+    { name:"requestAnimationFrame", tag:"JS",
+      es:{ what:"Sincronizar animaciones JS con el refresco de pantalla del navegador.", use:"Animaciones suaves a 60fps sin saturar el hilo principal." },
+      en:{ what:"Sync JS animations with the browser's screen refresh.", use:"Smooth 60fps animations without clogging the main thread." } }
+  ]},
+  { cat:"cssmod", color:"#ec4899", items:[
+    { name:"Container queries", tag:"@container",
+      es:{ what:"Estilos según el tamaño del contenedor, no de la ventana.", use:"Componentes de verdad reutilizables que se adaptan a su hueco." },
+      en:{ what:"Styles based on the container's size, not the window's.", use:"Truly reusable components that adapt to their slot." } },
+    { name:"Fluid typography", tag:"clamp()",
+      es:{ what:"Tamaños de fuente que escalan suavemente entre un mínimo y un máximo.", use:"Tipografía que luce bien de móvil a pantalla grande sin saltos." },
+      en:{ what:"Font sizes that scale smoothly between a min and a max.", use:"Type that looks good from mobile to large screens with no jumps." } },
+    { name:":has()", tag:"CSS",
+      es:{ what:"El 'selector padre': estilar un elemento según lo que contiene.", use:"Lógica de estilos antes imposible sin JS." },
+      en:{ what:"The 'parent selector': style an element based on what it contains.", use:"Styling logic previously impossible without JS." } },
+    { name:"Cascade layers", tag:"@layer",
+      es:{ what:"Organizar la prioridad del CSS en capas para evitar guerras de especificidad.", use:"Mantener el CSS ordenado en proyectos grandes." },
+      en:{ what:"Organize CSS priority into layers to avoid specificity wars.", use:"Keep CSS tidy in large projects." } },
+    { name:"color-mix()", tag:"CSS",
+      es:{ what:"Mezclar dos colores directamente en CSS.", use:"Generar tonos, hovers y transparencias desde un color base (se usa mucho en esta web)." },
+      en:{ what:"Mix two colors directly in CSS.", use:"Generate shades, hovers and transparencies from a base color (used a lot on this site)." } },
+    { name:"Subgrid", tag:"CSS grid",
+      es:{ what:"Que un elemento hijo herede las líneas de la cuadrícula del padre.", use:"Alinear tarjetas y listas de forma perfecta." },
+      en:{ what:"Let a child element inherit the parent's grid lines.", use:"Align cards and lists perfectly." } },
+    { name:"Logical properties", tag:"CSS",
+      es:{ what:"Propiedades por eje lógico (inline/block) en vez de left/right/top/bottom.", use:"Soporte automático de idiomas de derecha a izquierda (RTL)." },
+      en:{ what:"Properties by logical axis (inline/block) instead of left/right/top/bottom.", use:"Automatic support for right-to-left (RTL) languages." } }
   ]}
 ];
 
