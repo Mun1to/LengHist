@@ -10,6 +10,7 @@ Guía interactiva de lenguajes de programación: su historia, para qué sirven, 
 - 🧰 Frameworks, librerías y herramientas clave de cada lenguaje (en el detalle y en el comparador).
 - 🎨 Sección de recursos: ~64 páginas y herramientas frontend, incluyendo generadores de UI con IA por prompts (21st.dev, v0, bolt.new…), secciones y bloques prediseñados, CSS/UI, animaciones, iconos, color, fondos, tipografía e inspiración.
 - 📝 Blog con novedades de herramientas y consejos (bilingüe).
+- 📚 Base de conceptos de diseño web y scroll interactivo (Parallax, Lenis, Scroll Snap, sticky, tilt 3D, glassmorphism, View Transitions, Core Web Vitals...): 24 técnicas en 4 categorías.
 - ✨ Efectos profesionales: spotlight que sigue el cursor en las cards, aurora de fondo animada, resplandor del color de cada lenguaje, entrada escalonada, brillo en botones y scrollbar a medida.
 - 🌗 Modo claro / oscuro con transición suave (View Transitions) y persistencia en `localStorage`.
 - 🌐 Interfaz y contenidos bilingües (Español / Inglés).
