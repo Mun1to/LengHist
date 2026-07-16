@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Interruptor de movimiento: animaciones para TODOS por defecto; válvula de escape ?motion=off -->
+<script>(function(){document.documentElement.classList.toggle('motion', new URLSearchParams(location.search).get('motion') !== 'off');})();</script>
 <title>Lenghist — Guía de Lenguajes de Programación</title>
 <meta name="description" content="Lenghist: guía interactiva de lenguajes de programación, su historia, para qué sirven y sus extensiones de archivo.">
 <meta name="author" content="Munir Torres">
@@ -76,7 +78,7 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html.motion { scroll-behavior: smooth; }
   body {
     font-family: 'Inter', system-ui, sans-serif;
     background: var(--bg);
@@ -684,7 +686,22 @@
   }
   @keyframes float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(9vw,7vw) scale(1.18); } }
   @keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-8vw,-6vw) scale(1.12); } }
-  @media (prefers-reduced-motion: reduce) { .aurora::before, .aurora::after { animation: none; } }
+
+  /* Política de movimiento: animaciones para TODOS por defecto (no se apagan por
+     prefers-reduced-motion); válvula de escape central vía clase .motion en <html>,
+     controlada por ?motion=off. Ver interruptor en <head>. */
+  html:not(.motion) .aurora::before,
+  html:not(.motion) .aurora::after {
+    animation: none;
+  }
+  html:not(.motion) .card,
+  html:not(.motion) .empty.show,
+  html:not(.motion) .tl-item,
+  html:not(.motion) .res-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 
   /* spotlight que sigue al cursor dentro de cada card */
   .card > * { position: relative; z-index: 1; }
@@ -2901,6 +2918,7 @@ function syncURL() {
   if (view !== 'grid') p.set('view', view);
   if (favOnly) p.set('fav', '1');
   if (getOpenName()) p.set('open', getOpenName());
+  if (!document.documentElement.classList.contains('motion')) p.set('motion', 'off');
   const qs = p.toString();
   history.replaceState(null, '', qs ? '?' + qs : location.pathname);
 }
