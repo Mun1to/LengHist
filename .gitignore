@@ -1,3 +1,13 @@
 prompt-claudecode-lang-guide.md
 .claude/
 ._check.js
+
+# Documentacion interna de Munir: NO se publica (este repo es PUBLICO).
+# Vive en disco y se versiona solo en los repos privados. Ver Reglas_de_los_proyectos.md.
+AGENTS.md
+CLAUDE.md
+REGLAS.md
+FEEDBACK.md
+MARKETING.md
+**/AGENTS.md
+**/CLAUDE.md
