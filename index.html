@@ -737,6 +737,99 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; border: 3px solid var(--bg); }
   ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+  /* ============================================================
+     REDISEÑO — hero más grande + kicker
+     (inspirado en 21st.dev / reactbits.dev / collectui.com)
+     ============================================================ */
+  .hero { position: relative; }
+  .hero h1 { font-size: clamp(2.15rem, 5.4vw, 3.7rem); }
+
+  /* ============================================================
+     ASCIIFY — lente ASCII que sigue el cursor en el hero
+     (Canvas2D vanilla, inspirado en canvasui.dev/docs/components/asciify;
+     sin html-in-canvas: genera su propia textura, no el DOM real)
+     ============================================================ */
+  .ascii-layer { position: absolute; inset: 0; pointer-events: none; }
+  html:not(.motion) .ascii-layer { display: none; }
+  .hero-kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: .74rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--accent-hover);
+    background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding: 5px 12px 5px 10px; border-radius: 999px; margin-bottom: 18px;
+  }
+  .hero-kicker .dot2 { width: 6px; height: 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 8px var(--good); }
+
+  /* ============================================================
+     LASER — divisor de calor bajo el hero (WebGL2 vanilla,
+     porteado a mano de canvasui.dev/docs/components/laser)
+     ============================================================ */
+  .laser-wrap { position: relative; height: 108px; margin: 6px 0 -18px; pointer-events: none; overflow: hidden; }
+  .laser-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  @media (max-width: 680px) { .laser-wrap { height: 70px; margin-bottom: -10px; } }
+
+  /* ============================================================
+     PEEL — esquina que se despega en las cards de lenguajes
+     (CSS vanilla, inspirado en canvasui.dev/docs/components/peel;
+     sin captura del DOM: revela un panel propio, no "lo de debajo")
+     ============================================================ */
+  .peel { position: absolute; top: 0; right: 0; width: 34px; height: 34px; z-index: 2; }
+  .peel-face {
+    position: absolute; top: 0; right: 0; width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--surface-2) 50%, var(--border-strong) 50%);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    transform-origin: 100% 0%;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+    box-shadow: -2px 2px 6px rgba(0,0,0,.15);
+  }
+  .card:hover .peel-face { transform: rotate(-20deg) translate(-3px, 2px); box-shadow: -8px 8px 16px rgba(0,0,0,.3); }
+  .peel-info {
+    position: absolute; top: 6px; right: 6px; width: min(172px, 60vw);
+    background: var(--surface); border: 1px solid var(--border-strong); border-radius: 10px;
+    padding: 10px 12px; box-shadow: var(--shadow);
+    opacity: 0; transform: translateY(-6px) scale(.94); transform-origin: 100% 0%;
+    transition: opacity .25s ease .05s, transform .25s cubic-bezier(.2,.8,.2,1) .05s;
+  }
+  .peel-info .pi-pop { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--accent-hover); font-weight: 700; }
+  .peel-info .pi-pro { font-size: .76rem; color: var(--text-dim); margin-top: 4px; display: flex; gap: 5px; }
+  .peel-info .pi-pro::before { content: "+"; color: var(--good); font-weight: 700; }
+  .card:hover .peel-info { opacity: 1; transform: translateY(0) scale(1); }
+  html:not(.motion) .peel-face, html:not(.motion) .peel-info { transition: none; }
+
+  /* ============================================================
+     PARTICLE-SCROLL — el pie se materializa en arena al llegar
+     al final del catálogo (Canvas2D vanilla, inspirado en
+     canvasui.dev/docs/components/particle-scroll). El texto real
+     del pie está siempre visible/accesible; las partículas son
+     un adorno que se dispara una vez, no un reemplazo del texto.
+     ============================================================ */
+  .particle-footer { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+  html:not(.motion) .particle-footer { display: none; }
+
+  /* ============================================================
+     BUBBLE — gota de cristal que sigue el cursor (CSS + JS vanilla,
+     inspirado en canvasui.dev/docs/components/bubble; sin WebGL
+     porque necesitaría capturar el DOM en vivo, API aún experimental)
+     ============================================================ */
+  .bubble-cursor {
+    position: fixed; top: 0; left: 0; width: 42px; height: 42px;
+    border-radius: 50%; pointer-events: none; z-index: 60;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    backdrop-filter: blur(3px) saturate(1.5);
+    -webkit-backdrop-filter: blur(3px) saturate(1.5);
+    border: 1px solid color-mix(in srgb, #fff 45%, var(--accent) 20%);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent) inset,
+                0 4px 18px color-mix(in srgb, var(--accent) 30%, transparent);
+    opacity: 0; will-change: transform; transition: opacity .25s ease;
+  }
+  .bubble-cursor.show { opacity: 1; }
+  .bubble-cursor::after {
+    content: ""; position: absolute; top: 14%; left: 18%; width: 30%; height: 30%;
+    border-radius: 50%; background: rgba(255,255,255,.55); filter: blur(2px);
+  }
+  @media (hover: none), (pointer: coarse) { .bubble-cursor { display: none; } }
+  html:not(.motion) .bubble-cursor, html:not(.motion) .laser-wrap { display: none; }
 </style>
 </head>
 <body>
@@ -781,6 +874,7 @@
 
 <main class="wrap">
   <section class="hero">
+    <span class="hero-kicker"><span class="dot2"></span><span data-i18n="heroKicker">100 lenguajes · gratis · bilingüe</span></span>
     <h1 data-i18n="heroTitle">Recursos para <span class="accent">construir en la web</span></h1>
     <p data-i18n="heroSub">Lenguajes, herramientas de frontend, técnicas de diseño y novedades, en un solo sitio. Empieza por 100 lenguajes con datos reales.</p>
     <div class="hero-actions">
@@ -806,6 +900,8 @@
       <span id="statusText"></span>
     </div>
   </section>
+
+  <div class="laser-wrap" aria-hidden="true"><canvas id="laserCanvas" class="laser-canvas"></canvas></div>
 
   <section class="grid" id="grid"></section>
   <section class="timeline" id="timeline"></section>
@@ -842,6 +938,7 @@
 const I18N = {
   es: {
     tagline: "Recursos para construir",
+    heroKicker: "100 lenguajes · gratis · bilingüe",
     searchPlaceholder: "Buscar lenguaje, uso o .ext…",
     heroTitle: 'Recursos para <span class="accent">construir en la web</span>',
     heroSub: "Lenguajes, herramientas de frontend, técnicas de diseño y novedades, en un solo sitio. Empieza por {n} lenguajes con datos reales.",
@@ -901,6 +998,7 @@ const I18N = {
   },
   en: {
     tagline: "Build resources",
+    heroKicker: "100 languages · free · bilingual",
     searchPlaceholder: "Search language, use case or .ext…",
     heroTitle: 'Resources to <span class="accent">build for the web</span>',
     heroSub: "Languages, frontend tools, design techniques and news, all in one place. Start with {n} languages with real data.",
@@ -3026,6 +3124,7 @@ function cardHTML(l, i = 0) {
   const realIdx = LANGS.indexOf(l), d = l[lang], t = I18N[lang];
   return `
   <article class="card" style="--lang-color:${l.color}; animation-delay:${Math.min(i, 16) * 32}ms" data-idx="${realIdx}" tabindex="0">
+    <div class="peel"><div class="peel-face"></div><div class="peel-info"><span class="pi-pop">${l.popularity}/100</span><span class="pi-pro">${d.pros[0]}</span></div></div>
     <div class="card-top">
       <div class="card-id">
         <div class="card-icon">${l.icon}</div>
@@ -3511,6 +3610,294 @@ if (pendingOpen) {
   const i = LANGS.findIndex(l => l.name === pendingOpen);
   if (i >= 0) openModal(i);
 }
+
+/* ============================================================
+   COMPONENTE: LASER — divisor de calor bajo el hero
+   Porteado a mano (WebGL2 vanilla, sin React) a partir del
+   comportamiento visual de canvasui.dev/docs/components/laser.
+   ============================================================ */
+class VibesetLaser {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.gl = canvas.getContext('webgl2', { alpha: true, antialias: false });
+    if (!this.gl) { canvas.closest('.laser-wrap')?.style.setProperty('display', 'none'); return; }
+    this._buildProgram();
+    this._resize();
+    this.color = this._readAccent();
+    window.addEventListener('resize', () => this._resize());
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => { this.color = this._readAccent(); });
+    this._loop = this._loop.bind(this);
+    this.raf = requestAnimationFrame(this._loop);
+  }
+  _readAccent() {
+    const hex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#6366f1';
+    const n = parseInt(hex.replace('#', ''), 16);
+    return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+  }
+  _compile(type, src) {
+    const gl = this.gl, s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.warn('[Vibeset laser]', gl.getShaderInfoLog(s));
+    return s;
+  }
+  _buildProgram() {
+    const gl = this.gl;
+    const vsSrc = `#version 300 es
+in vec2 a_pos;
+void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }`;
+    const fsSrc = `#version 300 es
+precision highp float;
+uniform vec2 u_resolution;
+uniform float u_time;
+uniform vec3 u_color;
+out vec4 outColor;
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float noise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  float a = hash(i), b = hash(i + vec2(1.0, 0.0)), c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+void main() {
+  vec2 uv = gl_FragCoord.xy / u_resolution;
+  float shimmer = noise(vec2(uv.x * 8.0 + u_time * 0.6, u_time * 0.3)) * 0.05;
+  float d = abs(uv.y - (0.5 + shimmer));
+  float core = smoothstep(0.014, 0.0, d);
+  float glow = smoothstep(0.24, 0.0, d) * 0.5;
+  float sparkle = pow(noise(vec2(uv.x * 44.0, u_time * 2.0)), 6.0) * core;
+  float alpha = clamp(core + glow + sparkle, 0.0, 1.0);
+  vec3 col = u_color * (0.65 + 0.6 * core) + vec3(1.0) * core * 0.5;
+  outColor = vec4(col, alpha);
+}`;
+    const prog = gl.createProgram();
+    gl.attachShader(prog, this._compile(gl.VERTEX_SHADER, vsSrc));
+    gl.attachShader(prog, this._compile(gl.FRAGMENT_SHADER, fsSrc));
+    gl.linkProgram(prog);
+    this.prog = prog;
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'a_pos');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    this.u_res = gl.getUniformLocation(prog, 'u_resolution');
+    this.u_time = gl.getUniformLocation(prog, 'u_time');
+    this.u_color = gl.getUniformLocation(prog, 'u_color');
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  }
+  _resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = this.canvas.clientWidth, h = this.canvas.clientHeight;
+    this.canvas.width = Math.max(1, Math.round(w * dpr));
+    this.canvas.height = Math.max(1, Math.round(h * dpr));
+    this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+  }
+  _loop(t) {
+    const gl = this.gl;
+    gl.useProgram(this.prog);
+    gl.uniform2f(this.u_res, this.canvas.width, this.canvas.height);
+    gl.uniform1f(this.u_time, t * 0.001);
+    gl.uniform3f(this.u_color, this.color[0], this.color[1], this.color[2]);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    this.raf = requestAnimationFrame(this._loop);
+  }
+}
+if (document.documentElement.classList.contains('motion')) {
+  const laserCanvas = document.getElementById('laserCanvas');
+  if (laserCanvas) new VibesetLaser(laserCanvas);
+}
+
+/* ============================================================
+   COMPONENTE: ASCIIFY — lente ASCII que sigue el cursor en el hero
+   ============================================================ */
+(function initAsciify() {
+  if (!document.documentElement.classList.contains('motion')) return;
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  const canvas = document.createElement('canvas');
+  canvas.className = 'ascii-layer';
+  canvas.setAttribute('aria-hidden', 'true');
+  hero.insertBefore(canvas, hero.firstChild);
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const CHARS = ' .:-=+*#%@';
+  const radius = 130, cell = 9;
+  let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let mx = -9999, my = -9999, active = false;
+
+  function resize() {
+    const r = hero.getBoundingClientRect();
+    w = r.width; h = r.height;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  hero.addEventListener('pointermove', e => {
+    const r = hero.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top; active = true;
+  });
+  hero.addEventListener('pointerleave', () => { active = false; });
+
+  function accentRGB() {
+    const hex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#6366f1';
+    const n = parseInt(hex.replace('#', ''), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+
+  function loop(t) {
+    ctx.clearRect(0, 0, w, h);
+    if (active) {
+      const [ar, ag, ab] = accentRGB();
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(mx, my, radius, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.font = `${cell}px 'JetBrains Mono', monospace`;
+      ctx.textBaseline = 'top';
+      const x0 = Math.floor((mx - radius) / cell) * cell, x1 = Math.ceil((mx + radius) / cell) * cell;
+      const y0 = Math.floor((my - radius) / cell) * cell, y1 = Math.ceil((my + radius) / cell) * cell;
+      for (let y = y0; y <= y1; y += cell) {
+        for (let x = x0; x <= x1; x += cell) {
+          const dx = x - mx, dy = y - my, d = Math.sqrt(dx * dx + dy * dy);
+          if (d > radius) continue;
+          const n = Math.sin(x * 0.045 + t * 0.0009) * Math.cos(y * 0.045 - t * 0.0007) * 0.5 + 0.5;
+          const fall = 1 - d / radius;
+          const ch = CHARS[Math.min(CHARS.length - 1, Math.floor(n * CHARS.length))];
+          ctx.fillStyle = `rgba(${ar},${ag},${ab},${(0.35 + n * 0.5) * fall})`;
+          ctx.fillText(ch, x, y);
+        }
+      }
+      ctx.restore();
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+
+/* ============================================================
+   COMPONENTE: PARTICLE-SCROLL — el pie se materializa en arena
+   ============================================================ */
+(function initParticleScroll() {
+  if (!document.documentElement.classList.contains('motion')) return;
+  const footer = document.querySelector('footer.site');
+  if (!footer || !window.IntersectionObserver) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'particle-footer';
+  canvas.setAttribute('aria-hidden', 'true');
+  footer.style.position = 'relative';
+  footer.appendChild(canvas);
+
+  let done = false;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting && !done) { done = true; io.disconnect(); runParticles(); }
+    });
+  }, { threshold: 0.6 });
+  io.observe(footer);
+
+  function runParticles() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = footer.getBoundingClientRect();
+    const w = rect.width, h = rect.height;
+    if (w < 10 || h < 10) return;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.scale(dpr, dpr);
+
+    // muestrear el texto real del pie para saber dónde colocar la "tinta"
+    const off = document.createElement('canvas');
+    off.width = w * dpr; off.height = h * dpr;
+    const octx = off.getContext('2d');
+    octx.scale(dpr, dpr);
+    const cs = getComputedStyle(footer);
+    octx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    octx.fillStyle = '#fff';
+    octx.textBaseline = 'middle';
+    const text = footer.textContent.replace(/\s+/g, ' ').trim();
+    const tw = octx.measureText(text).width;
+    octx.fillText(text, (w - tw) / 2, h / 2);
+    const data = octx.getImageData(0, 0, w * dpr, h * dpr).data;
+
+    const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#6366f1';
+    const step = Math.max(2, Math.round(2 * dpr));
+    const particles = [];
+    for (let y = 0; y < h * dpr; y += step) {
+      for (let x = 0; x < w * dpr; x += step) {
+        if (data[(y * w * dpr + x) * 4 + 3] > 120) {
+          particles.push({ tx: x / dpr, ty: y / dpr, x: Math.random() * w, y: -20 - Math.random() * 60 });
+        }
+      }
+    }
+    if (!particles.length) return;
+
+    let frame = 0;
+    const maxFrames = 70;
+    function tick() {
+      frame++;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = accent;
+      const p1 = Math.min(1, frame / maxFrames);
+      const ease = 1 - Math.pow(1 - p1, 3);
+      particles.forEach(p => {
+        p.x += (p.tx - p.x) * (0.08 + ease * 0.05);
+        p.y += (p.ty - p.y) * (0.08 + ease * 0.05);
+        ctx.globalAlpha = 0.85 * (1 - Math.max(0, p1 - 0.75) * 4);
+        ctx.fillRect(p.x, p.y, 1.6, 1.6);
+      });
+      if (frame < maxFrames + 18) requestAnimationFrame(tick);
+      else ctx.clearRect(0, 0, w, h);
+    }
+    requestAnimationFrame(tick);
+  }
+})();
+
+/* ============================================================
+   COMPONENTE: BUBBLE — gota de cristal que sigue el cursor
+   CSS (backdrop-filter) + física en JS, sin WebGL: el original de
+   canvasui.dev/docs/components/bubble refracta el DOM en vivo vía
+   una API experimental (html-in-canvas) que aún no tiene soporte
+   amplio en navegadores.
+   ============================================================ */
+(function initBubble() {
+  if (!document.documentElement.classList.contains('motion')) return;
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  const el = document.createElement('div');
+  el.className = 'bubble-cursor';
+  el.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(el);
+
+  const size = 42;
+  let mx = innerWidth / 2, my = innerHeight / 2;
+  let x = mx, y = my, lastX = mx, lastY = my, shown = false;
+
+  addEventListener('pointermove', e => {
+    mx = e.clientX; my = e.clientY;
+    if (!shown) { shown = true; el.classList.add('show'); x = mx; y = my; lastX = mx; lastY = my; }
+  });
+  document.addEventListener('mouseleave', () => el.classList.remove('show'));
+  document.addEventListener('mouseenter', () => { if (shown) el.classList.add('show'); });
+
+  function tick() {
+    x += (mx - x) * 0.18;
+    y += (my - y) * 0.18;
+    const vx = x - lastX, vy = y - lastY;
+    lastX = x; lastY = y;
+    const speed = Math.min(Math.hypot(vx, vy) * 2.4, 22);
+    const stretch = 1 + speed / 40;
+    const angle = (Math.abs(vx) + Math.abs(vy)) > 0.05 ? Math.atan2(vy, vx) * 180 / Math.PI : 0;
+    el.style.transform = `translate(${x - size / 2}px, ${y - size / 2}px) rotate(${angle}deg) scaleX(${stretch}) scaleY(${1 / Math.sqrt(stretch)})`;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
 </script>
 
 <!--
