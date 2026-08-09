@@ -3,7 +3,7 @@
 Resources for people who build for the web: programming languages, frontend tools, web design
 techniques and news. Free, bilingual and with no sign-up. Everything runs in the browser.
 
-Live: https://mun1to.github.io/Vibeset/
+Live: https://vibeset.dev
 
 ## What is inside
 
@@ -45,4 +45,4 @@ single self-contained `index.html` plus Google Fonts. It works by opening the fi
 
 ## Deployment
 
-Published with GitHub Pages from the `main` branch (root).
+Published with Cloudflare Pages from the `main` branch (root), custom domain `vibeset.dev`.
