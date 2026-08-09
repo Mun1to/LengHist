@@ -1,33 +1,47 @@
-# Lenghist
+# Vibeset
 
-Interactive guide to programming languages: their history, what they are used for, their paradigms and file extensions.
+Resources for people who build for the web: programming languages, frontend tools, web design
+techniques and news. Free, bilingual and with no sign-up. Everything runs in the browser.
 
-Demo: https://mun1to.github.io/LengHist/
+Live: https://mun1to.github.io/Vibeset/
 
-## Features
+## What is inside
 
-- 100 languages with real data (year, creator, paradigm, popularity, extensions, code example, pros and cons).
-- Key frameworks, libraries and tools for each language (in the detail modal and the comparator).
-- Resources section: ~64 frontend pages and tools, including AI UI generators from prompts (21st.dev, v0, bolt.new...), pre-built sections and blocks, CSS/UI, animations, icons, color, backgrounds, typography and inspiration.
-- Blog with tool news and tips (bilingual).
-- Web design concepts cheatsheet (Parallax, Lenis, Scroll Snap, sticky, tilt 3D, glassmorphism, View Transitions, modern CSS, Core Web Vitals...): 41 techniques in 5 categories.
-- Professional effects: cursor-following spotlight on cards, animated background aurora, per-language color glow, staggered entrance, button sheen and custom scrollbar.
-- Automatic light / dark theme following the system, plus first-visit language detection.
-- Bilingual UI and content (Spanish / English).
-- Real-time search by name, description, use case, framework and extension (`.py`, `.rs`...).
-- Category filters with counters.
-- Persistent favorites with a dedicated filter.
-- Compare 2-3 languages side by side (year, creator, paradigm, popularity, frameworks, uses, code example, pros/cons...).
-- Timeline view ordered by release year.
-- "Which language to learn?" quiz that recommends languages based on goal, level and priorities.
-- Per-language detail modal with keyboard navigation (arrow keys), favorite and Wikipedia link.
-- Shareable state via URL (search, category, view and open language).
-- Responsive design (3 / 2 / 1 columns).
-- No dependencies or keys: 100% static, only Google Fonts.
+**Languages.** 100 programming languages with real data: year, creator, paradigm, popularity,
+extensions, code example, pros and cons, plus the key frameworks, libraries and tools for each one.
+Search by name, description, use case, framework or extension (`.py`, `.rs`...), filter by category,
+mark favorites, compare two or three side by side, browse them on a timeline, and take a short quiz
+that recommends a language based on your goal, level and priorities.
+
+**Frontend resources.** Around 64 pages and tools for building interfaces: AI UI generators from
+prompts (21st.dev, v0, bolt.new...), pre-built sections and blocks, CSS frameworks, UI libraries,
+buttons and effects, animation, icons, color, backgrounds, typography, illustrations and
+inspiration.
+
+**Web design concepts.** A cheatsheet of 41 techniques across 5 categories: parallax, Lenis, scroll
+snap, sticky, 3D tilt, glassmorphism, View Transitions, modern CSS, Core Web Vitals and more.
+
+**Blog.** Tool news and practical tips, bilingual.
+
+## Planned
+
+Vibeset is the home of a community of people who build, so what it holds is meant to grow with
+contributions: components, tutorials, guides and a library of agent skills that anyone can improve
+through a pull request. That part is not built yet.
+
+## Details
+
+- Automatic light and dark theme that follows the system, plus first-visit language detection.
+- Bilingual interface and content (Spanish / English).
+- Shareable state in the URL (search, category, view and open language).
+- Responsive layout (3 / 2 / 1 columns), keyboard navigation in the detail modal.
+- Effects: cursor-following spotlight on cards, background aurora, per-language color glow,
+  staggered entrance, button sheen and custom scrollbar.
 
 ## Stack
 
-HTML + CSS + vanilla JavaScript, no frameworks and no build step. Everything lives in a single self-contained `index.html`. Works by opening it directly in the browser.
+HTML, CSS and vanilla JavaScript. No frameworks, no build step, no dependencies and no keys: a
+single self-contained `index.html` plus Google Fonts. It works by opening the file in a browser.
 
 ## Deployment
 
