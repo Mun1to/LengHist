@@ -1,11 +1,12 @@
 import { Search, Sparkles, Languages } from 'lucide-react'
+import Logo from './Logo'
 
 export default function TopBar({ t, lang, setLang, activeNav, setActiveNav, onSearchClick, onQuizClick }) {
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
       <div className="flex items-center gap-8 px-6 py-3">
         <button onClick={() => setActiveNav('languages')} className="flex items-center gap-2 font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 shrink-0 cursor-pointer">
-          <span className="font-mono text-[13px] font-bold text-indigo-600 dark:text-indigo-400">&lt;/&gt;</span>
+          <Logo size={24} className="text-sky-600 dark:text-sky-300" />
           Vibeset
         </button>
 

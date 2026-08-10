@@ -1,0 +1,14 @@
+{
+  "name": "Vibeset",
+  "short_name": "Vibeset",
+  "description": "Cien lenguajes. Una guía viva. Recursos para construir en la web.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0d",
+  "theme_color": "#0b0b0d",
+  "icons": [
+    { "src": "/brand/icon-bg-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/brand/icon-bg-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/brand/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

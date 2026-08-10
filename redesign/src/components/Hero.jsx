@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LANGUAGES, HERO_PILLS } from '../data/languages'
-import CodeBlock from './CodeBlock'
 
 const DEMO_TABS = ['Python', 'JavaScript', 'Rust', 'Go']
 
-export default function Hero({ t, filter, setFilter, onExplore }) {
+export default function Hero({ t, lang, filter, setFilter, onExplore, onQuiz }) {
   const [tab, setTab] = useState('Python')
-  const lang = LANGUAGES.find((l) => l.name === tab)
+  const demo = LANGUAGES.find((l) => l.name === tab) ?? LANGUAGES[0]
 
   const isPillActive = (pillFilter) => {
     if (pillFilter.type === 'all') return filter.type === 'all'
@@ -68,7 +67,7 @@ export default function Hero({ t, filter, setFilter, onExplore }) {
               {t.exploreBtn}
             </button>
             <button
-              onClick={onExplore}
+              onClick={onQuiz}
               className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 border-b border-zinc-300 dark:border-zinc-600 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer self-center pb-0.5"
             >
               {t.testBtn}
@@ -82,7 +81,7 @@ export default function Hero({ t, filter, setFilter, onExplore }) {
           <div className="flex flex-wrap items-center gap-5 pt-5 border-t border-zinc-200 dark:border-zinc-800">
             {HERO_PILLS.map((p) => (
               <button
-                key={p.label}
+                key={p.label[lang]}
                 onClick={() => setFilter(p.filter)}
                 className={`font-mono text-sm pb-0.5 border-b cursor-pointer transition-colors ${
                   isPillActive(p.filter)
@@ -90,7 +89,7 @@ export default function Hero({ t, filter, setFilter, onExplore }) {
                     : 'text-zinc-400 dark:text-zinc-500 border-transparent hover:text-zinc-600 dark:hover:text-zinc-300'
                 }`}
               >
-                {p.label}
+                {p.label[lang]}
               </button>
             ))}
           </div>
@@ -124,22 +123,22 @@ export default function Hero({ t, filter, setFilter, onExplore }) {
           <div className="p-6 min-h-[150px]">
             <AnimatePresence mode="wait">
               <motion.div
-                key={lang.name}
+                key={demo.name}
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
                 transition={{ duration: 0.15 }}
               >
-                <CodeBlock tokens={lang.code} />
+                <pre className="font-mono text-[13px] leading-relaxed text-zinc-200 whitespace-pre-wrap">{demo.example}</pre>
               </motion.div>
             </AnimatePresence>
           </div>
 
           <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-800 font-mono text-xs text-zinc-500">
             <span>
-              {lang.icon} {lang.name} · {lang.year}
+              {demo.icon} {demo.name} · {demo.year}
             </span>
-            <span className="text-indigo-300 font-bold">{lang.pop}/100 popularidad</span>
+            <span className="text-indigo-300 font-bold">{demo.pop}/100</span>
           </div>
         </motion.div>
       </div>

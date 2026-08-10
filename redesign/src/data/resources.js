@@ -1,62 +1,507 @@
+// Generado desde el index.html de producción — 64 recursos reales
 export const RESOURCES = [
-  {
-    key: 'ai', dot: '#a78bfa', label: { es: 'IA y prompts', en: 'AI & prompts' },
-    items: [
-      { name: '21st.dev', url: 'https://21st.dev', es: 'Componentes UI generados con IA', en: 'AI-generated UI components' },
-      { name: 'v0', url: 'https://v0.dev', es: 'Genera interfaces desde un prompt (Vercel)', en: 'Generate UIs from a prompt (Vercel)' },
-      { name: 'bolt.new', url: 'https://bolt.new', es: 'Crea apps full-stack con IA', en: 'Build full-stack apps with AI' },
-      { name: 'Lovable', url: 'https://lovable.dev', es: 'Apps web completas desde texto', en: 'Full web apps from text' },
-      { name: 'Relume', url: 'https://www.relume.io', es: 'Wireframes y sitemaps con IA', en: 'AI wireframes & sitemaps' },
-      { name: 'Dora', url: 'https://www.dora.run', es: 'Webs 3D animadas sin código', en: 'Animated 3D sites, no-code' },
-    ],
+ {
+  "key": "ai",
+  "dot": "#a78bfa",
+  "label": {
+   "es": "Generadores de UI con IA",
+   "en": "AI UI generators"
   },
-  {
-    key: 'ui', dot: '#818cf8', label: { es: 'Componentes UI', en: 'UI components' },
-    items: [
-      { name: 'shadcn/ui', url: 'https://ui.shadcn.com', es: 'Componentes copia-pega (React)', en: 'Copy-paste components (React)' },
-      { name: 'daisyUI', url: 'https://daisyui.com', es: 'Componentes para Tailwind', en: 'Components for Tailwind' },
-      { name: 'Radix UI', url: 'https://www.radix-ui.com', es: 'Primitivas accesibles sin estilo', en: 'Unstyled accessible primitives' },
-      { name: 'HyperUI', url: 'https://www.hyperui.dev', es: 'Componentes Tailwind gratis', en: 'Free Tailwind components' },
-      { name: 'Magic UI', url: 'https://magicui.design', es: 'Componentes animados para landings', en: 'Animated components for landings' },
-      { name: 'React Bits', url: 'https://www.reactbits.dev', es: 'Animaciones y componentes React', en: 'React animations & components' },
-    ],
+  "items": [
+   {
+    "name": "21st.dev",
+    "url": "https://21st.dev",
+    "es": "Componentes UI generados con IA",
+    "en": "AI-generated UI components"
+   },
+   {
+    "name": "v0",
+    "url": "https://v0.dev",
+    "es": "Genera interfaces desde un prompt (Vercel)",
+    "en": "Generate UIs from a prompt (Vercel)"
+   },
+   {
+    "name": "bolt.new",
+    "url": "https://bolt.new",
+    "es": "Crea apps full-stack con IA",
+    "en": "Build full-stack apps with AI"
+   },
+   {
+    "name": "Lovable",
+    "url": "https://lovable.dev",
+    "es": "Apps web completas desde texto",
+    "en": "Full web apps from text"
+   },
+   {
+    "name": "Framer AI",
+    "url": "https://www.framer.com",
+    "es": "Webs con diseño asistido por IA",
+    "en": "Websites with AI-assisted design"
+   },
+   {
+    "name": "Relume",
+    "url": "https://www.relume.io",
+    "es": "Wireframes y sitemaps con IA",
+    "en": "AI wireframes & sitemaps"
+   },
+   {
+    "name": "Dora",
+    "url": "https://www.dora.run",
+    "es": "Webs 3D animadas sin código",
+    "en": "Animated 3D sites, no-code"
+   }
+  ]
+ },
+ {
+  "key": "blocks",
+  "dot": "#818cf8",
+  "label": {
+   "es": "Secciones y bloques",
+   "en": "Sections & blocks"
   },
-  {
-    key: 'css', dot: '#22d3ee', label: { es: 'CSS y estructura', en: 'CSS & layout' },
-    items: [
-      { name: 'Tailwind CSS', url: 'https://tailwindcss.com', es: 'CSS utilitario, el estándar actual', en: "Utility-first CSS, today's standard" },
-      { name: 'Bootstrap', url: 'https://getbootstrap.com', es: 'Componentes y grid clásicos', en: 'Classic components & grid' },
-      { name: 'Open Props', url: 'https://open-props.style', es: 'Variables CSS listas para usar', en: 'Ready-to-use CSS variables' },
-      { name: 'Pico.css', url: 'https://picocss.com', es: 'CSS mínimo y sin clases', en: 'Minimal classless CSS' },
-    ],
+  "items": [
+   {
+    "name": "Tailwind Plus",
+    "url": "https://tailwindcss.com/plus",
+    "es": "Secciones y plantillas oficiales",
+    "en": "Official sections & templates"
+   },
+   {
+    "name": "Magic UI",
+    "url": "https://magicui.design",
+    "es": "Componentes animados para landings",
+    "en": "Animated components for landings"
+   },
+   {
+    "name": "Aceternity UI",
+    "url": "https://ui.aceternity.com",
+    "es": "Efectos y secciones llamativas",
+    "en": "Flashy effects & sections"
+   },
+   {
+    "name": "React Bits",
+    "url": "https://www.reactbits.dev",
+    "es": "Animaciones y componentes React",
+    "en": "React animations & components"
+   },
+   {
+    "name": "Preline",
+    "url": "https://preline.co",
+    "es": "Bloques Tailwind listos",
+    "en": "Ready-made Tailwind blocks"
+   },
+   {
+    "name": "Flowbite",
+    "url": "https://flowbite.com",
+    "es": "Componentes y secciones Tailwind",
+    "en": "Tailwind components & sections"
+   },
+   {
+    "name": "Cruip",
+    "url": "https://cruip.com",
+    "es": "Plantillas de landing modernas",
+    "en": "Modern landing templates"
+   }
+  ]
+ },
+ {
+  "key": "css",
+  "dot": "#22d3ee",
+  "label": {
+   "es": "Frameworks CSS",
+   "en": "CSS frameworks"
   },
-  {
-    key: 'anim', dot: '#34d399', label: { es: 'Animación', en: 'Animation' },
-    items: [
-      { name: 'GSAP', url: 'https://gsap.com', es: 'Animaciones JS profesionales', en: 'Pro JS animations' },
-      { name: 'Framer Motion', url: 'https://www.framer.com/motion/', es: 'Animaciones para React', en: 'Animations for React' },
-      { name: 'Lenis', url: 'https://lenis.darkroom.engineering', es: 'Smooth scroll con inercia', en: 'Smooth scroll with inertia' },
-      { name: 'AOS', url: 'https://michalsnik.github.io/aos/', es: 'Animar al hacer scroll', en: 'Animate on scroll' },
-      { name: 'LottieFiles', url: 'https://lottiefiles.com', es: 'Animaciones vectoriales JSON', en: 'JSON vector animations' },
-      { name: 'Three.js', url: 'https://threejs.org', es: 'Gráficos y 3D en la web', en: 'Web graphics & 3D' },
-    ],
+  "items": [
+   {
+    "name": "Tailwind CSS",
+    "url": "https://tailwindcss.com",
+    "es": "CSS utilitario, el estándar actual",
+    "en": "Utility-first CSS, today's standard"
+   },
+   {
+    "name": "Bootstrap",
+    "url": "https://getbootstrap.com",
+    "es": "Componentes y grid clásicos",
+    "en": "Classic components & grid"
+   },
+   {
+    "name": "Bulma",
+    "url": "https://bulma.io",
+    "es": "Framework CSS basado en Flexbox",
+    "en": "Flexbox-based CSS framework"
+   },
+   {
+    "name": "Pico.css",
+    "url": "https://picocss.com",
+    "es": "CSS mínimo y sin clases",
+    "en": "Minimal classless CSS"
+   },
+   {
+    "name": "Open Props",
+    "url": "https://open-props.style",
+    "es": "Variables CSS listas para usar",
+    "en": "Ready-to-use CSS variables"
+   }
+  ]
+ },
+ {
+  "key": "ui",
+  "dot": "#60a5fa",
+  "label": {
+   "es": "Componentes y librerías UI",
+   "en": "UI components"
   },
-  {
-    key: 'icons', dot: '#f59e0b', label: { es: 'Iconos', en: 'Icons' },
-    items: [
-      { name: 'Lucide', url: 'https://lucide.dev', es: 'Iconos SVG limpios y abiertos', en: 'Clean open-source SVG icons' },
-      { name: 'Heroicons', url: 'https://heroicons.com', es: 'Iconos del equipo de Tailwind', en: 'Icons by the Tailwind team' },
-      { name: 'Tabler Icons', url: 'https://tabler.io/icons', es: 'Más de 5000 iconos SVG', en: '5000+ SVG icons' },
-      { name: 'Phosphor Icons', url: 'https://phosphoricons.com', es: 'Iconos flexibles y consistentes', en: 'Flexible, consistent icons' },
-    ],
+  "items": [
+   {
+    "name": "shadcn/ui",
+    "url": "https://ui.shadcn.com",
+    "es": "Componentes copia-pega (React)",
+    "en": "Copy-paste components (React)"
+   },
+   {
+    "name": "daisyUI",
+    "url": "https://daisyui.com",
+    "es": "Componentes para Tailwind",
+    "en": "Components for Tailwind"
+   },
+   {
+    "name": "Material UI",
+    "url": "https://mui.com",
+    "es": "Material Design en React",
+    "en": "Material Design for React"
+   },
+   {
+    "name": "Radix UI",
+    "url": "https://www.radix-ui.com",
+    "es": "Primitivas accesibles sin estilo",
+    "en": "Unstyled accessible primitives"
+   },
+   {
+    "name": "HyperUI",
+    "url": "https://www.hyperui.dev",
+    "es": "Componentes Tailwind gratis",
+    "en": "Free Tailwind components"
+   }
+  ]
+ },
+ {
+  "key": "buttons",
+  "dot": "#f472b6",
+  "label": {
+   "es": "Botones y efectos",
+   "en": "Buttons & effects"
   },
-  {
-    key: 'color', dot: '#f472b6', label: { es: 'Color y fondos', en: 'Color & backgrounds' },
-    items: [
-      { name: 'Coolors', url: 'https://coolors.co', es: 'Generador de paletas de color', en: 'Color palette generator' },
-      { name: 'Realtime Colors', url: 'https://realtimecolors.com', es: 'Prueba paletas en una web real', en: 'Test palettes on a real site' },
-      { name: 'Haikei', url: 'https://haikei.app', es: 'Generador de fondos SVG', en: 'SVG background generator' },
-      { name: 'uiGradients', url: 'https://uigradients.com', es: 'Gradientes listos para copiar', en: 'Ready-to-copy gradients' },
-    ],
+  "items": [
+   {
+    "name": "Uiverse",
+    "url": "https://uiverse.io",
+    "es": "Botones y efectos de la comunidad",
+    "en": "Community buttons & effects"
+   },
+   {
+    "name": "CSS Buttons",
+    "url": "https://getcssscan.com/css-buttons-examples",
+    "es": "Botones CSS listos para copiar",
+    "en": "Ready-to-copy CSS buttons"
+   },
+   {
+    "name": "Animista",
+    "url": "https://animista.net",
+    "es": "Generador de animaciones CSS",
+    "en": "CSS animation generator"
+   },
+   {
+    "name": "Hover.css",
+    "url": "https://ianlunn.github.io/Hover/",
+    "es": "Efectos hover listos",
+    "en": "Ready hover effects"
+   },
+   {
+    "name": "Neumorphism.io",
+    "url": "https://neumorphism.io",
+    "es": "Generador de sombras suaves",
+    "en": "Soft shadow generator"
+   }
+  ]
+ },
+ {
+  "key": "anim",
+  "dot": "#34d399",
+  "label": {
+   "es": "Animación y movimiento",
+   "en": "Animation & motion"
   },
+  "items": [
+   {
+    "name": "GSAP",
+    "url": "https://gsap.com",
+    "es": "Animaciones JS profesionales",
+    "en": "Pro JS animations"
+   },
+   {
+    "name": "Framer Motion",
+    "url": "https://www.framer.com/motion/",
+    "es": "Animaciones para React",
+    "en": "Animations for React"
+   },
+   {
+    "name": "Animate.css",
+    "url": "https://animate.style",
+    "es": "Animaciones CSS listas",
+    "en": "Ready CSS animations"
+   },
+   {
+    "name": "AOS",
+    "url": "https://michalsnik.github.io/aos/",
+    "es": "Animar al hacer scroll",
+    "en": "Animate on scroll"
+   },
+   {
+    "name": "LottieFiles",
+    "url": "https://lottiefiles.com",
+    "es": "Animaciones vectoriales JSON",
+    "en": "JSON vector animations"
+   },
+   {
+    "name": "Three.js",
+    "url": "https://threejs.org",
+    "es": "Gráficos y 3D en la web",
+    "en": "Web graphics & 3D"
+   }
+  ]
+ },
+ {
+  "key": "icons",
+  "dot": "#f59e0b",
+  "label": {
+   "es": "Iconos",
+   "en": "Icons"
+  },
+  "items": [
+   {
+    "name": "Lucide",
+    "url": "https://lucide.dev",
+    "es": "Iconos SVG limpios y abiertos",
+    "en": "Clean open-source SVG icons"
+   },
+   {
+    "name": "Heroicons",
+    "url": "https://heroicons.com",
+    "es": "Iconos del equipo de Tailwind",
+    "en": "Icons by the Tailwind team"
+   },
+   {
+    "name": "Font Awesome",
+    "url": "https://fontawesome.com",
+    "es": "La mayor biblioteca de iconos",
+    "en": "The largest icon library"
+   },
+   {
+    "name": "Tabler Icons",
+    "url": "https://tabler.io/icons",
+    "es": "Más de 5000 iconos SVG",
+    "en": "5000+ SVG icons"
+   },
+   {
+    "name": "Phosphor Icons",
+    "url": "https://phosphoricons.com",
+    "es": "Iconos flexibles y consistentes",
+    "en": "Flexible, consistent icons"
+   }
+  ]
+ },
+ {
+  "key": "color",
+  "dot": "#fb7185",
+  "label": {
+   "es": "Color y gradientes",
+   "en": "Color & gradients"
+  },
+  "items": [
+   {
+    "name": "Coolors",
+    "url": "https://coolors.co",
+    "es": "Generador de paletas de color",
+    "en": "Color palette generator"
+   },
+   {
+    "name": "Color Hunt",
+    "url": "https://colorhunt.co",
+    "es": "Paletas de color curadas",
+    "en": "Curated color palettes"
+   },
+   {
+    "name": "Realtime Colors",
+    "url": "https://realtimecolors.com",
+    "es": "Prueba paletas en una web real",
+    "en": "Test palettes on a real site"
+   },
+   {
+    "name": "uiGradients",
+    "url": "https://uigradients.com",
+    "es": "Gradientes listos para copiar",
+    "en": "Ready-to-copy gradients"
+   },
+   {
+    "name": "CSS Gradient",
+    "url": "https://cssgradient.io",
+    "es": "Generador de gradientes CSS",
+    "en": "CSS gradient generator"
+   }
+  ]
+ },
+ {
+  "key": "bg",
+  "dot": "#c084fc",
+  "label": {
+   "es": "Fondos y formas",
+   "en": "Backgrounds & shapes"
+  },
+  "items": [
+   {
+    "name": "Haikei",
+    "url": "https://haikei.app",
+    "es": "Generador de fondos SVG",
+    "en": "SVG background generator"
+   },
+   {
+    "name": "Hero Patterns",
+    "url": "https://heropatterns.com",
+    "es": "Patrones SVG repetibles",
+    "en": "Repeatable SVG patterns"
+   },
+   {
+    "name": "Get Waves",
+    "url": "https://getwaves.io",
+    "es": "Generador de ondas SVG",
+    "en": "SVG wave generator"
+   },
+   {
+    "name": "Smooth Shadows",
+    "url": "https://shadows.brumm.af",
+    "es": "Sombras CSS suaves por capas",
+    "en": "Smooth layered CSS shadows"
+   },
+   {
+    "name": "CSSmatic",
+    "url": "https://www.cssmatic.com",
+    "es": "Gradientes, sombras y más",
+    "en": "Gradients, shadows & more"
+   }
+  ]
+ },
+ {
+  "key": "type",
+  "dot": "#38bdf8",
+  "label": {
+   "es": "Tipografía",
+   "en": "Typography"
+  },
+  "items": [
+   {
+    "name": "Google Fonts",
+    "url": "https://fonts.google.com",
+    "es": "Fuentes web gratuitas",
+    "en": "Free web fonts"
+   },
+   {
+    "name": "Fontpair",
+    "url": "https://www.fontpair.co",
+    "es": "Combinaciones de fuentes",
+    "en": "Font pairings"
+   },
+   {
+    "name": "Type Scale",
+    "url": "https://typescale.com",
+    "es": "Escala tipográfica visual",
+    "en": "Visual type scale"
+   },
+   {
+    "name": "Fontjoy",
+    "url": "https://fontjoy.com",
+    "es": "Emparejar fuentes con IA",
+    "en": "Pair fonts with AI"
+   }
+  ]
+ },
+ {
+  "key": "img",
+  "dot": "#a3e635",
+  "label": {
+   "es": "Ilustraciones e imágenes",
+   "en": "Illustrations & images"
+  },
+  "items": [
+   {
+    "name": "unDraw",
+    "url": "https://undraw.co",
+    "es": "Ilustraciones SVG gratis",
+    "en": "Free SVG illustrations"
+   },
+   {
+    "name": "Storyset",
+    "url": "https://storyset.com",
+    "es": "Ilustraciones personalizables",
+    "en": "Customizable illustrations"
+   },
+   {
+    "name": "Unsplash",
+    "url": "https://unsplash.com",
+    "es": "Fotos gratuitas de alta calidad",
+    "en": "Free high-quality photos"
+   },
+   {
+    "name": "Pexels",
+    "url": "https://www.pexels.com",
+    "es": "Fotos y vídeos gratis",
+    "en": "Free photos & videos"
+   },
+   {
+    "name": "DrawKit",
+    "url": "https://www.drawkit.com",
+    "es": "Ilustraciones y recursos",
+    "en": "Illustrations & assets"
+   }
+  ]
+ },
+ {
+  "key": "learn",
+  "dot": "#fbbf24",
+  "label": {
+   "es": "Inspiración y aprendizaje",
+   "en": "Inspiration & learning"
+  },
+  "items": [
+   {
+    "name": "Awwwards",
+    "url": "https://www.awwwards.com",
+    "es": "Inspiración de webs premiadas",
+    "en": "Award-winning web inspiration"
+   },
+   {
+    "name": "Dribbble",
+    "url": "https://dribbble.com",
+    "es": "Inspiración de diseño UI",
+    "en": "UI design inspiration"
+   },
+   {
+    "name": "CodePen",
+    "url": "https://codepen.io",
+    "es": "Demos y experimentos front",
+    "en": "Front-end demos & experiments"
+   },
+   {
+    "name": "MDN Web Docs",
+    "url": "https://developer.mozilla.org",
+    "es": "La referencia de la web",
+    "en": "The web reference docs"
+   },
+   {
+    "name": "CSS-Tricks",
+    "url": "https://css-tricks.com",
+    "es": "Guías y trucos de CSS",
+    "en": "CSS guides & tricks"
+   }
+  ]
+ }
 ]

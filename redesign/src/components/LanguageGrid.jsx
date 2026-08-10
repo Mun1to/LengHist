@@ -1,28 +1,21 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, ArrowLeftRight, SearchX } from 'lucide-react'
+import { ArrowLeftRight } from 'lucide-react'
+import EmptyState from './EmptyState'
+import FavButton from './FavButton'
 
-export default function LanguageGrid({ t, list, total, selected, onSelect, favorites, onToggleFav, compareSet, onToggleCompare, onClearFilters }) {
+export default function LanguageGrid({ t, lang, list, total, selected, onSelect, favorites, onToggleFav, compareSet, onToggleCompare, onClearFilters }) {
   return (
     <section id="grid" className="px-6 sm:px-10 py-10">
-      <div className="flex items-baseline justify-between mb-4">
+      <div className="flex items-baseline justify-between gap-4 mb-4">
         <h2 className="text-base font-bold tracking-tight text-zinc-900 dark:text-zinc-50">{t.gridTitle}</h2>
-        <span className="font-mono text-xs text-zinc-400">{t.gridSub(list.length, total)}</span>
+        <span className="font-mono text-xs text-zinc-400 shrink-0">{t.gridSub(list.length, total)}</span>
       </div>
 
       {list.length === 0 ? (
-        <div className="flex flex-col items-center justify-center text-center py-20 text-zinc-400">
-          <SearchX size={34} className="mb-3" />
-          <p className="text-sm mb-4">{t.empty}</p>
-          <button
-            onClick={onClearFilters}
-            className="rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 text-sm font-semibold px-4 py-2 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-900"
-          >
-            {t.emptyReset}
-          </button>
-        </div>
+        <EmptyState t={t} onClear={onClearFilters} />
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <AnimatePresence>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <AnimatePresence mode="popLayout">
             {list.map((l, i) => (
               <motion.article
                 key={l.name}
@@ -30,7 +23,7 @@ export default function LanguageGrid({ t, list, total, selected, onSelect, favor
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.25, delay: i * 0.03 }}
+                transition={{ duration: 0.22, delay: Math.min(i, 12) * 0.02 }}
                 onClick={() => onSelect(l.name)}
                 className={`rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 border cursor-pointer transition-all hover:-translate-y-0.5 ${
                   selected === l.name
@@ -39,28 +32,19 @@ export default function LanguageGrid({ t, list, total, selected, onSelect, favor
                 }`}
               >
                 <div
-                  className="h-32 grid place-items-center text-4xl relative"
+                  className="h-28 grid place-items-center text-4xl relative"
                   style={{ background: `linear-gradient(135deg, ${l.color[0]}, ${l.color[1]})` }}
                 >
-                  <div
-                    className="absolute inset-0 opacity-25"
-                    style={{ background: 'radial-gradient(120px 90px at 30% 20%, #fff, transparent 70%)' }}
-                  />
+                  <div className="absolute inset-0 opacity-25" style={{ background: 'radial-gradient(120px 90px at 30% 20%, #fff, transparent 70%)' }} />
                   <span className="relative">{l.icon}</span>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); onToggleFav(l.name) }}
-                    aria-label={t.favoritos}
-                    className="absolute top-2.5 right-2.5 w-7 h-7 grid place-items-center rounded-lg bg-black/25 backdrop-blur-sm text-white hover:bg-black/40 cursor-pointer"
-                  >
-                    <Star size={14} fill={favorites.has(l.name) ? 'currentColor' : 'none'} className={favorites.has(l.name) ? 'text-amber-300' : ''} />
-                  </button>
+                  <FavButton active={favorites.has(l.name)} onClick={() => onToggleFav(l.name)} label={t.favoritos} floating />
                 </div>
                 <div className="p-4">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-bold text-zinc-900 dark:text-zinc-50">{l.name}</span>
-                    <span className="font-mono text-xs text-zinc-400">{l.pop}/100</span>
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="font-bold text-zinc-900 dark:text-zinc-50 truncate">{l.name}</span>
+                    <span className="font-mono text-xs text-zinc-400 shrink-0">{l.pop}/100</span>
                   </div>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-snug mb-3">{l.desc}</p>
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-snug line-clamp-2 mb-3">{l[lang].desc}</p>
                   <button
                     onClick={(e) => { e.stopPropagation(); onToggleCompare(l.name) }}
                     className={`inline-flex items-center gap-1.5 text-xs font-semibold cursor-pointer transition-colors ${
