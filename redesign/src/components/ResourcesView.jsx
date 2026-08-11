@@ -20,8 +20,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
         <div className="flex flex-col gap-9">
           {groups.map((group, gi) => (
             <div key={group.key} className="scroll-mt-20">
-              <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">
-                <span className="w-2.5 h-1 rounded-full" style={{ background: group.dot }} />
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">
                 {group.label[lang]}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">

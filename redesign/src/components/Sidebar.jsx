@@ -47,10 +47,7 @@ export default function Sidebar({
                   : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'
               }`}
             >
-              <span className="flex items-center gap-2 min-w-0">
-                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: c.dot }} />
-                <span className="truncate">{c.label}</span>
-              </span>
+              <span className="truncate">{c.label}</span>
               <span className="font-mono text-xs text-zinc-400 shrink-0">{c.count}</span>
             </button>
           ))}

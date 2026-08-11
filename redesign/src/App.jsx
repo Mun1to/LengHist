@@ -2,12 +2,14 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import TopBar from './components/TopBar'
 import Sidebar from './components/Sidebar'
-import Hero from './components/Hero'
+import LanguagesHeader from './components/LanguagesHeader'
 import LanguageGrid from './components/LanguageGrid'
 import DetailPanel from './components/DetailPanel'
 import ResourcesView from './components/ResourcesView'
 import ConceptsView from './components/ConceptsView'
 import ComponentsView from './components/ComponentsView'
+import ComponentDetail from './components/ComponentDetail'
+import LandingView from './components/LandingView'
 import CompareTray from './components/CompareTray'
 import CompareModal from './components/CompareModal'
 import Quiz from './components/Quiz'
@@ -26,7 +28,7 @@ function useFavorites() {
 
 export default function App() {
   const [lang, setLang] = useState('es')
-  const [activeNav, setActiveNav] = useState('languages')
+  const [activeNav, setActiveNav] = useState('home')
   const t = I18N[lang]
 
   const [filter, setFilter] = useState({ type: 'all' })
@@ -44,6 +46,16 @@ export default function App() {
   const [conFavs, toggleConFav] = useFavorites(); const [conFavOnly, setConFavOnly] = useState(false)
   const [compQuery, setCompQuery] = useState(''); const [compCat, setCompCat] = useState('all')
   const [compFavs, toggleCompFav] = useFavorites(); const [compFavOnly, setCompFavOnly] = useState(false)
+
+  // Ficha abierta y ajustes de cada componente: viven aquí para que no se
+  // pierdan al cambiar de sección y volver.
+  const [openComp, setOpenComp] = useState(null)
+  const [compValues, setCompValues] = useState(() =>
+    Object.fromEntries(COMPONENT_ITEMS.map((c) => [c.key, { ...c.defaults }])))
+  const setCompValue = (key, prop, value) =>
+    setCompValues((prev) => ({ ...prev, [key]: { ...prev[key], [prop]: value } }))
+  const resetComp = (key) =>
+    setCompValues((prev) => ({ ...prev, [key]: { ...COMPONENT_ITEMS.find((c) => c.key === key).defaults } }))
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -125,19 +137,29 @@ export default function App() {
       }
     }
     return {
-      searchPh: t.searchPh, query: compQuery, setQuery: setCompQuery,
-      categories: [{ key: 'all', label: t.all, count: COMPONENT_ITEMS.length, dot: '#818cf8' },
-        ...COMPONENT_GROUPS.map((g) => ({ key: g.key, label: g.label[lang], dot: g.dot,
+      searchPh: t.searchPh, query: compQuery,
+      setQuery: (v) => { setCompQuery(v); setOpenComp(null) },
+      categories: [{ key: 'all', label: t.all, count: COMPONENT_ITEMS.length },
+        ...COMPONENT_GROUPS.map((g) => ({ key: g.key, label: g.label[lang],
           count: COMPONENT_ITEMS.filter((c) => c.group === g.key).length }))],
       activeCat: compFavOnly ? null : compCat,
-      setActiveCat: (k) => { setCompCat(k); setCompFavOnly(false) },
-      extraGroup: { showFavOnly: compFavOnly, onToggleFavOnly: () => setCompFavOnly((v) => !v), favCount: compFavs.size },
+      setActiveCat: (k) => { setCompCat(k); setCompFavOnly(false); setOpenComp(null) },
+      extraGroup: { showFavOnly: compFavOnly, onToggleFavOnly: () => { setCompFavOnly((v) => !v); setOpenComp(null) }, favCount: compFavs.size },
     }
   }, [activeNav, t, lang, query, filter, langFavOnly, langFavs, compareSet,
       resQuery, resCat, resFavOnly, resFavs, conQuery, conCat, conFavOnly, conFavs,
       compQuery, compCat, compFavOnly, compFavs])
 
-  const scrollToGrid = () => document.getElementById('grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  // El logo devuelve al inicio limpio, sin recargar: se conservan favoritos y comparación.
+  const goHome = () => {
+    setActiveNav('home'); setFilter({ type: 'all' }); setQuery(''); setLangFavOnly(false); setSelected('Python')
+    setOpenComp(null)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  const navigate = (key) => {
+    if (key === 'components') setOpenComp(null)
+    setActiveNav(key)
+  }
   const openLanguage = (name) => {
     setActiveNav('languages'); setSelected(name); setFilter({ type: 'all' }); setQuery(''); setLangFavOnly(false)
     requestAnimationFrame(() => document.getElementById('grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
@@ -146,25 +168,35 @@ export default function App() {
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50">
       <TopBar
-        t={t} lang={lang} setLang={setLang} activeNav={activeNav} setActiveNav={setActiveNav}
+        t={t} lang={lang} setLang={setLang} activeNav={activeNav} setActiveNav={navigate}
+        onLogoClick={goHome}
         onSearchClick={() => document.getElementById('sidebarSearch')?.focus()}
         onQuizClick={() => setQuizOpen(true)}
       />
       <div className="flex">
-        <Sidebar t={t} {...sidebarProps} />
+        {activeNav !== 'home' && <Sidebar t={t} {...sidebarProps} />}
         <main className="flex-1 min-w-0 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeNav}
+              key={activeNav === 'components' && openComp ? `comp-${openComp}` : activeNav}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
             >
+              {activeNav === 'home' && (
+                <LandingView
+                  t={t} lang={lang}
+                  totals={{ langs: LANGUAGES.length, res: RESOURCES.reduce((n, g) => n + g.items.length, 0),
+                            concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0), comps: COMPONENT_ITEMS.length }}
+                  onNavigate={(k) => { navigate(k); window.scrollTo({ top: 0 }) }}
+                  onQuiz={() => setQuizOpen(true)}
+                />
+              )}
               {activeNav === 'languages' && (
                 <>
-                  <Hero t={t} lang={lang} filter={filter} setFilter={setFilter}
-                        onExplore={scrollToGrid} onQuiz={() => setQuizOpen(true)} />
+                  <LanguagesHeader t={t} lang={lang} filter={filter} setFilter={setFilter}
+                                   total={LANGUAGES.length} shown={visible.length} />
                   <LanguageGrid
                     t={t} lang={lang} list={visible} total={LANGUAGES.length}
                     selected={selected} onSelect={setSelected}
@@ -184,8 +216,23 @@ export default function App() {
                   onClear={() => { setConQuery(''); setConCat('all'); setConFavOnly(false) }} />
               )}
               {activeNav === 'components' && (
-                <ComponentsView t={t} lang={lang} items={compItems} favorites={compFavs} onToggleFav={toggleCompFav}
-                  onClear={() => { setCompQuery(''); setCompCat('all'); setCompFavOnly(false) }} />
+                openComp ? (
+                  <ComponentDetail
+                    t={t} lang={lang}
+                    item={COMPONENT_ITEMS.find((c) => c.key === openComp)}
+                    values={compValues[openComp]}
+                    onChange={(prop, value) => setCompValue(openComp, prop, value)}
+                    onReset={() => resetComp(openComp)}
+                    onBack={() => setOpenComp(null)}
+                    fav={compFavs.has(openComp)}
+                    onToggleFav={() => toggleCompFav(openComp)}
+                  />
+                ) : (
+                  <ComponentsView t={t} lang={lang} items={compItems} favorites={compFavs} onToggleFav={toggleCompFav}
+                    values={compValues}
+                    onOpen={(key) => { setOpenComp(key); window.scrollTo({ top: 0 }) }}
+                    onClear={() => { setCompQuery(''); setCompCat('all'); setCompFavOnly(false) }} />
+                )
               )}
             </motion.div>
           </AnimatePresence>

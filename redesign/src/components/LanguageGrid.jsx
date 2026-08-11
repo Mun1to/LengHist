@@ -5,12 +5,7 @@ import FavButton from './FavButton'
 
 export default function LanguageGrid({ t, lang, list, total, selected, onSelect, favorites, onToggleFav, compareSet, onToggleCompare, onClearFilters }) {
   return (
-    <section id="grid" className="px-6 sm:px-10 py-10">
-      <div className="flex items-baseline justify-between gap-4 mb-4">
-        <h2 className="text-base font-bold tracking-tight text-zinc-900 dark:text-zinc-50">{t.gridTitle}</h2>
-        <span className="font-mono text-xs text-zinc-400 shrink-0">{t.gridSub(list.length, total)}</span>
-      </div>
-
+    <section id="grid" className="px-6 sm:px-10 pt-2 pb-10">
       {list.length === 0 ? (
         <EmptyState t={t} onClear={onClearFilters} />
       ) : (

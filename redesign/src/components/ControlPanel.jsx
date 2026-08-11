@@ -1,0 +1,127 @@
+import { RotateCcw } from 'lucide-react'
+
+function Row({ children }) {
+  return <div className="py-2.5">{children}</div>
+}
+
+function Label({ children, value }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3 mb-1.5">
+      <span className="text-sm text-zinc-600 dark:text-zinc-300">{children}</span>
+      {value != null && <span className="font-mono text-xs text-zinc-400 shrink-0">{value}</span>}
+    </div>
+  )
+}
+
+export default function ControlPanel({ t, lang, controls, values, onChange, onReset }) {
+  return (
+    <div>
+      <div className="flex items-baseline justify-between gap-3 pb-2 border-b border-zinc-200 dark:border-zinc-800">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+          {t.compControls}
+        </div>
+        <button
+          onClick={onReset}
+          className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
+        >
+          <RotateCcw size={12} />
+          {t.compReset}
+        </button>
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 pt-1">
+      {controls.map((c) => {
+        const value = values[c.key]
+
+        if (c.type === 'range') {
+          return (
+            <Row key={c.key}>
+              <Label value={value}>{c.label[lang]}</Label>
+              <input
+                type="range"
+                min={c.min} max={c.max} step={c.step} value={value}
+                onChange={(e) => onChange(c.key, Number(e.target.value))}
+                className="w-full accent-indigo-500 cursor-pointer"
+              />
+            </Row>
+          )
+        }
+
+        if (c.type === 'select') {
+          return (
+            <Row key={c.key}>
+              <Label>{c.label[lang]}</Label>
+              <select
+                value={value}
+                onChange={(e) => onChange(c.key, e.target.value)}
+                className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-2 py-1.5 text-sm text-zinc-700 dark:text-zinc-200 outline-none focus:border-indigo-500 cursor-pointer"
+              >
+                {c.options.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label[lang]}</option>
+                ))}
+              </select>
+            </Row>
+          )
+        }
+
+        if (c.type === 'bool') {
+          return (
+            <Row key={c.key}>
+              <button
+                onClick={() => onChange(c.key, !value)}
+                className="flex items-center justify-between gap-3 w-full cursor-pointer group"
+              >
+                <span className="text-sm text-zinc-600 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors">
+                  {c.label[lang]}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className={`relative w-9 h-5 rounded-full shrink-0 transition-colors ${
+                    value ? 'bg-indigo-500' : 'bg-zinc-300 dark:bg-zinc-700'
+                  }`}
+                >
+                  <span
+                    className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${
+                      value ? 'left-[18px]' : 'left-0.5'
+                    }`}
+                  />
+                </span>
+              </button>
+            </Row>
+          )
+        }
+
+        if (c.type === 'text') {
+          return (
+            <Row key={c.key}>
+              <Label>{c.label[lang]}</Label>
+              <input
+                value={value}
+                maxLength={c.maxLength || 14}
+                onChange={(e) => onChange(c.key, e.target.value)}
+                className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-2 py-1.5 text-sm text-zinc-700 dark:text-zinc-200 outline-none focus:border-indigo-500"
+              />
+            </Row>
+          )
+        }
+
+        if (c.type === 'color') {
+          return (
+            <Row key={c.key}>
+              <Label value={value}>{c.label[lang]}</Label>
+              <input
+                type="color"
+                value={value}
+                onChange={(e) => onChange(c.key, e.target.value)}
+                className="w-full h-8 bg-transparent cursor-pointer"
+              />
+            </Row>
+          )
+        }
+
+        return null
+      })}
+      </div>
+    </div>
+  )
+}
