@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 
-export default function Modal({ open, onClose, title, children, wide = false }) {
+export default function Modal({ open, onClose, title, children, closeLabel = 'Close', wide = false }) {
   useEffect(() => {
     if (!open) return
     const onKey = (e) => { if (e.key === 'Escape') onClose() }
@@ -33,7 +33,7 @@ export default function Modal({ open, onClose, title, children, wide = false }) 
               <h2 className="text-lg font-extrabold tracking-tight">{title}</h2>
               <button
                 onClick={onClose}
-                aria-label="Cerrar"
+                aria-label={closeLabel}
                 className="shrink-0 w-8 h-8 grid place-items-center text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
               >
                 <X size={17} />

@@ -1,11 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import { LANGUAGES, FAME_LABEL, wikiUrl } from '../data/languages'
+import { codeFor } from '../data/codeEn'
 
 export default function DetailPanel({ t, lang, selected }) {
   const l = LANGUAGES.find((x) => x.name === selected) ?? LANGUAGES[0]
   const d = l[lang]
   const wiki = wikiUrl(l, lang)
+  const code = codeFor(l, lang)
 
   return (
     <section className="px-6 sm:px-10 pb-16">
@@ -28,9 +30,9 @@ export default function DetailPanel({ t, lang, selected }) {
               <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-              <span className="ml-2 font-mono text-xs text-zinc-500">{l.file}</span>
+              <span className="ml-2 font-mono text-xs text-zinc-500">{code.file}</span>
             </div>
-            <pre className="p-5 font-mono text-[13px] leading-relaxed text-zinc-200 overflow-x-auto flex-1">{l.example}</pre>
+            <pre className="p-5 font-mono text-[13px] leading-relaxed text-zinc-200 overflow-x-auto flex-1">{code.example}</pre>
           </div>
 
           <div className="p-6 flex flex-col gap-5">

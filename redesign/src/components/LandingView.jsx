@@ -14,11 +14,13 @@ const aparece = (delay = 0) => ({
   transition: { duration: 0.5, delay, ease: 'easeOut' },
 })
 
+// flex-col porque los botones centran su contenido en vertical: la tarjeta con
+// una línea menos de texto quedaba desalineada respecto a sus vecinas.
 function Seccion({ n, titulo, texto, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="group text-left p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors cursor-pointer"
+      className="group flex flex-col text-left p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors cursor-pointer"
     >
       <div className="font-mono text-3xl font-bold text-indigo-600 dark:text-indigo-400">{n}</div>
       <div className="font-bold text-zinc-900 dark:text-zinc-50 mt-2 flex items-center gap-1.5">
@@ -86,7 +88,7 @@ export default function LandingView({ t, lang, onNavigate, onQuiz, totals }) {
           </div>
 
           <motion.div {...aparece(0.25)}>
-            <CodeWindow />
+            <CodeWindow lang={lang} />
           </motion.div>
         </div>
       </section>
@@ -95,11 +97,12 @@ export default function LandingView({ t, lang, onNavigate, onQuiz, totals }) {
         <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-4">
           {t.landingWhat}
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           <Seccion n={totals.langs} titulo={t.nav.languages} texto={t.landingLangs} onClick={() => onNavigate('languages')} />
           <Seccion n={totals.res} titulo={t.nav.resources} texto={t.landingRes} onClick={() => onNavigate('resources')} />
           <Seccion n={totals.concepts} titulo={t.nav.concepts} texto={t.landingConcepts} onClick={() => onNavigate('concepts')} />
           <Seccion n={totals.comps} titulo={t.nav.components} texto={t.landingComps} onClick={() => onNavigate('components')} />
+          <Seccion n={totals.skills} titulo={t.nav.skills} texto={t.landingSkills} onClick={() => onNavigate('skills')} />
         </div>
       </section>
 
@@ -136,7 +139,7 @@ export default function LandingView({ t, lang, onNavigate, onQuiz, totals }) {
 
       <footer className="px-6 sm:px-10 py-8 border-t border-zinc-200 dark:border-zinc-800">
         <div className="max-w-6xl mx-auto font-mono text-[11px] text-zinc-400 dark:text-zinc-600">
-          {t.stats({ langs: totals.langs, res: totals.res, concepts: totals.concepts })}
+          {t.stats({ langs: totals.langs, res: totals.res, concepts: totals.concepts, skills: totals.skills })}
         </div>
       </footer>
     </div>

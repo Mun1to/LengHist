@@ -41,15 +41,15 @@ export default function TopBar({ t, lang, setLang, activeNav, setActiveNav, onLo
         <div className="ml-auto flex items-center gap-2">
           <button
             onClick={onSearchClick}
-            aria-label="Buscar"
-            title="Ir al buscador"
+            aria-label={t.ariaSearch}
+            title={t.ariaSearchGo}
             className="w-9 h-9 grid place-items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
           >
             <Search size={16} />
           </button>
           <button
             onClick={() => setLang((l) => (l === 'es' ? 'en' : 'es'))}
-            aria-label="Idioma"
+            aria-label={t.ariaLang}
             title={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
             className="flex items-center gap-1.5 h-9 px-1.5 text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
           >

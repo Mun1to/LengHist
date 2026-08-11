@@ -1,0 +1,122 @@
+import { motion } from 'framer-motion'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
+import CodeBlock from './CodeBlock'
+import FavButton from './FavButton'
+import { skillFile, skillPath, skillTree, slugOf } from '../data/skills'
+
+const DOCS = 'https://code.claude.com/docs/en/skills'
+
+// Qué hace cada campo del frontmatter que aparece en estas skills. Tomado de la
+// referencia oficial, resumido en una línea.
+const CAMPOS = {
+  name: {
+    es: 'Nombre con el que se lista la skill. Por defecto, el de la carpeta.',
+    en: 'Name the skill is listed under. Defaults to the folder name.',
+  },
+  description: {
+    es: 'Qué hace y cuándo usarla. Es lo único que el agente lee para decidir si la carga.',
+    en: 'What it does and when to use it. The only thing the agent reads to decide whether to load it.',
+  },
+  'allowed-tools': {
+    es: 'Herramientas que puede usar sin pedir permiso durante ese turno.',
+    en: 'Tools it may use without asking permission during that turn.',
+  },
+  'disallowed-tools': {
+    es: 'Herramientas que se le retiran mientras la skill está activa.',
+    en: 'Tools removed from its reach while the skill is active.',
+  },
+  'disable-model-invocation': {
+    es: 'Impide que el agente la lance por su cuenta: solo se activa si la escribes tú.',
+    en: 'Stops the agent from firing it on its own: it only runs when you type it.',
+  },
+  'argument-hint': {
+    es: 'Pista de los argumentos que espera, para el autocompletado.',
+    en: 'Hint about the arguments it expects, shown while autocompleting.',
+  },
+}
+
+export default function SkillDetail({ t, lang, item, group, onBack, fav, onToggleFav }) {
+  const d = item[lang]
+  const slug = slugOf(item, lang)
+  const campos = ['name', 'description', ...(item.extra || []).map(([k]) => k)]
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className="px-6 sm:px-10 py-10 max-w-4xl"
+    >
+      <button
+        onClick={onBack}
+        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors mb-6"
+      >
+        <ArrowLeft size={14} />
+        {t.skillBack}
+      </button>
+
+      <div className="flex items-start justify-between gap-4">
+        <h1 className="text-3xl font-extrabold tracking-tight">{d.label}</h1>
+        <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} />
+      </div>
+
+      <div className="font-mono text-[13px] text-indigo-600 dark:text-indigo-400 mt-1.5">/{slug}</div>
+
+      <p className="text-zinc-500 dark:text-zinc-400 mt-4 max-w-2xl leading-relaxed">{d.what}</p>
+      <p className="text-sm text-zinc-400 dark:text-zinc-500 mt-2 max-w-2xl leading-relaxed">
+        <b className="text-zinc-500 dark:text-zinc-400">{t.skillWhen}:</b> {d.when}
+      </p>
+      {group && (
+        <div className="font-mono text-[11px] uppercase tracking-wider text-zinc-400 mt-3">{group.label[lang]}</div>
+      )}
+
+      <div className="mt-8">
+        <CodeBlock t={t} title="SKILL.md" code={skillFile(item, lang)} />
+      </div>
+
+      <div className="mt-10">
+        <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">{t.skillWhere}</h2>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 max-w-2xl leading-relaxed">{t.skillWhereText}</p>
+        <CodeBlock
+          t={t}
+          title={t.skillFolder}
+          code={`${skillTree(item, lang)}\n\n${t.skillPersonal}: ${skillPath(item, 'personal', lang)}\n${t.skillProject}: ${skillPath(item, 'proyecto', lang)}`}
+        />
+      </div>
+
+      <div className="mt-10">
+        <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">{t.skillUse}</h2>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed">
+          {t.skillUseText(slug)}
+        </p>
+      </div>
+
+      <div className="mt-10">
+        <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">{t.skillFields}</h2>
+        <div className="flex flex-col gap-2">
+          {campos.map((c) => (
+            <div key={c} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
+              <span className="font-mono text-xs text-zinc-700 dark:text-zinc-200 sm:w-56 shrink-0">{c}</span>
+              <span className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                {CAMPOS[c] ? CAMPOS[c][lang] : ''}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* La fuente del formato, discreta, como en las fichas de componentes. */}
+      <div className="mt-12 pt-5 border-t border-zinc-200/60 dark:border-zinc-800/60">
+        <a
+          href={DOCS}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1 font-mono text-[11px] text-zinc-400/60 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-400 transition-colors break-all"
+        >
+          {t.skillDocs} {DOCS.replace('https://', '')}
+          <ArrowUpRight size={11} />
+        </a>
+      </div>
+    </motion.section>
+  )
+}

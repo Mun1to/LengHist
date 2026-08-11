@@ -463,7 +463,9 @@ export const COMPONENT_ITEMS = [
       es: 'Botones que parecen objetos de verdad: cristal, metal cepillado, un cojín mate. La profundidad no sale de una sombra, sino de capas apiladas en el mismo botón: un cuerpo con degradado, sombras interiores para el bisel, una capa que se enciende al pasar el cursor y una barra de luz arriba. Aquí está el mismo botón hecho de diez maneras, y todo es CSS.',
       en: 'Buttons that feel like real objects: glass, brushed metal, a soft cushion. The depth is not one shadow but layers stacked on the same button: a gradient body, inset shadows for the bevel, a layer that lights up on hover and a bar of light along the top. Here is the same button built ten ways, and it is all CSS.',
     },
-    defaults: { material: 'glossy', label: 'Empezar' },
+    // La etiqueta la escribe quien mira la ficha; por defecto va la marca, que
+    // vale igual en los dos idiomas (los ajustes no se rehacen al cambiar de idioma).
+    defaults: { material: 'glossy', label: 'Vibeset' },
     controls: [
       {
         key: 'material', type: 'select', label: { es: 'Material', en: 'Material' },

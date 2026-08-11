@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import TopBar from './components/TopBar'
 import Sidebar from './components/Sidebar'
@@ -9,6 +9,8 @@ import ResourcesView from './components/ResourcesView'
 import ConceptsView from './components/ConceptsView'
 import ComponentsView from './components/ComponentsView'
 import ComponentDetail from './components/ComponentDetail'
+import SkillsView from './components/SkillsView'
+import SkillDetail from './components/SkillDetail'
 import LandingView from './components/LandingView'
 import CompareTray from './components/CompareTray'
 import CompareModal from './components/CompareModal'
@@ -17,6 +19,7 @@ import { LANGUAGES, CATEGORIES, matchesFilter } from './data/languages'
 import { RESOURCES } from './data/resources'
 import { CONCEPTS } from './data/concepts'
 import { COMPONENT_GROUPS, COMPONENT_ITEMS } from './data/components'
+import { SKILL_GROUPS, SKILL_ITEMS } from './data/skills'
 import { I18N } from './data/i18n'
 
 function useFavorites() {
@@ -30,6 +33,10 @@ export default function App() {
   const [lang, setLang] = useState('es')
   const [activeNav, setActiveNav] = useState('home')
   const t = I18N[lang]
+
+  // El idioma declarado en el html tiene que seguir al que se está leyendo:
+  // es lo que usan los lectores de pantalla y los traductores del navegador.
+  useEffect(() => { document.documentElement.lang = lang }, [lang])
 
   const [filter, setFilter] = useState({ type: 'all' })
   const [query, setQuery] = useState('')
@@ -46,6 +53,9 @@ export default function App() {
   const [conFavs, toggleConFav] = useFavorites(); const [conFavOnly, setConFavOnly] = useState(false)
   const [compQuery, setCompQuery] = useState(''); const [compCat, setCompCat] = useState('all')
   const [compFavs, toggleCompFav] = useFavorites(); const [compFavOnly, setCompFavOnly] = useState(false)
+  const [skiQuery, setSkiQuery] = useState(''); const [skiCat, setSkiCat] = useState('all')
+  const [skiFavs, toggleSkiFav] = useFavorites(); const [skiFavOnly, setSkiFavOnly] = useState(false)
+  const [openSkill, setOpenSkill] = useState(null)
 
   // Ficha abierta y ajustes de cada componente: viven aquí para que no se
   // pierdan al cambiar de sección y volver.
@@ -85,7 +95,7 @@ export default function App() {
     return CONCEPTS.filter((g) => conCat === 'all' || g.key === conCat)
       .map((g) => ({ ...g, items: g.items.filter((c) => {
         if (conFavOnly && !conFavs.has(c.name)) return false
-        return !q || c.name.toLowerCase().includes(q) || c[lang].what.toLowerCase().includes(q)
+        return !q || [c.name, c.nameEn ?? '', c[lang].what].join(' ').toLowerCase().includes(q)
       })}))
       .filter((g) => g.items.length > 0)
   }, [conQuery, conCat, lang, conFavOnly, conFavs])
@@ -98,6 +108,19 @@ export default function App() {
       return !q || c.name.toLowerCase().includes(q)
     })
   }, [compQuery, compCat, compFavOnly, compFavs])
+
+  // Las skills se muestran agrupadas por categoría, como los conceptos.
+  const skiGroups = useMemo(() => {
+    const q = skiQuery.trim().toLowerCase()
+    return SKILL_GROUPS.filter((g) => skiCat === 'all' || g.key === skiCat)
+      .map((g) => ({ ...g, items: SKILL_ITEMS.filter((s) => {
+        if (s.group !== g.key) return false
+        if (skiFavOnly && !skiFavs.has(s.key)) return false
+        const d = s[lang]
+        return !q || [s.name, s.nameEn, d.label, d.what, d.when].join(' ').toLowerCase().includes(q)
+      })}))
+      .filter((g) => g.items.length > 0)
+  }, [skiQuery, skiCat, lang, skiFavOnly, skiFavs])
 
   const toggleCompare = (name) =>
     setCompareSet((prev) => prev.includes(name) ? prev.filter((n) => n !== name) : prev.length >= 3 ? prev : [...prev, name])
@@ -136,6 +159,19 @@ export default function App() {
         extraGroup: { showFavOnly: conFavOnly, onToggleFavOnly: () => setConFavOnly((v) => !v), favCount: conFavs.size },
       }
     }
+    if (activeNav === 'skills') {
+      return {
+        searchPh: t.searchPh, query: skiQuery,
+        setQuery: (v) => { setSkiQuery(v); setOpenSkill(null) },
+        categories: [{ key: 'all', label: t.all, count: SKILL_ITEMS.length },
+          ...SKILL_GROUPS.map((g) => ({ key: g.key, label: g.label[lang],
+            count: SKILL_ITEMS.filter((s) => s.group === g.key).length }))],
+        activeCat: skiFavOnly ? null : skiCat,
+        setActiveCat: (k) => { setSkiCat(k); setSkiFavOnly(false); setOpenSkill(null) },
+        extraGroup: { showFavOnly: skiFavOnly,
+          onToggleFavOnly: () => { setSkiFavOnly((v) => !v); setOpenSkill(null) }, favCount: skiFavs.size },
+      }
+    }
     return {
       searchPh: t.searchPh, query: compQuery,
       setQuery: (v) => { setCompQuery(v); setOpenComp(null) },
@@ -148,16 +184,17 @@ export default function App() {
     }
   }, [activeNav, t, lang, query, filter, langFavOnly, langFavs, compareSet,
       resQuery, resCat, resFavOnly, resFavs, conQuery, conCat, conFavOnly, conFavs,
-      compQuery, compCat, compFavOnly, compFavs])
+      compQuery, compCat, compFavOnly, compFavs, skiQuery, skiCat, skiFavOnly, skiFavs])
 
   // El logo devuelve al inicio limpio, sin recargar: se conservan favoritos y comparación.
   const goHome = () => {
     setActiveNav('home'); setFilter({ type: 'all' }); setQuery(''); setLangFavOnly(false); setSelected('Python')
-    setOpenComp(null)
+    setOpenComp(null); setOpenSkill(null)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const navigate = (key) => {
     if (key === 'components') setOpenComp(null)
+    if (key === 'skills') setOpenSkill(null)
     setActiveNav(key)
   }
   const openLanguage = (name) => {
@@ -178,7 +215,11 @@ export default function App() {
         <main className="flex-1 min-w-0 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeNav === 'components' && openComp ? `comp-${openComp}` : activeNav}
+              key={
+                activeNav === 'components' && openComp ? `comp-${openComp}`
+                : activeNav === 'skills' && openSkill ? `skill-${openSkill}`
+                : activeNav
+              }
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
@@ -188,7 +229,8 @@ export default function App() {
                 <LandingView
                   t={t} lang={lang}
                   totals={{ langs: LANGUAGES.length, res: RESOURCES.reduce((n, g) => n + g.items.length, 0),
-                            concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0), comps: COMPONENT_ITEMS.length }}
+                            concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0), comps: COMPONENT_ITEMS.length,
+                            skills: SKILL_ITEMS.length }}
                   onNavigate={(k) => { navigate(k); window.scrollTo({ top: 0 }) }}
                   onQuiz={() => setQuizOpen(true)}
                 />
@@ -232,6 +274,22 @@ export default function App() {
                     values={compValues}
                     onOpen={(key) => { setOpenComp(key); window.scrollTo({ top: 0 }) }}
                     onClear={() => { setCompQuery(''); setCompCat('all'); setCompFavOnly(false) }} />
+                )
+              )}
+              {activeNav === 'skills' && (
+                openSkill ? (
+                  <SkillDetail
+                    t={t} lang={lang}
+                    item={SKILL_ITEMS.find((s) => s.key === openSkill)}
+                    group={SKILL_GROUPS.find((g) => g.key === SKILL_ITEMS.find((s) => s.key === openSkill).group)}
+                    onBack={() => setOpenSkill(null)}
+                    fav={skiFavs.has(openSkill)}
+                    onToggleFav={() => toggleSkiFav(openSkill)}
+                  />
+                ) : (
+                  <SkillsView t={t} lang={lang} groups={skiGroups} favorites={skiFavs} onToggleFav={toggleSkiFav}
+                    onOpen={(key) => { setOpenSkill(key); window.scrollTo({ top: 0 }) }}
+                    onClear={() => { setSkiQuery(''); setSkiCat('all'); setSkiFavOnly(false) }} />
                 )
               )}
             </motion.div>

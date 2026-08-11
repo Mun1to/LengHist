@@ -89,9 +89,9 @@ function Contenido({ material, etiqueta }) {
   return <span className="depth-label">{etiqueta}</span>
 }
 
-export default function ColorDepthDemo({ values, compact }) {
+export default function ColorDepthDemo({ values, compact, t }) {
   const material = values.material || 'glossy'
-  const etiqueta = values.label || 'Empezar'
+  const etiqueta = values.label || 'Vibeset'
   const [encendido, setEncendido] = useState(true)
   const ref = usePuntero()
 
@@ -111,7 +111,7 @@ export default function ColorDepthDemo({ values, compact }) {
           <Contenido material={material} etiqueta={etiqueta} />
         </button>
 
-        <button className={`depth-btn depth-icon depth-${material}`} aria-label="Ir">
+        <button className={`depth-btn depth-icon depth-${material}`} aria-label={t?.demoGo ?? 'Go'}>
           <Contenido
             material={material}
             etiqueta={
@@ -129,7 +129,7 @@ export default function ColorDepthDemo({ values, compact }) {
           aria-checked={encendido}
           data-on={encendido ? 'true' : 'false'}
           onClick={() => setEncendido((v) => !v)}
-          aria-label="Interruptor"
+          aria-label={t?.demoSwitch ?? 'Switch'}
         >
           {material === 'foil' && (
             <>

@@ -46,7 +46,7 @@ const PHOTOS = {
 }
 const PHOTO = PHOTOS.bubble
 
-function DemoContent({ compact, photo = PHOTO }) {
+function DemoContent({ compact, photo = PHOTO, t }) {
   return (
     <div className="relative w-full h-full overflow-hidden bg-zinc-900">
       <img src={photo} alt="" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
@@ -54,7 +54,7 @@ function DemoContent({ compact, photo = PHOTO }) {
            style={{ textShadow: '0 1px 12px rgba(0,0,0,.75)' }}>
         <div className={`font-extrabold tracking-tight ${compact ? 'text-base' : 'text-2xl'}`}>Vibeset</div>
         <div className={`font-mono opacity-80 ${compact ? 'text-[10px]' : 'text-xs'}`}>
-          100 lenguajes · 64 recursos · 41 conceptos
+          {t.demoLine}
         </div>
       </div>
     </div>
@@ -82,14 +82,14 @@ function TallContent({ compact, photo = PHOTO }) {
 }
 
 // La capa que asoma cuando el Peel levanta la portada.
-function UnderContent({ compact }) {
+function UnderContent({ compact, t }) {
   return (
     <div className={`w-full h-full bg-indigo-600 text-white ${compact ? 'p-4' : 'p-8'}`}>
       <div className={`font-extrabold tracking-tight ${compact ? 'text-base' : 'text-2xl'}`}>
-        Debajo está el catálogo.
+        {t.demoUnder}
       </div>
       <div className={`opacity-80 mt-2 ${compact ? 'text-[11px]' : 'text-sm'}`}>
-        100 lenguajes · 64 recursos · 41 conceptos
+        {t.demoLine}
       </div>
     </div>
   )
@@ -112,7 +112,7 @@ export default function ComponentDemo({ item, values, lang, compact = false, t }
     return (
       <Suspense fallback={<Loading t={t} />}>
         <Bubble {...values} style={FILL} className="cursor-none">
-          <DemoContent compact={compact} photo={PHOTOS.bubble} />
+          <DemoContent t={t} compact={compact} photo={PHOTOS.bubble} />
         </Bubble>
       </Suspense>
     )
@@ -122,7 +122,7 @@ export default function ComponentDemo({ item, values, lang, compact = false, t }
     return (
       <Suspense fallback={<Loading t={t} />}>
         <Cloth {...values} style={FILL}>
-          <DemoContent compact={compact} photo={PHOTOS.cloth} />
+          <DemoContent t={t} compact={compact} photo={PHOTOS.cloth} />
         </Cloth>
       </Suspense>
     )
@@ -148,7 +148,7 @@ export default function ComponentDemo({ item, values, lang, compact = false, t }
     return (
       <Suspense fallback={<Loading t={t} />}>
         <Asciify {...values} style={FILL}>
-          <DemoContent compact={compact} photo={PHOTOS.asciify} />
+          <DemoContent t={t} compact={compact} photo={PHOTOS.asciify} />
         </Asciify>
       </Suspense>
     )
@@ -157,8 +157,8 @@ export default function ComponentDemo({ item, values, lang, compact = false, t }
   if (item.key === 'peel') {
     return (
       <Suspense fallback={<Loading t={t} />}>
-        <Peel {...values} style={FILL} under={<UnderContent compact={compact} />}>
-          <DemoContent compact={compact} photo={PHOTOS.peel} />
+        <Peel {...values} style={FILL} under={<UnderContent t={t} compact={compact} />}>
+          <DemoContent t={t} compact={compact} photo={PHOTOS.peel} />
         </Peel>
       </Suspense>
     )
@@ -203,7 +203,7 @@ export default function ComponentDemo({ item, values, lang, compact = false, t }
   if (item.key === 'colorDepth') {
     return (
       <Suspense fallback={<Loading t={t} />}>
-        <ColorDepthDemo values={values} compact={compact} />
+        <ColorDepthDemo values={values} compact={compact} t={t} />
       </Suspense>
     )
   }

@@ -25,7 +25,7 @@ export default function Sidebar({
           <button
             onClick={() => setQuery('')}
             className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 cursor-pointer"
-            aria-label="Limpiar búsqueda"
+            aria-label={t.ariaClearSearch}
           >
             <X size={13} />
           </button>

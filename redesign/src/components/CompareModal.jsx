@@ -15,7 +15,7 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
   )
 
   return (
-    <Modal open={open} onClose={onClose} title={t.cmpTitle} wide>
+    <Modal open={open} onClose={onClose} title={t.cmpTitle} closeLabel={t.cerrar} wide>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse min-w-[520px]">
           <thead>

@@ -4,6 +4,7 @@ import { Check, Copy } from 'lucide-react'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import { CONCEPT_EXAMPLES } from '../data/conceptExamples'
+import { CONCEPT_EXAMPLES_EN } from '../data/conceptExamplesEn'
 
 function Ejemplo({ t, code }) {
   const [copied, setCopied] = useState(false)
@@ -39,6 +40,9 @@ function Ejemplo({ t, code }) {
 
 export default function ConceptsView({ t, lang, groups, onClear, favorites, onToggleFav }) {
   const total = groups.reduce((n, g) => n + g.items.length, 0)
+  // El nombre del concepto es la clave interna (favoritos, ejemplos): solo
+  // unos pocos cambian al traducirse, y esos traen nameEn y tagEn.
+  const ejemplos = lang === 'en' ? CONCEPT_EXAMPLES_EN : CONCEPT_EXAMPLES
 
   return (
     <section className="px-6 sm:px-10 py-12 max-w-5xl">
@@ -67,9 +71,11 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                     className="rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4"
                   >
                     <div className="flex items-center gap-2 mb-1.5">
-                      <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50 min-w-0 flex-1">{c.name}</span>
+                      <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50 min-w-0 flex-1">
+                        {lang === 'en' && c.nameEn ? c.nameEn : c.name}
+                      </span>
                       <span className="font-mono text-[11px] shrink-0" style={{ color: group.color }}>
-                        {c.tag}
+                        {lang === 'en' && c.tagEn ? c.tagEn : c.tag}
                       </span>
                       <FavButton active={favorites.has(c.name)} onClick={() => onToggleFav(c.name)} label={t.favoritos} />
                     </div>
@@ -77,7 +83,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                     <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-2">
                       <b className="text-zinc-500 dark:text-zinc-400">{t.conceptUse}:</b> {c[lang].use}
                     </p>
-                    {CONCEPT_EXAMPLES[c.name] && <Ejemplo t={t} code={CONCEPT_EXAMPLES[c.name]} />}
+                    {ejemplos[c.name] && <Ejemplo t={t} code={ejemplos[c.name]} />}
                   </motion.div>
                 ))}
               </div>

@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LANGUAGES } from '../data/languages'
+import { codeFor } from '../data/codeEn'
 
 const TABS = ['Python', 'JavaScript', 'Rust', 'Go']
 
 // Ventana de código de la portada: mismo bloque que ya usaba el hero.
-export default function CodeWindow({ className = '' }) {
+export default function CodeWindow({ lang = 'es', className = '' }) {
   const [tab, setTab] = useState('Python')
   const demo = LANGUAGES.find((l) => l.name === tab) ?? LANGUAGES[0]
+  const code = codeFor(demo, lang)
 
   return (
     <div className={`relative rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 shadow-[0_20px_60px_rgba(0,0,0,.35)] ${className}`}>
@@ -39,7 +41,7 @@ export default function CodeWindow({ className = '' }) {
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.15 }}
           >
-            <pre className="font-mono text-[13px] leading-relaxed text-zinc-200 whitespace-pre-wrap">{demo.example}</pre>
+            <pre className="font-mono text-[13px] leading-relaxed text-zinc-200 whitespace-pre-wrap">{code.example}</pre>
           </motion.div>
         </AnimatePresence>
       </div>

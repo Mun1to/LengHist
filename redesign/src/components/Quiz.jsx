@@ -53,7 +53,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
     : []
 
   return (
-    <Modal open={open} onClose={close} title={done ? t.quizResult : t.quizTitle}>
+    <Modal open={open} onClose={close} title={done ? t.quizResult : t.quizTitle} closeLabel={t.cerrar}>
       {!done ? (
         <div>
           <div className="h-1 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden mb-3">

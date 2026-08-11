@@ -152,6 +152,7 @@ export const CONCEPTS = [
    },
    {
     "name": "Hover magnético",
+    "nameEn": "Magnetic hover",
     "tag": "JS",
     "es": {
      "what": "Un botón atrae el cursor moviéndose ligeramente hacia él.",
@@ -164,6 +165,7 @@ export const CONCEPTS = [
    },
    {
     "name": "Cursor personalizado (lerp)",
+    "nameEn": "Custom cursor (lerp)",
     "tag": "JS",
     "es": {
      "what": "Cursor a medida que sigue al ratón con suavizado (interpolación lineal).",
@@ -176,6 +178,7 @@ export const CONCEPTS = [
    },
    {
     "name": "Micro-interacciones",
+    "nameEn": "Micro-interactions",
     "tag": "CSS",
     "es": {
      "what": "Pequeños feedbacks en hover, focus y click (escala, color, sombra).",
@@ -258,6 +261,7 @@ export const CONCEPTS = [
    },
    {
     "name": "Clip-path y máscaras",
+    "nameEn": "Clip-path and masks",
     "tag": "CSS",
     "es": {
      "what": "Revelar o recortar contenido con formas (clip-path, mask).",
@@ -294,6 +298,7 @@ export const CONCEPTS = [
    },
    {
     "name": "Tipografía cinética",
+    "nameEn": "Kinetic typography",
     "tag": "GSAP SplitText",
     "es": {
      "what": "Animar el texto por letras o palabras (aparecer, deslizar, distorsionar).",
@@ -340,6 +345,7 @@ export const CONCEPTS = [
   "items": [
    {
     "name": "Animar transform/opacity",
+    "nameEn": "Animate transform/opacity",
     "tag": "GPU",
     "es": {
      "what": "Animar solo transform y opacity, nunca top/left/width/height.",
@@ -365,6 +371,7 @@ export const CONCEPTS = [
    {
     "name": "Core Web Vitals",
     "tag": "Métrica",
+    "tagEn": "Metric",
     "es": {
      "what": "LCP (<2,5s), INP (<200ms) y CLS (<0,1): las métricas de experiencia de Google.",
      "use": "Si un efecto las empeora, baja su intensidad o pásalo a CSS nativo."
@@ -389,6 +396,7 @@ export const CONCEPTS = [
    {
     "name": "Progressive enhancement",
     "tag": "Método",
+    "tagEn": "Method",
     "es": {
      "what": "Que el contenido funcione y se lea sin JS; el efecto va por encima.",
      "use": "Robustez: si el JS falla, la web sigue siendo usable."
@@ -424,6 +432,7 @@ export const CONCEPTS = [
    },
    {
     "name": "Debounce y throttle",
+    "nameEn": "Debounce and throttle",
     "tag": "JS",
     "es": {
      "what": "Limitar cuántas veces se ejecuta una función en eventos frecuentes (scroll, resize, input).",
