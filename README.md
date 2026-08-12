@@ -1,62 +1,127 @@
-# Vibeset
+<div align="center">
 
-Resources for people who build for the web: programming languages, frontend tools, web design
-techniques and news. Free, bilingual and with no sign-up. Everything runs in the browser.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="redesign/public/brand/logo-blanco.svg">
+  <img alt="Vibeset" src="redesign/public/brand/logo-negro.svg" width="104">
+</picture>
 
-Live: https://vibeset.dev
+### One place with everything you need to build for the web
+
+100 programming languages, 64 frontend tools, 41 design techniques, 12 live components and
+12 agent skills. Free, bilingual, no sign-up, no tracking.
+
+<a href="https://vibeset.dev">
+  <img alt="Open vibeset.dev" src=".github/assets/boton-open.svg" width="268">
+</a>
+
+**English** · [Español](README.es.md)
+
+</div>
+
+---
+
+## Why it exists
+
+Learning to build for the web means fighting the search before you fight the problem. What language
+fits what you want to make. Which of the forty tools that do the same thing is worth the afternoon.
+What that effect on someone else's site is called. What to tell your coding agent so it stops
+guessing.
+
+The answers exist, scattered across bookmarks, threads and tutorials that expired two years ago.
+
+Vibeset puts them in one place, and shows them instead of describing them: real data instead of
+opinions, code that runs instead of screenshots, effects you can grab by the knobs instead of a
+video of someone else using them. It is free and it stays free, it works without an account, and it
+does not track you. Two languages, because the good stuff should not be locked behind English.
+
+It is not a course and it does not want to be. It is the shelf you check before you start.
 
 ## What is inside
 
-**Languages.** 100 programming languages with real data: year, creator, paradigm, popularity,
-extensions, code example, pros and cons, plus the key frameworks, libraries and tools for each one.
-Search by name, description, use case, framework or extension (`.py`, `.rs`...), filter by category,
-mark favorites, compare two or three side by side, browse them on a timeline, and take a short quiz
-that recommends a language based on your goal, level and priorities.
+**100 languages.** Year, creator, paradigm, popularity, extensions, ecosystem, pros and cons, and a
+code example that shows what the thing actually looks like. Search by name, use case or extension
+(`.py`, `.rs`), filter by category, compare up to three side by side, or take a short quiz that
+recommends one based on what you want to build, your level and what you value.
 
-**Frontend resources.** Around 64 pages and tools for building interfaces: AI UI generators from
-prompts (21st.dev, v0, bolt.new...), pre-built sections and blocks, CSS frameworks, UI libraries,
-buttons and effects, animation, icons, color, backgrounds, typography, illustrations and
-inspiration.
+**64 frontend resources.** The tools that are worth the afternoon: AI interface generators, ready
+made blocks, CSS frameworks, component libraries, animation, icons, colour, backgrounds, typography
+and inspiration.
 
-**Web design concepts.** A cheatsheet of 41 techniques across 5 categories: parallax, Lenis, scroll
-snap, sticky, 3D tilt, glassmorphism, View Transitions, modern CSS, Core Web Vitals and more.
+**41 web design concepts.** Parallax, smooth scroll, scroll-driven animations, 3D tilt, glassmorphism,
+View Transitions, container queries, Core Web Vitals and more. Each one with what it is, what it is
+for, and a copyable example of the smallest code that makes it work.
 
-**Blog.** Tool news and practical tips, bilingual.
+**12 live components.** Cloth, peel, ASCII, dithering, chromatic bloom, emboss and more, each one
+running at full size with its controls exposed. Move the knobs and copy the code with your values
+already in it. Every effect credits and links its original author.
 
-## Planned
-
-Vibeset is the home of a community of people who build, so what it holds is meant to grow with
-contributions: components, tutorials, guides and a library of agent skills that anyone can improve
-through a pull request. That part is not built yet.
-
-## Details
-
-- Automatic light and dark theme that follows the system, plus first-visit language detection.
-- Bilingual interface and content (Spanish / English).
-- Shareable state in the URL (search, category, view and open language).
-- Responsive layout (3 / 2 / 1 columns), keyboard navigation in the detail modal.
-- Effects: cursor-following spotlight on cards, background aurora, per-language color glow,
-  staggered entrance, button sheen and custom scrollbar.
+**12 agent skills.** Instructions you hand your coding agent once and it knows for good: check a
+screen on mobile, audit accessibility, review a diff, debug down to the root cause, write a commit
+message. Copy the `SKILL.md`, drop it in its folder, done.
 
 ## Stack
 
-HTML, CSS and vanilla JavaScript. No frameworks, no build step, no dependencies and no keys: a
-single self-contained `index.html` plus Google Fonts. It works by opening the file in a browser.
+React 19, Vite, Tailwind CSS v4, Framer Motion and Lucide. Two of the effects use three.js and load
+only when you look at them. No backend, no database, no accounts, no analytics: everything runs in
+your browser and nothing leaves it.
+
+The interface and all the content are bilingual, including the code examples. The theme follows your
+system.
+
+## Run it locally
+
+```bash
+git clone https://github.com/Mun1to/Vibeset.git
+cd Vibeset/redesign
+pnpm install
+pnpm dev
+```
+
+Then open the address it prints. `pnpm build` writes the production site to `dist/`.
+
+The live site is the React app in `redesign/`. The `index.html` at the repository root is the
+original vanilla version, kept as history and no longer served.
 
 ## Deployment
 
-Published with Cloudflare Pages from the `main` branch (root), custom domain `vibeset.dev`.
+Cloudflare Pages, from `main`. Root directory `redesign`, build `pnpm install && pnpm build`,
+output `dist`. Custom domain `vibeset.dev`.
+
+## Contributing
+
+This is meant to grow with other people: a component, a resource, a concept, a skill, a fix, a
+better translation. Open an issue or a pull request. Small ones are welcome, and so is telling me
+something here is wrong.
+
+## Licence
+
+Three different things with three different rules: **take the code, credit the content, leave the
+name.**
+
+- **Code** is [MIT](LICENSE). Copy it, change it, sell it.
+- **Content** (languages, resources, concepts, skills, copy) is
+  [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Credit, non-commercial,
+  share alike.
+- **The name Vibeset, the logo and the domain** are not licensed. Fork it and rename it.
+- **The effects in `canvasui/` and `arlan/` are not mine.** They are here with credit and a link;
+  to reuse them, go to their authors.
+
+Full details in **[LICENSING.md](LICENSING.md)**.
 
 ## Don't trust it, check it
 
-Open source only helps if somebody actually reads the code, and almost nobody does. So
-instead of asking you to trust this project, here is the prompt to check it: point your own
-AI agent at this repository and get a security report, in your language, in a few minutes,
-even if you do not know how to program.
+Open source only helps if somebody actually reads the code, and almost nobody does. So instead of
+asking you to trust this project, here is the prompt to check it: point your own AI agent at this
+repository and get a security report, in your language, in a few minutes, even if you do not know
+how to program.
 
 **[Open AI-AUDIT.md](AI-AUDIT.md)** and paste it into Claude Code, Codex, Cursor, Copilot or
 whatever you use. It is the same prompt in every public repository here, so you can compare.
 
-> **ES:** No hace falta que te fíes. Abre [AI-AUDIT.md](AI-AUDIT.md), pega ese texto en tu IA
-> y te dirá en tu idioma qué hace este programa de verdad: qué envía por internet, qué toca
-> en tu ordenador y qué ejecuta al instalarse.
+---
+
+<div align="center">
+
+Built by [Munir Torres](https://github.com/Mun1to) · [vibeset.dev](https://vibeset.dev)
+
+</div>
