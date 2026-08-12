@@ -7,14 +7,34 @@ The `LICENSE` file at the root holds the MIT text on its own, with nothing added
 automated tools detect it correctly. **It covers the source code only.** This document is the full
 map: read it before reusing anything that is not code.
 
-**The short version: take the code, take the knowledge, always credit, never take the name.**
+**The short version: take the code, take the knowledge, credit if you republish, never take the
+name.**
 
 | What | Licence | You may |
 | --- | --- | --- |
-| Source code written for Vibeset | [MIT](LICENSE) | Copy it, modify it, ship it commercially. Keep the copyright notice. |
-| Catalogue content and written material | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Reuse and adapt it, commercially too. Credit Vibeset with a visible link. |
+| Source code written for Vibeset | [MIT](LICENSE) | Copy it, modify it, ship it commercially. No credit required. |
+| Catalogue content and written material | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Use it freely; credit Vibeset when you republish it. |
 | Name, logo and domain | Not licensed | Nothing. See [Brand and name](#brand-and-name). |
 | Third-party effects bundled here | Their authors' terms | See [Third-party code](#third-party-code). |
+
+## Which one applies to me?
+
+Most people who land here want a component or an idea for their own site. That case needs nothing
+at all: no permission, no credit, no link. Find your case:
+
+| What you are doing | What you owe |
+| --- | --- |
+| Taking a component and putting it in your site | **Nothing.** |
+| Copying the whole app to learn from it or use it privately | **Nothing.** |
+| Copying a skill into your own `.claude/skills/` | **Nothing.** |
+| Shipping a paid product built with code from here | **Nothing** beyond the copyright notice MIT already asks you to keep in the source. |
+| Applying something you learned here to your own work | **Nothing.** Knowledge is not licensed. |
+| Republishing the language profiles, concept explanations or skill text for other people to read | Credit with a link. |
+| Translating the catalogue and publishing it | Credit with a link. |
+| Publishing a fork of the site | A different name, no brand assets, visible credit. |
+| Calling your project Vibeset, or registering `vibeset.xyz` | **Not allowed.** See [Brand and name](#brand-and-name). |
+
+The line is simple: **using it is free, republishing it is credited, the name is off limits.**
 
 ---
 
@@ -24,7 +44,11 @@ Everything written for this project: the React application, the views, the compo
 Vibeset, the build configuration and the scripts.
 
 Take a component, take the whole app if it is useful to you. Ship it in a commercial product. The
-only condition is the one MIT already states: keep the copyright notice.
+only condition is the one MIT already states: keep the copyright notice in the source files you
+copied.
+
+**You do not have to credit Vibeset anywhere your users can see.** No badge, no footer line, no
+link. Building your site with a component from here is exactly what the code is published for.
 
 ## Catalogue content — CC BY 4.0
 
@@ -40,8 +64,14 @@ The written material and the curated data:
 for that product. Knowledge that only one site is allowed to hold is worth less than knowledge that
 travels, and this is meant to travel.
 
-One condition, and it is not optional: **credit Vibeset, visibly, with a link.** Not buried in a
-footer nobody scrolls to, not in a comment in the source. Where a reader can see it.
+**Reading it, learning from it and applying it costs nothing and requires nothing.** Facts are not
+owned: that Python came out in 1991, or that `will-change` should be removed once the animation
+ends, is not mine and never was. Use what you learn here wherever you want, without a word about it.
+
+The condition kicks in when you **republish the written material itself** for other people to read:
+the profiles, the explanations, the examples, the skill instructions, copied or adapted. Then, and
+only then, **credit Vibeset with a visible link.** Not buried in a footer nobody scrolls to, not in
+a comment in the source. Where a reader can see it.
 
 Suggested wording, in whatever language you publish in:
 
@@ -125,12 +155,19 @@ Permission for a specific case is easier to grant than to guess.
 
 ---
 
-> **ES · Resumen.** Vibeset no tiene una sola licencia porque no es una sola cosa. **El código es
-> MIT**: cógelo, cámbialo y véndelo, solo conserva el aviso de copyright. **El contenido** (los 100
-> lenguajes, los 64 recursos, los 41 conceptos, las 12 skills y los textos) es **CC BY 4.0**: úsalo
-> para lo que quieras, comercial incluido, con una sola condición que no es negociable: **citar a
-> Vibeset con un enlace visible**. **El nombre, el logo y el dominio no se licencian**: no puedes
-> llamar Vibeset a lo tuyo ni registrar vibeset.xyz, vibeset.io ni nada parecido. Si haces un fork,
-> cámbiale el nombre, quita el logo y pon el crédito donde se vea. Y ojo, **los efectos de
-> `canvasui/` y `arlan/` no son míos**: están aquí con crédito y enlace, pero para reutilizarlos hay
-> que ir a sus autores.
+> **ES · Resumen.** Vibeset no tiene una sola licencia porque no es una sola cosa.
+>
+> **El código es MIT.** Coges un componente, lo metes en tu web y la vendes si quieres: **sin
+> crédito, sin enlace, sin nada**. Para eso está publicado.
+>
+> **El material escrito es CC BY 4.0** (los 100 lenguajes, los 64 recursos, los 41 conceptos, las 12
+> skills y los textos). Leerlo, aprender de ello y aplicarlo no cuesta nada ni pide nada. La
+> condición aparece solo si **republicas ese material** para que lo lea otra gente: entonces sí,
+> **cita a Vibeset con un enlace visible**, y ya puedes usarlo para lo que sea, comercial incluido.
+>
+> **El nombre, el logo y el dominio no se licencian**: no puedes llamar Vibeset a lo tuyo ni
+> registrar vibeset.xyz, vibeset.io ni nada parecido. Si haces un fork del proyecto entero,
+> cámbiale el nombre, quita el logo y pon el crédito donde se vea.
+>
+> Y ojo, **los efectos de `canvasui/` y `arlan/` no son míos**: están aquí con crédito y enlace,
+> pero para reutilizarlos hay que ir a sus autores.

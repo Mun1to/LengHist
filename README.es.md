@@ -95,20 +95,24 @@ que algo de aquí está mal, también.
 
 ## Licencia
 
-**Coge el código, coge el conocimiento, cita siempre, no toques el nombre.**
+**Coge el código. Coge el conocimiento. Cita si lo republicas. No toques el nombre.**
 
-- **El código** es [MIT](LICENSE). Cópialo, cámbialo, véndelo.
-- **El contenido** (lenguajes, recursos, conceptos, skills y textos) es
-  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es). Úsalo para lo que quieras,
-  comercial incluido, con una condición: citar a Vibeset con un enlace visible.
+- **El código es [MIT](LICENSE).** Coge un componente, haz tu web y véndela. **Sin crédito, sin
+  enlace, sin nada.** Para eso está.
+- **El material escrito** (las fichas de los lenguajes, los recursos, las explicaciones de los
+  conceptos, el texto de las skills) es
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es). Úsalo para ti sin pedir nada.
+  **Cita solo si lo republicas** para que lo lea otra gente, y entonces úsalo para lo que quieras,
+  comercial incluido.
 - **El nombre Vibeset, el logo y el dominio** no se licencian. Ni forks llamados Vibeset, ni
   `vibeset.xyz`, ni `vibeset.io`, ni nada que se le parezca lo bastante como para confundirse.
-- **Si haces un fork:** cámbiale el nombre, quita los assets de marca y pon el crédito donde se vea.
-  Eso es una condición de la licencia, no un favor.
+- **Si haces un fork del proyecto entero:** cámbiale el nombre, quita los assets de marca y pon el
+  crédito donde se vea. Eso es una condición de la licencia, no un favor.
 - **Los efectos de `canvasui/` y `arlan/` no son míos.** Están aquí con crédito y enlace; para
   reutilizarlos, hay que ir a sus autores.
 
-Todo el detalle en **[LICENSING.md](LICENSING.md)**, y el nombre en **[TRADEMARK.md](TRADEMARK.md)**.
+Hacer tu web con lo que encuentres aquí no necesita permiso ni mención. Todo el detalle en
+**[LICENSING.md](LICENSING.md)**, y el nombre en **[TRADEMARK.md](TRADEMARK.md)**.
 
 ## No te fíes, compruébalo
 
