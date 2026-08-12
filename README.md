@@ -95,18 +95,20 @@ something here is wrong.
 
 ## Licence
 
-Three different things with three different rules: **take the code, credit the content, leave the
-name.**
+**Take the code, take the knowledge, always credit, never take the name.**
 
 - **Code** is [MIT](LICENSE). Copy it, change it, sell it.
 - **Content** (languages, resources, concepts, skills, copy) is
-  [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Credit, non-commercial,
-  share alike.
-- **The name Vibeset, the logo and the domain** are not licensed. Fork it and rename it.
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use it for anything, commercial
+  included, as long as you credit Vibeset with a visible link.
+- **The name Vibeset, the logo and the domain** are not licensed. No forks called Vibeset, and no
+  `vibeset.xyz`, `vibeset.io` or anything close enough to be mistaken for it.
+- **If you fork it:** rename it, drop the brand assets, and put the credit where it can be seen.
+  That is a licence term, not a favour.
 - **The effects in `canvasui/` and `arlan/` are not mine.** They are here with credit and a link;
   to reuse them, go to their authors.
 
-Full details in **[LICENSING.md](LICENSING.md)**.
+Full details in **[LICENSING.md](LICENSING.md)**, name policy in **[TRADEMARK.md](TRADEMARK.md)**.
 
 ## Don't trust it, check it
 

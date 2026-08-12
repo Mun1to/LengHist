@@ -95,17 +95,20 @@ que algo de aquí está mal, también.
 
 ## Licencia
 
-Tres cosas distintas con tres reglas distintas: **coge el código, cita el contenido, deja el nombre.**
+**Coge el código, coge el conocimiento, cita siempre, no toques el nombre.**
 
 - **El código** es [MIT](LICENSE). Cópialo, cámbialo, véndelo.
 - **El contenido** (lenguajes, recursos, conceptos, skills y textos) es
-  [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es). Con crédito, sin
-  fines comerciales y compartiendo igual.
-- **El nombre Vibeset, el logo y el dominio** no se licencian. Si haces un fork, cámbiale el nombre.
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es). Úsalo para lo que quieras,
+  comercial incluido, con una condición: citar a Vibeset con un enlace visible.
+- **El nombre Vibeset, el logo y el dominio** no se licencian. Ni forks llamados Vibeset, ni
+  `vibeset.xyz`, ni `vibeset.io`, ni nada que se le parezca lo bastante como para confundirse.
+- **Si haces un fork:** cámbiale el nombre, quita los assets de marca y pon el crédito donde se vea.
+  Eso es una condición de la licencia, no un favor.
 - **Los efectos de `canvasui/` y `arlan/` no son míos.** Están aquí con crédito y enlace; para
   reutilizarlos, hay que ir a sus autores.
 
-Todo el detalle en **[LICENSING.md](LICENSING.md)**.
+Todo el detalle en **[LICENSING.md](LICENSING.md)**, y el nombre en **[TRADEMARK.md](TRADEMARK.md)**.
 
 ## No te fíes, compruébalo
 
