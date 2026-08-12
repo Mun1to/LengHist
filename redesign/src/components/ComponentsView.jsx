@@ -62,12 +62,12 @@ function Card({ t, lang, item, values, onOpen, fav, onToggleFav }) {
 
 export default function ComponentsView({ t, lang, items, onClear, favorites, onToggleFav, values, onOpen }) {
   return (
-    <section className="px-6 sm:px-10 py-12 max-w-5xl">
+    <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.compTitle}</h1>
         <span className="font-mono text-xs text-zinc-400 shrink-0">{items.length}</span>
       </div>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-10">{t.compSub}</p>
+      <p className="text-zinc-500 dark:text-zinc-400 mb-10 max-w-2xl">{t.compSub}</p>
 
       {items.length === 0 ? (
         <EmptyState t={t} onClear={onClear} />

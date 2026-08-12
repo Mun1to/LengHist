@@ -49,7 +49,7 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
   const ejemplo = muestra ? slugOf(muestra, lang) : 'check-on-mobile'
 
   return (
-    <section className="px-6 sm:px-10 py-12 max-w-5xl">
+    <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.skillsTitle}</h1>
         <span className="font-mono text-xs text-zinc-400 shrink-0">{total}</span>
@@ -78,7 +78,7 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
               <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">
                 {group.label[lang]}
               </h2>
-              <div className="grid sm:grid-cols-2 gap-3 items-start">
+              <div className="grid sm:grid-cols-2 2xl:grid-cols-3 gap-3 items-start">
                 {group.items.map((item, i) => (
                   <Tarjeta
                     key={item.key}

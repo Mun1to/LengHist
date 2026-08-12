@@ -5,6 +5,11 @@
   --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
 }
 
+/* Nota para el futuro: para la tercera columna de las rejillas se usa 2xl: y no
+   una medida a medida. Tailwind emite tanto min-[1700px]: como un breakpoint
+   propio del tema ANTES que sm:, así que sm:grid-cols-2 ganaba en la cascada y
+   la tercera columna no aparecía nunca. */
+
 html {
   color-scheme: light dark;
 }

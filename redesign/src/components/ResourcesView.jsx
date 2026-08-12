@@ -7,12 +7,12 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
   const total = groups.reduce((n, g) => n + g.items.length, 0)
 
   return (
-    <section className="px-6 sm:px-10 py-12 max-w-5xl">
+    <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.resTitle}</h1>
         <span className="font-mono text-xs text-zinc-400 shrink-0">{total}</span>
       </div>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-10">{t.resSub}</p>
+      <p className="text-zinc-500 dark:text-zinc-400 mb-10 max-w-2xl">{t.resSub}</p>
 
       {groups.length === 0 ? (
         <EmptyState t={t} onClear={onClear} />
@@ -23,7 +23,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
               <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">
                 {group.label[lang]}
               </h2>
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="grid sm:grid-cols-2 2xl:grid-cols-3 gap-3">
                 {group.items.map((r, i) => (
                   <motion.a
                     key={r.name}
