@@ -1,0 +1,67 @@
+/* Muro de consejos. Va aparte porque son columnas de altura libre y colores
+   calculados por categoría, dos cosas que no salen de utilidades sueltas. */
+
+.cj-muro {
+  columns: 4;
+  column-gap: 14px;
+}
+@media (max-width: 1400px) { .cj-muro { columns: 3 } }
+@media (max-width: 1000px) { .cj-muro { columns: 2 } }
+@media (max-width: 620px)  { .cj-muro { columns: 1 } }
+
+/* Un tono por categoría, y de ahí salen el fondo, el borde y el código de
+   dentro. Va en CSS y no en JS para que siga al tema del sistema sin que nadie
+   tenga que preguntarle nada al navegador. */
+.cj-nota[data-grupo='agente']  { --cj: #6366f1 }
+.cj-nota[data-grupo='oficio']  { --cj: #0891b2 }
+.cj-nota[data-grupo='git']     { --cj: #c026d3 }
+.cj-nota[data-grupo='empezar'] { --cj: #d97706 }
+.cj-nota[data-grupo='web']     { --cj: #059669 }
+
+@media (prefers-color-scheme: dark) {
+  .cj-nota[data-grupo='agente']  { --cj: #818cf8 }
+  .cj-nota[data-grupo='oficio']  { --cj: #22d3ee }
+  .cj-nota[data-grupo='git']     { --cj: #e879f9 }
+  .cj-nota[data-grupo='empezar'] { --cj: #fbbf24 }
+  .cj-nota[data-grupo='web']     { --cj: #34d399 }
+}
+
+.cj-nota {
+  --cj: #6366f1;
+  --cj-panel: #ffffff;
+  --mezcla-fondo: 7%;
+  --mezcla-borde: 22%;
+  break-inside: avoid;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 112px;
+  padding: 16px 15px;
+  border-radius: .875rem;
+  background: color-mix(in srgb, var(--cj) var(--mezcla-fondo), var(--cj-panel));
+  border: 1px solid color-mix(in srgb, var(--cj) var(--mezcla-borde), transparent);
+}
+@media (prefers-color-scheme: dark) {
+  .cj-nota { --cj-panel: #18181b; --mezcla-fondo: 12%; --mezcla-borde: 28% }
+}
+
+.cj-texto { font-size: 14px; line-height: 1.45 }
+.cj-nota[data-tam='medio'] .cj-texto { font-size: 15.5px; line-height: 1.4; font-weight: 600; letter-spacing: -.01em }
+.cj-nota[data-tam='corto'] .cj-texto { font-size: 19px; line-height: 1.32; font-weight: 700; letter-spacing: -.02em }
+
+.cj-texto code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: .82em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--cj) 22%, transparent);
+}
+
+.cj-pie { display: flex; align-items: center; gap: 8px; margin-top: auto; font-size: 11.5px }
+.cj-tema { color: var(--cj) }
+
+/* Con movimiento reducido el muro no se reordena de golpe al mezclar. */
+@media (prefers-reduced-motion: reduce) {
+  .cj-nota { transition: none !important }
+}
