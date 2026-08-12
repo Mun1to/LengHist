@@ -97,12 +97,13 @@ export default function LandingView({ t, lang, onNavigate, onQuiz, totals }) {
         <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-4">
           {t.landingWhat}
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           <Seccion n={totals.langs} titulo={t.nav.languages} texto={t.landingLangs} onClick={() => onNavigate('languages')} />
           <Seccion n={totals.res} titulo={t.nav.resources} texto={t.landingRes} onClick={() => onNavigate('resources')} />
           <Seccion n={totals.concepts} titulo={t.nav.concepts} texto={t.landingConcepts} onClick={() => onNavigate('concepts')} />
           <Seccion n={totals.comps} titulo={t.nav.components} texto={t.landingComps} onClick={() => onNavigate('components')} />
           <Seccion n={totals.skills} titulo={t.nav.skills} texto={t.landingSkills} onClick={() => onNavigate('skills')} />
+          <Seccion n={totals.consejos} titulo={t.nav.consejos} texto={t.landingConsejos} onClick={() => onNavigate('consejos')} />
         </div>
       </section>
 

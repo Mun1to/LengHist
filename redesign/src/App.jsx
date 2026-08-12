@@ -10,6 +10,7 @@ import ConceptsView from './components/ConceptsView'
 import ComponentsView from './components/ComponentsView'
 import ComponentDetail from './components/ComponentDetail'
 import SkillsView from './components/SkillsView'
+import ConsejosView from './components/ConsejosView'
 import SkillDetail from './components/SkillDetail'
 import LandingView from './components/LandingView'
 import CompareTray from './components/CompareTray'
@@ -20,6 +21,7 @@ import { RESOURCES } from './data/resources'
 import { CONCEPTS } from './data/concepts'
 import { COMPONENT_GROUPS, COMPONENT_ITEMS } from './data/components'
 import { SKILL_GROUPS, SKILL_ITEMS } from './data/skills'
+import { CONSEJO_GRUPOS, CONSEJOS } from './data/consejos'
 import { I18N } from './data/i18n'
 
 function useFavorites() {
@@ -29,10 +31,43 @@ function useFavorites() {
   return [set, toggle]
 }
 
+// Aportar pasa por el repositorio: los consejos viven en un archivo, como el
+// resto del catálogo. Quién puede hacerlo se decide al revisar la pull request.
+const URL_APORTAR = 'https://github.com/Mun1to/Vibeset/blob/main/redesign/src/data/consejos.js'
+
+const IDIOMAS = ['es', 'en']
+const CLAVE_IDIOMA = 'vibeset-lang'
+
+// El idioma se auto-selecciona, no se fuerza: manda lo que el visitante haya
+// elegido antes; si nunca eligió, el del navegador; y si tampoco encaja,
+// español. Solo se guarda la elección hecha a mano, así que a quien no ha
+// tocado el botón la web le sigue el idioma del navegador si lo cambia.
+function idiomaInicial() {
+  try {
+    const guardado = localStorage.getItem(CLAVE_IDIOMA)
+    if (IDIOMAS.includes(guardado)) return guardado
+  } catch { /* navegación privada sin almacenamiento */ }
+
+  const preferidos = navigator.languages?.length ? navigator.languages : [navigator.language]
+  for (const etiqueta of preferidos ?? []) {
+    // 'en-GB' y 'en' valen los dos: interesa la parte de antes del guion.
+    const base = String(etiqueta).toLowerCase().split('-')[0]
+    if (IDIOMAS.includes(base)) return base
+  }
+  return 'es'
+}
+
 export default function App() {
-  const [lang, setLang] = useState('es')
+  const [lang, setLang] = useState(idiomaInicial)
   const [activeNav, setActiveNav] = useState('home')
   const t = I18N[lang]
+
+  const cambiarIdioma = () =>
+    setLang((anterior) => {
+      const nuevo = anterior === 'es' ? 'en' : 'es'
+      try { localStorage.setItem(CLAVE_IDIOMA, nuevo) } catch { /* sin almacenamiento */ }
+      return nuevo
+    })
 
   // El idioma declarado en el html tiene que seguir al que se está leyendo:
   // es lo que usan los lectores de pantalla y los traductores del navegador.
@@ -56,6 +91,11 @@ export default function App() {
   const [skiQuery, setSkiQuery] = useState(''); const [skiCat, setSkiCat] = useState('all')
   const [skiFavs, toggleSkiFav] = useFavorites(); const [skiFavOnly, setSkiFavOnly] = useState(false)
   const [openSkill, setOpenSkill] = useState(null)
+  const [cjQuery, setCjQuery] = useState(''); const [cjCat, setCjCat] = useState('all')
+  const [cjFavs, toggleCjFav] = useFavorites(); const [cjFavOnly, setCjFavOnly] = useState(false)
+  // El muro sale mezclado y se puede volver a mezclar: el orden del archivo no
+  // dice nada, y así no salen siempre los mismos arriba.
+  const [cjSemilla, setCjSemilla] = useState(() => Math.random())
 
   // Ficha abierta y ajustes de cada componente: viven aquí para que no se
   // pierdan al cambiar de sección y volver.
@@ -108,6 +148,24 @@ export default function App() {
       return !q || c.name.toLowerCase().includes(q)
     })
   }, [compQuery, compCat, compFavOnly, compFavs])
+
+  // Mezcla estable: con la misma semilla sale el mismo orden, así que filtrar o
+  // marcar un favorito no reordena el muro entero bajo el dedo.
+  const cjLista = useMemo(() => {
+    const q = cjQuery.trim().toLowerCase()
+    const filtrados = CONSEJOS.filter((c) => {
+      if (cjFavOnly && !cjFavs.has(c.id)) return false
+      if (cjCat !== 'all' && c.grupo !== cjCat) return false
+      return !q || [c.es, c.en, c.autor ?? ''].join(' ').toLowerCase().includes(q)
+    })
+    const peso = (id) => {
+      let h = 0
+      const cadena = id + cjSemilla
+      for (let i = 0; i < cadena.length; i++) h = (h * 31 + cadena.charCodeAt(i)) % 100000
+      return h
+    }
+    return filtrados.sort((a, b) => peso(a.id) - peso(b.id))
+  }, [cjQuery, cjCat, cjFavOnly, cjFavs, cjSemilla])
 
   // Las skills se muestran agrupadas por categoría, como los conceptos.
   const skiGroups = useMemo(() => {
@@ -172,6 +230,17 @@ export default function App() {
           onToggleFavOnly: () => { setSkiFavOnly((v) => !v); setOpenSkill(null) }, favCount: skiFavs.size },
       }
     }
+    if (activeNav === 'consejos') {
+      return {
+        searchPh: t.consejosPh, query: cjQuery, setQuery: setCjQuery,
+        categories: [{ key: 'all', label: t.all, count: CONSEJOS.length },
+          ...CONSEJO_GRUPOS.map((g) => ({ key: g.key, label: g.label[lang],
+            count: CONSEJOS.filter((c) => c.grupo === g.key).length }))],
+        activeCat: cjFavOnly ? null : cjCat,
+        setActiveCat: (k) => { setCjCat(k); setCjFavOnly(false) },
+        extraGroup: { showFavOnly: cjFavOnly, onToggleFavOnly: () => setCjFavOnly((v) => !v), favCount: cjFavs.size },
+      }
+    }
     return {
       searchPh: t.searchPh, query: compQuery,
       setQuery: (v) => { setCompQuery(v); setOpenComp(null) },
@@ -184,7 +253,8 @@ export default function App() {
     }
   }, [activeNav, t, lang, query, filter, langFavOnly, langFavs, compareSet,
       resQuery, resCat, resFavOnly, resFavs, conQuery, conCat, conFavOnly, conFavs,
-      compQuery, compCat, compFavOnly, compFavs, skiQuery, skiCat, skiFavOnly, skiFavs])
+      compQuery, compCat, compFavOnly, compFavs, skiQuery, skiCat, skiFavOnly, skiFavs,
+      cjQuery, cjCat, cjFavOnly, cjFavs])
 
   // El logo devuelve al inicio limpio, sin recargar: se conservan favoritos y comparación.
   const goHome = () => {
@@ -202,12 +272,30 @@ export default function App() {
     requestAnimationFrame(() => document.getElementById('grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }
 
+  // Un resultado del buscador deja la cosa abierta, no solo la sección: la ficha
+  // del lenguaje, la del componente o la de la skill. Los recursos son enlaces a
+  // sitios de fuera, así que se abren igual que en su propia sección.
+  const abrirResultado = (r) => {
+    if (r.seccion === 'languages') return openLanguage(r.clave)
+    if (r.seccion === 'resources') return window.open(r.url, '_blank', 'noopener')
+
+    window.scrollTo({ top: 0 })
+    if (r.seccion === 'concepts') { setActiveNav('concepts'); setConCat('all'); setConFavOnly(false); setConQuery(r.clave) }
+    else if (r.seccion === 'components') { setActiveNav('components'); setOpenComp(r.clave) }
+    else if (r.seccion === 'skills') { setActiveNav('skills'); setOpenSkill(r.clave) }
+    else if (r.seccion === 'consejos') {
+      // El consejo no tiene ficha propia: se deja el muro con ese solo a la vista.
+      setActiveNav('consejos'); setCjCat('all'); setCjFavOnly(false)
+      setCjQuery(CONSEJOS.find((c) => c.id === r.clave)?.[lang]?.replace(/[*`]/g, '') ?? '')
+    }
+  }
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50">
       <TopBar
-        t={t} lang={lang} setLang={setLang} activeNav={activeNav} setActiveNav={navigate}
+        t={t} lang={lang} onToggleLang={cambiarIdioma} activeNav={activeNav} setActiveNav={navigate}
         onLogoClick={goHome}
-        onSearchClick={() => document.getElementById('sidebarSearch')?.focus()}
+        onAbrirResultado={abrirResultado}
         onQuizClick={() => setQuizOpen(true)}
       />
       <div className="flex">
@@ -230,7 +318,7 @@ export default function App() {
                   t={t} lang={lang}
                   totals={{ langs: LANGUAGES.length, res: RESOURCES.reduce((n, g) => n + g.items.length, 0),
                             concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0), comps: COMPONENT_ITEMS.length,
-                            skills: SKILL_ITEMS.length }}
+                            skills: SKILL_ITEMS.length, consejos: CONSEJOS.length }}
                   onNavigate={(k) => { navigate(k); window.scrollTo({ top: 0 }) }}
                   onQuiz={() => setQuizOpen(true)}
                 />
@@ -291,6 +379,15 @@ export default function App() {
                     onOpen={(key) => { setOpenSkill(key); window.scrollTo({ top: 0 }) }}
                     onClear={() => { setSkiQuery(''); setSkiCat('all'); setSkiFavOnly(false) }} />
                 )
+              )}
+              {activeNav === 'consejos' && (
+                <ConsejosView
+                  t={t} lang={lang} lista={cjLista} total={CONSEJOS.length}
+                  favorites={cjFavs} onToggleFav={toggleCjFav}
+                  onMezclar={() => setCjSemilla(Math.random())}
+                  urlAportar={URL_APORTAR}
+                  onClear={() => { setCjQuery(''); setCjCat('all'); setCjFavOnly(false) }}
+                />
               )}
             </motion.div>
           </AnimatePresence>
