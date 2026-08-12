@@ -7,11 +7,13 @@ import { textoDe } from './texto'
 const FOTO = '/demo/paisaje-2.jpg'
 
 // Lee el scroll de la caja dentro de un rAF, que es lo que predica el concepto.
-function useProgresoScroll(ref) {
+// Se puede apagar: hay una demo que solo lo necesita si el navegador no trae
+// líneas de tiempo de scroll en CSS.
+function useProgresoScroll(ref, activo = true) {
   const [p, setP] = useState(0)
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || !activo) return
     let raf = 0
     const leer = () => {
       raf = 0
@@ -22,8 +24,49 @@ function useProgresoScroll(ref) {
     el.addEventListener('scroll', pedir, { passive: true })
     leer()
     return () => { cancelAnimationFrame(raf); el.removeEventListener('scroll', pedir) }
-  }, [ref])
+  }, [ref, activo])
   return p
+}
+
+// Arrastrar con el ratón una tira que solo se movía con la rueda o la barra.
+// El dedo ya lo hace de serie, así que esto solo entra con puntero de ratón.
+function useArrastreX(ref) {
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let activo = false
+    let inicioX = 0
+    let inicioScroll = 0
+
+    const bajar = (e) => {
+      if (e.pointerType !== 'mouse') return
+      activo = true
+      inicioX = e.clientX
+      inicioScroll = el.scrollLeft
+      // El encaje pelea con el scroll a mano: se suelta mientras se arrastra y
+      // al soltar el dedo vuelve, que es justo cuando se ve encajar.
+      el.style.scrollSnapType = 'none'
+      el.setPointerCapture(e.pointerId)
+    }
+    const mover = (e) => { if (activo) el.scrollLeft = inicioScroll - (e.clientX - inicioX) }
+    const soltar = (e) => {
+      if (!activo) return
+      activo = false
+      el.style.scrollSnapType = ''
+      try { el.releasePointerCapture(e.pointerId) } catch { /* ya soltado */ }
+    }
+
+    el.addEventListener('pointerdown', bajar)
+    el.addEventListener('pointermove', mover, { passive: true })
+    el.addEventListener('pointerup', soltar)
+    el.addEventListener('pointercancel', soltar)
+    return () => {
+      el.removeEventListener('pointerdown', bajar)
+      el.removeEventListener('pointermove', mover)
+      el.removeEventListener('pointerup', soltar)
+      el.removeEventListener('pointercancel', soltar)
+    }
+  }, [ref])
 }
 
 export function SmoothScroll({ lang }) {
@@ -61,7 +104,7 @@ export function SmoothScroll({ lang }) {
           ))}
         </div>
       </div>
-      <div className="absolute left-0 right-0 bottom-0 flex gap-4 px-3 py-2.5 bg-zinc-950 border-t border-zinc-800">
+      <div className="cd-barra">
         <button className="cd-btn" onClick={() => ir(false)}>{t.saltoSeco}</button>
         <button className="cd-btn" onClick={() => ir(true)}>{t.conInercia}</button>
       </div>
@@ -100,9 +143,11 @@ export function Parallax({ lang }) {
 
 export function ScrollSnap({ lang }) {
   const t = textoDe(lang)
+  const ref = useRef(null)
+  useArrastreX(ref)
   return (
     <div className="cd-box">
-      <div className="cd-scroller-x">
+      <div ref={ref} className="cd-scroller-x cd-snap-x cd-arrastrable">
         <div className="cd-snap">
           {[t.uno, t.dos, t.tres, t.cuatro].map((x) => (
             <div key={x} className="cd-card grid place-items-center h-[92px] font-bold text-indigo-300">{x}</div>
@@ -117,16 +162,23 @@ export function ScrollSnap({ lang }) {
 export function ScrollDriven({ lang }) {
   const t = textoDe(lang)
   const ref = useRef(null)
-  const p = useProgresoScroll(ref)
   const [nativo, setNativo] = useState(false)
+  // Con soporte nativo la barra la mueve el CSS y el bucle de JS sobra.
+  const p = useProgresoScroll(ref, !nativo)
+
   useEffect(() => {
-    setNativo(typeof CSS !== 'undefined' && CSS.supports?.('animation-timeline', 'scroll()'))
+    setNativo(
+      typeof CSS !== 'undefined' &&
+      CSS.supports?.('animation-timeline', 'scroll()') &&
+      CSS.supports?.('timeline-scope', '--v')
+    )
   }, [])
 
   return (
-    <div className="cd-box">
+    <div className="cd-box cd-sd">
       <div className="absolute top-0 left-0 right-0 h-1 bg-zinc-800 z-10">
-        <div className="h-full bg-indigo-500" style={{ width: `${p * 100}%` }} />
+        <div className="cd-sd-js h-full bg-indigo-500" style={{ width: `${p * 100}%` }} />
+        <div className="cd-sd-css h-full bg-indigo-500" />
       </div>
       <div ref={ref} className="cd-scroller pt-4">
         <div className="p-3 pb-8 flex flex-col gap-2">
@@ -135,7 +187,7 @@ export function ScrollDriven({ lang }) {
           ))}
         </div>
       </div>
-      <div className="absolute left-3 bottom-2 font-mono text-[9px] text-zinc-500 pointer-events-none">
+      <div className="absolute left-3 bottom-2 cd-nota pointer-events-none">
         {nativo ? t.cssPuro : t.necesitaJs}
       </div>
     </div>
@@ -221,7 +273,7 @@ export function Marquee({ lang }) {
           ))}
         </div>
       </div>
-      <div className="font-mono text-[9px] text-zinc-500 mt-2">{t.pasaParaParar}</div>
+      <div className="cd-nota mt-2">{t.pasaParaParar}</div>
     </div>
   )
 }
@@ -273,7 +325,7 @@ export function PageTransitions({ lang }) {
           {t.cambiarVista}
         </button>
       </div>
-      <div className="absolute left-3 bottom-2 font-mono text-[9px] text-white/70 pointer-events-none">
+      <div className="absolute left-3 bottom-2 font-mono text-[10px] text-white/80 pointer-events-none">
         {typeof document !== 'undefined' && document.startViewTransition ? t.conViewTransitions : t.sinSoporteNativo}
       </div>
     </div>

@@ -29,7 +29,7 @@ export function Neumorphism({ lang }) {
       >
         {pulsado ? t.hundido : t.enRelieve}
       </button>
-      <span className="font-mono text-[9px]" style={{ color: '#7b8794' }}>{t.pulsaHundir}</span>
+      <span className="font-mono text-[10px]" style={{ color: "#6b7784" }}>{t.pulsaHundir}</span>
     </div>
   )
 }
@@ -80,8 +80,10 @@ export function ViewTransitions({ lang }) {
 
   return (
     <div className="cd-box grid place-items-center gap-2">
-      <div
+      {/* botón y no div: se pulsa con el dedo, con el ratón y con el teclado */}
+      <button
         onClick={alternar}
+        aria-expanded={grande}
         className="cursor-pointer grid place-items-center font-bold text-white overflow-hidden"
         style={{
           width: grande ? 140 : 62,
@@ -93,8 +95,8 @@ export function ViewTransitions({ lang }) {
         }}
       >
         {grande ? t.abierto : '+'}
-      </div>
-      <span className="font-mono text-[9px] text-zinc-500">{soporta ? t.interpola : t.transicionNormal}</span>
+      </button>
+      <span className="cd-nota">{soporta ? t.interpola : t.transicionNormal}</span>
     </div>
   )
 }
@@ -102,9 +104,19 @@ export function ViewTransitions({ lang }) {
 export function Skeleton({ lang }) {
   const t = textoDe(lang)
   const [cargado, setCargado] = useState(false)
+  const temporizador = useRef(0)
+
+  // El botón repite la espera entera. Antes alternaba el estado y se rotulaba
+  // con él, así que ponía "cargando…" cuando lo que hacía era terminar de cargar.
+  const reiniciar = () => {
+    clearTimeout(temporizador.current)
+    setCargado(false)
+    temporizador.current = setTimeout(() => setCargado(true), 2200)
+  }
+
   useEffect(() => {
-    const id = setTimeout(() => setCargado(true), 2200)
-    return () => clearTimeout(id)
+    temporizador.current = setTimeout(() => setCargado(true), 2200)
+    return () => clearTimeout(temporizador.current)
   }, [])
 
   return (
@@ -127,9 +139,7 @@ export function Skeleton({ lang }) {
           )}
         </div>
       </div>
-      <button className="cd-btn mt-4" onClick={() => setCargado((v) => !v)}>
-        {cargado ? t.volverCargar : t.cargando}
-      </button>
+      <button className="cd-btn mt-4" onClick={reiniciar}>{t.volverCargar}</button>
     </div>
   )
 }

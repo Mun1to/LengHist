@@ -163,7 +163,7 @@ export function MicroInteracciones({ lang }) {
       >
         {me ? t.meGustaOk : t.meGusta}
       </button>
-      <span className="font-mono text-[9px] text-zinc-500">{t.hoverPulsaSuelta}</span>
+      <span className="cd-nota">{t.hoverPulsaSuelta}</span>
     </div>
   )
 }
@@ -175,11 +175,13 @@ export function CursorBlend({ lang }) {
   return (
     <div ref={ref} className="cd-box grid place-items-center overflow-hidden cursor-none" style={{ background: '#e4e4e7' }}>
       <div className="font-extrabold text-2xl tracking-tight" style={{ color: '#09090b' }}>{t.invertido}</div>
+      {/* left/top en % van sobre la caja; el % de translate iba sobre el propio
+          círculo, así que se movía 54px como mucho y no salía de la esquina */}
       <div
         className="cd-dot cd-blend"
-        style={{ width: 54, height: 54, left: 0, top: 0,
-                 transform: `translate(${x * 100}%, ${y * 100}%)`,
-                 marginLeft: -27, marginTop: -27,
+        style={{ width: 54, height: 54,
+                 left: `${x * 100}%`, top: `${y * 100}%`,
+                 transform: 'translate(-50%, -50%)',
                  opacity: dentro ? 1 : 0.35,
                  transition: 'opacity .2s' }}
       />

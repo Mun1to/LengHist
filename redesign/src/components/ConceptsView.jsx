@@ -1,43 +1,10 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, Copy } from 'lucide-react'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import { CONCEPT_EXAMPLES } from '../data/conceptExamples'
 import { CONCEPT_EXAMPLES_EN } from '../data/conceptExamplesEn'
 import ConceptDemo from './ConceptDemo'
-
-function Ejemplo({ t, code }) {
-  const [copied, setCopied] = useState(false)
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(code)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1600)
-    } catch {
-      setCopied(false)
-    }
-  }
-
-  return (
-    <div className="mt-3 rounded-lg overflow-hidden bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
-      <div className="flex items-center justify-between gap-2 px-2.5 py-1 border-b border-zinc-200 dark:border-zinc-800">
-        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">{t.conceptExample}</span>
-        <button
-          onClick={copy}
-          className="inline-flex items-center gap-1 text-[10px] text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
-        >
-          {copied ? <Check size={10} /> : <Copy size={10} />}
-          {copied ? t.compCopied : t.compCopy}
-        </button>
-      </div>
-      <pre className="px-2.5 py-2 overflow-x-auto font-mono text-[11px] leading-relaxed text-zinc-600 dark:text-zinc-300">
-        {code}
-      </pre>
-    </div>
-  )
-}
+import CodeSample from './CodeSample'
 
 export default function ConceptsView({ t, lang, groups, onClear, favorites, onToggleFav }) {
   const total = groups.reduce((n, g) => n + g.items.length, 0)
@@ -45,13 +12,17 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
   // unos pocos cambian al traducirse, y esos traen nameEn y tagEn.
   const ejemplos = lang === 'en' ? CONCEPT_EXAMPLES_EN : CONCEPT_EXAMPLES
 
+  // La rejilla usa el ancho que haya, como ya hacía la de Lenguajes: estaba
+  // capada a 1024px y en una pantalla ancha sobraba media página a la derecha.
+  // El tope solo entra en monitores enormes, para que la tarjeta no crezca sin
+  // final; la tercera columna, cuando cabe con el código cómodo.
   return (
-    <section className="px-6 sm:px-10 py-12 max-w-5xl">
-      <div className="flex items-baseline justify-between gap-4 mb-2">
+    <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
+      <div className="flex items-baseline justify-between gap-4 mb-2 max-w-3xl">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.conceptsTitle}</h1>
         <span className="font-mono text-xs text-zinc-400 shrink-0">{total}</span>
       </div>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-10">{t.conceptsSub}</p>
+      <p className="text-zinc-500 dark:text-zinc-400 mb-10 max-w-2xl">{t.conceptsSub}</p>
 
       {groups.length === 0 ? (
         <EmptyState t={t} onClear={onClear} />
@@ -62,7 +33,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
               <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">
                 {group.label[lang]}
               </h2>
-              <div className="grid sm:grid-cols-2 gap-3 items-start">
+              <div className="grid sm:grid-cols-2 2xl:grid-cols-3 gap-3 items-start">
                 {group.items.map((c, i) => (
                   <motion.div
                     key={c.name}
@@ -85,7 +56,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                       <b className="text-zinc-500 dark:text-zinc-400">{t.conceptUse}:</b> {c[lang].use}
                     </p>
                     <ConceptDemo nombre={c.name} etiqueta={t.conceptDemo} lang={lang} />
-                    {ejemplos[c.name] && <Ejemplo t={t} code={ejemplos[c.name]} />}
+                    <CodeSample t={t} etiqueta={t.conceptExample} bloques={ejemplos[c.name]} />
                   </motion.div>
                 ))}
               </div>

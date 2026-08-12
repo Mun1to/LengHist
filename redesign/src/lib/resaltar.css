@@ -1,0 +1,60 @@
+/* Colores del resaltado de sintaxis. Van con prefijo vs- y como variables para
+   que la paleta se cambie en un sitio. El tema sigue al del sistema, igual que
+   el resto de la web. */
+
+:root {
+  --vs-txt: #3f3f46;
+  --vs-com: #71717a;
+  --vs-key: #4f46e5;
+  --vs-fn:  #0369a1;
+  --vs-str: #047857;
+  --vs-num: #b45309;
+  --vs-sel: #a21caf;
+  --vs-pro: #0369a1;
+  --vs-at:  #6d28d9;
+  --vs-glo: #be123c;
+  --vs-pun: #71717a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vs-txt: #d4d4d8;
+    --vs-com: #a1a1aa;
+    --vs-key: #a5b4fc;
+    --vs-fn:  #7dd3fc;
+    --vs-str: #86efac;
+    --vs-num: #fcd34d;
+    --vs-sel: #f0abfc;
+    --vs-pro: #7dd3fc;
+    --vs-at:  #c4b5fd;
+    --vs-glo: #fda4af;
+    --vs-pun: #82828c;
+  }
+}
+
+.vs-pre {
+  white-space: pre-wrap;
+  overflow-x: auto;
+  color: var(--vs-txt);
+}
+
+/* Cada línea es su propio bloque con sangría colgante: así una línea larga se
+   envuelve y se sigue leyendo como continuación, en vez de esconderse detrás de
+   un scroll horizontal que casi nadie descubre. */
+.vs-linea {
+  display: block;
+  padding-inline-start: 2ch;
+  text-indent: -2ch;
+  min-height: 1.625em;
+}
+
+.vs-com { color: var(--vs-com); font-style: italic }
+.vs-key { color: var(--vs-key) }
+.vs-fn  { color: var(--vs-fn) }
+.vs-str { color: var(--vs-str) }
+.vs-num { color: var(--vs-num) }
+.vs-sel { color: var(--vs-sel) }
+.vs-pro { color: var(--vs-pro) }
+.vs-at  { color: var(--vs-at); font-weight: 600 }
+.vs-glo { color: var(--vs-glo) }
+.vs-pun { color: var(--vs-pun) }

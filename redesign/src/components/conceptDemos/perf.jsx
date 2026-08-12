@@ -30,14 +30,14 @@ export function AnimarTransform({ lang }) {
   return (
     <div className="cd-box p-3 flex flex-col justify-center gap-4">
       <div>
-        <div className="font-mono text-[9px] text-emerald-400 mb-1.5">{t.transformGpu}</div>
+        <div className="font-mono text-[10px] text-emerald-400 mb-1.5">{t.transformGpu}</div>
         <div className="cd-good w-8 h-5 rounded bg-emerald-500" />
       </div>
       <div>
-        <div className="font-mono text-[9px] text-rose-400 mb-1.5">{t.marginRecalcula}</div>
+        <div className="font-mono text-[10px] text-rose-400 mb-1.5">{t.marginRecalcula}</div>
         <div className="cd-bad w-8 h-5 rounded bg-rose-500" />
       </div>
-      <div className="font-mono text-[9px] text-zinc-500">{t.mismoMovimiento}</div>
+      <div className="cd-nota">{t.mismoMovimiento}</div>
     </div>
   )
 }
@@ -109,18 +109,18 @@ export function CoreWebVitals({ lang }) {
 
   return (
     <div className="cd-box p-3 flex flex-col justify-center gap-2.5">
-      <div className="font-mono text-[9px] text-zinc-500">{t.medidoAhora}</div>
+      <div className="cd-nota">{t.medidoAhora}</div>
       <div className="flex items-baseline gap-2">
         <span className="font-mono text-[11px] text-zinc-400 w-9">LCP</span>
         <span className={`font-mono text-lg font-bold ${bien(m.lcp, 2500)}`}>
           {m.lcp == null ? '—' : `${(m.lcp / 1000).toFixed(2)} s`}
         </span>
-        <span className="font-mono text-[9px] text-zinc-600">{t.buenoLcp}</span>
+        <span className="cd-nota">{t.buenoLcp}</span>
       </div>
       <div className="flex items-baseline gap-2">
         <span className="font-mono text-[11px] text-zinc-400 w-9">CLS</span>
         <span className={`font-mono text-lg font-bold ${bien(m.cls, 0.1)}`}>{m.cls.toFixed(3)}</span>
-        <span className="font-mono text-[9px] text-zinc-600">{t.buenoCls}</span>
+        <span className="cd-nota">{t.buenoCls}</span>
       </div>
     </div>
   )
@@ -149,7 +149,7 @@ export function ReducedMotion({ lang }) {
       </div>
       <div className="text-center">
         <div className="font-semibold text-zinc-200">{reduce ? t.pidesMenos : t.aceptasMovimiento}</div>
-        <div className="font-mono text-[9px] text-zinc-500 mt-0.5">{t.leidoSistema}</div>
+        <div className="cd-nota mt-0.5">{t.leidoSistema}</div>
       </div>
     </div>
   )
@@ -171,14 +171,14 @@ export function ProgressiveEnhancement({ lang }) {
 
   return (
     <div className="cd-box p-3 flex flex-col justify-center gap-1">
-      <div className="font-mono text-[9px] text-zinc-500 mb-1">{t.tuNavegadorTrae}</div>
+      <div className="cd-nota mb-1">{t.tuNavegadorTrae}</div>
       {soporte.map(([n, ok]) => (
         <div key={n} className="flex items-center gap-2 font-mono text-[10px]">
           <span className={ok ? 'text-emerald-400' : 'text-zinc-600'}>{ok ? '✓' : '·'}</span>
           <span className={ok ? 'text-zinc-300' : 'text-zinc-600'}>{n}</span>
         </div>
       ))}
-      <div className="font-mono text-[9px] text-zinc-500 mt-1">{t.seDegrada}</div>
+      <div className="cd-nota mt-1">{t.seDegrada}</div>
     </div>
   )
 }
@@ -221,7 +221,7 @@ export function LazyLoading({ lang }) {
   return (
     <div className="cd-box">
       <div className="cd-scroller p-2 flex flex-col gap-2">
-        <div className="font-mono text-[9px] text-zinc-500">{t.bajaCadaFoto}</div>
+        <div className="cd-nota">{t.bajaCadaFoto}</div>
         {[1, 2, 3, 4].map((n) => (
           <div key={n} className="relative h-[86px] rounded overflow-hidden bg-zinc-800 shrink-0">
             <img
@@ -233,7 +233,7 @@ export function LazyLoading({ lang }) {
               className="w-full h-full object-cover"
               onLoad={() => setCargadas((c) => ({ ...c, [n]: true }))}
             />
-            <span className="absolute left-1.5 bottom-1.5 font-mono text-[9px] px-1 text-white"
+            <span className="absolute left-1.5 bottom-1.5 font-mono text-[10px] px-1 text-white"
                   style={{ textShadow: '0 1px 6px #000' }}>
               {t.foto} {n} · {cargadas[n] ? t.cargada : t.esperando}
             </span>
@@ -276,7 +276,7 @@ export function DebounceThrottle({ lang }) {
         <span className="text-emerald-400">debounce {n.deb}</span>
         <span className="text-cyan-400">throttle {n.thr}</span>
       </div>
-      <div className="font-mono text-[9px] text-zinc-500">{t.debounceThrottle}</div>
+      <div className="cd-nota">{t.debounceThrottle}</div>
     </div>
   )
 }
@@ -305,7 +305,7 @@ export function RequestAnimationFrame({ lang }) {
       <div ref={ref} className="w-9 h-9 rounded-full bg-indigo-500" />
       <div className="text-center">
         <div className="font-mono text-lg font-bold text-indigo-300">{fps} fps</div>
-        <div className="font-mono text-[9px] text-zinc-500">{t.unFotograma}</div>
+        <div className="cd-nota">{t.unFotograma}</div>
       </div>
     </div>
   )

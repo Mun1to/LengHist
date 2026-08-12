@@ -19,7 +19,7 @@ export function ContainerQueries({ lang }) {
       </div>
       <input type="range" min="140" max="320" value={ancho} className={rango}
              onChange={(e) => setAncho(+e.target.value)} />
-      <div className="font-mono text-[9px] text-zinc-500 text-center">{t.contenedorMide(ancho)}</div>
+      <div className="cd-nota text-center">{t.contenedorMide(ancho)}</div>
     </div>
   )
 }
@@ -34,7 +34,7 @@ export function FluidTypography({ lang }) {
       </div>
       <input type="range" min="120" max="330" value={ancho} className={rango}
              onChange={(e) => setAncho(+e.target.value)} />
-      <div className="font-mono text-[9px] text-zinc-500 text-center">{t.unaLineaCss}</div>
+      <div className="cd-nota text-center">{t.unaLineaCss}</div>
     </div>
   )
 }
@@ -66,7 +66,7 @@ export function CascadeLayers({ lang }) {
         <div>cd-util  →  {t.colorVerde}</div>
       </div>
       <div className="cd-layer-demo font-extrabold text-lg">{t.ganaUltima}</div>
-      <div className="font-mono text-[9px] text-zinc-500">{t.mismaEspecificidad}</div>
+      <div className="cd-nota">{t.mismaEspecificidad}</div>
     </div>
   )
 }
@@ -83,7 +83,7 @@ export function ColorMix() {
       </div>
       <input type="range" min="0" max="100" value={pct} className={rango}
              onChange={(e) => setPct(+e.target.value)} />
-      <div className="font-mono text-[9px] text-zinc-500 text-center truncate">
+      <div className="cd-nota text-center truncate">
         in oklab, #6366f1 {pct}%, #f97316
       </div>
     </div>
@@ -127,7 +127,7 @@ export function LogicalProperties({ lang }) {
       <button className="cd-btn" onClick={() => setRtl((v) => !v)}>
         {t.direccion}: {rtl ? 'rtl' : 'ltr'}
       </button>
-      <div className="font-mono text-[9px] text-zinc-500">{t.bordeCambia}</div>
+      <div className="cd-nota">{t.bordeCambia}</div>
     </div>
   )
 }

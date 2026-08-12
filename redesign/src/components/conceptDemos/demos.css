@@ -46,6 +46,16 @@
   pointer-events: none;
 }
 
+/* La letra pequeña que explica qué está pasando dentro de la caja. Iba a 9px en
+   zinc-500, que sobre este fondo se queda en el filo de lo legible: es texto que
+   lleva la explicación, así que sube de tamaño y de contraste. */
+.cd-nota {
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  line-height: 1.45;
+  color: #a1a1aa;
+}
+
 .cd-card {
   background: #18181b;
   border: 1px solid #27272a;
@@ -71,11 +81,59 @@
 /* --- Scroll interactivo --- */
 .cd-parallax-layer { position: absolute; inset: -20% 0; will-change: transform }
 
-.cd-snap { display: flex; gap: 8px; padding: 0 12px; scroll-snap-type: x mandatory; height: 100% }
+/* Barra de controles pegada al fondo de una caja con scroll. El degradado funde
+   el contenido que pasa por detrás: sin él, la fila que quedaba a medias parecía
+   un recorte mal hecho en vez de "sigue habiendo cosas debajo". */
+.cd-barra {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  gap: 16px;
+  padding: 10px 12px;
+  background: #09090b;
+  border-top: 1px solid #27272a;
+}
+.cd-barra::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 100%;
+  height: 22px;
+  background: linear-gradient(transparent, #09090b);
+  pointer-events: none;
+}
+
+/* scroll-snap-type manda en el elemento que hace el scroll, no en la tira de
+   dentro: puesto en la tira no encajaba nada, que era justo lo que la demo
+   tenía que enseñar. */
+.cd-scroller-x.cd-snap-x { scroll-snap-type: x mandatory }
+.cd-snap { display: flex; gap: 8px; padding: 0 12px; height: 100% }
 .cd-snap > * { scroll-snap-align: center; flex: 0 0 60%; align-self: center }
+/* Con ratón no hay gesto de arrastre nativo, y la demo lo pide: se añade a mano
+   en scroll.jsx, y esto es lo que lo hace parecer arrastrable. */
+.cd-arrastrable { cursor: grab }
+.cd-arrastrable:active { cursor: grabbing }
+.cd-arrastrable * { user-select: none }
 
 .cd-reveal { opacity: 0; transform: translateY(14px); transition: opacity .45s ease, transform .45s ease }
 .cd-reveal[data-in='true'] { opacity: 1; transform: none }
+
+/* La demo de scroll-driven animations presume de que el navegador lo hace sin
+   JS: entonces que lo haga. Donde hay líneas de tiempo de scroll, la barra la
+   mueve el propio CSS; donde no, se queda la de JavaScript. */
+@keyframes cd-progreso { from { scale: 0 1 } to { scale: 1 1 } }
+.cd-sd { timeline-scope: --cd-sd }
+.cd-sd .cd-scroller { scroll-timeline: --cd-sd y }
+.cd-sd-css { display: none }
+
+@supports (animation-timeline: scroll()) and (timeline-scope: --v) {
+  .cd-sd-js { display: none }
+  .cd-sd-css {
+    display: block;
+    transform-origin: left center;
+    animation: cd-progreso linear both;
+    animation-timeline: --cd-sd;
+  }
+}
 
 .cd-sticky-head {
   position: sticky; top: 0; z-index: 2;
@@ -88,7 +146,9 @@
   display: flex; gap: 24px; width: max-content;
   animation: cd-marquee 14s linear infinite;
 }
-.cd-box:hover .cd-marquee-track { animation-play-state: paused }
+/* :active para que con el dedo también se pueda parar: en un móvil no hay hover */
+.cd-box:hover .cd-marquee-track,
+.cd-box:active .cd-marquee-track { animation-play-state: paused }
 
 /* --- Puntero --- */
 .cd-tilt { transition: transform .12s ease-out; transform-style: preserve-3d }
