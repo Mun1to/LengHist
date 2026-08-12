@@ -1,29 +1,34 @@
-# Vibeset redesign (work in progress)
+# redesign — the live Vibeset site
 
-An in-progress React rewrite of Vibeset, exploring a new structure inspired by
-component-library sites: a persistent sidebar, a visual card grid and a live
-code panel instead of a text-heavy modal.
+This directory **is** vibeset.dev. Cloudflare Pages builds it from `main` with root directory
+`redesign`, build `pnpm install && pnpm build`, output `dist`.
 
-**This is not the live site.** Production still runs from the single
-self-contained `index.html` at the repo root, deployed to https://vibeset.dev.
-
-## Status
-
-- 6 sample languages (production has 100)
-- Sections: Languages, Resources, Web concepts, Components
-- Search, category filters and per-section favorites work
-- Not yet ported: the quiz, the comparison table, the timeline view and the
-  full language dataset
-
-## Stack
-
-React 19 + Vite, Tailwind CSS v4, Framer Motion, Lucide icons.
+The `index.html` at the repository root is the original vanilla version, kept as history and no
+longer served. Do not edit it expecting the live site to change.
 
 ## Run it
 
-```
+```bash
 pnpm install
-pnpm dev
+pnpm dev      # http://localhost:5183
+pnpm build    # writes dist/
 ```
 
-Serves on http://localhost:5183.
+## Layout
+
+```
+src/
+├── App.jsx              # sections, filters and shared state
+├── components/          # views and UI
+│   ├── canvasui/        # third-party effects — see ../LICENSING.md
+│   └── arlan/           # third-party effects — see ../LICENSING.md
+└── data/                # the catalogue: languages, resources, concepts,
+                         # components, skills, and the translation maps
+```
+
+Adding content means editing a file in `data/`. Anything with an English version lives in a
+parallel map next to it (`codeEn.js`, `conceptExamplesEn.js`): update both, or the new entry shows
+up in Spanish inside the English site.
+
+Full project documentation, licensing and contribution notes are in the
+[repository README](../README.md).
