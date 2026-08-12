@@ -3,6 +3,10 @@
 Vibeset is not under a single licence, because it is not a single kind of work. The code, the
 catalogue and the brand are different things, and each one has its own rules.
 
+The `LICENSE` file at the root holds the MIT text on its own, with nothing added, so GitHub and
+automated tools detect it correctly. **It covers the source code only.** This document is the full
+map: read it before reusing anything that is not code.
+
 **The short version: take the code, credit the content, leave the name.**
 
 | What | Licence | You may |
