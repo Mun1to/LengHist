@@ -5,6 +5,7 @@ import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import { CONCEPT_EXAMPLES } from '../data/conceptExamples'
 import { CONCEPT_EXAMPLES_EN } from '../data/conceptExamplesEn'
+import ConceptDemo from './ConceptDemo'
 
 function Ejemplo({ t, code }) {
   const [copied, setCopied] = useState(false)
@@ -83,6 +84,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                     <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-2">
                       <b className="text-zinc-500 dark:text-zinc-400">{t.conceptUse}:</b> {c[lang].use}
                     </p>
+                    <ConceptDemo nombre={c.name} etiqueta={t.conceptDemo} lang={lang} />
                     {ejemplos[c.name] && <Ejemplo t={t} code={ejemplos[c.name]} />}
                   </motion.div>
                 ))}

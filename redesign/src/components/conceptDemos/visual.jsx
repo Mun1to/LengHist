@@ -1,0 +1,218 @@
+import { useEffect, useRef, useState } from 'react'
+import { textoDe } from './texto'
+
+// Demos del grupo "Estética y efectos".
+
+const FOTO = '/demo/paisaje-1.jpg'
+
+export function Glassmorphism({ lang }) {
+  const t = textoDe(lang)
+  return (
+    <div className="cd-box grid place-items-center" style={{ background: `url(${FOTO}) center/cover` }}>
+      <div className="cd-glass rounded-xl px-6 py-4 text-center">
+        <div className="font-extrabold text-white">{t.cristal}</div>
+        <div className="text-[10px] text-white/80 mt-0.5">{t.desenfoca}</div>
+      </div>
+    </div>
+  )
+}
+
+export function Neumorphism({ lang }) {
+  const t = textoDe(lang)
+  const [pulsado, setPulsado] = useState(false)
+  return (
+    <div className="cd-box grid place-items-center gap-3" style={{ background: '#e0e5ec' }}>
+      <button
+        className="cd-neu rounded-2xl px-6 py-3 font-bold cursor-pointer"
+        data-pressed={pulsado ? 'true' : 'false'}
+        onClick={() => setPulsado((v) => !v)}
+      >
+        {pulsado ? t.hundido : t.enRelieve}
+      </button>
+      <span className="font-mono text-[9px]" style={{ color: '#7b8794' }}>{t.pulsaHundir}</span>
+    </div>
+  )
+}
+
+export function Aurora() {
+  return (
+    <div className="cd-box grid place-items-center" style={{ background: '#0b0b12' }}>
+      <div className="cd-aurora" style={{ background: 'radial-gradient(40% 40% at 25% 30%, #6366f1, transparent 70%)' }} />
+      <div className="cd-aurora" style={{ background: 'radial-gradient(38% 38% at 75% 35%, #22d3ee, transparent 70%)', animationDelay: '-4s' }} />
+      <div className="cd-aurora" style={{ background: 'radial-gradient(42% 42% at 55% 78%, #a855f7, transparent 70%)', animationDelay: '-8s' }} />
+      <div className="relative font-extrabold text-white text-lg tracking-tight">aurora</div>
+    </div>
+  )
+}
+
+export function ClipPath({ lang }) {
+  const t = textoDe(lang)
+  const [forma, setForma] = useState(0)
+  const formas = [
+    { n: t.poligono, v: 'polygon(0 0, 100% 8%, 100% 100%, 0 92%)' },
+    { n: t.circulo, v: 'circle(42% at 50% 50%)' },
+    { n: t.flecha, v: 'polygon(0 20%, 70% 20%, 70% 0, 100% 50%, 70% 100%, 70% 80%, 0 80%)' },
+  ]
+  const f = formas[forma]
+  return (
+    <div className="cd-box grid place-items-center gap-2">
+      <div
+        className="w-[150px] h-[76px]"
+        style={{ background: `url(${FOTO}) center/cover`, clipPath: f.v, transition: 'clip-path .4s ease' }}
+      />
+      <button className="cd-btn" onClick={() => setForma((i) => (i + 1) % formas.length)}>
+        {t.forma}: {f.n}
+      </button>
+    </div>
+  )
+}
+
+export function ViewTransitions({ lang }) {
+  const t = textoDe(lang)
+  const [grande, setGrande] = useState(false)
+  const soporta = typeof document !== 'undefined' && !!document.startViewTransition
+
+  const alternar = () => {
+    const cambio = () => setGrande((v) => !v)
+    if (document.startViewTransition) document.startViewTransition(cambio)
+    else cambio()
+  }
+
+  return (
+    <div className="cd-box grid place-items-center gap-2">
+      <div
+        onClick={alternar}
+        className="cursor-pointer grid place-items-center font-bold text-white overflow-hidden"
+        style={{
+          width: grande ? 140 : 62,
+          height: grande ? 76 : 62,
+          borderRadius: grande ? 10 : 999,
+          background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+          transition: soporta ? 'none' : 'all .35s ease',
+          viewTransitionName: 'cd-vt-card',
+        }}
+      >
+        {grande ? t.abierto : '+'}
+      </div>
+      <span className="font-mono text-[9px] text-zinc-500">{soporta ? t.interpola : t.transicionNormal}</span>
+    </div>
+  )
+}
+
+export function Skeleton({ lang }) {
+  const t = textoDe(lang)
+  const [cargado, setCargado] = useState(false)
+  useEffect(() => {
+    const id = setTimeout(() => setCargado(true), 2200)
+    return () => clearTimeout(id)
+  }, [])
+
+  return (
+    <div className="cd-box p-3">
+      <div className="flex gap-3 items-center">
+        {cargado
+          ? <div className="w-10 h-10 rounded-full bg-indigo-500 shrink-0" />
+          : <div className="cd-skeleton w-10 h-10 rounded-full shrink-0" />}
+        <div className="flex-1 flex flex-col gap-2">
+          {cargado ? (
+            <>
+              <div className="font-bold text-zinc-100">Munir Torres</div>
+              <div className="text-[11px] text-zinc-400">{t.construyendo}</div>
+            </>
+          ) : (
+            <>
+              <div className="cd-skeleton h-3 w-[60%]" />
+              <div className="cd-skeleton h-3 w-[85%]" />
+            </>
+          )}
+        </div>
+      </div>
+      <button className="cd-btn mt-4" onClick={() => setCargado((v) => !v)}>
+        {cargado ? t.volverCargar : t.cargando}
+      </button>
+    </div>
+  )
+}
+
+export function TipografiaCinetica({ lang }) {
+  const t = textoDe(lang)
+  const [ronda, setRonda] = useState(0)
+  return (
+    <div className="cd-box grid place-items-center gap-3">
+      <div className="font-extrabold text-2xl tracking-tight text-indigo-200">
+        {t.palabraCinetica.split('').map((c, i) => (
+          <span key={`${ronda}-${i}`} className="cd-char" style={{ animationDelay: `${i * 45}ms` }}>{c}</span>
+        ))}
+      </div>
+      <button className="cd-btn" onClick={() => setRonda((r) => r + 1)}>{t.otraVez}</button>
+    </div>
+  )
+}
+
+export function Noise({ lang }) {
+  const t = textoDe(lang)
+  const [on, setOn] = useState(true)
+  return (
+    <div className="cd-box grid place-items-center">
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #4f46e5, #0891b2)' }} />
+      {on && (
+        <svg className="absolute inset-0 w-full h-full opacity-[.22] mix-blend-overlay pointer-events-none">
+          <filter id="cd-grano">
+            <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#cd-grano)" />
+        </svg>
+      )}
+      <div className="relative text-center">
+        <div className="font-extrabold text-white text-lg">{on ? t.conGrano : t.plano}</div>
+        <button className="cd-btn mt-1" style={{ color: '#fff', borderColor: 'rgba(255,255,255,.5)' }} onClick={() => setOn((v) => !v)}>
+          {t.cambiar}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export function Preloader({ lang }) {
+  const t = textoDe(lang)
+  const [cargando, setCargando] = useState(true)
+  const timer = useRef(0)
+
+  useEffect(() => {
+    timer.current = setTimeout(() => setCargando(false), 1800)
+    return () => clearTimeout(timer.current)
+  }, [])
+
+  const reiniciar = () => {
+    clearTimeout(timer.current)
+    setCargando(true)
+    timer.current = setTimeout(() => setCargando(false), 1800)
+  }
+
+  return (
+    <div className="cd-box grid place-items-center">
+      <div className="text-center">
+        <div className="font-extrabold text-lg text-indigo-200">{t.contenidoListo}</div>
+        <button className="cd-btn mt-1" onClick={reiniciar}>{t.volverCargar}</button>
+      </div>
+      <div
+        className="absolute inset-0 grid place-items-center bg-zinc-950"
+        style={{ opacity: cargando ? 1 : 0, pointerEvents: cargando ? 'auto' : 'none', transition: 'opacity .5s ease' }}
+      >
+        <div className="cd-spinner" />
+      </div>
+    </div>
+  )
+}
+
+export const DEMOS = {
+  Glassmorphism: Glassmorphism,
+  Neumorphism: Neumorphism,
+  'Aurora / mesh gradient': Aurora,
+  'Clip-path y máscaras': ClipPath,
+  'View Transitions': ViewTransitions,
+  'Skeleton loaders': Skeleton,
+  'Tipografía cinética': TipografiaCinetica,
+  'Noise / grain': Noise,
+  Preloader: Preloader,
+}

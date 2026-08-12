@@ -1,0 +1,170 @@
+/* Estilos de las demos de Conceptos web.
+   Todo va con prefijo cd- para no chocar con nada del resto del sitio, y las
+   animaciones viven aquí porque Tailwind no cubre keyframes a medida. */
+
+.cd-box {
+  position: relative;
+  height: 150px;
+  border-radius: .5rem;
+  overflow: hidden;
+  background: #09090b;
+  color: #e4e4e7;
+  font-size: 12px;
+}
+
+/* Cajas con scroll propio: la demo nunca toca el scroll de la página */
+.cd-scroller {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 transparent;
+}
+.cd-scroller-x {
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 transparent;
+}
+.cd-scroller::-webkit-scrollbar,
+.cd-scroller-x::-webkit-scrollbar { width: 6px; height: 6px }
+.cd-scroller::-webkit-scrollbar-thumb,
+.cd-scroller-x::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px }
+
+/* Pista de que la caja se puede tocar o desplazar */
+.cd-hint {
+  position: absolute;
+  right: 8px;
+  bottom: 7px;
+  z-index: 5;
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: .04em;
+  color: #a1a1aa;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .9);
+  pointer-events: none;
+}
+
+.cd-card {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: .4rem;
+  padding: 10px 12px;
+}
+
+.cd-btn {
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: #c7d2fe;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(129, 140, 248, .4);
+  padding: 0 0 1px;
+  cursor: pointer;
+  transition: color .18s, border-color .18s;
+}
+.cd-btn:hover { color: #fff; border-color: #818cf8 }
+.cd-btn[data-on='true'] { color: #fff; border-color: #818cf8 }
+
+/* --- Scroll interactivo --- */
+.cd-parallax-layer { position: absolute; inset: -20% 0; will-change: transform }
+
+.cd-snap { display: flex; gap: 8px; padding: 0 12px; scroll-snap-type: x mandatory; height: 100% }
+.cd-snap > * { scroll-snap-align: center; flex: 0 0 60%; align-self: center }
+
+.cd-reveal { opacity: 0; transform: translateY(14px); transition: opacity .45s ease, transform .45s ease }
+.cd-reveal[data-in='true'] { opacity: 1; transform: none }
+
+.cd-sticky-head {
+  position: sticky; top: 0; z-index: 2;
+  background: #4f46e5; color: #fff;
+  padding: 6px 12px; font-weight: 700;
+}
+
+@keyframes cd-marquee { to { transform: translateX(-50%) } }
+.cd-marquee-track {
+  display: flex; gap: 24px; width: max-content;
+  animation: cd-marquee 14s linear infinite;
+}
+.cd-box:hover .cd-marquee-track { animation-play-state: paused }
+
+/* --- Puntero --- */
+.cd-tilt { transition: transform .12s ease-out; transform-style: preserve-3d }
+.cd-magnet { transition: translate .25s cubic-bezier(.2,.8,.2,1) }
+.cd-dot { position: absolute; width: 22px; height: 22px; border-radius: 50%; pointer-events: none }
+.cd-blend { mix-blend-mode: difference; background: #fff }
+
+.cd-micro { transition: transform .18s ease, background .18s ease }
+.cd-micro:hover { transform: translateY(-2px) }
+.cd-micro:active { transform: scale(.96) }
+
+/* --- Estética --- */
+.cd-glass {
+  backdrop-filter: blur(10px) saturate(1.5);
+  background: rgb(255 255 255 / .1);
+  border: 1px solid rgb(255 255 255 / .18);
+}
+.cd-neu {
+  background: #e0e5ec; color: #3f4b5b;
+  box-shadow: 7px 7px 14px #b8bec7, -7px -7px 14px #ffffff;
+}
+.cd-neu[data-pressed='true'] { box-shadow: inset 5px 5px 10px #b8bec7, inset -5px -5px 10px #ffffff }
+
+@keyframes cd-aurora {
+  0%   { transform: translate3d(-6%, -4%, 0) scale(1.1) }
+  50%  { transform: translate3d(6%, 5%, 0) scale(1.25) }
+  100% { transform: translate3d(-6%, -4%, 0) scale(1.1) }
+}
+.cd-aurora { position: absolute; inset: -30%; animation: cd-aurora 12s ease-in-out infinite; filter: blur(14px) }
+
+@keyframes cd-shine { to { background-position: -200% 0 } }
+.cd-skeleton {
+  background: linear-gradient(90deg, #27272a, #3f3f46, #27272a);
+  background-size: 200% 100%;
+  animation: cd-shine 1.4s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+.cd-char { display: inline-block; animation: cd-char-in .6s both }
+@keyframes cd-char-in { from { opacity: 0; transform: translateY(16px) rotate(6deg) } }
+
+@keyframes cd-spin { to { transform: rotate(360deg) } }
+.cd-spinner {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid #3f3f46; border-top-color: #818cf8;
+  animation: cd-spin .8s linear infinite;
+}
+
+/* --- Rendimiento --- */
+@keyframes cd-slide-good { to { transform: translateX(150px) } }
+@keyframes cd-vaiven { to { transform: translateX(102px) } }
+@keyframes cd-slide-bad { to { margin-left: 150px } }
+.cd-good { animation: cd-slide-good 1.8s ease-in-out infinite alternate }
+.cd-bad { animation: cd-slide-bad 1.8s ease-in-out infinite alternate }
+
+/* --- CSS moderno --- */
+.cd-resize { resize: horizontal; overflow: auto; min-width: 130px; max-width: 100% }
+.cd-cq { container-type: inline-size }
+@container (min-width: 260px) { .cd-cq-grid { grid-template-columns: 1fr 1fr } }
+.cd-fluid { font-size: clamp(.9rem, 7cqi, 2.2rem) }
+
+.cd-has-form:has(input:checked) .cd-has-panel { opacity: 1; translate: 0 0 }
+.cd-has-panel { opacity: .25; translate: 0 6px; transition: opacity .25s, translate .25s }
+
+@layer cd-base, cd-comp, cd-util;
+@layer cd-base { .cd-layer-demo { color: #a1a1aa } }
+@layer cd-comp { .cd-layer-demo { color: #818cf8 } }
+@layer cd-util { .cd-layer-demo { color: #34d399 } }
+
+.cd-subgrid { display: grid; grid-template-rows: subgrid; grid-row: span 3; gap: 4px }
+
+/* Con movimiento reducido, las demos siguen viéndose: son el contenido de la
+   página. Lo que se recorta es la amplitud, no la información. */
+@media (prefers-reduced-motion: reduce) {
+  .cd-marquee-track { animation-duration: 34s }
+  .cd-aurora { animation-duration: 26s }
+  .cd-good, .cd-bad { animation-duration: 3.4s }
+  .cd-char { animation-duration: .3s }
+}
