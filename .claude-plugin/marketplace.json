@@ -28,6 +28,30 @@
       "author": {
         "name": "Mun1to"
       }
+    },
+    {
+      "name": "smart-defaults",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Mun1to/SmartDefaults.git"
+      },
+      "description": "Makes a website start in the visitor's own theme and language, with no flash and no forced redirects.",
+      "license": "MIT",
+      "author": {
+        "name": "Mun1to"
+      }
+    },
+    {
+      "name": "spanish-cave-man",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Mun1to/SpanishCaveMan.git"
+      },
+      "description": "Caveman-style token efficiency, spoken with a real Spanish regional accent: eleven dialects, two intensity levels.",
+      "license": "MIT",
+      "author": {
+        "name": "Mun1to"
+      }
     }
   ]
 }
