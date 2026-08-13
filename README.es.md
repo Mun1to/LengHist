@@ -8,7 +8,7 @@
 ### Un sitio con todo lo que necesitas para construir en la web
 
 100 lenguajes de programación, 64 herramientas de frontend, 41 técnicas de diseño, 12 componentes
-en vivo y 12 skills de agente. Gratis, bilingüe, sin registro y sin rastreo.
+en vivo y 13 skills de agente. Gratis, bilingüe, sin registro y sin rastreo.
 
 <a href="https://vibeset.dev">
   <img alt="Abrir vibeset.dev" src=".github/assets/boton-abrir.svg" width="268">
@@ -55,7 +55,7 @@ qué sirve y un ejemplo copiable con lo mínimo que hay que escribir.
 uno corriendo a tamaño real con sus mandos a la vista. Mueve los controles y copia el código con tus
 valores ya puestos. Cada efecto lleva el crédito y el enlace de su autor original.
 
-**12 skills de agente.** Instrucciones que le das una vez a tu agente de código y ya se sabe para
+**13 skills de agente.** Instrucciones que le das una vez a tu agente de código y ya se sabe para
 siempre: revisar una pantalla en móvil, auditar accesibilidad, revisar un diff, depurar hasta la
 causa real, escribir el mensaje de un commit. Copias el `SKILL.md`, lo pegas en su carpeta y listo.
 

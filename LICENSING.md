@@ -57,7 +57,7 @@ The written material and the curated data:
 - the 100 language profiles (descriptions, uses, pros and cons, code examples),
 - the 64 resource entries,
 - the 41 web design concepts and their examples,
-- the 12 agent skills, including the body of every `SKILL.md`,
+- the 13 agent skills, including the body of every `SKILL.md`,
 - the interface copy in both languages.
 
 **Take it.** Copy it, translate it, adapt it, teach with it, build a product on top of it and charge

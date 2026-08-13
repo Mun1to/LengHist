@@ -8,7 +8,7 @@
 ### One place with everything you need to build for the web
 
 100 programming languages, 64 frontend tools, 41 design techniques, 12 live components and
-12 agent skills. Free, bilingual, no sign-up, no tracking.
+13 agent skills. Free, bilingual, no sign-up, no tracking.
 
 <a href="https://vibeset.dev">
   <img alt="Open vibeset.dev" src=".github/assets/boton-open.svg" width="268">
@@ -55,7 +55,7 @@ for, and a copyable example of the smallest code that makes it work.
 running at full size with its controls exposed. Move the knobs and copy the code with your values
 already in it. Every effect credits and links its original author.
 
-**12 agent skills.** Instructions you hand your coding agent once and it knows for good: check a
+**13 agent skills.** Instructions you hand your coding agent once and it knows for good: check a
 screen on mobile, audit accessibility, review a diff, debug down to the root cause, write a commit
 message. Copy the `SKILL.md`, drop it in its folder, done.
 

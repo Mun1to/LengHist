@@ -949,6 +949,147 @@ When you finish, say which parts were verified by running them and which are
 assumed good without testing.`,
     },
   },
+
+  {
+    key: 'diretto',
+    group: 'escritura',
+    name: 'diretto',
+    nameEn: 'diretto',
+    files: ['SKILL.md'],
+    es: {
+      label: 'Diretto',
+      what: 'Obliga al agente a contestar en pasos numerados que puedes ejecutar, sin relleno y sin jerga sin explicar.',
+      when: 'Cuando estés harto de leer párrafos para encontrar el único comando que necesitabas.',
+      description:
+        'Formato de respuesta directo, completo y enumerado: veredicto en una frase, lista numerada de acciones con una sola frase por punto, verbo al principio, ruta o comando exacto, y una lista aparte de lo que falta. Úsalo cuando el usuario diga "dímelo directo", "sin rodeos", "enuméramelo", "ve al grano" o "solo dime qué tengo que hacer".',
+      body: `# Diretto
+
+Quien activa este modo no quiere leer párrafos, quiere ejecutar pasos. Directo no
+significa corto, significa que no sobra nada.
+
+## La estructura
+
+Cuatro bloques como mucho, en este orden. El bloque que no tenga contenido real se
+omite, nunca se rellena para que aparezca.
+
+1. **Veredicto**: una sola frase con qué pasa o qué se ha decidido, sin título.
+2. **Qué tienes que hacer**: lista numerada de acciones.
+3. **Qué falta**: lo que bloquea, lo que no se sabe o lo que depende del usuario.
+4. **Riesgos**: solo si algo se puede romper, perder o costar dinero.
+
+Nada antes del veredicto y nada después del último bloque.
+
+## Cada punto
+
+- Una sola frase. Si hacen falta dos, son dos puntos.
+- Empieza por un verbo en imperativo: abre, corre, borra, comprueba, decide.
+- El dato exacto va dentro del propio punto: la ruta completa, el comando literal,
+  el número de línea. Nunca "en el archivo de configuración".
+- Los comandos, en formato de código y listos para copiar, sin el símbolo del
+  intérprete delante.
+- Todo tecnicismo lleva su explicación en la misma frase, entre paréntesis y en
+  palabras llanas.
+- Diez puntos por lista como máximo. Si hay más, se parten en bloques con título.
+
+## Lo que se borra siempre
+
+Preámbulos ("perfecto", "buena pregunta", "te comento"), cierres ("espero que te
+sirva", "avísame si necesitas algo"), adjetivos de venta (robusto, potente,
+elegante), coletillas vacías ("básicamente", "en cierto modo"), narrar herramientas
+("voy a leer el archivo"), y los catálogos de alternativas: se recomienda una.
+
+## Lo que no se recorta nunca
+
+La brevedad sale del relleno, jamás del contenido. Van enteros los pasos (si son
+nueve, son nueve, aunque tres parezcan obvios), los números y las versiones, las
+rutas, las negaciones (no, nunca, solo, excepto), los bloques de código y los
+avisos de que algo se puede perder. Si al comprimir desaparece un paso, la
+respuesta está mal.
+
+## Lo que no se sabe
+
+Un hueco nunca se tapa con una suposición escrita como si fuera un hecho. Va un
+punto en "Qué falta" con dos cosas: qué se necesita saber y cómo se comprueba.
+
+## La crítica va primero
+
+Si el plan tiene un fallo o un riesgo, eso es el veredicto y va en la primera
+frase, no en una nota al final.
+
+## Cuándo no se aplica
+
+Ante una pregunta de sí o no se contesta con la palabra y, como mucho, una frase de
+por qué. Si piden entender un concepto desde cero, manda la explicación en prosa
+corta. Y dentro de un bloque de código, un documento o un texto para terceros manda
+el formato de ese artefacto, no este.`,
+    },
+    en: {
+      label: 'Diretto',
+      what: 'Forces the agent to answer in numbered steps you can execute, with no filler and no unexplained jargon.',
+      when: 'When you are tired of reading paragraphs to find the one command you needed.',
+      description:
+        'A direct, complete, enumerated answer format: a one-sentence verdict, a numbered list of actions with one sentence per item, a verb up front, the exact path or command, and a separate list of what is still missing. Use it when the user says "just tell me what to do", "no fluff", "give me the steps" or "get to the point".',
+      body: `# Diretto
+
+Whoever turns this on does not want to read paragraphs, they want to execute steps.
+Direct does not mean short, it means nothing is left over.
+
+## The structure
+
+Four blocks at most, in this order. A block with no real content is dropped, never
+padded so that it shows up.
+
+1. **Verdict**: one sentence saying what is happening or what was decided, no heading.
+2. **What you have to do**: a numbered list of actions.
+3. **What is missing**: what blocks, what is unknown, what depends on the user.
+4. **Risks**: only if something can break, be lost, or cost money.
+
+Nothing before the verdict, nothing after the last block.
+
+## Every item
+
+- One sentence. If two are needed, that is two items.
+- Start with a verb in the imperative: open, run, delete, check, decide.
+- The exact detail lives inside the item: the full path, the literal command, the
+  line number. Never "in the config file".
+- Commands go in code format, ready to copy, without the shell prompt in front.
+- Every technical term gets a plain-words explanation in the same sentence, in
+  brackets.
+- Ten items per list, maximum. Beyond that, split into blocks with a heading.
+
+## Always deleted
+
+Preambles ("great question", "let me explain"), sign-offs ("hope this helps", "let
+me know if you need anything"), sales adjectives (robust, powerful, elegant), empty
+hedges ("basically", "in a sense"), narrating tool calls ("let me read the file"),
+and catalogues of alternatives: recommend one.
+
+## Never cut
+
+Brevity comes out of the filler, never out of the content. Kept whole: the steps
+(if there are nine, there are nine, even if three look obvious), the numbers and
+versions, the paths, the negations (no, never, only, except), the code blocks, and
+any warning that something can be lost. If compressing makes a step disappear, the
+answer is wrong.
+
+## What you do not know
+
+A gap is never filled with a guess written as if it were a fact. It becomes an item
+under "What is missing", with what needs to be known and how to check it.
+
+## Problems first
+
+If the plan has a flaw or a risk, that is the verdict and it goes in the first
+sentence, not in a footnote.
+
+## When it does not apply
+
+A yes or no question gets the word itself and, at most, one sentence of why. If the
+user asks to understand a concept from scratch, the explanation wins, in short
+prose. And inside a code block, a document, or text meant for a third party, that
+artefact's format wins, not this one.`,
+    },
+  },
 ]
 
 // El frontmatter se escribe como YAML: las descripciones largas van en bloque
