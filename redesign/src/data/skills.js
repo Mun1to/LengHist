@@ -659,77 +659,149 @@ always passes is testing nothing.`,
   },
 
   {
-    key: 'cierre-de-sesion',
+    key: 'finito',
     group: 'flujo',
-    name: 'cierre-de-sesion',
-    nameEn: 'close-the-session',
-    extra: [['disable-model-invocation', 'true'], ['allowed-tools', 'Read Write Bash(git status:*) Bash(git log:*)']],
-    files: ['SKILL.md', 'plantillas/resumen.md'],
+    name: 'finito',
+    nameEn: 'finito',
+    files: ['SKILL.md'],
     es: {
-      label: 'Cerrar la sesión',
-      what: 'Deja la sesión cerrada con un resumen que se entiende, los próximos pasos y el estado real del repositorio.',
-      when: 'Al terminar de trabajar, antes de cerrar o de compactar la conversación.',
+      label: 'Finito',
+      what: 'Cierra la sesión con un resumen que se entiende y un bloque de traspaso con el que la siguiente sigue sin releer nada.',
+      when: 'Al terminar de trabajar, antes de cerrar la conversación o antes de compactarla.',
       description:
-        'Cierra una sesión de trabajo con un resumen entendible, los próximos pasos y el estado real del repositorio. Úsalo al terminar de trabajar, antes de cerrar la conversación o antes de compactarla.',
-      body: `# Cerrar la sesión
+        'Cierra una sesión de trabajo con un resumen entendible, los próximos pasos, el estado real del repositorio y un bloque de traspaso listo para pegar en la sesión siguiente o después de compactar. Úsalo al terminar de trabajar, cuando el usuario diga que lo deja por hoy, que va a compactar, o que le resumas lo que habéis hecho.',
+      body: `# Finito
 
-Deja tres cosas resueltas: que la persona entienda en treinta segundos qué pasó,
-que quede apuntado lo que la próxima sesión no puede deducir sola, y que el
-estado del repositorio esté dicho sin adornos.
+Una sesión termina dos veces. Primero para la persona, que cierra el portátil y
+necesita saber en treinta segundos qué pasó y qué toca ahora. Después para el
+siguiente agente, que mañana abre un contexto en blanco y no sabe nada de hoy.
 
-## Antes de escribir
+Casi todos los cierres solo sirven al primero. Por eso la sesión siguiente empieza
+releyendo archivos, repreguntando lo que ya se contestó y repitiendo un fallo que
+ya se pagó una vez. El contexto se fue, pero el trabajo del que salió sigue ahí.
 
-Repasa la conversación desde el último cierre y ejecuta git status. El resumen
-tiene que reflejar lo que de verdad pasó, no lo que se recuerda por encima. Lo
-que quedó a medias se cuenta como a medias, nunca como hecho.
+## Antes de escribir nada
 
-## Formato
+Repasa la conversación desde el último cierre y ejecuta git status y git log. El
+cierre tiene que reflejar lo que de verdad pasó, no lo que se recuerda por encima:
+la memoria de una sesión larga es optimista y confunde intenciones con resultados.
+
+Lo que quedó a medias se cuenta como a medias. Lo que no se ejecutó no está
+verificado. Y si un plan se abandonó a mitad, se dice y se dice por qué: eso es lo
+más valioso que hereda la sesión siguiente.
+
+## Lo que solo sabe esta sesión
+
+Hay cosas de hoy que no están en ningún sitio salvo en esta conversación, y
+desaparecen con ella. Antes de responder, guárdalas donde sobrevivan: en los
+documentos del proyecto y en la memoria persistente del agente, si la tiene. Solo
+lo que falte, y actualizando lo que ya exista en vez de duplicarlo.
+
+No guardes lo que el repositorio ya registra. El código y los commits ya están
+escritos: esto es para lo que no se puede deducir de ellos. Si no hay nada nuevo
+que guardar, se dice y ya.
+
+## El formato de la respuesta
 
 1. **Una frase** con lo esencial de la sesión.
-2. **Resumen**, en orden cronológico, máximo ocho puntos. Frases simples, sin
-   jerga: se lee en el móvil.
-3. **Próximos pasos**, máximo cinco, el más importante primero. Acciones
-   concretas, no intenciones.
-4. **Estado del repositorio**: qué quedó sin commitear y sin subir.
+2. **Resumen**, en orden, máximo ocho puntos. Frases simples y sin jerga: se lee
+   en el móvil.
+3. **Próximos pasos**, máximo cinco, el más importante primero.
+4. **Qué se dejó apuntado**, en una línea.
+5. **El bloque de traspaso.**
+
+## El bloque de traspaso
+
+Va dentro de un bloque de código, para copiarlo de un clic y pegarlo al compactar
+o al abrir la sesión siguiente. Lleva cinco partes: el contexto del proyecto y sus
+normas no negociables; lo hecho en orden, con las rutas exactas y el porqué de
+cada decisión; el estado real, con la rama, lo que quedó sin commitear y lo que
+siga corriendo; lo que queda abierto, cada cosa con el dato para retomarla sin
+releer nada; y las trampas del día.
+
+La prueba es simple: ¿podría el siguiente agente continuar solo con este bloque?
+Si un detalle hace falta para seguir, entra.
+
+Las trampas son la parte que todo el mundo se salta y la única que se paga sola.
+Un fallo ya resuelto, resuelto otra vez desde cero, es lo más caro que tiene un
+proyecto largo.
 
 ## Reglas
 
-- Proporción: sesión de veinte minutos, cierre de veinte minutos.
-- No inventes trabajo que no se hizo ni des por verificado lo que no se probó.
-- Nunca hagas commit ni push por tu cuenta al cerrar. Recuérdalo y pregunta.`,
+- Proporción: una sesión de veinte minutos tiene un cierre de veinte minutos.
+- No des por hecho lo que no se hizo ni por verificado lo que no se ejecutó.
+- Nunca hagas commit ni push por tu cuenta al cerrar. Recuérdalo y pregunta.
+- Los números, las versiones y las rutas van completos en las dos mitades.`,
     },
     en: {
-      label: 'Close the session',
-      what: 'Leaves the session closed with a summary you can actually read, the next steps and the real repo state.',
-      when: 'When you stop working, before closing or compacting the conversation.',
+      label: 'Finito',
+      what: 'Closes the session with a summary you can read and a handoff block the next session resumes from without re-reading anything.',
+      when: 'When you stop working, before closing the conversation or before compacting it.',
       description:
-        'Closes a working session with a readable summary, the next steps and the real state of the repository. Use it when you stop working, before closing the conversation or before compacting it.',
-      body: `# Close the session
+        'Closes a working session with a readable summary, the next steps, the real state of the repository and a handoff block ready to paste into the next session or after compacting. Use it when you stop working, when the user says they are done for today, that they are about to compact, or asks for a summary of what you did.',
+      body: `# Finito
 
-Settle three things: that the person understands in thirty seconds what happened,
-that whatever the next session cannot work out on its own is written down, and
-that the repository state is stated without decoration.
+A session ends twice. First for the person, who closes the laptop and needs to know
+in thirty seconds what happened and what comes next. Then for the next agent, who
+opens a blank context tomorrow and knows nothing about today.
 
-## Before writing
+Most closings only serve the first reader. That is why the next session starts by
+re-reading files, re-asking questions already answered, and repeating a mistake
+that was already paid for once. The context is gone, but the work it came from is
+still there.
 
-Go back over the conversation since the last close and run git status. The summary
-must reflect what actually happened, not what you vaguely remember. Anything left
-half done is reported as half done, never as done.
+## Before writing a single line
 
-## Format
+Go back over the conversation since the last close and run git status and git log.
+The closing has to reflect what actually happened, not what you vaguely remember:
+the memory of a long session is optimistic and mistakes intentions for outcomes.
+
+Anything half finished is reported as half finished. Anything not run is not
+verified. And if a plan was abandoned midway, say so and say why: that is the most
+valuable thing the next session can inherit.
+
+## What only this session knows
+
+Some of what happened today lives nowhere but in this conversation, and disappears
+with it. Before answering, put it where it survives: in the project documents, and
+in the agent's persistent memory if it has one. Only what is missing, updating what
+already exists instead of duplicating it.
+
+Do not save what the repository already records. Code and commits are already
+written down: this is for what cannot be worked out from them. If there is nothing
+new worth saving, say so and move on.
+
+## The shape of the answer
 
 1. **One sentence** with the essence of the session.
-2. **Summary**, in chronological order, eight points maximum. Simple sentences,
-   no jargon: it gets read on a phone.
-3. **Next steps**, five maximum, most important first. Concrete actions, not
-   intentions.
-4. **Repository state**: what is uncommitted and unpushed.
+2. **Summary**, in order, eight points maximum. Simple sentences, no jargon: it
+   gets read on a phone.
+3. **Next steps**, five maximum, most important first.
+4. **What got written down**, in one line.
+5. **The handoff block.**
+
+## The handoff block
+
+It goes inside a code block, so it can be copied in one click and pasted when
+compacting or when opening the next session. It carries five parts: the project
+context and its non-negotiable conventions; what was done, in order, with exact
+paths and the reason behind each decision; the real state, with the branch, what is
+uncommitted and whatever is still running; what is left open, each item with the
+detail needed to resume without re-reading anything; and the day's gotchas.
+
+The test is simple: could the next agent carry on with this block alone? If a
+detail is needed to continue, it goes in.
+
+The gotchas are the part everybody skips and the only one that pays for itself. A
+bug already solved, solved again from scratch, is the most expensive thing in a
+long project.
 
 ## Rules
 
-- Proportion: a twenty-minute session gets a twenty-minute close.
-- Do not invent work that never happened or call verified what was never tested.
-- Never commit or push on your own when closing. Mention it and ask.`,
+- Proportion: a twenty minute session gets a twenty minute closing.
+- Do not assume work that was not done or call verified what was never run.
+- Never commit or push on your own when closing. Mention it and ask.
+- Numbers, versions and paths go in full in both halves of the closing.`,
     },
   },
 
