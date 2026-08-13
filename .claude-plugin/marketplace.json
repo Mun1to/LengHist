@@ -1,0 +1,33 @@
+{
+  "name": "vibeset",
+  "description": "Agent skills from Vibeset: instructions you hand your coding agent once and it knows for good.",
+  "owner": {
+    "name": "Mun1to"
+  },
+  "plugins": [
+    {
+      "name": "finito",
+      "source": {
+        "source": "github",
+        "repo": "Mun1to/Finito"
+      },
+      "description": "Closes a working session with a summary you can read and a handoff block the next session resumes from.",
+      "license": "MIT",
+      "author": {
+        "name": "Mun1to"
+      }
+    },
+    {
+      "name": "diretto",
+      "source": {
+        "source": "github",
+        "repo": "Mun1to/Diretto"
+      },
+      "description": "Forces the agent to answer in numbered steps you can execute, with the exact command inside each step and no filler.",
+      "license": "MIT",
+      "author": {
+        "name": "Mun1to"
+      }
+    }
+  ]
+}
