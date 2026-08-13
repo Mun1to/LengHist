@@ -8,8 +8,8 @@
     {
       "name": "finito",
       "source": {
-        "source": "github",
-        "repo": "Mun1to/Finito"
+        "source": "url",
+        "url": "https://github.com/Mun1to/Finito.git"
       },
       "description": "Closes a working session with a summary you can read and a handoff block the next session resumes from.",
       "license": "MIT",
@@ -20,8 +20,8 @@
     {
       "name": "diretto",
       "source": {
-        "source": "github",
-        "repo": "Mun1to/Diretto"
+        "source": "url",
+        "url": "https://github.com/Mun1to/Diretto.git"
       },
       "description": "Forces the agent to answer in numbered steps you can execute, with the exact command inside each step and no filler.",
       "license": "MIT",
