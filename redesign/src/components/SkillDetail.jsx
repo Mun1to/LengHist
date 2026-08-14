@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import CodeBlock from './CodeBlock'
 import FavButton from './FavButton'
-import { skillFile, skillPath, skillTree, slugOf } from '../data/skills'
+import { authorOf, hasOwnRepo, repoLabel, repoOf, skillFile, skillPath, skillTree, slugOf } from '../data/skills'
 
 const DOCS = 'https://code.claude.com/docs/en/skills'
 
@@ -39,6 +39,7 @@ export default function SkillDetail({ t, lang, item, group, onBack, fav, onToggl
   const d = item[lang]
   const slug = slugOf(item, lang)
   const campos = ['name', 'description', ...(item.extra || []).map(([k]) => k)]
+  const autor = authorOf(item)
 
   return (
     <motion.section
@@ -61,6 +62,41 @@ export default function SkillDetail({ t, lang, item, group, onBack, fav, onToggl
       </div>
 
       <div className="font-mono text-[13px] text-indigo-600 dark:text-indigo-400 mt-1.5">/{slug}</div>
+
+      {/* Autoría y código: quién la escribió y dónde vive de verdad el archivo.
+          Una skill aportada por otra persona trae su propio autor y su repo. */}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-xs text-zinc-500 dark:text-zinc-400">
+        <span>
+          {t.skillBy}{' '}
+          <a
+            href={autor.url}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium text-zinc-700 dark:text-zinc-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+          >
+            {autor.name}
+          </a>
+        </span>
+        <span className="text-zinc-300 dark:text-zinc-700">·</span>
+        <a
+          href={repoOf(item)}
+          target="_blank"
+          rel="noreferrer"
+          title={hasOwnRepo(item) ? t.skillOwnRepo : t.skillInThisRepo}
+          className="inline-flex items-center gap-1 font-mono hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors break-all"
+        >
+          {repoLabel(item)}
+          <ArrowUpRight size={11} />
+        </a>
+        {item.plugin && (
+          <>
+            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <span className="font-mono text-[11px] text-zinc-400 dark:text-zinc-500">
+              /plugin install {item.plugin}
+            </span>
+          </>
+        )}
+      </div>
 
       <p className="text-zinc-500 dark:text-zinc-400 mt-4 max-w-2xl leading-relaxed">{d.what}</p>
       <p className="text-sm text-zinc-400 dark:text-zinc-500 mt-2 max-w-2xl leading-relaxed">

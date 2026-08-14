@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useRef } from 'react'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
-import { slugOf } from '../data/skills'
+import { authorOf, hasOwnRepo, repoLabel, slugOf } from '../data/skills'
 
 // Tarjeta clicable entera, como en Componentes: si el usuario estaba
 // seleccionando texto y arrastró, no se abre la ficha.
@@ -37,6 +37,18 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, onOpen, delay }) {
       <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-2">
         <b className="text-zinc-500 dark:text-zinc-400">{t.skillWhen}:</b> {d.when}
       </p>
+
+      {/* Crédito en la propia tarjeta, sin enlace: la tarjeta entera ya es
+          clicable y un enlace dentro competiría con ella. */}
+      <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-zinc-100 dark:border-zinc-800/60 text-[11px] text-zinc-400 dark:text-zinc-500">
+        <span>{t.skillBy} {authorOf(item).name}</span>
+        {hasOwnRepo(item) && (
+          <>
+            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <span className="font-mono break-all">{repoLabel(item)}</span>
+          </>
+        )}
+      </div>
     </motion.div>
   )
 }

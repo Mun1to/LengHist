@@ -8,6 +8,18 @@
 // Cada entrada guarda el cuerpo real de la skill en los dos idiomas, para que
 // lo que se copia desde la web sea un archivo que funciona tal cual.
 
+// Autoría. Las fichas sin campo author son de la casa; una skill aportada por
+// otra persona trae el suyo, para que el crédito viaje con la ficha.
+export const AUTOR_CASA = { name: 'Mun1to', url: 'https://github.com/Mun1to' }
+export const VIBESET_REPO = 'https://github.com/Mun1to/Vibeset'
+
+export const authorOf = (item) => item.author || AUTOR_CASA
+// Algunas skills se publican además como repo propio, instalable como plugin.
+// Las que no, viven en este mismo repositorio: ahí es donde está su código.
+export const hasOwnRepo = (item) => Boolean(item.repo)
+export const repoOf = (item) => item.repo || VIBESET_REPO
+export const repoLabel = (item) => repoOf(item).replace('https://github.com/', '')
+
 export const SKILL_GROUPS = [
   { key: 'web', label: { es: 'Web y diseño', en: 'Web and design' } },
   { key: 'codigo', label: { es: 'Código', en: 'Code' } },
@@ -663,6 +675,8 @@ always passes is testing nothing.`,
     group: 'flujo',
     name: 'finito',
     nameEn: 'finito',
+    repo: 'https://github.com/Mun1to/Finito',
+    plugin: 'finito@vibeset',
     files: ['SKILL.md'],
     es: {
       label: 'Finito',
@@ -1027,6 +1041,8 @@ assumed good without testing.`,
     group: 'escritura',
     name: 'diretto',
     nameEn: 'diretto',
+    repo: 'https://github.com/Mun1to/Diretto',
+    plugin: 'diretto@vibeset',
     files: ['SKILL.md'],
     es: {
       label: 'Diretto',
