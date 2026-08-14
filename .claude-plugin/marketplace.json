@@ -52,6 +52,18 @@
       "author": {
         "name": "Mun1to"
       }
+    },
+    {
+      "name": "webindex",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Mun1to/WebIndex.git"
+      },
+      "description": "Leaves a website ready to be found: robots.txt, sitemap, canonical, Open Graph, JSON-LD and the AI-crawler decision, ending in a measurement.",
+      "license": "MIT",
+      "author": {
+        "name": "Mun1to"
+      }
     }
   ]
 }
