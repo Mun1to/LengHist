@@ -64,6 +64,18 @@
       "author": {
         "name": "Mun1to"
       }
+    },
+    {
+      "name": "galsas",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Mun1to/Galsas.git"
+      },
+      "description": "Audits a repository for legal exposure (AI Act marking, dependency licences, GDPR and cookies, EU consumer sales) and writes a LEGAL.md with the fix for each finding.",
+      "license": "MIT",
+      "author": {
+        "name": "Mun1to"
+      }
     }
   ]
 }
