@@ -24,7 +24,7 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
               {items.map((l) => (
                 <th key={l.name} className="py-3 px-3 text-left">
                   <span className="flex items-center gap-2 font-extrabold" style={{ color: l.color[0] }}>
-                    <span className="text-xl">{l.icon}</span>{l.name}
+                    <span className="w-1.5 h-5 rounded-full shrink-0" style={{ background: l.color[0] }} />{l.name}
                   </span>
                 </th>
               ))}

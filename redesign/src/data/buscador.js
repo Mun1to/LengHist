@@ -25,7 +25,7 @@ export function construirIndice(lang) {
       clave: l.name,
       titulo: l.name,
       sub: `${l.year} · ${recorta(d.desc, 56)}`,
-      icono: l.icon,
+      color: l.color[0],
       busca: [l.name, l.creator, d.desc, d.paradigm, ...d.uses, ...l.extensions, ...l.eco]
         .join(' ').toLowerCase(),
     })

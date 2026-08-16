@@ -137,7 +137,10 @@ export default function Buscador({ t, lang, onAbrir }) {
                           señalado ? 'bg-indigo-500/10' : ''
                         }`}
                       >
-                        {item.icono && <span className="shrink-0 text-base leading-none">{item.icono}</span>}
+                        {/* El mismo distintivo que en la rejilla: una barra con el color del
+                            lenguaje. El emoji quedaba de otra web, y además cada sistema
+                            operativo dibuja el suyo. */}
+                        {item.color && <span className="w-1 h-4 rounded-full shrink-0" style={{ background: item.color }} />}
                         <span className="min-w-0 flex-1">
                           <span className="block text-sm font-semibold text-zinc-900 dark:text-zinc-50 truncate">
                             {item.titulo}

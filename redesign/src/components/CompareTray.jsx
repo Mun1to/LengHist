@@ -19,7 +19,7 @@ export default function CompareTray({ t, names, onRemove, onClear, onOpen }) {
                 const l = LANGUAGES.find((x) => x.name === n)
                 return (
                   <span key={n} className="inline-flex items-center gap-2 text-sm font-semibold">
-                    <span>{l?.icon}</span>
+                    <span className="w-1 h-3.5 rounded-full shrink-0" style={{ background: l?.color[0] }} />
                     {n}
                     <button
                       onClick={() => onRemove(n)}
