@@ -40,3 +40,72 @@ body {
 [data-theme="dark"] .resplandor {
   background: radial-gradient(900px 420px at 12% -10%, rgba(129, 140, 248, 0.22), transparent 70%);
 }
+
+/* ---------------------------------------------------------------------------
+   Respuesta al tacto. Va en una clase compartida y no repetida en cada botón
+   para que el sitio entero responda igual: un botón que se hunde 3% y vuelve es
+   lo que hace que una web se sienta pulsada en vez de mirada. Los tiempos son
+   cortos a propósito (120 ms al soltar, 60 al hundir): por encima de 200 ms deja
+   de leerse como respuesta y empieza a leerse como retraso.
+   --------------------------------------------------------------------------- */
+.pulsable {
+  transition:
+    transform 120ms cubic-bezier(.2, .8, .2, 1),
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+  will-change: transform;
+}
+.pulsable:active {
+  transform: scale(.97);
+  transition-duration: 60ms;
+}
+
+/* Para las tarjetas grandes, que con un 3% se deforman demasiado. */
+.pulsable-suave:active { transform: scale(.99); }
+
+/* Se levanta al pasar por encima y se hunde al pulsar: los dos gestos en la
+   misma pieza, que es lo que la hace parecer un objeto y no una imagen. */
+.alzable:hover { transform: translateY(-2px); }
+.alzable:active { transform: translateY(0) scale(.98); }
+
+/* La flecha que asoma al pasar por encima de una llamada a la acción. */
+.flecha-desliza { transition: transform 160ms cubic-bezier(.2, .8, .2, 1); }
+.grupo-cta:hover .flecha-desliza { transform: translateX(3px); }
+
+/* El foco del teclado tiene que verse tanto como el del ratón: es el único
+   rastro que deja quien no usa ratón. */
+.pulsable:focus-visible,
+.alzable:focus-visible {
+  outline: 2px solid theme(colors.indigo.500);
+  outline-offset: 2px;
+}
+
+/* El icono que aparece al pulsar (la marca de copiado, el sol que sustituye a la
+   luna) entra con un brinco corto. Es lo que hace que el botón conteste en vez
+   de limitarse a cambiar de dibujo. */
+@keyframes brinco {
+  0%   { transform: scale(.55); opacity: 0 }
+  60%  { transform: scale(1.14); opacity: 1 }
+  100% { transform: scale(1); opacity: 1 }
+}
+.brinca { animation: brinco 260ms cubic-bezier(.2, .8, .2, 1) }
+
+/* Quien pide menos movimiento se queda con el cambio de color y sin nada que se
+   desplace. Framer Motion ya lo respeta por su MotionConfig; esto es lo mismo
+   para lo que se anima con CSS. */
+@media (prefers-reduced-motion: reduce) {
+  .brinca { animation: none }
+  .pulsable,
+  .pulsable:active,
+  .pulsable-suave:active,
+  .alzable:hover,
+  .alzable:active,
+  .flecha-desliza,
+  .grupo-cta:hover .flecha-desliza {
+    transform: none;
+    transition-duration: 1ms;
+  }
+}

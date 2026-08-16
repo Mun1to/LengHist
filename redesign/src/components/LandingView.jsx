@@ -23,7 +23,7 @@ function Seccion({ n, titulo, texto, a }) {
   return (
     <Link
       to={a}
-      className="group flex flex-col text-left p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
+      className="group pulsable pulsable-suave alzable flex flex-col text-left p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg hover:shadow-zinc-900/5 dark:hover:shadow-black/30"
     >
       <div className="font-mono text-3xl font-bold text-indigo-600 dark:text-indigo-400">{n}</div>
       <div className="font-bold text-zinc-900 dark:text-zinc-50 mt-2 flex items-center gap-1.5">
@@ -51,13 +51,6 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
               <Logo size={44} wide />
             </motion.div>
 
-            <motion.span
-              {...aparece(0.05)}
-              className="inline-flex items-center font-mono text-[11px] font-bold uppercase tracking-[.12em] text-indigo-600 dark:text-indigo-400 mb-5"
-            >
-              {t.heroKicker}
-            </motion.span>
-
             <motion.h1
               {...aparece(0.1)}
               className="text-[2.4rem] sm:text-[3.1rem] leading-[1.08] font-extrabold tracking-tight text-balance text-zinc-900 dark:text-zinc-50 mb-5"
@@ -66,21 +59,24 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
               <span className="block text-indigo-600 dark:text-indigo-400">{t.heroTitle2}</span>
             </motion.h1>
 
+            {/* Las cuatro promesas ya no van sueltas encima del titular: cierran
+                la descripción, que es donde se leen como parte de la frase. */}
             <motion.p {...aparece(0.15)} className="text-zinc-600 dark:text-zinc-400 text-lg max-w-lg mb-8 leading-relaxed">
-              {t.heroSub}
+              {t.heroSub}{' '}
+              <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{t.heroClaims}</span>
             </motion.p>
 
             <motion.div {...aparece(0.2)} className="flex flex-wrap items-center gap-4">
               <Link
                 to={rutaDe('languages')}
-                className="inline-flex items-center gap-1.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold px-6 py-3 text-sm hover:opacity-90 transition-opacity"
+                className="grupo-cta pulsable alzable inline-flex items-center gap-1.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold px-6 py-3 text-sm hover:shadow-lg hover:shadow-zinc-900/20 dark:hover:shadow-white/10"
               >
                 {t.exploreBtn}
-                <ArrowRight size={15} />
+                <ArrowRight size={15} className="flecha-desliza" />
               </Link>
               <button
                 onClick={onQuiz}
-                className="text-sm font-semibold text-zinc-600 dark:text-zinc-300 border-b border-zinc-300 dark:border-zinc-600 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer pb-0.5"
+                className="pulsable text-sm font-semibold text-zinc-600 dark:text-zinc-300 border-b border-zinc-300 dark:border-zinc-600 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer pb-0.5"
               >
                 {t.testBtn}
               </button>
@@ -140,10 +136,10 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
             <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed mb-6">{t.landingCodeText}</p>
             <Link
               to={rutaDe('languages')}
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 border-b border-indigo-500/40 hover:border-indigo-500 transition-colors pb-0.5"
+              className="grupo-cta pulsable inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 border-b border-indigo-500/40 hover:border-indigo-500 pb-0.5"
             >
               {t.landingCodeCta}
-              <ArrowRight size={14} />
+              <ArrowRight size={14} className="flecha-desliza" />
             </Link>
           </div>
         </div>
