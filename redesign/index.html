@@ -28,7 +28,7 @@
         } catch (e) { /* navegación privada */ }
         var sistemaOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         var oscuro = pref === 'oscuro' || (pref === 'sistema' && sistemaOscuro)
-        document.documentElement.dataset.tema = oscuro ? 'oscuro' : 'claro'
+        document.documentElement.dataset.theme = oscuro ? 'dark' : 'light'
         document.documentElement.style.colorScheme = oscuro ? 'dark' : 'light'
       })()
     </script>

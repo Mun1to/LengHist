@@ -23,7 +23,7 @@ const sistemaEsOscuro = () =>
 export function aplicarTema(preferencia) {
   const oscuro = preferencia === 'oscuro' || (preferencia === 'sistema' && sistemaEsOscuro())
   const raiz = document.documentElement
-  raiz.dataset.tema = oscuro ? 'oscuro' : 'claro'
+  raiz.dataset.theme = oscuro ? 'dark' : 'light'
   // Sin esto, los controles nativos y la barra de scroll se quedan en el tema
   // del sistema mientras la página está en el otro.
   raiz.style.colorScheme = oscuro ? 'dark' : 'light'

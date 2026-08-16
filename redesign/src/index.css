@@ -4,7 +4,7 @@
    pone el script en línea del index.html antes del primer pintado y luego
    mantiene el selector del header. Sin esto, «dark:» seguiría atado a
    prefers-color-scheme y el botón no podría cambiar nada. */
-@custom-variant dark (&:where([data-tema="oscuro"], [data-tema="oscuro"] *));
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
@@ -37,6 +37,6 @@ body {
   background: radial-gradient(900px 420px at 12% -10%, rgba(99, 102, 241, 0.16), transparent 70%);
 }
 
-[data-tema="oscuro"] .resplandor {
+[data-theme="dark"] .resplandor {
   background: radial-gradient(900px 420px at 12% -10%, rgba(129, 140, 248, 0.22), transparent 70%);
 }

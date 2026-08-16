@@ -1,6 +1,8 @@
 /* Colores del resaltado de sintaxis. Van con prefijo vs- y como variables para
-   que la paleta se cambie en un sitio. El tema sigue al del sistema, igual que
-   el resto de la web. */
+   que la paleta se cambie en un sitio. El tema lo dice el atributo del html, no
+   el sistema: si esto se quedara en @media (prefers-color-scheme), el código
+   saldría con los colores del tema contrario en cuanto alguien usa el selector
+   del header. */
 
 :root {
   --vs-txt: #3f3f46;
@@ -16,20 +18,18 @@
   --vs-pun: #71717a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --vs-txt: #d4d4d8;
-    --vs-com: #a1a1aa;
-    --vs-key: #a5b4fc;
-    --vs-fn:  #7dd3fc;
-    --vs-str: #86efac;
-    --vs-num: #fcd34d;
-    --vs-sel: #f0abfc;
-    --vs-pro: #7dd3fc;
-    --vs-at:  #c4b5fd;
-    --vs-glo: #fda4af;
-    --vs-pun: #82828c;
-  }
+[data-theme="dark"] {
+  --vs-txt: #d4d4d8;
+  --vs-com: #a1a1aa;
+  --vs-key: #a5b4fc;
+  --vs-fn:  #7dd3fc;
+  --vs-str: #86efac;
+  --vs-num: #fcd34d;
+  --vs-sel: #f0abfc;
+  --vs-pro: #7dd3fc;
+  --vs-at:  #c4b5fd;
+  --vs-glo: #fda4af;
+  --vs-pun: #82828c;
 }
 
 .vs-pre {
