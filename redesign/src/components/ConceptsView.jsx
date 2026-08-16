@@ -20,7 +20,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
     <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-2 max-w-3xl">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.conceptsTitle}</h1>
-        <span className="font-mono text-xs text-zinc-400 shrink-0">{total}</span>
+        <span className="font-mono text-xs text-zinc-400 shrink-0">{t.deTotal(total)}</span>
       </div>
       <p className="text-zinc-500 dark:text-zinc-400 mb-10 max-w-2xl">{t.conceptsSub}</p>
 
