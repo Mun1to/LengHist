@@ -90,8 +90,9 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
                 className="flex items-center gap-4 rounded-xl border-l-[3px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 p-4"
                 style={{ borderLeftColor: r.l.color[0] }}
               >
+                {/* El borde izquierdo ya lleva el color del lenguaje: el emoji
+                    no añadía nada y venía de la identidad anterior. */}
                 <span className="font-mono font-bold text-indigo-500 dark:text-indigo-400">#{i + 1}</span>
-                <span className="text-2xl">{r.l.icon}</span>
                 <div className="min-w-0 flex-1">
                   <div className="font-bold text-sm">{r.l.name}</div>
                   <div className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2">{r.l[lang].desc}</div>

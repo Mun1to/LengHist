@@ -47,8 +47,9 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
       </div>
 
       <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-800 font-mono text-xs text-zinc-500">
-        <span>
-          {demo.icon} {demo.name} · {demo.year}
+        <span className="inline-flex items-center gap-2">
+          <span className="w-1 h-3.5 rounded-full" style={{ background: demo.color[0] }} />
+          {demo.name} · {demo.year}
         </span>
         <span className="text-indigo-300 font-bold">{demo.pop}/100</span>
       </div>
