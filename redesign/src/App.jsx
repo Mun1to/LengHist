@@ -358,7 +358,6 @@ export default function App() {
                   totals={{ langs: LANGUAGES.length, res: RESOURCES.reduce((n, g) => n + g.items.length, 0),
                             concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0), comps: COMPONENT_ITEMS.length,
                             skills: SKILL_ITEMS.length, consejos: CONSEJOS.length }}
-                  onNavigate={(k) => { navigate(k); window.scrollTo({ top: 0 }) }}
                   onQuiz={() => setQuizOpen(true)}
                 />
               )}
