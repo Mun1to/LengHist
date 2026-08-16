@@ -60,6 +60,17 @@ const URL_APORTAR = 'https://github.com/Mun1to/Vibeset/blob/main/redesign/src/da
 const IDIOMAS = ['es', 'en']
 const CLAVE_IDIOMA = 'vibeset-lang'
 
+// Cuánto hay en cada sección. Sale del catálogo, no de un número escrito a mano
+// que se queda viejo, y lo usan la portada y el menú del móvil.
+const TOTALES = {
+  langs: LANGUAGES.length,
+  res: RESOURCES.reduce((n, g) => n + g.items.length, 0),
+  concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0),
+  comps: COMPONENT_ITEMS.length,
+  skills: SKILL_ITEMS.length,
+  consejos: CONSEJOS.length,
+}
+
 // Vuelta de la URL a la clave interna. Se arman una vez, no en cada pintado.
 const LENGUAJE_POR_SLUG = Object.fromEntries(LANGUAGES.map((l) => [slugLenguaje(l.name), l.name]))
 const COMPONENTE_POR_SLUG = Object.fromEntries(COMPONENT_ITEMS.map((c) => [slugClave(c.key), c.key]))
@@ -364,7 +375,7 @@ export default function App() {
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50">
       <TopBar
         t={t} lang={lang} onToggleLang={cambiarIdioma} activeNav={activeNav}
-        tema={tema} onCambiarTema={cambiarTema}
+        tema={tema} onCambiarTema={cambiarTema} totales={TOTALES}
         onLogoClick={goHome}
         onAbrirResultado={abrirResultado}
         onQuizClick={() => setQuizOpen(true)}
@@ -385,13 +396,7 @@ export default function App() {
             >
               {(rutaRota || fichaRota) && <NoEncontrado t={t} onHome={goHome} />}
               {!rutaRota && !fichaRota && vista === 'home' && (
-                <LandingView
-                  t={t} lang={lang}
-                  totals={{ langs: LANGUAGES.length, res: RESOURCES.reduce((n, g) => n + g.items.length, 0),
-                            concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0), comps: COMPONENT_ITEMS.length,
-                            skills: SKILL_ITEMS.length, consejos: CONSEJOS.length }}
-                  onQuiz={() => setQuizOpen(true)}
-                />
+                <LandingView t={t} lang={lang} totals={TOTALES} onQuiz={() => setQuizOpen(true)} />
               )}
               {vista === 'languages' && (
                 lenguajeAbierto ? (
