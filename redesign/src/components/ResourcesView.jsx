@@ -56,7 +56,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.25, delay: Math.min(gi * 0.04 + i * 0.02, 0.3) }}
-                    className="group flex items-start gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-3.5 hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-colors"
+                    className="group pulsable pulsable-suave flex items-start gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-3.5 hover:border-indigo-500/50 hover:bg-indigo-500/5"
                   >
                     <Monograma nombre={r.name} color={group.dot} />
                     <div className="min-w-0 flex-1">

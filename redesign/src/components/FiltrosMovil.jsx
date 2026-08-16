@@ -30,7 +30,7 @@ export default function FiltrosMovil({ t, ...props }) {
       <div className="px-6 pt-5">
         <button
           onClick={() => setAbierto(true)}
-          className="inline-flex items-center gap-2 h-9 px-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm font-semibold text-zinc-700 dark:text-zinc-200 cursor-pointer"
+          className="pulsable inline-flex items-center gap-2 h-9 px-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm font-semibold text-zinc-700 dark:text-zinc-200 cursor-pointer"
         >
           <SlidersHorizontal size={14} />
           {t.filtros}

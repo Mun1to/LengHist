@@ -34,7 +34,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
             <button
               key={c.key}
               onClick={() => { setActiveCat(c.key); onElegir?.() }}
-              className={`flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer transition-colors text-left ${
+              className={`pulsable flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer text-left ${
                 activeCat === c.key
                   ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 font-semibold'
                   : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'
@@ -55,7 +55,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
           <div className="flex flex-col gap-0.5">
             <button
               onClick={() => { extraGroup.onToggleFavOnly(); onElegir?.() }}
-              className={`flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer transition-colors ${
+              className={`pulsable flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer ${
                 extraGroup.showFavOnly
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-300 font-semibold'
                   : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'

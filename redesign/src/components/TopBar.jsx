@@ -97,7 +97,7 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
                 key={key}
                 to={rutaDe(key)}
                 onClick={onCerrar}
-                className="flex items-center gap-3.5 py-3.5 border-b border-zinc-200/70 dark:border-zinc-800/70 group"
+                className="pulsable flex items-center gap-3.5 py-3.5 px-2 -mx-2 rounded-lg border-b border-zinc-200/70 dark:border-zinc-800/70 active:bg-zinc-100 dark:active:bg-zinc-900 group"
               >
                 <Icono
                   size={17}
@@ -120,10 +120,10 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
 
         <button
           onClick={() => { onCerrar(); onQuizClick() }}
-          className="inline-flex items-center gap-2 mt-5 font-bold text-[15px] text-indigo-600 dark:text-indigo-400 cursor-pointer"
+          className="grupo-cta pulsable inline-flex items-center gap-2 mt-5 font-bold text-[15px] text-indigo-600 dark:text-indigo-400 cursor-pointer"
         >
           {t.testBtn}
-          <ArrowRight size={15} />
+          <ArrowRight size={15} className="flecha-desliza" />
         </button>
 
         {/* Tema e idioma bajan aquí: en la barra son dos iconos de 14px que en un
@@ -131,14 +131,14 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
         <div className="flex items-center gap-2 mt-6 pt-5 border-t border-zinc-200 dark:border-zinc-800">
           <button
             onClick={onCambiarTema}
-            className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-600 dark:text-zinc-300 cursor-pointer"
+            className="pulsable flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-600 dark:text-zinc-300 cursor-pointer"
           >
-            <IconoTema size={15} />
+            <IconoTema key={tema} size={15} className="brinca" />
             {t.temasCorto[tema]}
           </button>
           <button
             onClick={onToggleLang}
-            className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-zinc-200 dark:border-zinc-800 font-mono text-sm font-bold text-zinc-600 dark:text-zinc-300 cursor-pointer"
+            className="pulsable flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-zinc-200 dark:border-zinc-800 font-mono text-sm font-bold text-zinc-600 dark:text-zinc-300 cursor-pointer"
           >
             <Languages size={15} />
             {lang === 'es' ? 'ES / EN' : 'EN / ES'}
@@ -209,15 +209,15 @@ export default function TopBar({
                     onClick={onCambiarTema}
                     aria-label={`${t.tema}: ${t.temas[tema]}`}
                     title={`${t.tema}: ${t.temas[tema]}`}
-                    className="grid place-items-center w-9 h-9 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer transition-colors"
+                    className="pulsable grid place-items-center w-9 h-9 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
                   >
-                    <IconoTema size={15} />
+                    <IconoTema key={tema} size={15} className="brinca" />
                   </button>
                   <button
                     onClick={onToggleLang}
                     aria-label={t.ariaLang}
                     title={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
-                    className="flex items-center gap-1.5 h-9 px-1.5 text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
+                    className="pulsable flex items-center gap-1.5 h-9 px-1.5 text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer"
                   >
                     <Languages size={14} />
                     {lang.toUpperCase()}
@@ -226,7 +226,7 @@ export default function TopBar({
               )}
               <button
                 onClick={onQuizClick}
-                className="hidden 2xl:inline-flex items-center rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-2 whitespace-nowrap cursor-pointer transition-colors"
+                className="pulsable hidden 2xl:inline-flex items-center rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-2 whitespace-nowrap cursor-pointer"
               >
                 {t.ctaQuiz}
               </button>
@@ -234,7 +234,7 @@ export default function TopBar({
                 onClick={() => setMenu((v) => !v)}
                 aria-label={menu ? t.menuCerrar : t.menuAbrir}
                 aria-expanded={menu}
-                className="xl:hidden grid place-items-center w-9 h-9 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer transition-colors"
+                className="pulsable xl:hidden grid place-items-center w-9 h-9 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
               >
                 {menu ? <X size={18} /> : <Menu size={18} />}
               </button>

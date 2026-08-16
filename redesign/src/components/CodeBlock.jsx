@@ -20,9 +20,9 @@ export default function CodeBlock({ t, title, code }) {
         <span className="font-mono text-xs text-zinc-400">{title}</span>
         <button
           onClick={copy}
-          className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
+          className="pulsable inline-flex items-center gap-1.5 rounded-md px-1.5 py-1 -mr-1.5 text-xs text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer"
         >
-          {copied ? <Check size={12} /> : <Copy size={12} />}
+          {copied ? <Check size={12} className="text-emerald-500 brinca" /> : <Copy size={12} />}
           {copied ? t.compCopied : t.compCopy}
         </button>
       </div>

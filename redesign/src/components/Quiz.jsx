@@ -70,7 +70,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
               <button
                 key={o.label}
                 onClick={() => pick(o)}
-                className="text-left rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3.5 text-sm font-medium cursor-pointer hover:border-indigo-500 hover:bg-indigo-500/5 transition-colors"
+                className="pulsable text-left rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3.5 text-sm font-medium cursor-pointer hover:border-indigo-500 hover:bg-indigo-500/5"
               >
                 {o.label}
               </button>

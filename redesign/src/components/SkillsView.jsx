@@ -28,7 +28,7 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
         if (p && Math.hypot(e.clientX - p.x, e.clientY - p.y) > 6) return
         onOpen()
       }}
-      className="rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 cursor-pointer hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-colors"
+      className="pulsable pulsable-suave rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 cursor-pointer hover:border-indigo-500/50 hover:bg-indigo-500/5"
     >
       <div className="flex items-center gap-1 mb-1">
         <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50 min-w-0 flex-1">{d.label}</span>

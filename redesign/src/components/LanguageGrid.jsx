@@ -29,7 +29,7 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
               transition={{ duration: 0.22, delay: Math.min(i, 12) * 0.02 }}
               className="group relative rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
             >
-              <Link to={rutaDe('languages', slugLenguaje(l.name))} className="block p-4 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl">
+              <Link to={rutaDe('languages', slugLenguaje(l.name))} className="pulsable pulsable-suave block p-4 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl">
                 {/* El color del lenguaje se queda en una barra fina: identifica
                     igual que la cabecera de degradado y no se come la tarjeta. */}
                 <div className="flex items-center gap-2.5 mb-1.5">
