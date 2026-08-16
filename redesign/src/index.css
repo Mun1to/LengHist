@@ -83,6 +83,12 @@ body {
   outline-offset: 2px;
 }
 
+/* La cifra que va de fondo en las celdas de «qué hay dentro». Necesita dos
+   valores: sobre el blanco del tema claro la misma tinta se ve casi negra y
+   sobre el negro casi no se ve. */
+.cifra-fondo { color: rgba(79, 70, 229, .10) }
+[data-theme="dark"] .cifra-fondo { color: rgba(129, 140, 248, .13) }
+
 /* El icono que aparece al pulsar (la marca de copiado, el sol que sustituye a la
    luna) entra con un brinco corto. Es lo que hace que el botón conteste en vez
    de limitarse a cambiar de dibujo. */

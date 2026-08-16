@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Boxes, Braces, Lightbulb, Sparkles, Terminal, Wrench } from 'lucide-react'
 import CodeWindow from './CodeWindow'
 import Logo from './Logo'
 import { rutaDe } from '../lib/rutas'
@@ -17,20 +17,37 @@ const aparece = (delay = 0) => ({
   transition: { duration: 0.5, delay, ease: 'easeOut' },
 })
 
-// flex-col porque los botones centran su contenido en vertical: la tarjeta con
-// una línea menos de texto quedaba desalineada respecto a sus vecinas.
-function Seccion({ n, titulo, texto, a }) {
+// Las seis secciones comparten una sola pieza con las divisiones por dentro, en
+// vez de seis recuadros sueltos. La retícula se dibuja con un hueco de 1px que
+// deja ver el fondo del contenedor: así las líneas interiores son de un píxel
+// exacto y no se doblan donde dos bordes se tocan.
+//
+// Aquí no se usa `pulsable`: encoger una celda que comparte lado con su vecina
+// abriría una rendija en la retícula al pulsarla. La respuesta es el fondo.
+function Seccion({ n, titulo, texto, a, Icono }) {
   return (
     <Link
       to={a}
-      className="group pulsable pulsable-suave alzable flex flex-col text-left p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg hover:shadow-zinc-900/5 dark:hover:shadow-black/30"
+      className="group relative overflow-hidden flex flex-col text-left p-5 min-h-[132px] bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900/70 active:bg-zinc-100 dark:active:bg-zinc-900 transition-colors"
     >
-      <div className="font-mono text-3xl font-bold text-indigo-600 dark:text-indigo-400">{n}</div>
-      <div className="font-bold text-zinc-900 dark:text-zinc-50 mt-2 flex items-center gap-1.5">
+      {/* La cifra va detrás, sangrando por el borde de abajo. Sangra solo hacia
+          abajo y no hacia la derecha a propósito: cortada por el costado partía
+          los dígitos por la mitad y parecía un fallo de maquetación en vez de
+          una decisión. */}
+      <span
+        aria-hidden="true"
+        className="cifra-fondo pointer-events-none absolute right-4 -bottom-7 font-mono text-[5.4rem] font-extrabold leading-none tracking-tighter"
+      >
+        {n}
+      </span>
+
+      <Icono size={19} className="relative text-indigo-600 dark:text-indigo-400" />
+
+      <div className="relative font-bold text-zinc-900 dark:text-zinc-50 mt-3 flex items-center gap-1.5">
         {titulo}
         <ArrowRight size={14} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
       </div>
-      <div className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">{texto}</div>
+      <div className="relative text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed max-w-[26ch]">{texto}</div>
     </Link>
   )
 }
@@ -114,13 +131,13 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
         <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-4">
           {t.landingWhat}
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Seccion n={totals.langs} titulo={t.nav.languages} texto={t.landingLangs} a={rutaDe('languages')} />
-          <Seccion n={totals.res} titulo={t.nav.resources} texto={t.landingRes} a={rutaDe('resources')} />
-          <Seccion n={totals.concepts} titulo={t.nav.concepts} texto={t.landingConcepts} a={rutaDe('concepts')} />
-          <Seccion n={totals.comps} titulo={t.nav.components} texto={t.landingComps} a={rutaDe('components')} />
-          <Seccion n={totals.skills} titulo={t.nav.skills} texto={t.landingSkills} a={rutaDe('skills')} />
-          <Seccion n={totals.consejos} titulo={t.nav.consejos} texto={t.landingConsejos} a={rutaDe('consejos')} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden">
+          <Seccion n={totals.langs} titulo={t.nav.languages} texto={t.landingLangs} a={rutaDe('languages')} Icono={Braces} />
+          <Seccion n={totals.res} titulo={t.nav.resources} texto={t.landingRes} a={rutaDe('resources')} Icono={Wrench} />
+          <Seccion n={totals.concepts} titulo={t.nav.concepts} texto={t.landingConcepts} a={rutaDe('concepts')} Icono={Sparkles} />
+          <Seccion n={totals.comps} titulo={t.nav.components} texto={t.landingComps} a={rutaDe('components')} Icono={Boxes} />
+          <Seccion n={totals.skills} titulo={t.nav.skills} texto={t.landingSkills} a={rutaDe('skills')} Icono={Terminal} />
+          <Seccion n={totals.consejos} titulo={t.nav.consejos} texto={t.landingConsejos} a={rutaDe('consejos')} Icono={Lightbulb} />
         </div>
       </section>
 
