@@ -3,7 +3,9 @@ import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
-import { authorOf, hasOwnRepo, repoLabel, slugOf } from '../data/skills'
+import BotonCopiar from './BotonCopiar'
+import CodeBlock from './CodeBlock'
+import { authorOf, hasOwnRepo, repoLabel, skillFile, slugOf } from '../data/skills'
 import { rutaDe, slugClave } from '../lib/rutas'
 
 // Tarjeta clicable entera, como en Componentes: si el usuario estaba
@@ -28,9 +30,12 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
       }}
       className="rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 cursor-pointer hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-colors"
     >
-      <div className="flex items-center gap-2 mb-1">
+      <div className="flex items-center gap-1 mb-1">
         <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50 min-w-0 flex-1">{d.label}</span>
-        <span data-no-open>
+        {/* Copiar el archivo sin entrar en la ficha: quien ya sabe qué skill
+            quiere no necesita leerla otra vez. */}
+        <span data-no-open className="flex items-center gap-0.5">
+          <BotonCopiar texto={skillFile(item, lang)} etiqueta={t.skillCopiarArchivo} compacto />
           <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} />
         </span>
       </div>
@@ -83,6 +88,12 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
 └── ${ejemplo}/
     └── SKILL.md      ${t.skillsWhatFile}`}
         </pre>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-4 max-w-2xl leading-relaxed">
+          {t.skillMarketplace}
+        </p>
+        <div className="mt-3 max-w-xl">
+          <CodeBlock t={t} title="claude code" code={`/plugin marketplace add Mun1to/Vibeset`} />
+        </div>
       </div>
 
       {groups.length === 0 ? (

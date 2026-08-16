@@ -9,6 +9,10 @@ import { rutaDe } from '../lib/rutas'
 
 const DOCS = 'https://code.claude.com/docs/en/skills'
 
+// El marketplace de plugins del propio repositorio: es el primer comando de los
+// dos que hacen falta para instalar una skill publicada como plugin.
+const MERCADO = 'Mun1to/Vibeset'
+
 // Qué hace cada campo del frontmatter que aparece en estas skills. Tomado de la
 // referencia oficial, resumido en una línea.
 const CAMPOS = {
@@ -94,14 +98,6 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
           {repoLabel(item)}
           <ArrowUpRight size={11} />
         </a>
-        {item.plugin && (
-          <>
-            <span className="text-zinc-300 dark:text-zinc-700">·</span>
-            <span className="font-mono text-[11px] text-zinc-400 dark:text-zinc-500">
-              /plugin install {item.plugin}
-            </span>
-          </>
-        )}
       </div>
 
       <p className="text-zinc-500 dark:text-zinc-400 mt-4 max-w-2xl leading-relaxed">{d.what}</p>
@@ -110,6 +106,20 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
       </p>
       {group && (
         <div className="font-mono text-[11px] uppercase tracking-wider text-zinc-400 mt-3">{group.label[lang]}</div>
+      )}
+
+      {/* Lo primero accionable de la página, como en cualquier galería de
+          componentes: el comando que la instala, listo para copiar. */}
+      {item.plugin && (
+        <div className="mt-8">
+          <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">{t.skillInstall}</h2>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 max-w-2xl leading-relaxed">{t.skillInstallText}</p>
+          <CodeBlock
+            t={t}
+            title="claude code"
+            code={`/plugin marketplace add ${MERCADO}\n/plugin install ${item.plugin}`}
+          />
+        </div>
       )}
 
       <div className="mt-8">
