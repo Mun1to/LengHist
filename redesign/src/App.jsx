@@ -21,6 +21,7 @@ import CompareModal from './components/CompareModal'
 import Quiz from './components/Quiz'
 import { leerRuta, rutaDe, slugClave, slugLenguaje } from './lib/rutas'
 import { useTema } from './lib/tema'
+import { recortar, useMeta } from './lib/meta'
 import { LANGUAGES, CATEGORIES, matchesFilter } from './data/languages'
 import { RESOURCES } from './data/resources'
 import { CONCEPTS } from './data/concepts'
@@ -105,6 +106,35 @@ export default function App() {
 
   // Cada cambio de página empieza arriba, como en cualquier sitio con enlaces.
   useEffect(() => { window.scrollTo({ top: 0 }) }, [location.pathname])
+
+  // Título y descripción de cada página, para la pestaña, el buscador y la
+  // tarjeta que sale al pegar el enlace.
+  const meta = useMemo(() => {
+    const marca = 'Vibeset'
+    if (vista === '404') return { titulo: `${t.noHayTitulo} · ${marca}`, descripcion: t.noHayTexto }
+    if (lenguajeAbierto) {
+      const l = LANGUAGES.find((x) => x.name === lenguajeAbierto)
+      return { titulo: `${l.name} · ${marca}`, descripcion: recortar(l[lang].fullDesc) }
+    }
+    if (openComp) {
+      const c = COMPONENT_ITEMS.find((x) => x.key === openComp)
+      return { titulo: `${c.name} · ${marca}`, descripcion: recortar(c.desc[lang]) }
+    }
+    if (openSkill) {
+      const s = SKILL_ITEMS.find((x) => x.key === openSkill)
+      return { titulo: `${s[lang].label} · ${marca}`, descripcion: recortar(s[lang].what) }
+    }
+    if (vista === 'home') return { titulo: `${marca} · ${t.heroTitle1} ${t.heroTitle2}`, descripcion: recortar(t.heroSub) }
+    const titulos = {
+      languages: [t.gridTitle, t.langsSub], resources: [t.resTitle, t.resSub],
+      concepts: [t.conceptsTitle, t.conceptsSub], components: [t.compTitle, t.compSub],
+      skills: [t.skillsTitle, t.skillsSub], consejos: [t.consejosTitle, t.consejosSub],
+    }
+    const [titulo, sub] = titulos[vista] ?? [marca, t.heroSub]
+    return { titulo: `${titulo} · ${marca}`, descripcion: recortar(sub) }
+  }, [vista, lenguajeAbierto, openComp, openSkill, lang, t])
+
+  useMeta({ ...meta, ruta: location.pathname })
 
   // Filtrar o buscar desde una ficha abierta devuelve a su lista. Lee la ruta
   // del navegador y no del render, para que valga dentro de un useMemo sin

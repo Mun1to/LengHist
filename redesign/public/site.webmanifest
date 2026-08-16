@@ -1,7 +1,7 @@
 {
   "name": "Vibeset",
   "short_name": "Vibeset",
-  "description": "Cien lenguajes. Una guía viva. Recursos para construir en la web.",
+  "description": "Un sitio con todo lo que necesitas para construir en la web: lenguajes, herramientas, técnicas, componentes en vivo y skills de agente.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0b0b0d",
