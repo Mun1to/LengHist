@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import ComponentDemo from './ComponentDemo'
+import { rutaDe, slugClave } from '../lib/rutas'
 
 // Cada demo se monta al acercarse a la pantalla y se suelta al alejarse:
 // así se ven todas vivas sin tener seis contextos WebGL abiertos a la vez.
@@ -19,10 +21,13 @@ function useNearViewport(ref) {
   return near
 }
 
-function Card({ t, lang, item, values, onOpen, fav, onToggleFav }) {
+function Card({ t, lang, item, values, fav, onToggleFav }) {
   const ref = useRef(null)
   const live = useNearViewport(ref)
   const press = useRef(null)
+  const irA = useNavigate()
+  const ruta = rutaDe('components', slugClave(item.key))
+  const onOpen = () => irA(ruta)
 
   // La tarjeta entera abre la ficha, pero sin capa invisible por encima: la demo
   // necesita recibir el ratón. Y si el usuario arrastra (orbitar el 3D, rozar la
@@ -52,15 +57,19 @@ function Card({ t, lang, item, values, onOpen, fav, onToggleFav }) {
           <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} floating />
         </div>
       </div>
-      <button onClick={onOpen} className="flex items-center justify-between gap-3 w-full mt-2.5 px-0.5 cursor-pointer text-left">
-        <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50">{item.name}</span>
-        <span className="font-mono text-[11px] text-zinc-400 truncate">{item.tag[lang]}</span>
-      </button>
+      {/* El nombre es el enlace de verdad de la tarjeta: la demo de arriba tiene
+          que recibir el ratón, así que no puede ser ella el enlace. */}
+      <Link to={ruta} className="flex items-baseline gap-3 mt-2.5 px-0.5 group/nombre">
+        <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50 group-hover/nombre:text-indigo-600 dark:group-hover/nombre:text-indigo-400 transition-colors shrink-0">
+          {item.name}
+        </span>
+        <span className="font-mono text-[11px] text-zinc-400 dark:text-zinc-600 truncate">{item.tag[lang]}</span>
+      </Link>
     </div>
   )
 }
 
-export default function ComponentsView({ t, lang, items, onClear, favorites, onToggleFav, values, onOpen }) {
+export default function ComponentsView({ t, lang, items, onClear, favorites, onToggleFav, values }) {
   return (
     <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-2">
@@ -77,7 +86,6 @@ export default function ComponentsView({ t, lang, items, onClear, favorites, onT
             <Card
               key={c.key}
               t={t} lang={lang} item={c} values={values[c.key]}
-              onOpen={() => onOpen(c.key)}
               fav={favorites.has(c.key)}
               onToggleFav={() => onToggleFav(c.key)}
             />

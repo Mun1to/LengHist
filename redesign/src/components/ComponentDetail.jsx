@@ -1,13 +1,16 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import ComponentDemo from './ComponentDemo'
 import ControlPanel from './ControlPanel'
 import CodeBlock from './CodeBlock'
 import FavButton from './FavButton'
+import CopiarEnlace from './CopiarEnlace'
 import useHtmlInCanvas from '../hooks/useHtmlInCanvas'
 import { usageSnippet } from '../data/components'
+import { rutaDe } from '../lib/rutas'
 
-export default function ComponentDetail({ t, lang, item, values, onChange, onReset, onBack, fav, onToggleFav }) {
+export default function ComponentDetail({ t, lang, item, values, onChange, onReset, fav, onToggleFav }) {
   const htmlInCanvas = useHtmlInCanvas()
   const needsHtmlInCanvas = item.labels?.includes('html-in-canvas')
 
@@ -18,17 +21,20 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
       transition={{ duration: 0.2, ease: 'easeOut' }}
       className="px-6 sm:px-10 py-10 max-w-5xl"
     >
-      <button
-        onClick={onBack}
-        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors mb-6"
+      <Link
+        to={rutaDe('components')}
+        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.compBack}
-      </button>
+      </Link>
 
       <div className="flex items-start justify-between gap-4">
         <h1 className="text-3xl font-extrabold tracking-tight">{item.name}</h1>
-        <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} />
+        <div className="flex items-center gap-2 shrink-0">
+          <CopiarEnlace t={t} />
+          <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} />
+        </div>
       </div>
 
       <div className="font-mono text-[11px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mt-1.5">

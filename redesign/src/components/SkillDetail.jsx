@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import CodeBlock from './CodeBlock'
 import FavButton from './FavButton'
+import CopiarEnlace from './CopiarEnlace'
 import { authorOf, hasOwnRepo, repoLabel, repoOf, skillFile, skillPath, skillTree, slugOf } from '../data/skills'
+import { rutaDe } from '../lib/rutas'
 
 const DOCS = 'https://code.claude.com/docs/en/skills'
 
@@ -35,7 +38,7 @@ const CAMPOS = {
   },
 }
 
-export default function SkillDetail({ t, lang, item, group, onBack, fav, onToggleFav }) {
+export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) {
   const d = item[lang]
   const slug = slugOf(item, lang)
   const campos = ['name', 'description', ...(item.extra || []).map(([k]) => k)]
@@ -48,17 +51,20 @@ export default function SkillDetail({ t, lang, item, group, onBack, fav, onToggl
       transition={{ duration: 0.2, ease: 'easeOut' }}
       className="px-6 sm:px-10 py-10 max-w-4xl"
     >
-      <button
-        onClick={onBack}
-        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors mb-6"
+      <Link
+        to={rutaDe('skills')}
+        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.skillBack}
-      </button>
+      </Link>
 
       <div className="flex items-start justify-between gap-4">
         <h1 className="text-3xl font-extrabold tracking-tight">{d.label}</h1>
-        <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} />
+        <div className="flex items-center gap-2 shrink-0">
+          <CopiarEnlace t={t} />
+          <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} />
+        </div>
       </div>
 
       <div className="font-mono text-[13px] text-indigo-600 dark:text-indigo-400 mt-1.5">/{slug}</div>

@@ -1,0 +1,4 @@
+# Cloudflare Pages sirve archivos estáticos: sin esto, entrar directo en
+# /languages/rust o recargar una ficha devuelve un 404 del servidor, porque ese
+# archivo no existe. Se devuelve el index y las rutas las resuelve la aplicación.
+/*    /index.html   200

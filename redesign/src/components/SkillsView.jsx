@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion'
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import { authorOf, hasOwnRepo, repoLabel, slugOf } from '../data/skills'
+import { rutaDe, slugClave } from '../lib/rutas'
 
 // Tarjeta clicable entera, como en Componentes: si el usuario estaba
 // seleccionando texto y arrastró, no se abre la ficha.
-function Tarjeta({ t, lang, item, fav, onToggleFav, onOpen, delay }) {
+function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
   const press = useRef(null)
   const d = item[lang]
+  const irA = useNavigate()
+  const onOpen = () => irA(rutaDe('skills', slugClave(item.key)))
 
   return (
     <motion.div
@@ -53,7 +57,7 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, onOpen, delay }) {
   )
 }
 
-export default function SkillsView({ t, lang, groups, onClear, favorites, onToggleFav, onOpen }) {
+export default function SkillsView({ t, lang, groups, onClear, favorites, onToggleFav }) {
   const total = groups.reduce((n, g) => n + g.items.length, 0)
   // El árbol de ejemplo usa una skill real de la lista, con su nombre en el
   // idioma que se está leyendo.
@@ -97,7 +101,6 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
                     t={t} lang={lang} item={item}
                     fav={favorites.has(item.key)}
                     onToggleFav={() => onToggleFav(item.key)}
-                    onOpen={() => onOpen(item.key)}
                     delay={Math.min(gi * 0.04 + i * 0.02, 0.3)}
                   />
                 ))}
