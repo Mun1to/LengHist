@@ -1,13 +1,21 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { MotionConfig } from 'framer-motion'
 import './index.css'
 import App from './App.jsx'
 
+// Los efectos de canvasui ya miraban prefers-reduced-motion cada uno por su
+// cuenta; las animaciones de la propia interfaz (entradas, transiciones entre
+// vistas, barras que crecen) no. Con esto las respetan todas a la vez, y en un
+// sitio que se mueve tanto como este eso no es un detalle: hay gente a la que
+// el movimiento le marea de verdad.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <MotionConfig reducedMotion="user">
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </MotionConfig>
   </StrictMode>,
 )
