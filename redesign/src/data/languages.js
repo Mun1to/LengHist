@@ -7326,13 +7326,14 @@ export const LANGUAGES = [
  }
 ]
 
+// Estos atajos NO repiten las categorías de la barra lateral, y esa es la regla:
+// ahí se filtra por tema (web, datos, móvil), aquí por otra cosa que las
+// categorías no saben decir. Antes «Sistemas» y «Móvil» salían en los dos
+// sitios, así que había dos mandos para lo mismo y ninguno mandaba.
 export const HERO_PILLS = [
   { key: 'all', filter: { type: 'all' }, label: { es: 'Todos', en: 'All' } },
   { key: 'top', filter: { type: 'fame', value: 'top' }, label: { es: 'Top mundial', en: 'World top' } },
   { key: 'recent', filter: { type: 'recent' }, label: { es: 'Recién llegados', en: 'Newcomers' } },
-  { key: 'datos', filter: { type: 'cat', value: 'datos' }, label: { es: 'IA y datos', en: 'AI & data' } },
-  { key: 'sistemas', filter: { type: 'cat', value: 'sistemas' }, label: { es: 'Sistemas', en: 'Systems' } },
-  { key: 'movil', filter: { type: 'cat', value: 'movil' }, label: { es: 'Móvil', en: 'Mobile' } },
 ]
 
 export function matchesFilter(lang, filter) {

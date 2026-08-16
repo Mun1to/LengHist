@@ -37,7 +37,9 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
                   <span className="font-bold text-zinc-900 dark:text-zinc-50 truncate min-w-0 flex-1">{l.name}</span>
                   <span className="font-mono text-[11px] text-zinc-400 shrink-0">{l.year}</span>
                 </div>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-snug line-clamp-2">{l[lang].desc}</p>
+                {/* Tres líneas y no dos: con dos, cuatro de cada diez fichas se
+                    cortaban a mitad de frase y el resumen dejaba de resumir. */}
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-snug line-clamp-3">{l[lang].desc}</p>
                 <div className="font-mono text-[11px] text-zinc-400 dark:text-zinc-600 mt-2.5 truncate">
                   {l.extensions.slice(0, 3).join(' ')}
                 </div>
