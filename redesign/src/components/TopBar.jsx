@@ -107,7 +107,7 @@ export default function TopBar({
             simple ml-auto quedaba 70px a la izquierda, porque el logo pesa mucho
             menos que el idioma y el botón del test juntos. */}
         <div className="flex items-center gap-4 px-6 py-3">
-          <div className="shrink-0 2xl:flex-1 2xl:basis-0 min-w-0 flex items-center justify-between gap-5">
+          <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-5">
             <Link
               to="/"
               onClick={() => { setMenu(false); onLogoClick() }}
@@ -128,16 +128,11 @@ export default function TopBar({
             <Enlaces t={t} claves={IZQUIERDA} activeNav={activeNav} />
           </div>
 
-          {/* La caja del centro se queda con lo que sobre, y solo a partir de
-              1536 se le da medida fija con los flancos repartidos a partes
-              iguales. Antes esa igualdad empezaba a 1024: entre 1280 y 1535 el
-              flanco derecho necesita 539px y recibía los 485 del izquierdo, así
-              que el botón del test se salía de la ventana. */}
-          <div className="flex-1 2xl:flex-none 2xl:w-[clamp(20rem,26vw,34rem)] min-w-0 flex justify-center">
+          <div className="flex-1 xl:flex-none xl:w-[clamp(20rem,26vw,34rem)] min-w-0 flex justify-center">
             <Buscador t={t} lang={lang} onAbrir={onAbrirResultado} />
           </div>
 
-          <div className="shrink-0 2xl:flex-1 2xl:basis-0 min-w-0 flex items-center justify-between gap-5">
+          <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-5">
             <Enlaces t={t} claves={DERECHA} activeNav={activeNav} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
               <button
@@ -159,7 +154,7 @@ export default function TopBar({
               </button>
               <button
                 onClick={onQuizClick}
-                className="hidden xl:inline-flex items-center rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-2 whitespace-nowrap cursor-pointer transition-colors"
+                className="hidden 2xl:inline-flex items-center rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-2 whitespace-nowrap cursor-pointer transition-colors"
               >
                 {t.ctaQuiz}
               </button>
