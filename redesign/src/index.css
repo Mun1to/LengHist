@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* El tema deja de depender solo del sistema: manda el atributo del html, que
+   pone el script en línea del index.html antes del primer pintado y luego
+   mantiene el selector del header. Sin esto, «dark:» seguiría atado a
+   prefers-color-scheme y el botón no podría cambiar nada. */
+@custom-variant dark (&:where([data-tema="oscuro"], [data-tema="oscuro"] *));
+
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
@@ -10,9 +16,8 @@
    propio del tema ANTES que sm:, así que sm:grid-cols-2 ganaba en la cascada y
    la tercera columna no aparecía nunca. */
 
-html {
-  color-scheme: light dark;
-}
+/* El color-scheme lo pone el script en línea junto con el atributo del tema:
+   aquí quedaría fijo y desmentiría al selector. */
 
 body {
   font-family: var(--font-sans);
@@ -32,8 +37,6 @@ body {
   background: radial-gradient(900px 420px at 12% -10%, rgba(99, 102, 241, 0.16), transparent 70%);
 }
 
-@media (prefers-color-scheme: dark) {
-  .resplandor {
-    background: radial-gradient(900px 420px at 12% -10%, rgba(129, 140, 248, 0.22), transparent 70%);
-  }
+[data-tema="oscuro"] .resplandor {
+  background: radial-gradient(900px 420px at 12% -10%, rgba(129, 140, 248, 0.22), transparent 70%);
 }

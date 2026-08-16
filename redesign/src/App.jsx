@@ -20,6 +20,7 @@ import CompareTray from './components/CompareTray'
 import CompareModal from './components/CompareModal'
 import Quiz from './components/Quiz'
 import { leerRuta, rutaDe, slugClave, slugLenguaje } from './lib/rutas'
+import { useTema } from './lib/tema'
 import { LANGUAGES, CATEGORIES, matchesFilter } from './data/languages'
 import { RESOURCES } from './data/resources'
 import { CONCEPTS } from './data/concepts'
@@ -84,6 +85,7 @@ function idiomaInicial() {
 
 export default function App() {
   const [lang, setLang] = useState(idiomaInicial)
+  const [tema, cambiarTema] = useTema()
   const t = I18N[lang]
 
   // Dónde estamos lo dice la URL y nada más: así se puede enlazar cualquier
@@ -333,6 +335,7 @@ export default function App() {
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50">
       <TopBar
         t={t} lang={lang} onToggleLang={cambiarIdioma} activeNav={activeNav}
+        tema={tema} onCambiarTema={cambiarTema}
         onLogoClick={goHome}
         onAbrirResultado={abrirResultado}
         onQuizClick={() => setQuizOpen(true)}

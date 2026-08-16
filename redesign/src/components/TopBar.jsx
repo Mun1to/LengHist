@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Languages, Menu, X } from 'lucide-react'
+import { Languages, Menu, Monitor, Moon, Sun, X } from 'lucide-react'
 import Logo from './Logo'
 import Buscador from './Buscador'
 import { rutaDe } from '../lib/rutas'
@@ -84,10 +84,13 @@ function MenuMovil({ t, activeNav, abierto, onCerrar, onQuizClick }) {
   )
 }
 
+const ICONO_TEMA = { sistema: Monitor, claro: Sun, oscuro: Moon }
+
 export default function TopBar({
-  t, lang, onToggleLang, activeNav, onLogoClick, onQuizClick, onAbrirResultado,
+  t, lang, onToggleLang, activeNav, onLogoClick, onQuizClick, onAbrirResultado, tema, onCambiarTema,
 }) {
   const [menu, setMenu] = useState(false)
+  const IconoTema = ICONO_TEMA[tema] ?? Monitor
 
   return (
     <>
@@ -132,6 +135,14 @@ export default function TopBar({
           <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-5">
             <Enlaces t={t} claves={DERECHA} activeNav={activeNav} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
+              <button
+                onClick={onCambiarTema}
+                aria-label={`${t.tema}: ${t.temas[tema]}`}
+                title={`${t.tema}: ${t.temas[tema]}`}
+                className="grid place-items-center w-9 h-9 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer transition-colors"
+              >
+                <IconoTema size={15} />
+              </button>
               <button
                 onClick={onToggleLang}
                 aria-label={t.ariaLang}
