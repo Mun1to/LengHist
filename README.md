@@ -7,8 +7,8 @@
 
 ### One place with everything you need to build for the web
 
-100 programming languages, 64 frontend tools, 41 design techniques, 12 live components and
-13 agent skills. Free, bilingual, no sign-up, no tracking.
+100 programming languages, 64 frontend tools, 41 design techniques, 12 live components,
+17 agent skills and 38 tips. Free, bilingual, no sign-up, no tracking.
 
 <a href="https://vibeset.dev">
   <img alt="Open vibeset.dev" src=".github/assets/boton-open.svg" width="268">
@@ -55,18 +55,25 @@ for, and a copyable example of the smallest code that makes it work.
 running at full size with its controls exposed. Move the knobs and copy the code with your values
 already in it. Every effect credits and links its original author.
 
-**13 agent skills.** Instructions you hand your coding agent once and it knows for good: check a
+**17 agent skills.** Instructions you hand your coding agent once and it knows for good: check a
 screen on mobile, audit accessibility, review a diff, debug down to the root cause, write a commit
-message. Copy the `SKILL.md`, drop it in its folder, done.
+message. Copy the `SKILL.md`, drop it in its folder, or install the six published as plugins with
+two commands: `/plugin marketplace add Mun1to/Vibeset` and then `/plugin install <name>@vibeset`.
+
+**38 tips.** Short things you learn by losing afternoons, ours and whatever people send in. Open to
+contributions through a pull request.
 
 ## Stack
 
-React 19, Vite, Tailwind CSS v4, Framer Motion and Lucide. Two of the effects use three.js and load
-only when you look at them. No backend, no database, no accounts, no analytics: everything runs in
-your browser and nothing leaves it.
+React 19, Vite, React Router, Tailwind CSS v4, Framer Motion and Lucide. Two of the effects use
+three.js and load only when you look at them. No backend, no database, no accounts, no analytics:
+everything runs in your browser and nothing leaves it.
 
-The interface and all the content are bilingual, including the code examples. The theme follows your
-system.
+Every section and every entry has its own address, so any of them can be linked and shared:
+`/languages/rust`, `/components/cloth`, `/skills/finito`.
+
+The interface and all the content are bilingual, including the code examples. The theme starts on
+the one your system uses and the header can override it.
 
 ## Run it locally
 

@@ -338,7 +338,6 @@ export default function App() {
   // El logo ya lleva a la portada por su enlace; esto solo deja los filtros
   // limpios para que al volver a una sección no siga filtrada de antes.
   const goHome = () => { setFilter({ type: 'all' }); setQuery(''); setLangFavOnly(false) }
-  const navigate = (key) => irA(rutaDe(key))
   const openLanguage = (name) => irA(rutaDe('languages', slugLenguaje(name)))
 
   // Un resultado del buscador deja la cosa abierta, no solo la sección: la ficha

@@ -8,7 +8,7 @@
 ### Un sitio con todo lo que necesitas para construir en la web
 
 100 lenguajes de programación, 64 herramientas de frontend, 41 técnicas de diseño, 12 componentes
-en vivo y 13 skills de agente. Gratis, bilingüe, sin registro y sin rastreo.
+en vivo, 17 skills de agente y 38 consejos. Gratis, bilingüe, sin registro y sin rastreo.
 
 <a href="https://vibeset.dev">
   <img alt="Abrir vibeset.dev" src=".github/assets/boton-abrir.svg" width="268">
@@ -55,18 +55,26 @@ qué sirve y un ejemplo copiable con lo mínimo que hay que escribir.
 uno corriendo a tamaño real con sus mandos a la vista. Mueve los controles y copia el código con tus
 valores ya puestos. Cada efecto lleva el crédito y el enlace de su autor original.
 
-**13 skills de agente.** Instrucciones que le das una vez a tu agente de código y ya se sabe para
+**17 skills de agente.** Instrucciones que le das una vez a tu agente de código y ya se sabe para
 siempre: revisar una pantalla en móvil, auditar accesibilidad, revisar un diff, depurar hasta la
-causa real, escribir el mensaje de un commit. Copias el `SKILL.md`, lo pegas en su carpeta y listo.
+causa real, escribir el mensaje de un commit. Copias el `SKILL.md`, lo pegas en su carpeta, o
+instalas con dos comandos las seis que se publican como plugin: `/plugin marketplace add
+Mun1to/Vibeset` y luego `/plugin install <nombre>@vibeset`.
+
+**38 consejos.** Cosas cortas que se aprenden perdiendo tardes, las de la casa y las que aporta la
+gente. Abierto a colaboradores por pull request.
 
 ## Con qué está hecho
 
-React 19, Vite, Tailwind CSS v4, Framer Motion y Lucide. Dos de los efectos usan three.js y se
-descargan solo cuando los miras. Sin backend, sin base de datos, sin cuentas y sin analítica: todo
-corre en tu navegador y nada sale de ahí.
+React 19, Vite, React Router, Tailwind CSS v4, Framer Motion y Lucide. Dos de los efectos usan
+three.js y se descargan solo cuando los miras. Sin backend, sin base de datos, sin cuentas y sin
+analítica: todo corre en tu navegador y nada sale de ahí.
+
+Cada sección y cada ficha tienen su propia dirección, así que cualquiera se puede enlazar y
+compartir: `/languages/rust`, `/components/cloth`, `/skills/finito`.
 
 La interfaz y todo el contenido están en los dos idiomas, incluidos los ejemplos de código. El tema
-sigue al de tu sistema.
+arranca en el de tu sistema y el selector del header lo puede cambiar.
 
 ## Arrancarlo en tu ordenador
 
