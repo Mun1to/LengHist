@@ -1,21 +1,14 @@
 import { Search, Star, ArrowLeftRight, X } from 'lucide-react'
 
-export default function Sidebar({
-  t,
-  searchPh,
-  query,
-  setQuery,
-  categories,
-  activeCat,
-  setActiveCat,
-  extraGroup,
-}) {
+// El contenido de los filtros vive aparte de la barra lateral porque hace falta
+// dos veces: pegado a la izquierda en pantalla ancha y dentro del panel de
+// filtros en móvil, donde la barra lateral no cabe.
+export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeCat, setActiveCat, extraGroup, onElegir }) {
   return (
-    <aside className="hidden lg:flex flex-col gap-6 w-[250px] shrink-0 border-r border-zinc-200 dark:border-zinc-800 px-4 py-6 sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto">
+    <>
       <div className="relative">
         <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
         <input
-          id="sidebarSearch"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={searchPh}
@@ -40,7 +33,7 @@ export default function Sidebar({
           {categories.map((c) => (
             <button
               key={c.key}
-              onClick={() => setActiveCat(c.key)}
+              onClick={() => { setActiveCat(c.key); onElegir?.() }}
               className={`flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer transition-colors text-left ${
                 activeCat === c.key
                   ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 font-semibold'
@@ -61,7 +54,7 @@ export default function Sidebar({
           </div>
           <div className="flex flex-col gap-0.5">
             <button
-              onClick={extraGroup.onToggleFavOnly}
+              onClick={() => { extraGroup.onToggleFavOnly(); onElegir?.() }}
               className={`flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer transition-colors ${
                 extraGroup.showFavOnly
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-300 font-semibold'
@@ -80,6 +73,14 @@ export default function Sidebar({
           </div>
         </div>
       )}
+    </>
+  )
+}
+
+export default function Sidebar(props) {
+  return (
+    <aside className="hidden lg:flex flex-col gap-6 w-[250px] shrink-0 border-r border-zinc-200 dark:border-zinc-800 px-4 py-6 sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto">
+      <PanelFiltros {...props} />
     </aside>
   )
 }
