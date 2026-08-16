@@ -13,8 +13,8 @@ import { rutaDe } from '../lib/rutas'
 const IZQUIERDA = ['languages', 'resources', 'consejos']
 const DERECHA = ['concepts', 'components', 'skills']
 // En el menú del móvil el orden no es el del reparto del escritorio (que existe
-// solo para equilibrar los dos flancos): va numerado del 01 al 06 y sigue el
-// orden del catálogo, el mismo de las tarjetas de la portada.
+// solo para equilibrar los dos flancos): sigue el orden del catálogo, el mismo
+// de las tarjetas de la portada.
 const ORDEN_MENU = ['languages', 'resources', 'concepts', 'components', 'skills', 'consejos']
 
 function Enlaces({ t, claves, activeNav }) {
@@ -58,8 +58,8 @@ const CUENTA_SECCION = {
 // Por debajo de 1280 no cabían los seis enlaces y simplemente desaparecían: en
 // un móvil no había forma de llegar a ninguna sección salvo acertando con el
 // buscador. El panel se lee como el índice de una revista: cada sección con su
-// número de orden, su icono y cuántas fichas tiene dentro, que es el dato que
-// de verdad ayuda a decidir por dónde entrar.
+// icono y cuántas fichas tiene dentro, que es el dato que de verdad ayuda a
+// decidir por dónde entrar.
 function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrirResultado, totales, tema, onCambiarTema, onToggleLang }) {
   // Con el panel abierto no se scrollea la página de detrás.
   useEffect(() => {
@@ -89,7 +89,7 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
         <Buscador t={t} lang={lang} onAbrir={(r) => { onCerrar(); onAbrirResultado(r) }} />
 
         <nav className="flex flex-col mt-5">
-          {ORDEN_MENU.map((key, i) => {
+          {ORDEN_MENU.map((key) => {
             const Icono = ICONO_SECCION[key]
             const activa = activeNav === key
             return (
@@ -99,9 +99,6 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
                 onClick={onCerrar}
                 className="flex items-center gap-3.5 py-3.5 border-b border-zinc-200/70 dark:border-zinc-800/70 group"
               >
-                <span className="font-mono text-[11px] text-zinc-400 dark:text-zinc-600 w-5 shrink-0">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
                 <Icono
                   size={17}
                   className={`shrink-0 ${activa ? 'text-indigo-600 dark:text-indigo-400' : 'text-zinc-400 dark:text-zinc-500'}`}
