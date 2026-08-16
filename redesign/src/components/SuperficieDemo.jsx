@@ -45,8 +45,8 @@ function Cabecera({ compact }) {
       <span className={`font-extrabold tracking-tight text-white ${compact ? 'text-sm' : 'text-xl'}`}>Vibeset</span>
       {/* En la rejilla, la estrella de favorito flota sobre la esquina derecha de
           la tarjeta: el texto se aparta para no quedar debajo. */}
-      <span className={`font-mono text-zinc-400 shrink-0 ${compact ? 'text-[9px] pr-7' : 'text-xs'}`}>
-        {compact ? '100 · 64 · 41' : '100 lenguajes · 64 recursos · 41 conceptos'}
+      <span className={`font-mono text-zinc-400 shrink-0 ${compact ? 'text-[9px] pr-9' : 'text-xs'}`}>
+        {compact ? '100 · 64' : '100 lenguajes · 64 recursos · 41 conceptos'}
       </span>
     </div>
   )
