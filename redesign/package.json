@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tarjeta": "node scripts/tarjeta-social.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.0.0",
