@@ -31,7 +31,7 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
       className="pulsable pulsable-suave rounded-xl bg-panel border border-linea p-4 cursor-pointer hover:border-indigo-500/50 hover:bg-indigo-500/5"
     >
       <div className="flex items-center gap-1 mb-1">
-        <span className="font-bold text-sm text-tinta min-w-0 flex-1">{d.label}</span>
+        <h3 className="font-bold text-sm text-tinta min-w-0 flex-1">{d.label}</h3>
         {/* Copiar el archivo sin entrar en la ficha: quien ya sabe qué skill
             quiere no necesita leerla otra vez. */}
         <span data-no-open className="flex items-center gap-0.5">

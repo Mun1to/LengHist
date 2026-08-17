@@ -43,9 +43,9 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                     className="rounded-xl bg-panel border border-linea p-4"
                   >
                     <div className="flex items-center gap-2 mb-1.5">
-                      <span className="font-bold text-sm text-tinta min-w-0 flex-1">
+                      <h3 className="font-bold text-sm text-tinta min-w-0 flex-1">
                         {lang === 'en' && c.nameEn ? c.nameEn : c.name}
-                      </span>
+                      </h3>
                       <span className="font-mono text-[11px] shrink-0" style={{ color: group.color }}>
                         {lang === 'en' && c.tagEn ? c.tagEn : c.tag}
                       </span>

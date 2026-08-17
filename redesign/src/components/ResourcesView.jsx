@@ -61,7 +61,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
                     <Monograma nombre={r.name} color={group.dot} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="font-bold text-sm text-tinta truncate">{r.name}</span>
+                        <h3 className="font-bold text-sm text-tinta truncate">{r.name}</h3>
                         <ArrowUpRight size={13} className="shrink-0 text-tinta-suave group-hover:text-indigo-500 transition-colors" />
                       </div>
                       <div className="text-sm text-tinta-suave leading-snug mt-0.5">{r[lang]}</div>

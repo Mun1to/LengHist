@@ -34,7 +34,7 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
                     igual que la cabecera de degradado y no se come la tarjeta. */}
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <span className="w-1 h-4 rounded-full shrink-0" style={{ background: l.color[0] }} />
-                  <span className="font-bold text-tinta truncate min-w-0 flex-1">{l.name}</span>
+                  <h2 className="font-bold text-tinta truncate min-w-0 flex-1">{l.name}</h2>
                   <span className="font-mono text-[11px] text-tinta-suave shrink-0">{l.year}</span>
                 </div>
                 {/* Tres líneas y no dos: con dos, cuatro de cada diez fichas se
