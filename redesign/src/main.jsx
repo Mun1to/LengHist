@@ -10,6 +10,11 @@ import App from './App.jsx'
 // vistas, barras que crecen) no. Con esto las respetan todas a la vez, y en un
 // sitio que se mueve tanto como este eso no es un detalle: hay gente a la que
 // el movimiento le marea de verdad.
+// El contenido que el build cocinó para los robots ya ha cumplido: lo quitamos
+// antes de montar, para que no se vea un instante repetido debajo de la
+// aplicación. En desarrollo el nodo está vacío y esto no hace nada.
+document.getElementById('pre')?.remove()
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <MotionConfig reducedMotion="user">

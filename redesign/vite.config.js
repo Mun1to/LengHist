@@ -64,17 +64,24 @@ ${rutas.map(({ ruta, prioridad }) => `  <url>
 const escapar = (s) => String(s)
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 
-// Escribe un index.html por dirección con su título y su descripción ya dentro.
+// Escribe un HTML por dirección con su título, su descripción, sus datos
+// estructurados y su contenido ya dentro.
 //
-// El meta lo ponía solo React al arrancar, y los robots que dibujan la vista
-// previa de un enlace (X, Slack, LinkedIn, WhatsApp, Discord) no ejecutan
-// JavaScript: leían el HTML crudo y las 136 direcciones les decían exactamente
-// lo mismo, el título de la portada. Compartir una ficha concreta, que es lo que
-// hace crecer a un sitio así, no servía de nada.
+// Son dos problemas distintos que se arreglan en el mismo sitio:
 //
-// No es renderizado en servidor: el cuerpo sigue vacío y React monta encima
-// igual que antes. Lo único que cambia es la cabecera, y el `_redirects` sigue
-// cubriendo lo que no exista.
+// 1. El meta lo ponía solo React al arrancar, y los robots que dibujan la vista
+//    previa de un enlace (X, Slack, LinkedIn, WhatsApp, Discord) no ejecutan
+//    JavaScript: leían el HTML crudo y las 136 direcciones les decían lo mismo,
+//    el título de la portada. Compartir una ficha concreta no servía de nada.
+// 2. El cuerpo era `<div id="root"></div>` y punto. Los robots que responden
+//    preguntas (Claude, ChatGPT, Perplexity) tampoco ejecutan JavaScript, así
+//    que llegaban a `/languages/python` y no encontraban ni una palabra del
+//    catálogo. Eso se arregla desde el 2026-08-17 cocinando el contenido en
+//    `#pre` (ver `src/lib/contenidoEstatico.js`).
+//
+// Sigue sin ser renderizado en servidor: no se ejecuta React ni un componente.
+// Es el mismo contenido escrito en HTML plano desde los archivos de `data/`, y
+// `main.jsx` lo borra al montar.
 //
 // Se escribe `languages/rust.html` y NO `languages/rust/index.html`, y la
 // diferencia no es de gusto: con la carpeta, Cloudflare Pages responde a
@@ -92,6 +99,7 @@ function prerenderMeta() {
     async closeBundle() {
       const { I18N } = await import('./src/data/i18n.js')
       const { metaDePagina } = await import('./src/lib/meta.js')
+      const { contenidoDePagina, jsonLdDePagina } = await import('./src/lib/contenidoEstatico.js')
 
       // El HTML servido se declara en español, así que el meta cocinado va en
       // español. El inglés lo elige el visitante y llega después de React, que
@@ -101,12 +109,20 @@ function prerenderMeta() {
       const t = I18N[lang]
 
       const plantilla = readFileSync(join(outDir, 'index.html'), 'utf8')
-      const rutas = await rutasDelSitio()
+
+      // La página de «aquí no hay nada» se sirve desde el propio Cloudflare
+      // Pages cuando la dirección no existe, así que se cocina como una más.
+      const rutas = [...await rutasDelSitio(), { ruta: '/404', vista: '404', ficha: null }]
       let escritas = 0
 
       for (const { ruta, vista, ficha } of rutas) {
         const { titulo, descripcion } = metaDePagina({ vista, ficha, lang, t })
         const url = BASE + ruta
+        const datos = jsonLdDePagina({ vista, ficha, lang, t, base: BASE, url, titulo, descripcion })
+        const jsonLd = `<script type="application/ld+json">${
+          JSON.stringify({ '@context': 'https://schema.org', '@graph': datos })
+            .replaceAll('<', '\\u003c')
+        }</script>`
 
         const html = plantilla
           .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapar(titulo)}</title>`)
@@ -117,18 +133,22 @@ function prerenderMeta() {
           .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${escapar(descripcion)}$2`)
           .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${escapar(url)}$2`)
           .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${escapar(url)}$2`)
+          .replace('</head>', `${jsonLd}</head>`)
+          .replace('<div id="pre"></div>',
+            `<div id="pre">${contenidoDePagina({ vista, ficha, lang, t })}</div>`)
 
-        // La portada ya es el index.html de la raíz: reescribirlo con lo mismo
-        // sobra, y tocarlo dos veces es una forma barata de romperlo.
-        if (ruta === '/') continue
+        // La portada es el index.html de la raíz, no un archivo aparte: si se
+        // escribiera `/.html` no lo serviría nadie.
+        const destino = ruta === '/'
+          ? join(outDir, 'index.html')
+          : join(outDir, ruta.replace(/^\//, '') + '.html')
 
-        const destino = join(outDir, ruta.replace(/^\//, '') + '.html')
         mkdirSync(dirname(destino), { recursive: true })
         writeFileSync(destino, html)
         escritas++
       }
 
-      console.log(`  meta cocinado en ${escritas} direcciones (+ la portada)`)
+      console.log(`  contenido y meta cocinados en ${escritas} direcciones`)
     },
   }
 }

@@ -61,11 +61,37 @@
     <meta name="twitter:description" content="100 lenguajes, 64 recursos, 41 conceptos web, 12 componentes en vivo, 17 skills de agente y 38 consejos." />
     <meta name="twitter:image" content="https://vibeset.dev/brand/og.png" />
 
+    <!-- Estilo del contenido que el build cocina dentro de `#pre`. Se ve solo
+         mientras el bundle carga, así que va aquí y no en Tailwind: en ese
+         momento la hoja de la aplicación puede no haber llegado todavía. -->
+    <style>
+      #pre { max-width: 60rem; margin: 0 auto; padding: 2.5rem 1.5rem; font: 16px/1.6 Inter, system-ui, sans-serif; color: #18181b }
+      [data-theme="dark"] #pre { color: #e4e4e7 }
+      #pre h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -.02em; margin: 0 0 .5rem }
+      #pre h2 { font-size: 1.05rem; font-weight: 700; margin: 1.75rem 0 .5rem }
+      #pre p { margin: 0 0 .75rem; max-width: 44rem }
+      #pre ul { list-style: none; padding: 0; margin: 0 0 1rem }
+      #pre li { margin: .3rem 0 }
+      #pre a { color: #4f46e5; text-decoration: none }
+      [data-theme="dark"] #pre a { color: #a5b4fc }
+      #pre .sec { opacity: .7 }
+      #pre header ul { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 2rem }
+      #pre pre { overflow-x: auto; padding: .75rem; border-radius: .5rem; background: #f4f4f5 }
+      [data-theme="dark"] #pre pre { background: #18181b }
+      #pre code { font: 13px/1.5 "JetBrains Mono", ui-monospace, monospace }
+      #pre footer { margin-top: 2.5rem }
+    </style>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <!-- El contenido que cocina el build para los robots que no ejecutan
+         JavaScript. Va en un nodo aparte y NO dentro de `#root`: así se borra
+         de forma explícita en main.jsx en vez de depender de cómo limpie React
+         su contenedor. En desarrollo queda vacío y no estorba. -->
+    <div id="pre"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
