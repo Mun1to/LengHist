@@ -59,7 +59,7 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
       </div>
       {/* El nombre es el enlace de verdad de la tarjeta: la demo de arriba tiene
           que recibir el ratón, así que no puede ser ella el enlace. */}
-      <Link to={ruta} className="flex items-baseline gap-3 mt-2.5 px-0.5 group/nombre">
+      <Link to={ruta} className="flex items-baseline gap-3 min-h-6 py-0.5 mt-2 px-0.5 group/nombre">
         <span className="font-bold text-sm text-tinta group-hover/nombre:text-indigo-600 dark:group-hover/nombre:text-indigo-400 transition-colors shrink-0">
           {item.name}
         </span>

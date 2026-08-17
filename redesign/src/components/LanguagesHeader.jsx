@@ -24,7 +24,10 @@ export default function LanguagesHeader({ t, lang, filter, setFilter, total, sho
           <button
             key={p.label[lang]}
             onClick={() => setFilter(p.filter)}
-            className={`font-mono text-sm pb-0.5 border-b cursor-pointer transition-colors ${
+            /* El area pulsable llega a 24px de alto sin que la letra cambie: el
+               relleno crece y el margen negativo lo devuelve, asi la linea de
+               abajo sigue pegada al texto. */
+            className={`font-mono text-sm inline-flex items-center min-h-6 pt-1 pb-0.5 border-b cursor-pointer transition-colors ${
               activo(p.filter)
                 ? 'text-indigo-600 dark:text-indigo-300 font-bold border-indigo-500'
                 : 'text-tinta-suave border-transparent hover:text-tinta-fuerte'

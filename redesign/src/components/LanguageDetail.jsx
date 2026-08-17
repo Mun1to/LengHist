@@ -36,7 +36,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
     >
       <Link
         to={rutaDe('languages')}
-        className="inline-flex items-center gap-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 rounded-md text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.langBack}
@@ -138,7 +138,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
             href={wiki}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center gap-1.5 font-mono text-[11px] text-tinta-suave hover:text-tinta-suave hover:text-tinta-suave transition-colors"
+            className="inline-flex items-center gap-1.5 min-h-6 font-mono text-[11px] text-tinta-suave hover:text-tinta transition-colors"
           >
             <ExternalLink size={11} /> Wikipedia ({lang.toUpperCase()})
           </a>

@@ -22,7 +22,7 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
             <button
               key={tb}
               onClick={() => setTab(tb)}
-              className={`font-mono text-[13px] px-1 pb-0.5 border-b cursor-pointer transition-colors ${
+              className={`font-mono text-[13px] inline-flex items-end min-h-6 px-1.5 pb-0.5 border-b cursor-pointer transition-colors ${
                 tab === tb ? 'text-zinc-100 border-indigo-400' : 'text-zinc-400 border-transparent hover:text-zinc-300'
               }`}
             >

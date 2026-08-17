@@ -93,7 +93,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
               </Link>
               <button
                 onClick={onQuiz}
-                className="pulsable text-sm font-semibold text-tinta-fuerte border-b border-linea-viva hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer pb-0.5"
+                className="pulsable inline-flex items-center min-h-6 pt-1 text-sm font-semibold text-tinta-fuerte border-b border-linea-viva hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer pb-0.5"
               >
                 {t.testBtn}
               </button>
@@ -153,7 +153,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
             <p className="text-tinta-suave leading-relaxed mb-6">{t.landingCodeText}</p>
             <Link
               to={rutaDe('languages')}
-              className="grupo-cta pulsable inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 border-b border-indigo-500/40 hover:border-indigo-500 pb-0.5"
+              className="grupo-cta pulsable inline-flex items-center gap-1.5 min-h-6 pt-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400 border-b border-indigo-500/40 hover:border-indigo-500 pb-0.5"
             >
               {t.landingCodeCta}
               <ArrowRight size={14} className="flecha-desliza" />

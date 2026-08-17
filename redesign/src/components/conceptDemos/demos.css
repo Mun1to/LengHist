@@ -63,6 +63,9 @@
   padding: 10px 12px;
 }
 
+/* El alto mínimo de 24px es para el dedo, no para la vista: la letra y la línea
+   de abajo se quedan donde estaban y lo que crece es el área que responde. Antes
+   estos botones medían 19px de alto. */
 .cd-btn {
   font: inherit;
   font-size: 11px;
@@ -71,6 +74,9 @@
   background: none;
   border: none;
   border-bottom: 1px solid rgba(129, 140, 248, .4);
+  display: inline-flex;
+  align-items: flex-end;
+  min-height: 24px;
   padding: 0 0 1px;
   cursor: pointer;
   transition: color .18s, border-color .18s;

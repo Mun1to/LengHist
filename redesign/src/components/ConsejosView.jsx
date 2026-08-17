@@ -64,7 +64,7 @@ export default function ConsejosView({
       <div className="flex items-center gap-5 flex-wrap pb-4 mb-6 border-b border-linea">
         <button
           onClick={onMezclar}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-300 border-b border-indigo-500/40 hover:border-current pb-0.5 cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1.5 min-h-6 pt-1 pb-0.5 text-xs font-semibold text-indigo-600 dark:text-indigo-300 border-b border-indigo-500/40 hover:border-current cursor-pointer transition-colors"
         >
           <Shuffle size={13} />
           {t.consejosMezclar}
@@ -73,7 +73,7 @@ export default function ConsejosView({
           href={urlAportar}
           target="_blank"
           rel="noopener"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1.5 min-h-6 px-1 -mx-1 rounded-md text-xs font-semibold text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
         >
           <Plus size={13} />
           {t.consejosAportar}

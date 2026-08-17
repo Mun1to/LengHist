@@ -48,7 +48,10 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
               <div className="flex items-center justify-between gap-2 px-4 pb-3 -mt-1">
                 <button
                   onClick={() => onToggleCompare(l.name)}
-                  className={`inline-flex items-center gap-1.5 text-xs font-semibold cursor-pointer transition-colors ${
+                  /* La estrella de al lado mide 28px: igualando el alto aquí, el
+                     área pulsable pasa de 16px a 28 sin que la fila crezca ni un
+                     píxel. Antes había cien botones por debajo del mínimo. */
+                  className={`inline-flex items-center gap-1.5 min-h-7 px-1.5 -mx-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
                     compareSet.has(l.name)
                       ? 'text-indigo-600 dark:text-indigo-400'
                       : 'text-tinta-suave hover:text-tinta'

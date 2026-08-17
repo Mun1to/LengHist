@@ -23,7 +23,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
     >
       <Link
         to={rutaDe('components')}
-        className="inline-flex items-center gap-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 rounded-md text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.compBack}
@@ -48,7 +48,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
           href={item.url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 text-sm text-tinta-suave hover:text-tinta mt-3 transition-colors"
+          className="inline-flex items-center gap-1 min-h-6 text-sm text-tinta-suave hover:text-tinta mt-3 transition-colors"
         >
           {t.compSource} {new URL(item.url).hostname}
           <ArrowUpRight size={13} />
@@ -88,7 +88,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
             href={item.url}
             target="_blank"
             rel="noreferrer"
-            className="font-mono text-[11px] text-tinta-suave hover:text-tinta-suave hover:text-tinta-suave transition-colors break-all"
+            className="inline-flex min-h-6 font-mono text-[11px] text-tinta-suave hover:text-tinta transition-colors break-all"
           >
             {t.compCredit} {item.url.replace('https://', '')}
           </a>

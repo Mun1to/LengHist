@@ -57,7 +57,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
     >
       <Link
         to={rutaDe('skills')}
-        className="inline-flex items-center gap-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 rounded-md text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.skillBack}
@@ -82,7 +82,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
             href={autor.url}
             target="_blank"
             rel="noreferrer"
-            className="font-medium text-tinta-fuerte hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            className="inline-flex items-center min-h-6 font-medium text-tinta-fuerte hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
           >
             {autor.name}
           </a>
@@ -93,7 +93,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
           target="_blank"
           rel="noreferrer"
           title={hasOwnRepo(item) ? t.skillOwnRepo : t.skillInThisRepo}
-          className="inline-flex items-center gap-1 font-mono hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors break-all"
+          className="inline-flex items-center gap-1 min-h-6 font-mono hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors break-all"
         >
           {repoLabel(item)}
           <ArrowUpRight size={11} />
@@ -163,7 +163,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
           href={DOCS}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 font-mono text-[11px] text-tinta-suave hover:text-tinta-suave hover:text-tinta-suave transition-colors break-all"
+          className="inline-flex items-center gap-1 min-h-6 font-mono text-[11px] text-tinta-suave hover:text-tinta transition-colors break-all"
         >
           {t.skillDocs} {DOCS.replace('https://', '')}
           <ArrowUpRight size={11} />

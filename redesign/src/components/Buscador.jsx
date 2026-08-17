@@ -96,7 +96,7 @@ export default function Buscador({ t, lang, onAbrir }) {
           className="w-full h-9 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-linea pl-9 pr-4 sm:pr-14 text-sm text-tinta placeholder:text-tinta-suave outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-950 transition-colors"
         />
         {/* El atajo es una pista, no un control: texto suelto, sin caja */}
-        <span className="hidden sm:block absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-[10px] text-tinta-suave pointer-events-none select-none">
+        <span className="hidden sm:block absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-[11px] text-tinta-suave pointer-events-none select-none">
           {mac ? '⌘K' : 'Ctrl K'}
         </span>
       </div>
@@ -117,7 +117,7 @@ export default function Buscador({ t, lang, onAbrir }) {
             <>
               {grupos.map((g) => (
                 <div key={g.seccion}>
-                  <div className="px-4 pt-2 pb-1 font-mono text-[10px] uppercase tracking-wider text-tinta-suave">
+                  <div className="px-4 pt-2 pb-1 font-mono text-[11px] uppercase tracking-wider text-tinta-suave">
                     {t.nav[g.seccion]}
                   </div>
                   {g.items.map((item) => {
@@ -157,7 +157,7 @@ export default function Buscador({ t, lang, onAbrir }) {
                   })}
                 </div>
               ))}
-              <div className="px-4 pt-2 mt-1 border-t border-linea font-mono text-[10px] text-tinta-suave">
+              <div className="px-4 pt-2 mt-1 border-t border-linea font-mono text-[11px] text-tinta-suave">
                 {t.buscarAyuda}
               </div>
             </>

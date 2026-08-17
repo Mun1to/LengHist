@@ -22,7 +22,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
         </div>
         <button
           onClick={onReset}
-          className="inline-flex items-center gap-1.5 text-xs text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 rounded-md text-xs text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
         >
           <RotateCcw size={12} />
           {t.compReset}
@@ -41,7 +41,8 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
                 type="range"
                 min={c.min} max={c.max} step={c.step} value={value}
                 onChange={(e) => onChange(c.key, Number(e.target.value))}
-                className="w-full accent-indigo-500 cursor-pointer"
+                className="w-full h-6 accent-indigo-500 cursor-pointer"
+                aria-label={c.label[lang]}
               />
             </Row>
           )
