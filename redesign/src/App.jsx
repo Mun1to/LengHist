@@ -16,6 +16,7 @@ import SkillDetail from './components/SkillDetail'
 import LandingView from './components/LandingView'
 import LanguageDetail from './components/LanguageDetail'
 import NoEncontrado from './components/NoEncontrado'
+import Pie from './components/Pie'
 import CompareTray from './components/CompareTray'
 import CompareModal from './components/CompareModal'
 import Quiz from './components/Quiz'
@@ -472,6 +473,10 @@ export default function App() {
           </AnimatePresence>
         </main>
       </div>
+
+      {/* Fuera del flex: el pie cruza de lado a lado por debajo de la barra
+          lateral, que es pegajosa y termina donde termina la ventana. */}
+      <Pie t={t} totals={TOTALES} />
 
       <CompareTray t={t} names={compareSet} onRemove={toggleCompare}
         onClear={() => setCompareSet([])} onOpen={() => setCmpOpen(true)} />

@@ -8,14 +8,18 @@ import Buscador from './Buscador'
 import { rutaDe } from '../lib/rutas'
 
 // El buscador manda en el centro y la navegación se reparte a los lados, tres y
-// tres, buscando que los dos grupos midan parecido: es lo que hace que la caja
-// del medio se vea centrada de verdad y no solo esté centrada por CSS.
-const IZQUIERDA = ['languages', 'resources', 'consejos']
-const DERECHA = ['concepts', 'components', 'skills']
-// En el menú del móvil el orden no es el del reparto del escritorio (que existe
-// solo para equilibrar los dos flancos): sigue el orden del catálogo, el mismo
-// de las tarjetas de la portada.
+// tres. El corte va por la mitad del catálogo y no en cualquier sitio: leído de
+// izquierda a derecha sale el mismo orden que en la portada y en el menú del
+// móvil. Antes el reparto era otro y Consejos cambiaba de sitio según por dónde
+// entrases.
+//
+// El centrado no depende de que los dos flancos midan lo mismo: los dos
+// contenedores llevan `flex-1 basis-0`, así que se reparten el sobrante a partes
+// iguales y la caja cae en el centro exacto de la ventana con cualquier orden
+// (medido: desviación 0 px, y los dos grupos de enlaces a 16 px de la caja).
 const ORDEN_MENU = ['languages', 'resources', 'concepts', 'components', 'skills', 'consejos']
+const IZQUIERDA = ORDEN_MENU.slice(0, 3)
+const DERECHA = ORDEN_MENU.slice(3)
 
 function Enlaces({ t, claves, activeNav }) {
   return (

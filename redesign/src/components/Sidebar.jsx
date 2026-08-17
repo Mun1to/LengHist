@@ -8,10 +8,14 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
     <>
       <div className="relative">
         <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-tinta-suave" />
+        {/* El marcador de posición desaparece al escribir, así que no vale como
+            nombre: era el único campo del sitio sin uno. */}
         <input
+          type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={searchPh}
+          aria-label={searchPh}
           className="w-full bg-panel border border-linea rounded-lg pl-8 pr-8 py-2 text-sm text-tinta-fuerte placeholder:text-tinta-suave outline-none focus:border-indigo-500"
         />
         {query && (

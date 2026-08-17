@@ -162,11 +162,6 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
         </div>
       </section>
 
-      <footer className="px-6 sm:px-10 py-8 border-t border-linea">
-        <div className="max-w-6xl mx-auto font-mono text-[11px] text-tinta-suave">
-          {t.stats({ langs: totals.langs, res: totals.res, concepts: totals.concepts, skills: totals.skills })}
-        </div>
-      </footer>
     </div>
   )
 }
