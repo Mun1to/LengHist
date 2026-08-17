@@ -1,4 +1,16 @@
-# Cloudflare Pages sirve archivos estáticos: sin esto, entrar directo en
-# /languages/rust o recargar una ficha devuelve un 404 del servidor, porque ese
-# archivo no existe. Se devuelve el index y las rutas las resuelve la aplicación.
-/*    /index.html   200
+# Aquí vivía `/*  /index.html  200`, el atajo típico de una aplicación de una
+# sola página. Hacía falta cuando el build emitía un único `index.html`: sin él,
+# entrar directo en /languages/rust daba un 404 del servidor.
+#
+# Ya no hace falta y además hacía daño. Desde el 2026-08-17 el build escribe un
+# archivo por dirección (`prerenderMeta` en vite.config.js), así que cada ruta
+# real existe de verdad en el disco. Con el atajo puesto, en cambio, CUALQUIER
+# dirección inventada respondía 200 con la portada dentro: es lo que Google
+# llama soft 404, gasta presupuesto de rastreo en páginas fantasma y las
+# considera duplicadas entre sí.
+#
+# Lo que no existe cae ahora en `404.html`, que el build también cocina.
+#
+# El salto de www a vibeset.dev NO se puede poner aquí: Cloudflare Pages no
+# admite redirecciones a nivel de dominio en este archivo. Va como Redirect Rule
+# en el panel.
