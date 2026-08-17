@@ -56,6 +56,18 @@
   color: #a1a1aa;
 }
 
+/* La misma nota, pero flotando sobre una caja que además se desplaza por dentro.
+   Sin fondo propio las tarjetas le pasaban por debajo y los dos textos acababan
+   escritos sobre los mismos píxeles: pasaba en «Scroll-driven animations», donde
+   la nota caía justo encima de «Bloque 3». */
+.cd-nota-encima {
+  background: #09090b;
+  border: 1px solid #27272a;
+  border-radius: .3rem;
+  padding: 2px 6px;
+  z-index: 5;
+}
+
 .cd-card {
   background: #18181b;
   border: 1px solid #27272a;

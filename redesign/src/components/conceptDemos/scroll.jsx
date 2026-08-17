@@ -187,7 +187,7 @@ export function ScrollDriven({ lang }) {
           ))}
         </div>
       </div>
-      <div className="absolute left-3 bottom-2 cd-nota pointer-events-none">
+      <div className="absolute left-3 bottom-2 cd-nota cd-nota-encima pointer-events-none">
         {nativo ? t.cssPuro : t.necesitaJs}
       </div>
     </div>

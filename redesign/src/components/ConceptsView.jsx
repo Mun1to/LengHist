@@ -5,12 +5,19 @@ import { CONCEPT_EXAMPLES } from '../data/conceptExamples'
 import { CONCEPT_EXAMPLES_EN } from '../data/conceptExamplesEn'
 import ConceptDemo from './ConceptDemo'
 import CodeSample from './CodeSample'
+import VerMas from './VerMas'
+import { usePaginado, recortarGrupos } from '../lib/paginar'
 
 export default function ConceptsView({ t, lang, groups, onClear, favorites, onToggleFav }) {
   const total = groups.reduce((n, g) => n + g.items.length, 0)
   // El nombre del concepto es la clave interna (favoritos, ejemplos): solo
   // unos pocos cambian al traducirse, y esos traen nameEn y tagEn.
   const ejemplos = lang === 'en' ? CONCEPT_EXAMPLES_EN : CONCEPT_EXAMPLES
+
+  // Cada ficha trae demo viva y bloque de codigo, asi que nueve ya llenan
+  // varias pantallas. Sin esto la vista medía 24.072 px en un móvil.
+  const { corte, quedan, verMas } = usePaginado(total, 9)
+  const gruposEnPantalla = recortarGrupos(groups, corte)
 
   // La rejilla usa el ancho que haya, como ya hacía la de Lenguajes: estaba
   // capada a 1024px y en una pantalla ancha sobraba media página a la derecha.
@@ -28,7 +35,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
         <EmptyState t={t} onClear={onClear} />
       ) : (
         <div className="flex flex-col gap-9">
-          {groups.map((group) => (
+          {gruposEnPantalla.map((group) => (
             <div key={group.key} className="scroll-mt-20">
               <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
                 {group.label[lang]}
@@ -62,6 +69,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
               </div>
             </div>
           ))}
+          <VerMas quedan={quedan} onMas={verMas} etiqueta={t.verMas} />
         </div>
       )}
     </section>

@@ -17,6 +17,7 @@ import LandingView from './components/LandingView'
 import LanguageDetail from './components/LanguageDetail'
 import NoEncontrado from './components/NoEncontrado'
 import Pie from './components/Pie'
+import { usePaginado } from './lib/paginar'
 import CompareTray from './components/CompareTray'
 import CompareModal from './components/CompareModal'
 import Quiz from './components/Quiz'
@@ -210,6 +211,10 @@ export default function App() {
       return hay.includes(q)
     })
   }, [filter, query, langFavOnly, langFavs, lang])
+
+  // Las cien fichas se pintaban de una vez: en un móvil eran 21,6 pantallas de
+  // scroll seguido. Veinticuatro llenan la primera vista en cualquier ancho.
+  const { corte: corteLangs, quedan: quedanLangs, verMas: verMasLangs } = usePaginado(visible.length, 24)
 
   const resGroups = useMemo(() => {
     const q = resQuery.trim().toLowerCase()
@@ -410,12 +415,16 @@ export default function App() {
                   />
                 ) : (
                   <>
+                    {/* `shown` es lo que hay pintado, no lo que pasa el filtro:
+                        «Mostrando 24 de 100» tiene que poder comprobarse
+                        contando las fichas de la pantalla. */}
                     <LanguagesHeader t={t} lang={lang} filter={filter} setFilter={setFilter}
-                                     total={LANGUAGES.length} shown={visible.length} />
+                                     total={LANGUAGES.length} shown={corteLangs} />
                     <LanguageGrid
-                      t={t} lang={lang} list={visible} total={LANGUAGES.length}
+                      t={t} lang={lang} list={visible.slice(0, corteLangs)} total={LANGUAGES.length}
                       favorites={langFavs} onToggleFav={toggleLangFav}
                       compareSet={new Set(compareSet)} onToggleCompare={toggleCompare}
+                      quedan={quedanLangs} onVerMas={verMasLangs}
                       onClearFilters={() => { setFilter({ type: 'all' }); setQuery(''); setLangFavOnly(false) }}
                     />
                   </>

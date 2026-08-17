@@ -4,11 +4,12 @@ import { ArrowLeftRight } from 'lucide-react'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import { rutaDe, slugLenguaje } from '../lib/rutas'
+import VerMas from './VerMas'
 
 // Cada tarjeta es un enlace de verdad, no un div que escucha clics: se abre en
 // otra pestaña con el botón central, se copia con el derecho y los buscadores
 // pueden seguirlo. Lo que va dentro (favorito, comparar) son botones aparte.
-export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, compareSet, onToggleCompare, onClearFilters }) {
+export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, compareSet, onToggleCompare, onClearFilters, quedan = 0, onVerMas }) {
   if (list.length === 0) return (
     <section id="grid" className="px-6 sm:px-10 pt-2 pb-10">
       <EmptyState t={t} onClear={onClearFilters} />
@@ -65,6 +66,7 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
           ))}
         </AnimatePresence>
       </div>
+      <VerMas quedan={quedan} onMas={onVerMas} etiqueta={t.verMas} />
     </section>
   )
 }
