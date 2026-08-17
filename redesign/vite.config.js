@@ -73,9 +73,15 @@ const escapar = (s) => String(s)
 // hace crecer a un sitio así, no servía de nada.
 //
 // No es renderizado en servidor: el cuerpo sigue vacío y React monta encima
-// igual que antes. Lo único que cambia es la cabecera. Cloudflare Pages sirve
-// `/languages/rust/index.html` cuando le piden `/languages/rust`, y el
-// `_redirects` sigue cubriendo lo que no exista.
+// igual que antes. Lo único que cambia es la cabecera, y el `_redirects` sigue
+// cubriendo lo que no exista.
+//
+// Se escribe `languages/rust.html` y NO `languages/rust/index.html`, y la
+// diferencia no es de gusto: con la carpeta, Cloudflare Pages responde a
+// `/languages/rust` con un **308 hacia `/languages/rust/`**, así que todos los
+// enlaces publicados y las 136 entradas del sitemap se comían un salto y además
+// discrepaban del `canonical` que va dentro, que no lleva barra. Con el archivo
+// suelto, `/languages/rust` se sirve con un 200 directo.
 function prerenderMeta() {
   let outDir
 
@@ -116,7 +122,7 @@ function prerenderMeta() {
         // sobra, y tocarlo dos veces es una forma barata de romperlo.
         if (ruta === '/') continue
 
-        const destino = join(outDir, ruta.replace(/^\//, ''), 'index.html')
+        const destino = join(outDir, ruta.replace(/^\//, '') + '.html')
         mkdirSync(dirname(destino), { recursive: true })
         writeFileSync(destino, html)
         escritas++
