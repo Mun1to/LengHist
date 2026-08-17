@@ -7,8 +7,8 @@ function Row({ children }) {
 function Label({ children, value }) {
   return (
     <div className="flex items-baseline justify-between gap-3 mb-1.5">
-      <span className="text-sm text-zinc-600 dark:text-zinc-300">{children}</span>
-      {value != null && <span className="font-mono text-xs text-zinc-400 shrink-0">{value}</span>}
+      <span className="text-sm text-tinta-fuerte">{children}</span>
+      {value != null && <span className="font-mono text-xs text-tinta-suave shrink-0">{value}</span>}
     </div>
   )
 }
@@ -16,13 +16,13 @@ function Label({ children, value }) {
 export default function ControlPanel({ t, lang, controls, values, onChange, onReset }) {
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-3 pb-2 border-b border-zinc-200 dark:border-zinc-800">
-        <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+      <div className="flex items-baseline justify-between gap-3 pb-2 border-b border-linea">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave">
           {t.compControls}
         </div>
         <button
           onClick={onReset}
-          className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
         >
           <RotateCcw size={12} />
           {t.compReset}
@@ -54,7 +54,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
               <select
                 value={value}
                 onChange={(e) => onChange(c.key, e.target.value)}
-                className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-2 py-1.5 text-sm text-zinc-700 dark:text-zinc-200 outline-none focus:border-indigo-500 cursor-pointer"
+                className="w-full bg-panel border border-linea rounded-lg px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-indigo-500 cursor-pointer"
               >
                 {c.options.map((o) => (
                   <option key={o.value} value={o.value}>{o.label[lang]}</option>
@@ -71,7 +71,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
                 onClick={() => onChange(c.key, !value)}
                 className="flex items-center justify-between gap-3 w-full cursor-pointer group"
               >
-                <span className="text-sm text-zinc-600 dark:text-zinc-300 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors">
+                <span className="text-sm text-tinta-fuerte group-hover:text-tinta transition-colors">
                   {c.label[lang]}
                 </span>
                 <span
@@ -99,7 +99,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
                 value={value}
                 maxLength={c.maxLength || 14}
                 onChange={(e) => onChange(c.key, e.target.value)}
-                className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-2 py-1.5 text-sm text-zinc-700 dark:text-zinc-200 outline-none focus:border-indigo-500"
+                className="w-full bg-panel border border-linea rounded-lg px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-indigo-500"
               />
             </Row>
           )

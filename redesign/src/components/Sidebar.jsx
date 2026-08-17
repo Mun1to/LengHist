@@ -7,17 +7,17 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
   return (
     <>
       <div className="relative">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-tinta-suave" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={searchPh}
-          className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg pl-8 pr-8 py-2 text-sm text-zinc-700 dark:text-zinc-200 placeholder:text-zinc-400 outline-none focus:border-indigo-500"
+          className="w-full bg-panel border border-linea rounded-lg pl-8 pr-8 py-2 text-sm text-tinta-fuerte placeholder:text-tinta-suave outline-none focus:border-indigo-500"
         />
         {query && (
           <button
             onClick={() => setQuery('')}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 cursor-pointer"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-tinta-suave hover:text-tinta cursor-pointer"
             aria-label={t.ariaClearSearch}
           >
             <X size={13} />
@@ -26,7 +26,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
       </div>
 
       <div>
-        <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 px-2 mb-1.5">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave px-2 mb-1.5">
           {t.categorias}
         </div>
         <div className="flex flex-col gap-0.5">
@@ -37,11 +37,11 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
               className={`pulsable flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer text-left ${
                 activeCat === c.key
                   ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 font-semibold'
-                  : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                  : 'text-tinta-suave hover:bg-zinc-100 dark:hover:bg-zinc-900'
               }`}
             >
               <span className="truncate">{c.label}</span>
-              <span className="font-mono text-xs text-zinc-400 shrink-0">{c.count}</span>
+              <span className="font-mono text-xs text-tinta-suave shrink-0">{c.count}</span>
             </button>
           ))}
         </div>
@@ -49,7 +49,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
 
       {extraGroup && (
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 px-2 mb-1.5">
+          <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave px-2 mb-1.5">
             {t.tuSeleccion}
           </div>
           <div className="flex flex-col gap-0.5">
@@ -58,16 +58,16 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
               className={`pulsable flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer ${
                 extraGroup.showFavOnly
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-300 font-semibold'
-                  : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                  : 'text-tinta-suave hover:bg-zinc-100 dark:hover:bg-zinc-900'
               }`}
             >
               <Star size={14} fill={extraGroup.showFavOnly ? 'currentColor' : 'none'} /> {t.favoritos}
-              <span className="ml-auto font-mono text-xs text-zinc-400">{extraGroup.favCount}</span>
+              <span className="ml-auto font-mono text-xs text-tinta-suave">{extraGroup.favCount}</span>
             </button>
             {extraGroup.compareCount != null && (
-              <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm text-zinc-600 dark:text-zinc-400">
+              <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm text-tinta-suave">
                 <ArrowLeftRight size={14} /> {t.comparar}
-                <span className="ml-auto font-mono text-xs text-zinc-400">{extraGroup.compareCount}</span>
+                <span className="ml-auto font-mono text-xs text-tinta-suave">{extraGroup.compareCount}</span>
               </div>
             )}
           </div>
@@ -79,7 +79,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
 
 export default function Sidebar(props) {
   return (
-    <aside className="hidden lg:flex flex-col gap-6 w-[250px] shrink-0 border-r border-zinc-200 dark:border-zinc-800 px-4 py-6 sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto">
+    <aside className="hidden lg:flex flex-col gap-6 w-[250px] shrink-0 border-r border-linea px-4 py-6 sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto">
       <PanelFiltros {...props} />
     </aside>
   )

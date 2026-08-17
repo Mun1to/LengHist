@@ -59,7 +59,7 @@ export function CascadeLayers({ lang }) {
   const t = textoDe(lang)
   return (
     <div className="cd-box p-3 flex flex-col justify-center gap-2">
-      <div className="font-mono text-[10px] text-zinc-500">@layer cd-base, cd-comp, cd-util;</div>
+      <div className="font-mono text-[10px] text-zinc-400">@layer cd-base, cd-comp, cd-util;</div>
       <div className="font-mono text-[10px] leading-relaxed text-zinc-600">
         <div>cd-base  →  {t.colorGris}</div>
         <div>cd-comp  →  {t.colorIndigo}</div>
@@ -99,7 +99,7 @@ export function Subgrid({ lang }) {
         {t.subgridCortas.map((c) => (
           <div key={c.t} className={on ? 'cd-subgrid' : 'flex flex-col gap-1'}>
             <div className="font-bold text-[10px] text-zinc-100 leading-tight">{c.t}</div>
-            <div className="text-[9px] text-zinc-500 leading-tight">{c.d}</div>
+            <div className="text-[9px] text-zinc-400 leading-tight">{c.d}</div>
             <div className="h-4 rounded bg-indigo-500/70 self-end" />
           </div>
         ))}

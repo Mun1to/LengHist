@@ -8,7 +8,7 @@ export default function NoEncontrado({ t }) {
     <section className="px-6 sm:px-10 py-24 max-w-2xl">
       <div className="font-mono text-xs uppercase tracking-[.14em] text-indigo-600 dark:text-indigo-400">404</div>
       <h1 className="text-3xl font-extrabold tracking-tight mt-3">{t.noHayTitulo}</h1>
-      <p className="text-zinc-500 dark:text-zinc-400 mt-3 leading-relaxed">{t.noHayTexto}</p>
+      <p className="text-tinta-suave mt-3 leading-relaxed">{t.noHayTexto}</p>
 
       <Link
         to="/"
@@ -18,7 +18,7 @@ export default function NoEncontrado({ t }) {
         <ArrowRight size={14} className="flecha-desliza" />
       </Link>
 
-      <div className="font-mono text-[11px] text-zinc-400 dark:text-zinc-600 mt-4">{t.noHayBuscar}</div>
+      <div className="font-mono text-[11px] text-tinta-suave mt-4">{t.noHayBuscar}</div>
     </section>
   )
 }

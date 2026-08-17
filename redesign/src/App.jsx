@@ -290,7 +290,7 @@ export default function App() {
     if (activeNav === 'resources') {
       return {
         searchPh: t.resPh, query: resQuery, setQuery: setResQuery,
-        categories: [{ key: 'all', label: t.all, count: RESOURCES.reduce((n, g) => n + g.items.length, 0), dot: '#818cf8' },
+        categories: [{ key: 'all', label: t.all, count: RESOURCES.reduce((n, g) => n + g.items.length, 0), dot: 'var(--tono-indigo)' },
           ...RESOURCES.map((g) => ({ key: g.key, label: g.label[lang], count: g.items.length, dot: g.dot }))],
         activeCat: resFavOnly ? null : resCat,
         setActiveCat: (k) => { setResCat(k); setResFavOnly(false) },
@@ -300,7 +300,7 @@ export default function App() {
     if (activeNav === 'concepts') {
       return {
         searchPh: t.conPh, query: conQuery, setQuery: setConQuery,
-        categories: [{ key: 'all', label: t.all, count: CONCEPTS.reduce((n, g) => n + g.items.length, 0), dot: '#818cf8' },
+        categories: [{ key: 'all', label: t.all, count: CONCEPTS.reduce((n, g) => n + g.items.length, 0), dot: 'var(--tono-indigo)' },
           ...CONCEPTS.map((g) => ({ key: g.key, label: g.label[lang], count: g.items.length, dot: g.color }))],
         activeCat: conFavOnly ? null : conCat,
         setActiveCat: (k) => { setConCat(k); setConFavOnly(false) },
@@ -372,7 +372,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-tinta">
       <TopBar
         t={t} lang={lang} onToggleLang={cambiarIdioma} activeNav={activeNav}
         tema={tema} onCambiarTema={cambiarTema} totales={TOTALES}

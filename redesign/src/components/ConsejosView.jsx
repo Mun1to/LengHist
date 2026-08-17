@@ -21,7 +21,7 @@ function Nota({ t, lang, consejo, favorito, onToggleFav }) {
 
   return (
     <div className="cj-nota" data-grupo={consejo.grupo} data-tam={tamanoDe(texto)}>
-      <p className="cj-texto text-zinc-900 dark:text-zinc-50"><Texto texto={texto} /></p>
+      <p className="cj-texto text-tinta"><Texto texto={texto} /></p>
       <div className="cj-pie">
         {/* Sin firma cuando el consejo es de la casa: repetir "Vibeset" 38 veces
             es ruido, y así la firma significa que alguien lo puso de su mano. */}
@@ -30,7 +30,7 @@ function Nota({ t, lang, consejo, favorito, onToggleFav }) {
             href={`https://github.com/${consejo.autor}`}
             target="_blank"
             rel="noopener"
-            className="font-mono text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+            className="font-mono text-tinta-suave hover:text-tinta transition-colors"
           >
             @{consejo.autor}
           </a>
@@ -53,15 +53,15 @@ export default function ConsejosView({
         <div className="flex items-baseline gap-3 min-w-0">
           <h1 className="text-3xl font-extrabold tracking-tight">{t.consejosTitle}</h1>
           {/* En pruebas: se dice con una palabra, no con una pegatina */}
-          <span className="font-mono text-[11px] uppercase tracking-widest text-amber-600 dark:text-amber-400">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-ambar">
             {t.beta}
           </span>
         </div>
-        <span className="font-mono text-xs text-zinc-400 shrink-0">{total}</span>
+        <span className="font-mono text-xs text-tinta-suave shrink-0">{total}</span>
       </div>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-6 max-w-2xl">{t.consejosSub}</p>
+      <p className="text-tinta-suave mb-6 max-w-2xl">{t.consejosSub}</p>
 
-      <div className="flex items-center gap-5 flex-wrap pb-4 mb-6 border-b border-zinc-200 dark:border-zinc-800">
+      <div className="flex items-center gap-5 flex-wrap pb-4 mb-6 border-b border-linea">
         <button
           onClick={onMezclar}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-300 border-b border-indigo-500/40 hover:border-current pb-0.5 cursor-pointer transition-colors"
@@ -73,13 +73,13 @@ export default function ConsejosView({
           href={urlAportar}
           target="_blank"
           rel="noopener"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
         >
           <Plus size={13} />
           {t.consejosAportar}
           <ArrowUpRight size={12} />
         </a>
-        <span className="ml-auto font-mono text-[11px] text-zinc-400">{t.consejosQuienAporta}</span>
+        <span className="ml-auto font-mono text-[11px] text-tinta-suave">{t.consejosQuienAporta}</span>
       </div>
 
       {lista.length === 0 ? (

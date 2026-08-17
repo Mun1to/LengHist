@@ -2,7 +2,7 @@ import { SearchX } from 'lucide-react'
 
 export default function EmptyState({ t, onClear }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-20 text-zinc-400">
+    <div className="flex flex-col items-center justify-center text-center py-20 text-tinta-suave">
       <SearchX size={34} className="mb-3" />
       <p className="text-sm mb-4">{t.empty}</p>
       <button

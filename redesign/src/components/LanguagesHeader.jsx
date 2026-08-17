@@ -15,11 +15,11 @@ export default function LanguagesHeader({ t, lang, filter, setFilter, total, sho
     <section className="px-6 sm:px-10 pt-12 pb-6">
       <div className="flex items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.gridTitle}</h1>
-        <span className="font-mono text-xs text-zinc-400 shrink-0">{t.gridSub(shown, total)}</span>
+        <span className="font-mono text-xs text-tinta-suave shrink-0">{t.gridSub(shown, total)}</span>
       </div>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-6 max-w-2xl">{t.langsSub}</p>
+      <p className="text-tinta-suave mb-6 max-w-2xl">{t.langsSub}</p>
 
-      <div className="flex flex-wrap items-center gap-5 pt-5 border-t border-zinc-200 dark:border-zinc-800">
+      <div className="flex flex-wrap items-center gap-5 pt-5 border-t border-linea">
         {HERO_PILLS.map((p) => (
           <button
             key={p.label[lang]}
@@ -27,7 +27,7 @@ export default function LanguagesHeader({ t, lang, filter, setFilter, total, sho
             className={`font-mono text-sm pb-0.5 border-b cursor-pointer transition-colors ${
               activo(p.filter)
                 ? 'text-indigo-600 dark:text-indigo-300 font-bold border-indigo-500'
-                : 'text-zinc-400 dark:text-zinc-500 border-transparent hover:text-zinc-600 dark:hover:text-zinc-300'
+                : 'text-tinta-suave border-transparent hover:text-tinta-fuerte'
             }`}
           >
             {p.label[lang]}

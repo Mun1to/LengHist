@@ -23,7 +23,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
     >
       <Link
         to={rutaDe('components')}
-        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.compBack}
@@ -41,30 +41,30 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
         {item.labels.join(' · ')}
       </div>
 
-      <p className="text-zinc-500 dark:text-zinc-400 mt-4 max-w-2xl leading-relaxed">{item.desc[lang]}</p>
+      <p className="text-tinta-suave mt-4 max-w-2xl leading-relaxed">{item.desc[lang]}</p>
 
       {item.url ? (
         <a
           href={item.url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 mt-3 transition-colors"
+          className="inline-flex items-center gap-1 text-sm text-tinta-suave hover:text-tinta mt-3 transition-colors"
         >
           {t.compSource} {new URL(item.url).hostname}
           <ArrowUpRight size={13} />
         </a>
       ) : (
-        <div className="text-sm text-zinc-400 mt-3">{t.compOwn}</div>
+        <div className="text-sm text-tinta-suave mt-3">{t.compOwn}</div>
       )}
 
-      <div className="relative h-[420px] rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 mt-8">
+      <div className="relative h-[420px] rounded-2xl overflow-hidden bg-zinc-950 border border-linea mt-8">
         <ComponentDemo item={item} values={values} lang={lang} t={t} />
       </div>
       {needsHtmlInCanvas && !htmlInCanvas && (
-        <p className="text-xs text-zinc-400 mt-2.5 leading-relaxed max-w-2xl">{t.compHicWarn}</p>
+        <p className="text-xs text-tinta-suave mt-2.5 leading-relaxed max-w-2xl">{t.compHicWarn}</p>
       )}
 
-      <div className="mt-6 border border-zinc-200 dark:border-zinc-800 rounded-2xl px-4 py-3 bg-white dark:bg-zinc-900/50">
+      <div className="mt-6 border border-linea rounded-2xl px-4 py-3 bg-panel/50">
         <ControlPanel
           t={t} lang={lang} controls={item.controls} values={values}
           onChange={onChange} onReset={onReset}
@@ -75,20 +75,20 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
         <CodeBlock t={t} title={t.compUsage} code={usageSnippet(item, values)} />
         {item.install && <CodeBlock t={t} title={t.compInstall} code={item.install} />}
         {item.deps?.length > 0 && (
-          <div className="text-sm text-zinc-400">
-            {t.compDeps} <span className="font-mono text-zinc-500 dark:text-zinc-300">{item.deps.join(', ')}</span>
+          <div className="text-sm text-tinta-suave">
+            {t.compDeps} <span className="font-mono text-tinta-fuerte">{item.deps.join(', ')}</span>
           </div>
         )}
       </div>
 
       {/* Crédito al pie: discreto, pero con el enlace exacto de donde salió. */}
       {item.url && (
-        <div className="mt-12 pt-5 border-t border-zinc-200/60 dark:border-zinc-800/60">
+        <div className="mt-12 pt-5 border-t border-linea/60">
           <a
             href={item.url}
             target="_blank"
             rel="noreferrer"
-            className="font-mono text-[11px] text-zinc-400/60 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-400 transition-colors break-all"
+            className="font-mono text-[11px] text-tinta-suave hover:text-tinta-suave hover:text-tinta-suave transition-colors break-all"
           >
             {t.compCredit} {item.url.replace('https://', '')}
           </a>

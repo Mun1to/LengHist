@@ -14,7 +14,7 @@ function Monograma({ nombre, color }) {
     <span
       aria-hidden="true"
       className="grid place-items-center w-9 h-9 rounded-lg shrink-0 font-mono text-xs font-bold uppercase"
-      style={{ background: `${color}1f`, color }}
+      style={{ background: `color-mix(in srgb, ${color} 12%, transparent)`, color }}
     >
       {letras}
     </span>
@@ -32,9 +32,9 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
     <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.resTitle}</h1>
-        <span className="font-mono text-xs text-zinc-400 shrink-0">{t.deTotal(total)}</span>
+        <span className="font-mono text-xs text-tinta-suave shrink-0">{t.deTotal(total)}</span>
       </div>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-10 max-w-2xl">{t.resSub}</p>
+      <p className="text-tinta-suave mb-10 max-w-2xl">{t.resSub}</p>
 
       {groups.length === 0 ? (
         <EmptyState t={t} onClear={onClear} />
@@ -42,7 +42,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
         <div className="flex flex-col gap-9">
           {groups.map((group, gi) => (
             <div key={group.key} className="scroll-mt-20">
-              <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">
+              <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
                 <span className="w-1.5 h-1.5 rounded-full" style={{ background: group.dot }} />
                 {group.label[lang]}
               </h2>
@@ -56,17 +56,17 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.25, delay: Math.min(gi * 0.04 + i * 0.02, 0.3) }}
-                    className="group pulsable pulsable-suave flex items-start gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-3.5 hover:border-indigo-500/50 hover:bg-indigo-500/5"
+                    className="group pulsable pulsable-suave flex items-start gap-3 rounded-xl border border-linea bg-panel p-3.5 hover:border-indigo-500/50 hover:bg-indigo-500/5"
                   >
                     <Monograma nombre={r.name} color={group.dot} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
-                        <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50 truncate">{r.name}</span>
-                        <ArrowUpRight size={13} className="shrink-0 text-zinc-300 dark:text-zinc-600 group-hover:text-indigo-500 transition-colors" />
+                        <span className="font-bold text-sm text-tinta truncate">{r.name}</span>
+                        <ArrowUpRight size={13} className="shrink-0 text-tinta-suave group-hover:text-indigo-500 transition-colors" />
                       </div>
-                      <div className="text-sm text-zinc-500 dark:text-zinc-400 leading-snug mt-0.5">{r[lang]}</div>
+                      <div className="text-sm text-tinta-suave leading-snug mt-0.5">{r[lang]}</div>
                       {/* A dónde te lleva, dicho antes de pulsar. */}
-                      <div className="font-mono text-[11px] text-zinc-400 dark:text-zinc-600 truncate mt-1.5">
+                      <div className="font-mono text-[11px] text-tinta-suave truncate mt-1.5">
                         {dominio(r.url)}
                       </div>
                     </div>

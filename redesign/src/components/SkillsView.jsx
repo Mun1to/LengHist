@@ -28,10 +28,10 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
         if (p && Math.hypot(e.clientX - p.x, e.clientY - p.y) > 6) return
         onOpen()
       }}
-      className="pulsable pulsable-suave rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 cursor-pointer hover:border-indigo-500/50 hover:bg-indigo-500/5"
+      className="pulsable pulsable-suave rounded-xl bg-panel border border-linea p-4 cursor-pointer hover:border-indigo-500/50 hover:bg-indigo-500/5"
     >
       <div className="flex items-center gap-1 mb-1">
-        <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50 min-w-0 flex-1">{d.label}</span>
+        <span className="font-bold text-sm text-tinta min-w-0 flex-1">{d.label}</span>
         {/* Copiar el archivo sin entrar en la ficha: quien ya sabe qué skill
             quiere no necesita leerla otra vez. */}
         <span data-no-open className="flex items-center gap-0.5">
@@ -42,18 +42,18 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
 
       <div className="font-mono text-[11px] text-indigo-600 dark:text-indigo-400 mb-2">/{slugOf(item, lang)}</div>
 
-      <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{d.what}</p>
-      <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-2">
-        <b className="text-zinc-500 dark:text-zinc-400">{t.skillWhen}:</b> {d.when}
+      <p className="text-sm text-tinta-suave leading-relaxed">{d.what}</p>
+      <p className="text-xs text-tinta-suave mt-2">
+        <b className="text-tinta-suave">{t.skillWhen}:</b> {d.when}
       </p>
 
       {/* Crédito en la propia tarjeta, sin enlace: la tarjeta entera ya es
           clicable y un enlace dentro competiría con ella. */}
-      <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-zinc-100 dark:border-zinc-800/60 text-[11px] text-zinc-400 dark:text-zinc-500">
+      <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-linea/60 text-[11px] text-tinta-suave">
         <span>{t.skillBy} {authorOf(item).name}</span>
         {hasOwnRepo(item) && (
           <>
-            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <span className="text-tinta-suave">·</span>
             <span className="font-mono break-all">{repoLabel(item)}</span>
           </>
         )}
@@ -73,22 +73,22 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
     <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.skillsTitle}</h1>
-        <span className="font-mono text-xs text-zinc-400 shrink-0">{t.deTotal(total)}</span>
+        <span className="font-mono text-xs text-tinta-suave shrink-0">{t.deTotal(total)}</span>
       </div>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-8 max-w-2xl leading-relaxed">{t.skillsSub}</p>
+      <p className="text-tinta-suave mb-8 max-w-2xl leading-relaxed">{t.skillsSub}</p>
 
       {/* Explicación corta: la mayoría de quien llega aquí no sabe todavía qué es una skill. */}
-      <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-5 mb-10">
-        <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-2">
+      <div className="rounded-xl border border-linea bg-panel/50 p-5 mb-10">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-2">
           {t.skillsWhatTitle}
         </div>
-        <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-2xl">{t.skillsWhatText}</p>
-        <pre className="mt-4 font-mono text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400 overflow-x-auto">
+        <p className="text-sm text-tinta-fuerte leading-relaxed max-w-2xl">{t.skillsWhatText}</p>
+        <pre className="mt-4 font-mono text-[11px] leading-relaxed text-tinta-suave overflow-x-auto">
 {`~/.claude/skills/
 └── ${ejemplo}/
     └── SKILL.md      ${t.skillsWhatFile}`}
         </pre>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-4 max-w-2xl leading-relaxed">
+        <p className="text-sm text-tinta-suave mt-4 max-w-2xl leading-relaxed">
           {t.skillMarketplace}
         </p>
         <div className="mt-3 max-w-xl">
@@ -102,7 +102,7 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
         <div className="flex flex-col gap-9">
           {groups.map((group, gi) => (
             <div key={group.key} className="scroll-mt-20">
-              <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
                 {group.label[lang]}
               </h2>
               <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3 items-start">

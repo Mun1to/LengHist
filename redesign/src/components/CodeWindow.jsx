@@ -23,7 +23,7 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
               key={tb}
               onClick={() => setTab(tb)}
               className={`font-mono text-[13px] px-1 pb-0.5 border-b cursor-pointer transition-colors ${
-                tab === tb ? 'text-zinc-100 border-indigo-400' : 'text-zinc-500 border-transparent hover:text-zinc-300'
+                tab === tb ? 'text-zinc-100 border-indigo-400' : 'text-zinc-400 border-transparent hover:text-zinc-300'
               }`}
             >
               {tb}
@@ -46,7 +46,7 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
         </AnimatePresence>
       </div>
 
-      <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-800 font-mono text-xs text-zinc-500">
+      <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-800 font-mono text-xs text-zinc-400">
         <span className="inline-flex items-center gap-2">
           <span className="w-1 h-3.5 rounded-full" style={{ background: demo.color[0] }} />
           {demo.name} · {demo.year}

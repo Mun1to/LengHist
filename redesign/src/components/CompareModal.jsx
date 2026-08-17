@@ -6,10 +6,10 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
   if (!items.length) return null
 
   const Row = ({ label, render }) => (
-    <tr className="border-b border-zinc-200 dark:border-zinc-800 align-top">
-      <td className="py-3 pr-4 text-[11px] font-bold uppercase tracking-wider text-zinc-400 whitespace-nowrap">{label}</td>
+    <tr className="border-b border-linea align-top">
+      <td className="py-3 pr-4 text-[11px] font-bold uppercase tracking-wider text-tinta-suave whitespace-nowrap">{label}</td>
       {items.map((l) => (
-        <td key={l.name} className="py-3 px-3 text-sm text-zinc-600 dark:text-zinc-300">{render(l)}</td>
+        <td key={l.name} className="py-3 px-3 text-sm text-tinta-fuerte">{render(l)}</td>
       ))}
     </tr>
   )
@@ -19,7 +19,7 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
       <div className="overflow-x-auto">
         <table className="w-full border-collapse min-w-[520px]">
           <thead>
-            <tr className="border-b border-zinc-200 dark:border-zinc-800">
+            <tr className="border-b border-linea">
               <th />
               {items.map((l) => (
                 <th key={l.name} className="py-3 px-3 text-left">
@@ -50,10 +50,10 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
             )} />
             <Row label={t.usos} render={(l) => l[lang].uses.join(', ')} />
             <Row label={t.ventajas} render={(l) => (
-              <ul className="flex flex-col gap-1">{l[lang].pros.map((p) => <li key={p} className="text-xs"><span className="text-emerald-500 font-bold">+</span> {p}</li>)}</ul>
+              <ul className="flex flex-col gap-1">{l[lang].pros.map((p) => <li key={p} className="text-xs"><span className="text-esmeralda font-bold">+</span> {p}</li>)}</ul>
             )} />
             <Row label={t.desventajas} render={(l) => (
-              <ul className="flex flex-col gap-1">{l[lang].cons.map((c) => <li key={c} className="text-xs"><span className="text-rose-500 font-bold">−</span> {c}</li>)}</ul>
+              <ul className="flex flex-col gap-1">{l[lang].cons.map((c) => <li key={c} className="text-xs"><span className="text-rojo font-bold">−</span> {c}</li>)}</ul>
             )} />
           </tbody>
         </table>

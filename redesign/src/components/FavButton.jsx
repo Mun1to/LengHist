@@ -11,8 +11,8 @@ export default function FavButton({ active, onClick, label, floating = false }) 
           ? 'pulsable absolute top-2.5 right-2.5 w-7 h-7 grid place-items-center rounded-lg bg-black/25 backdrop-blur-sm text-white hover:bg-black/40 cursor-pointer z-10'
           : `pulsable shrink-0 w-7 h-7 grid place-items-center rounded-lg cursor-pointer ${
               active
-                ? 'text-amber-500 dark:text-amber-300'
-                : 'text-zinc-300 dark:text-zinc-600 hover:text-amber-500 dark:hover:text-amber-300'
+                ? 'text-ambar'
+                : 'text-tinta-suave hover:text-ambar'
             }`
       }
     >

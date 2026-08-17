@@ -212,7 +212,7 @@ export function ScrollReveal({ lang }) {
     <div className="cd-box">
       <div ref={ref} className="cd-scroller">
         <div className="p-3 flex flex-col gap-2">
-          <div className="cd-card text-zinc-500">{t.bajaParaVer}</div>
+          <div className="cd-card text-zinc-400">{t.bajaParaVer}</div>
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className="cd-card cd-reveal" style={{ transitionDelay: `${i * 40}ms` }}>
               {t.apareceAlEntrar}

@@ -63,14 +63,14 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
               transition={{ duration: 0.3 }}
             />
           </div>
-          <div className="font-mono text-xs text-zinc-400 mb-4">{t.quizStep(state.step + 1, steps.length)}</div>
+          <div className="font-mono text-xs text-tinta-suave mb-4">{t.quizStep(state.step + 1, steps.length)}</div>
           <p className="text-lg font-semibold mb-5">{steps[state.step].q}</p>
           <div className="grid sm:grid-cols-2 gap-2.5">
             {steps[state.step].opts.map((o) => (
               <button
                 key={o.label}
                 onClick={() => pick(o)}
-                className="pulsable text-left rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3.5 text-sm font-medium cursor-pointer hover:border-indigo-500 hover:bg-indigo-500/5"
+                className="pulsable text-left rounded-xl border border-linea bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3.5 text-sm font-medium cursor-pointer hover:border-indigo-500 hover:bg-indigo-500/5"
               >
                 {o.label}
               </button>
@@ -79,7 +79,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
         </div>
       ) : (
         <div>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">{t.quizResultSub}</p>
+          <p className="text-sm text-tinta-suave mb-4">{t.quizResultSub}</p>
           <div className="flex flex-col gap-3">
             {ranked.map((r, i) => (
               <motion.div
@@ -87,7 +87,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, delay: i * 0.06 }}
-                className="flex items-center gap-4 rounded-xl border-l-[3px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 p-4"
+                className="flex items-center gap-4 rounded-xl border-l-[3px] border border-linea bg-zinc-50 dark:bg-zinc-800/50 p-4"
                 style={{ borderLeftColor: r.l.color[0] }}
               >
                 {/* El borde izquierdo ya lleva el color del lenguaje: el emoji
@@ -95,7 +95,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
                 <span className="font-mono font-bold text-indigo-500 dark:text-indigo-400">#{i + 1}</span>
                 <div className="min-w-0 flex-1">
                   <div className="font-bold text-sm">{r.l.name}</div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2">{r.l[lang].desc}</div>
+                  <div className="text-xs text-tinta-suave line-clamp-2">{r.l[lang].desc}</div>
                 </div>
                 <button
                   onClick={() => { onSeeLanguage(r.l.name); close() }}
@@ -108,7 +108,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
           </div>
           <button
             onClick={() => setState(EMPTY)}
-            className="mt-6 text-sm font-semibold text-zinc-500 dark:text-zinc-400 border-b border-zinc-300 dark:border-zinc-600 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500 pb-0.5 cursor-pointer transition-colors"
+            className="mt-6 text-sm font-semibold text-tinta-suave border-b border-linea-viva hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500 pb-0.5 cursor-pointer transition-colors"
           >
             {t.quizRestart}
           </button>

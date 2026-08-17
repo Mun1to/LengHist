@@ -27,14 +27,14 @@ export default function Modal({ open, onClose, title, children, closeLabel = 'Cl
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
-            className={`w-full ${wide ? 'max-w-4xl' : 'max-w-2xl'} rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl`}
+            className={`w-full ${wide ? 'max-w-4xl' : 'max-w-2xl'} rounded-2xl bg-panel border border-linea shadow-2xl`}
           >
-            <div className="flex items-center justify-between gap-4 px-6 py-5 border-b border-zinc-200 dark:border-zinc-800">
+            <div className="flex items-center justify-between gap-4 px-6 py-5 border-b border-linea">
               <h2 className="text-lg font-extrabold tracking-tight">{title}</h2>
               <button
                 onClick={onClose}
                 aria-label={closeLabel}
-                className="shrink-0 w-8 h-8 grid place-items-center text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
+                className="shrink-0 w-8 h-8 grid place-items-center text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
               >
                 <X size={17} />
               </button>

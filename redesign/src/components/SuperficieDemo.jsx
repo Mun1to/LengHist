@@ -26,6 +26,30 @@ const FICHAS = [
   { name: 'C', year: 1972, color: '#5b6b7f' },
 ]
 
+// Sobre los colores de marca de los lenguajes el blanco no siempre vale: sobre
+// el cian de Go se queda en 2,6:1 y el año no se lee ni sin deformar. Se elige
+// la tinta que más contraste dé, y sale un color sólido, que es lo único que el
+// respaldo de html-in-canvas sabe pintar.
+const TINTA_CLARA = '#ffffff'
+const TINTA_OSCURA = '#0a0a0b'
+
+function luminancia(hex) {
+  const n = parseInt(hex.slice(1), 16)
+  return [16, 8, 0]
+    .map((d, i) => {
+      const c = ((n >> d) & 255) / 255
+      return (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4) * [0.2126, 0.7152, 0.0722][i]
+    })
+    .reduce((a, b) => a + b, 0)
+}
+
+function tintaSobre(fondo) {
+  const l = luminancia(fondo)
+  const conClara = 1.05 / (l + 0.05)
+  const conOscura = (l + 0.05) / (luminancia(TINTA_OSCURA) + 0.05)
+  return conClara >= conOscura ? TINTA_CLARA : TINTA_OSCURA
+}
+
 const CODIGO = [
   [['fn ', '#c084fc'], ['saludar', '#60a5fa'], ['(quien: ', '#a1a1aa'], ['&str', '#34d399'], [') {', '#a1a1aa']],
   [['    println!', '#60a5fa'], ['("Hola, {quien}");', '#fbbf24']],
@@ -61,12 +85,15 @@ function Catalogo({ compact, filas = 3, estirar = false }) {
       className={`grid grid-cols-4 ${estirar ? 'flex-1' : ''} ${compact ? 'gap-1.5 p-3' : 'gap-3 p-6'}`}
       style={estirar ? { gridTemplateRows: `repeat(${filas}, minmax(0, 1fr))` } : undefined}
     >
-      {visibles.map((f) => (
-        <div key={f.name} style={{ background: f.color }} className={compact ? 'p-1.5' : 'p-3'}>
-          <div className={`font-bold text-white leading-tight ${compact ? 'text-[10px]' : 'text-sm'}`}>{f.name}</div>
-          <div className={`font-mono text-white/75 ${compact ? 'text-[8px]' : 'text-[11px]'}`}>{f.year}</div>
-        </div>
-      ))}
+      {visibles.map((f) => {
+        const tinta = tintaSobre(f.color)
+        return (
+          <div key={f.name} style={{ background: f.color, color: tinta }} className={compact ? 'p-1.5' : 'p-3'}>
+            <div className={`font-bold leading-tight ${compact ? 'text-[10px]' : 'text-sm'}`}>{f.name}</div>
+            <div className={`font-mono ${compact ? 'text-[9px]' : 'text-[11px]'}`}>{f.year}</div>
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -161,15 +188,19 @@ export function SuperficieAlta({ compact, t }) {
             key={f.name}
             className={`flex items-center justify-between border-b border-zinc-800 ${compact ? 'py-1.5' : 'py-2.5'}`}
           >
-            <span className={`font-bold ${compact ? 'text-[11px]' : 'text-base'}`} style={{ color: f.color }}>
-              {f.name}
+            {/* El color de marca va en la barra y no en la letra, igual que en la
+                ficha de verdad: sobre el negro, escrito en su color, «Elixir» se
+                quedaba en 2,9:1 y «Python» en 4,1. */}
+            <span className={`flex items-center ${compact ? 'gap-1.5' : 'gap-2.5'}`}>
+              <span className={`shrink-0 ${compact ? 'w-1 h-3' : 'w-1 h-4'}`} style={{ background: f.color }} />
+              <span className={`font-bold text-zinc-50 ${compact ? 'text-[11px]' : 'text-base'}`}>{f.name}</span>
             </span>
-            <span className={`font-mono text-zinc-500 ${compact ? 'text-[9px]' : 'text-xs'}`}>{f.year}</span>
+            <span className={`font-mono text-zinc-400 ${compact ? 'text-[9px]' : 'text-xs'}`}>{f.year}</span>
           </div>
         ))}
       </div>
       <Codigo compact={compact} />
-      <div className={`font-mono text-zinc-600 ${compact ? 'text-[9px] px-3 pb-3' : 'text-xs px-6 pb-6'}`}>
+      <div className={`font-mono text-zinc-400 ${compact ? 'text-[9px] px-3 pb-3' : 'text-xs px-6 pb-6'}`}>
         {t.demoLine}
       </div>
     </div>

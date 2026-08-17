@@ -27,20 +27,20 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.22, delay: Math.min(i, 12) * 0.02 }}
-              className="group relative rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
+              className="group relative rounded-xl bg-panel border border-linea hover:border-linea-viva transition-colors"
             >
               <Link to={rutaDe('languages', slugLenguaje(l.name))} className="pulsable pulsable-suave block p-4 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl">
                 {/* El color del lenguaje se queda en una barra fina: identifica
                     igual que la cabecera de degradado y no se come la tarjeta. */}
                 <div className="flex items-center gap-2.5 mb-1.5">
                   <span className="w-1 h-4 rounded-full shrink-0" style={{ background: l.color[0] }} />
-                  <span className="font-bold text-zinc-900 dark:text-zinc-50 truncate min-w-0 flex-1">{l.name}</span>
-                  <span className="font-mono text-[11px] text-zinc-400 shrink-0">{l.year}</span>
+                  <span className="font-bold text-tinta truncate min-w-0 flex-1">{l.name}</span>
+                  <span className="font-mono text-[11px] text-tinta-suave shrink-0">{l.year}</span>
                 </div>
                 {/* Tres líneas y no dos: con dos, cuatro de cada diez fichas se
                     cortaban a mitad de frase y el resumen dejaba de resumir. */}
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-snug line-clamp-3">{l[lang].desc}</p>
-                <div className="font-mono text-[11px] text-zinc-400 dark:text-zinc-600 mt-2.5 truncate">
+                <p className="text-sm text-tinta-suave leading-snug line-clamp-3">{l[lang].desc}</p>
+                <div className="font-mono text-[11px] text-tinta-suave mt-2.5 truncate">
                   {l.extensions.slice(0, 3).join(' ')}
                 </div>
               </Link>
@@ -51,7 +51,7 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
                   className={`inline-flex items-center gap-1.5 text-xs font-semibold cursor-pointer transition-colors ${
                     compareSet.has(l.name)
                       ? 'text-indigo-600 dark:text-indigo-400'
-                      : 'text-zinc-400 dark:text-zinc-600 hover:text-zinc-700 dark:hover:text-zinc-200'
+                      : 'text-tinta-suave hover:text-tinta'
                   }`}
                 >
                   <ArrowLeftRight size={11} /> {t.comparar}

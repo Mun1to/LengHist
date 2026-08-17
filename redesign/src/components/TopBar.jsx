@@ -26,8 +26,8 @@ function Enlaces({ t, claves, activeNav }) {
           to={rutaDe(key)}
           className={`text-sm py-1 border-b-2 whitespace-nowrap transition-colors ${
             activeNav === key
-              ? 'border-indigo-500 text-zinc-900 dark:text-zinc-50 font-semibold'
-              : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
+              ? 'border-indigo-500 text-tinta font-semibold'
+              : 'border-transparent text-tinta-suave hover:text-tinta'
           }`}
         >
           {t.nav[key]}
@@ -82,7 +82,7 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
   const IconoTema = ICONO_TEMA[tema] ?? Monitor
 
   return (
-    <div className="xl:hidden fixed inset-x-0 top-[57px] bottom-0 z-40 bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 overflow-y-auto">
+    <div className="xl:hidden fixed inset-x-0 top-[57px] bottom-0 z-40 bg-white dark:bg-zinc-950 border-t border-linea overflow-y-auto">
       <div className="px-5 py-5">
         {/* El buscador vive aquí mientras el panel está abierto: en la barra, con
             el logo y los tres botones al lado, se quedaba en «Buscar er». */}
@@ -97,20 +97,20 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
                 key={key}
                 to={rutaDe(key)}
                 onClick={onCerrar}
-                className="pulsable flex items-center gap-3.5 py-3.5 px-2 -mx-2 rounded-lg border-b border-zinc-200/70 dark:border-zinc-800/70 active:bg-zinc-100 dark:active:bg-zinc-900 group"
+                className="pulsable flex items-center gap-3.5 py-3.5 px-2 -mx-2 rounded-lg border-b border-linea/70 active:bg-zinc-100 dark:active:bg-zinc-900 group"
               >
                 <Icono
                   size={17}
-                  className={`shrink-0 ${activa ? 'text-indigo-600 dark:text-indigo-400' : 'text-zinc-400 dark:text-zinc-500'}`}
+                  className={`shrink-0 ${activa ? 'text-indigo-600 dark:text-indigo-400' : 'text-tinta-suave'}`}
                 />
                 <span
                   className={`text-2xl font-extrabold tracking-tight leading-none ${
-                    activa ? 'text-indigo-600 dark:text-indigo-400' : 'text-zinc-900 dark:text-zinc-50'
+                    activa ? 'text-indigo-600 dark:text-indigo-400' : 'text-tinta'
                   }`}
                 >
                   {t.nav[key]}
                 </span>
-                <span className="ml-auto font-mono text-xs text-zinc-400 dark:text-zinc-600">
+                <span className="ml-auto font-mono text-xs text-tinta-suave">
                   {totales[CUENTA_SECCION[key]]}
                 </span>
               </Link>
@@ -128,17 +128,17 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
 
         {/* Tema e idioma bajan aquí: en la barra son dos iconos de 14px que en un
             móvil nadie encuentra, y aquí caben con su nombre escrito. */}
-        <div className="flex items-center gap-2 mt-6 pt-5 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="flex items-center gap-2 mt-6 pt-5 border-t border-linea">
           <button
             onClick={onCambiarTema}
-            className="pulsable flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-semibold text-zinc-600 dark:text-zinc-300 cursor-pointer"
+            className="pulsable flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-linea text-sm font-semibold text-tinta-fuerte cursor-pointer"
           >
             <IconoTema key={tema} size={15} className="brinca" />
             {t.temasCorto[tema]}
           </button>
           <button
             onClick={onToggleLang}
-            className="pulsable flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-zinc-200 dark:border-zinc-800 font-mono text-sm font-bold text-zinc-600 dark:text-zinc-300 cursor-pointer"
+            className="pulsable flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-linea font-mono text-sm font-bold text-tinta-fuerte cursor-pointer"
           >
             <Languages size={15} />
             {lang === 'es' ? 'ES / EN' : 'EN / ES'}
@@ -164,7 +164,7 @@ export default function TopBar({
         {t.saltarAlContenido}
       </a>
 
-      <header className="sticky top-0 z-50 border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-linea bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
         {/* Los dos flancos van con flex-1 basis-0: reparten a partes iguales lo que
             sobra, así que el buscador cae en el centro exacto de la ventana. Con un
             simple ml-auto quedaba 70px a la izquierda, porque el logo pesa mucho
@@ -209,7 +209,7 @@ export default function TopBar({
                     onClick={onCambiarTema}
                     aria-label={`${t.tema}: ${t.temas[tema]}`}
                     title={`${t.tema}: ${t.temas[tema]}`}
-                    className="pulsable grid place-items-center w-9 h-9 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
+                    className="pulsable grid place-items-center w-9 h-9 rounded-lg text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
                   >
                     <IconoTema key={tema} size={15} className="brinca" />
                   </button>
@@ -217,7 +217,7 @@ export default function TopBar({
                     onClick={onToggleLang}
                     aria-label={t.ariaLang}
                     title={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
-                    className="pulsable flex items-center gap-1.5 h-9 px-1.5 text-xs font-mono font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer"
+                    className="pulsable flex items-center gap-1.5 h-9 px-1.5 text-xs font-mono font-bold text-tinta-suave hover:text-tinta cursor-pointer"
                   >
                     <Languages size={14} />
                     {lang.toUpperCase()}
@@ -234,7 +234,7 @@ export default function TopBar({
                 onClick={() => setMenu((v) => !v)}
                 aria-label={menu ? t.menuCerrar : t.menuAbrir}
                 aria-expanded={menu}
-                className="pulsable xl:hidden grid place-items-center w-9 h-9 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
+                className="pulsable xl:hidden grid place-items-center w-9 h-9 rounded-lg text-tinta-fuerte hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
               >
                 {menu ? <X size={18} /> : <Menu size={18} />}
               </button>

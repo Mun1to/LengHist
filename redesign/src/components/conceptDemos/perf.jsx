@@ -74,7 +74,7 @@ export function WillChange({ lang }) {
           will-change: {on ? 'transform' : 'auto'}
         </button>
         <button className="cd-btn" onClick={() => setCorriendo(true)}>{t.animar}</button>
-        <span className="font-mono text-[10px] text-zinc-500 ml-auto">{corriendo ? `${fps} fps` : ''}</span>
+        <span className="font-mono text-[10px] text-zinc-400 ml-auto">{corriendo ? `${fps} fps` : ''}</span>
       </div>
     </div>
   )
@@ -105,7 +105,7 @@ export function CoreWebVitals({ lang }) {
     return () => obs.forEach((o) => o.disconnect())
   }, [])
 
-  const bien = (v, limite) => (v == null ? 'text-zinc-500' : v <= limite ? 'text-emerald-400' : 'text-amber-400')
+  const bien = (v, limite) => (v == null ? 'text-zinc-400' : v <= limite ? 'text-emerald-400' : 'text-amber-400')
 
   return (
     <div className="cd-box p-3 flex flex-col justify-center gap-2.5">

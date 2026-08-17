@@ -2,7 +2,7 @@
 export const CONCEPTS = [
  {
   "key": "scroll",
-  "color": "#6366f1",
+  "color": "var(--tono-indigo)",
   "label": {
    "es": "Scroll interactivo",
    "en": "Interactive scroll"
@@ -132,7 +132,7 @@ export const CONCEPTS = [
  },
  {
   "key": "pointer",
-  "color": "#8b5cf6",
+  "color": "var(--tono-violeta)",
   "label": {
    "es": "Puntero y micro-interacciones",
    "en": "Pointer & micro-interactions"
@@ -217,7 +217,7 @@ export const CONCEPTS = [
  },
  {
   "key": "visual",
-  "color": "#06b6d4",
+  "color": "var(--tono-cian)",
   "label": {
    "es": "Estética y efectos",
    "en": "Aesthetics & effects"
@@ -337,7 +337,7 @@ export const CONCEPTS = [
  },
  {
   "key": "perf",
-  "color": "#10b981",
+  "color": "var(--tono-esmeralda)",
   "label": {
    "es": "Rendimiento y buenas prácticas",
    "en": "Performance & best practices"
@@ -459,7 +459,7 @@ export const CONCEPTS = [
  },
  {
   "key": "cssmod",
-  "color": "#ec4899",
+  "color": "var(--tono-rosa)",
   "label": {
    "es": "CSS moderno",
    "en": "Modern CSS"

@@ -60,10 +60,10 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
       {/* El nombre es el enlace de verdad de la tarjeta: la demo de arriba tiene
           que recibir el ratón, así que no puede ser ella el enlace. */}
       <Link to={ruta} className="flex items-baseline gap-3 mt-2.5 px-0.5 group/nombre">
-        <span className="font-bold text-sm text-zinc-900 dark:text-zinc-50 group-hover/nombre:text-indigo-600 dark:group-hover/nombre:text-indigo-400 transition-colors shrink-0">
+        <span className="font-bold text-sm text-tinta group-hover/nombre:text-indigo-600 dark:group-hover/nombre:text-indigo-400 transition-colors shrink-0">
           {item.name}
         </span>
-        <span className="font-mono text-[11px] text-zinc-400 dark:text-zinc-600 truncate">{item.tag[lang]}</span>
+        <span className="font-mono text-[11px] text-tinta-suave truncate">{item.tag[lang]}</span>
       </Link>
     </div>
   )
@@ -74,9 +74,9 @@ export default function ComponentsView({ t, lang, items, onClear, favorites, onT
     <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
       <div className="flex items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.compTitle}</h1>
-        <span className="font-mono text-xs text-zinc-400 shrink-0">{t.deTotal(items.length)}</span>
+        <span className="font-mono text-xs text-tinta-suave shrink-0">{t.deTotal(items.length)}</span>
       </div>
-      <p className="text-zinc-500 dark:text-zinc-400 mb-10 max-w-2xl">{t.compSub}</p>
+      <p className="text-tinta-suave mb-10 max-w-2xl">{t.compSub}</p>
 
       {items.length === 0 ? (
         <EmptyState t={t} onClear={onClear} />

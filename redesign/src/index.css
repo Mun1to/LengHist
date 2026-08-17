@@ -9,6 +9,111 @@
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  /* Los colores de la interfaz se nombran por lo que hacen y no por el tono que
+     tienen, para que exista UN sitio donde mirar cuál es el gris de apoyo. Cada
+     uno apunta a una variable que cambia con el tema, definida más abajo. */
+  --color-tinta: var(--v-tinta);
+  --color-tinta-fuerte: var(--v-tinta-fuerte);
+  --color-tinta-suave: var(--v-tinta-suave);
+  --color-linea: var(--v-linea);
+  --color-linea-viva: var(--v-linea-viva);
+  --color-panel: var(--v-panel);
+  --color-acento: var(--v-acento);
+
+  /* Los tonos de categoría también como utilidad (`text-ambar`, `border-cian`),
+     para que una etiqueta de color no tenga que escribir su pareja a mano. */
+  --color-indigo-tono: var(--tono-indigo);
+  --color-violeta: var(--tono-violeta);
+  --color-purpura: var(--tono-purpura);
+  --color-fucsia: var(--tono-fucsia);
+  --color-rosa: var(--tono-rosa);
+  --color-rojo: var(--tono-rojo);
+  --color-naranja: var(--tono-naranja);
+  --color-ambar: var(--tono-ambar);
+  --color-lima: var(--tono-lima);
+  --color-esmeralda: var(--tono-esmeralda);
+  --color-turquesa: var(--tono-turquesa);
+  --color-cian: var(--tono-cian);
+  --color-cielo: var(--tono-cielo);
+  --color-azul: var(--tono-azul);
+}
+
+/* ---------------------------------------------------------------------------
+   Los tres niveles de tinta, y por qué son tres y no cuatro.
+
+   El mismo escalón numérico NO da el mismo contraste sobre blanco que sobre
+   negro: zinc-400 luce bien en oscuro (7,59:1) y es ilegible en claro (2,62:1),
+   y zinc-600 al revés (7,72 en claro, 2,29 sobre la ficha oscura). Por eso cada
+   nivel necesita su pareja, y por eso escribir `text-zinc-400 dark:text-zinc-600`
+   fallaba en los dos temas a la vez: era la pareja invertida.
+
+   `tinta-suave` es el nivel más bajo que aún pasa AA para texto pequeño
+   (4,83:1 en claro, 6,75:1 sobre la ficha oscura). Por debajo no hay nada legal:
+   lo que tenga que sonar todavía más callado se calla con tamaño, peso o sitio,
+   nunca con más gris.
+   --------------------------------------------------------------------------- */
+:root {
+  --v-tinta: var(--color-zinc-900);
+  --v-tinta-fuerte: var(--color-zinc-700);
+  --v-tinta-suave: var(--color-zinc-500);
+  --v-linea: var(--color-zinc-200);
+  --v-linea-viva: var(--color-zinc-300);
+  --v-panel: #fff;
+  --v-acento: var(--color-indigo-600);
+}
+
+[data-theme="dark"] {
+  --v-tinta: var(--color-zinc-50);
+  --v-tinta-fuerte: var(--color-zinc-200);
+  --v-tinta-suave: var(--color-zinc-400);
+  --v-linea: var(--color-zinc-800);
+  --v-linea-viva: var(--color-zinc-700);
+  --v-panel: var(--color-zinc-900);
+  --v-acento: var(--color-indigo-400);
+}
+
+/* ---------------------------------------------------------------------------
+   Los tonos de categoría, con la misma regla que la tinta y por el mismo motivo.
+
+   Un color de marca escrito como un hex único vale para un tema y falla en el
+   otro: los tonos 400 y 500 lucen en oscuro y sobre blanco se quedan en 3:1 o
+   menos. La regla aquí es una sola y se recuerda: **700 en claro, 400 en
+   oscuro**. Quien añada una categoría copia una línea de cada bloque y no tiene
+   que medir nada.
+   --------------------------------------------------------------------------- */
+:root {
+  --tono-indigo: var(--color-indigo-700);
+  --tono-violeta: var(--color-violet-700);
+  --tono-purpura: var(--color-purple-700);
+  --tono-fucsia: var(--color-fuchsia-700);
+  --tono-rosa: var(--color-pink-700);
+  --tono-rojo: var(--color-rose-700);
+  --tono-naranja: var(--color-orange-700);
+  --tono-ambar: var(--color-amber-700);
+  --tono-lima: var(--color-lime-700);
+  --tono-esmeralda: var(--color-emerald-700);
+  --tono-turquesa: var(--color-teal-700);
+  --tono-cian: var(--color-cyan-700);
+  --tono-cielo: var(--color-sky-700);
+  --tono-azul: var(--color-blue-700);
+}
+
+[data-theme="dark"] {
+  --tono-indigo: var(--color-indigo-400);
+  --tono-violeta: var(--color-violet-400);
+  --tono-purpura: var(--color-purple-400);
+  --tono-fucsia: var(--color-fuchsia-400);
+  --tono-rosa: var(--color-pink-400);
+  --tono-rojo: var(--color-rose-400);
+  --tono-naranja: var(--color-orange-400);
+  --tono-ambar: var(--color-amber-400);
+  --tono-lima: var(--color-lime-400);
+  --tono-esmeralda: var(--color-emerald-400);
+  --tono-turquesa: var(--color-teal-400);
+  --tono-cian: var(--color-cyan-400);
+  --tono-cielo: var(--color-sky-400);
+  --tono-azul: var(--color-blue-400);
 }
 
 /* Nota para el futuro: para la tercera columna de las rejillas se usa 2xl: y no

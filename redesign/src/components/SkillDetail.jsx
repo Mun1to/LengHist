@@ -57,7 +57,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
     >
       <Link
         to={rutaDe('skills')}
-        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.skillBack}
@@ -75,19 +75,19 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
 
       {/* Autoría y código: quién la escribió y dónde vive de verdad el archivo.
           Una skill aportada por otra persona trae su propio autor y su repo. */}
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-xs text-zinc-500 dark:text-zinc-400">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-xs text-tinta-suave">
         <span>
           {t.skillBy}{' '}
           <a
             href={autor.url}
             target="_blank"
             rel="noreferrer"
-            className="font-medium text-zinc-700 dark:text-zinc-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            className="font-medium text-tinta-fuerte hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
           >
             {autor.name}
           </a>
         </span>
-        <span className="text-zinc-300 dark:text-zinc-700">·</span>
+        <span className="text-tinta-suave">·</span>
         <a
           href={repoOf(item)}
           target="_blank"
@@ -100,20 +100,20 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
         </a>
       </div>
 
-      <p className="text-zinc-500 dark:text-zinc-400 mt-4 max-w-2xl leading-relaxed">{d.what}</p>
-      <p className="text-sm text-zinc-400 dark:text-zinc-500 mt-2 max-w-2xl leading-relaxed">
-        <b className="text-zinc-500 dark:text-zinc-400">{t.skillWhen}:</b> {d.when}
+      <p className="text-tinta-suave mt-4 max-w-2xl leading-relaxed">{d.what}</p>
+      <p className="text-sm text-tinta-suave mt-2 max-w-2xl leading-relaxed">
+        <b className="text-tinta-suave">{t.skillWhen}:</b> {d.when}
       </p>
       {group && (
-        <div className="font-mono text-[11px] uppercase tracking-wider text-zinc-400 mt-3">{group.label[lang]}</div>
+        <div className="font-mono text-[11px] uppercase tracking-wider text-tinta-suave mt-3">{group.label[lang]}</div>
       )}
 
       {/* Lo primero accionable de la página, como en cualquier galería de
           componentes: el comando que la instala, listo para copiar. */}
       {item.plugin && (
         <div className="mt-8">
-          <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">{t.skillInstall}</h2>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 max-w-2xl leading-relaxed">{t.skillInstallText}</p>
+          <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillInstall}</h2>
+          <p className="text-sm text-tinta-suave mb-4 max-w-2xl leading-relaxed">{t.skillInstallText}</p>
           <CodeBlock
             t={t}
             title="claude code"
@@ -127,8 +127,8 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">{t.skillWhere}</h2>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4 max-w-2xl leading-relaxed">{t.skillWhereText}</p>
+        <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillWhere}</h2>
+        <p className="text-sm text-tinta-suave mb-4 max-w-2xl leading-relaxed">{t.skillWhereText}</p>
         <CodeBlock
           t={t}
           title={t.skillFolder}
@@ -137,19 +137,19 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">{t.skillUse}</h2>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed">
+        <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillUse}</h2>
+        <p className="text-sm text-tinta-suave max-w-2xl leading-relaxed">
           {t.skillUseText(slug)}
         </p>
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-3">{t.skillFields}</h2>
+        <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillFields}</h2>
         <div className="flex flex-col gap-2">
           {campos.map((c) => (
             <div key={c} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
-              <span className="font-mono text-xs text-zinc-700 dark:text-zinc-200 sm:w-56 shrink-0">{c}</span>
-              <span className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+              <span className="font-mono text-xs text-tinta-fuerte sm:w-56 shrink-0">{c}</span>
+              <span className="text-sm text-tinta-suave leading-relaxed">
                 {CAMPOS[c] ? CAMPOS[c][lang] : ''}
               </span>
             </div>
@@ -158,12 +158,12 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
       </div>
 
       {/* La fuente del formato, discreta, como en las fichas de componentes. */}
-      <div className="mt-12 pt-5 border-t border-zinc-200/60 dark:border-zinc-800/60">
+      <div className="mt-12 pt-5 border-t border-linea/60">
         <a
           href={DOCS}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 font-mono text-[11px] text-zinc-400/60 hover:text-zinc-500 dark:text-zinc-600 dark:hover:text-zinc-400 transition-colors break-all"
+          className="inline-flex items-center gap-1 font-mono text-[11px] text-tinta-suave hover:text-tinta-suave hover:text-tinta-suave transition-colors break-all"
         >
           {t.skillDocs} {DOCS.replace('https://', '')}
           <ArrowUpRight size={11} />

@@ -11,7 +11,7 @@ export default function CompareTray({ t, names, onRemove, onClear, onOpen }) {
           animate={{ y: 0 }}
           exit={{ y: 90 }}
           transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
-          className="fixed left-0 right-0 bottom-0 z-40 border-t border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md"
+          className="fixed left-0 right-0 bottom-0 z-40 border-t border-linea bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md"
         >
           <div className="flex items-center gap-4 flex-wrap px-6 py-3">
             <div className="flex items-center gap-4 flex-wrap flex-1 min-w-0">
@@ -24,7 +24,7 @@ export default function CompareTray({ t, names, onRemove, onClear, onOpen }) {
                     <button
                       onClick={() => onRemove(n)}
                       aria-label={t.quitar}
-                      className="text-zinc-400 hover:text-rose-500 cursor-pointer transition-colors"
+                      className="text-tinta-suave hover:text-rojo cursor-pointer transition-colors"
                     >
                       <X size={13} />
                     </button>
@@ -35,7 +35,7 @@ export default function CompareTray({ t, names, onRemove, onClear, onOpen }) {
             <div className="flex items-center gap-5 shrink-0">
               <button
                 onClick={onClear}
-                className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer transition-colors"
+                className="text-sm font-semibold text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
               >
                 {t.vaciar}
               </button>

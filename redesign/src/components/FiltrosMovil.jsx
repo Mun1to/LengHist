@@ -30,7 +30,7 @@ export default function FiltrosMovil({ t, ...props }) {
       <div className="px-6 pt-5">
         <button
           onClick={() => setAbierto(true)}
-          className="pulsable inline-flex items-center gap-2 h-9 px-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm font-semibold text-zinc-700 dark:text-zinc-200 cursor-pointer"
+          className="pulsable inline-flex items-center gap-2 h-9 px-3.5 rounded-lg border border-linea bg-panel text-sm font-semibold text-tinta-fuerte cursor-pointer"
         >
           <SlidersHorizontal size={14} />
           {t.filtros}
@@ -44,12 +44,12 @@ export default function FiltrosMovil({ t, ...props }) {
 
       {abierto && (
         <div className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-zinc-950">
-          <div className="flex items-center justify-between gap-4 px-6 py-3 border-b border-zinc-200 dark:border-zinc-800">
+          <div className="flex items-center justify-between gap-4 px-6 py-3 border-b border-linea">
             <span className="font-bold">{t.filtros}</span>
             <button
               onClick={() => setAbierto(false)}
               aria-label={t.cerrar}
-              className="grid place-items-center w-9 h-9 rounded-lg text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
+              className="grid place-items-center w-9 h-9 rounded-lg text-tinta-suave hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
             >
               <X size={18} />
             </button>

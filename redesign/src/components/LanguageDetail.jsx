@@ -13,8 +13,8 @@ import { rutaDe } from '../lib/rutas'
 function Dato({ titulo, children, mono = false }) {
   return (
     <div>
-      <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-1.5">{titulo}</div>
-      <div className={`text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed ${mono ? 'font-mono' : ''}`}>
+      <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-1.5">{titulo}</div>
+      <div className={`text-sm text-tinta-fuerte leading-relaxed ${mono ? 'font-mono' : ''}`}>
         {children}
       </div>
     </div>
@@ -36,7 +36,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
     >
       <Link
         to={rutaDe('languages')}
-        className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.langBack}
@@ -48,7 +48,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
             <span className="w-1.5 h-7 rounded-full shrink-0" style={{ background: l.color[0] }} />
             {l.name}
           </h1>
-          <div className="font-mono text-xs text-zinc-400 dark:text-zinc-500 mt-2">
+          <div className="font-mono text-xs text-tinta-suave mt-2">
             {t.aparicion(l.year)} · {FAME_LABEL[l.fame][lang]} · {d.paradigm}
           </div>
         </div>
@@ -58,14 +58,14 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
         </div>
       </div>
 
-      <p className="text-zinc-500 dark:text-zinc-400 mt-5 max-w-2xl leading-relaxed">{d.fullDesc}</p>
+      <p className="text-tinta-suave mt-5 max-w-2xl leading-relaxed">{d.fullDesc}</p>
 
       <button
         onClick={onToggleCompare}
         className={`inline-flex items-center gap-1.5 mt-5 h-8 px-3 rounded-lg border text-xs font-semibold cursor-pointer transition-colors ${
           enComparacion
             ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
-            : 'border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-700'
+            : 'border-linea text-tinta-suave hover:border-linea-viva'
         }`}
       >
         <ArrowLeftRight size={12} /> {t.comparar}
@@ -73,12 +73,12 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
 
       {/* El ejemplo de código es lo primero que la gente mira: cómo se ve de
           verdad el lenguaje, no cómo se lo cuentan. */}
-      <div className="mt-8 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-950">
+      <div className="mt-8 rounded-2xl overflow-hidden border border-linea bg-zinc-950">
         <div className="flex items-center gap-1.5 px-3.5 py-3 border-b border-zinc-800">
           <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-          <span className="ml-2 font-mono text-xs text-zinc-500">{code.file}</span>
+          <span className="ml-2 font-mono text-xs text-zinc-400">{code.file}</span>
         </div>
         <pre className="p-5 font-mono text-[13px] leading-relaxed text-zinc-200 overflow-x-auto">{code.example}</pre>
       </div>
@@ -95,7 +95,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
                 className="h-full bg-indigo-500"
               />
             </div>
-            <span className="font-mono text-xs text-zinc-400 shrink-0">{l.pop}/100</span>
+            <span className="font-mono text-xs text-tinta-suave shrink-0">{l.pop}/100</span>
           </div>
         </Dato>
 
@@ -107,7 +107,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
         {l.eco.length > 0 && (
           <div className="sm:col-span-2">
             <Dato titulo={t.ecosistema} mono>
-              <span className="text-emerald-600 dark:text-emerald-400">{l.eco.join(' · ')}</span>
+              <span className="text-esmeralda">{l.eco.join(' · ')}</span>
             </Dato>
           </div>
         )}
@@ -116,7 +116,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
           <ul className="flex flex-col gap-1.5">
             {d.pros.map((p) => (
               <li key={p} className="flex gap-2">
-                <span className="text-emerald-500 font-bold shrink-0">+</span>{p}
+                <span className="text-esmeralda font-bold shrink-0">+</span>{p}
               </li>
             ))}
           </ul>
@@ -125,7 +125,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
           <ul className="flex flex-col gap-1.5">
             {d.cons.map((c) => (
               <li key={c} className="flex gap-2">
-                <span className="text-rose-500 font-bold shrink-0">−</span>{c}
+                <span className="text-rojo font-bold shrink-0">−</span>{c}
               </li>
             ))}
           </ul>
@@ -133,12 +133,12 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
       </div>
 
       {wiki && (
-        <div className="mt-12 pt-5 border-t border-zinc-200/60 dark:border-zinc-800/60">
+        <div className="mt-12 pt-5 border-t border-linea/60">
           <a
             href={wiki}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center gap-1.5 font-mono text-[11px] text-zinc-400/70 hover:text-zinc-600 dark:text-zinc-600 dark:hover:text-zinc-400 transition-colors"
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] text-tinta-suave hover:text-tinta-suave hover:text-tinta-suave transition-colors"
           >
             <ExternalLink size={11} /> Wikipedia ({lang.toUpperCase()})
           </a>

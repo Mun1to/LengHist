@@ -77,7 +77,7 @@ export default function Buscador({ t, lang, onAbrir }) {
   return (
     <div ref={cajaRef} className="relative w-full">
       <div className="relative">
-        <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+        <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-tinta-suave pointer-events-none" />
         <input
           ref={campoRef}
           type="text"
@@ -93,10 +93,10 @@ export default function Buscador({ t, lang, onAbrir }) {
           onFocus={() => setAbierto(true)}
           onKeyDown={teclas}
           placeholder={t.buscarTodoPh}
-          className="w-full h-9 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 pl-9 pr-4 sm:pr-14 text-sm text-zinc-800 dark:text-zinc-100 placeholder:text-zinc-400 outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-950 transition-colors"
+          className="w-full h-9 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-linea pl-9 pr-4 sm:pr-14 text-sm text-tinta placeholder:text-tinta-suave outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-950 transition-colors"
         />
         {/* El atajo es una pista, no un control: texto suelto, sin caja */}
-        <span className="hidden sm:block absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-[10px] text-zinc-400 dark:text-zinc-500 pointer-events-none select-none">
+        <span className="hidden sm:block absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-[10px] text-tinta-suave pointer-events-none select-none">
           {mac ? '⌘K' : 'Ctrl K'}
         </span>
       </div>
@@ -107,17 +107,17 @@ export default function Buscador({ t, lang, onAbrir }) {
           id="buscadorLista"
           role="listbox"
           aria-label={t.ariaSearch}
-          className="absolute left-0 right-0 top-11 max-h-[70vh] overflow-y-auto rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-2xl shadow-zinc-900/10 dark:shadow-black/50 py-2"
+          className="absolute left-0 right-0 top-11 max-h-[70vh] overflow-y-auto rounded-xl border border-linea bg-white dark:bg-zinc-950 shadow-2xl shadow-zinc-900/10 dark:shadow-black/50 py-2"
         >
           {planos.length === 0 ? (
-            <div className="px-4 py-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
+            <div className="px-4 py-6 text-center text-sm text-tinta-suave">
               {t.buscarNada}
             </div>
           ) : (
             <>
               {grupos.map((g) => (
                 <div key={g.seccion}>
-                  <div className="px-4 pt-2 pb-1 font-mono text-[10px] uppercase tracking-wider text-zinc-400">
+                  <div className="px-4 pt-2 pb-1 font-mono text-[10px] uppercase tracking-wider text-tinta-suave">
                     {t.nav[g.seccion]}
                   </div>
                   {g.items.map((item) => {
@@ -142,22 +142,22 @@ export default function Buscador({ t, lang, onAbrir }) {
                             operativo dibuja el suyo. */}
                         {item.color && <span className="w-1 h-4 rounded-full shrink-0" style={{ background: item.color }} />}
                         <span className="min-w-0 flex-1">
-                          <span className="block text-sm font-semibold text-zinc-900 dark:text-zinc-50 truncate">
+                          <span className="block text-sm font-semibold text-tinta truncate">
                             {item.titulo}
                           </span>
                           {item.sub && (
-                            <span className="block text-xs text-zinc-500 dark:text-zinc-400 truncate">{item.sub}</span>
+                            <span className="block text-xs text-tinta-suave truncate">{item.sub}</span>
                           )}
                         </span>
                         {item.url
-                          ? <ArrowUpRight size={14} className="shrink-0 text-zinc-400" />
-                          : señalado && <CornerDownLeft size={13} className="shrink-0 text-zinc-400" />}
+                          ? <ArrowUpRight size={14} className="shrink-0 text-tinta-suave" />
+                          : señalado && <CornerDownLeft size={13} className="shrink-0 text-tinta-suave" />}
                       </button>
                     )
                   })}
                 </div>
               ))}
-              <div className="px-4 pt-2 mt-1 border-t border-zinc-200 dark:border-zinc-800 font-mono text-[10px] text-zinc-400">
+              <div className="px-4 pt-2 mt-1 border-t border-linea font-mono text-[10px] text-tinta-suave">
                 {t.buscarAyuda}
               </div>
             </>

@@ -144,7 +144,7 @@ export function CursorLerp({ lang }) {
 
   return (
     <div ref={ref} className="cd-box grid place-items-center cursor-none">
-      <span className="font-mono text-[11px] text-zinc-500">{t.circuloTarde}</span>
+      <span className="font-mono text-[11px] text-zinc-400">{t.circuloTarde}</span>
       <div ref={estelaRef} className="cd-dot" style={{ width: 34, height: 34, border: '1px solid #818cf8', opacity: 0 }} />
       <div ref={puntoRef} className="cd-dot" style={{ background: '#818cf8', opacity: 0 }} />
     </div>

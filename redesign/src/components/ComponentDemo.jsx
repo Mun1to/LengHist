@@ -44,7 +44,7 @@ const FILL = { position: 'absolute', inset: 0 }
 
 function Loading({ t }) {
   return (
-    <div className="absolute inset-0 grid place-items-center font-mono text-xs text-zinc-500">
+    <div className="absolute inset-0 grid place-items-center font-mono text-xs text-zinc-400">
       {t.compLoading}
     </div>
   )

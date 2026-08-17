@@ -43,11 +43,11 @@ function Seccion({ n, titulo, texto, a, Icono }) {
 
       <Icono size={19} className="relative text-indigo-600 dark:text-indigo-400" />
 
-      <div className="relative font-bold text-zinc-900 dark:text-zinc-50 mt-3 flex items-center gap-1.5">
+      <div className="relative font-bold text-tinta mt-3 flex items-center gap-1.5">
         {titulo}
         <ArrowRight size={14} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
       </div>
-      <div className="relative text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed max-w-[26ch]">{texto}</div>
+      <div className="relative text-sm text-tinta-suave mt-1 leading-relaxed max-w-[26ch]">{texto}</div>
     </Link>
   )
 }
@@ -70,7 +70,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
 
             <motion.h1
               {...aparece(0.1)}
-              className="text-[2.4rem] sm:text-[3.1rem] leading-[1.08] font-extrabold tracking-tight text-balance text-zinc-900 dark:text-zinc-50 mb-5"
+              className="text-[2.4rem] sm:text-[3.1rem] leading-[1.08] font-extrabold tracking-tight text-balance text-tinta mb-5"
             >
               {t.heroTitle1}
               <span className="block text-indigo-600 dark:text-indigo-400">{t.heroTitle2}</span>
@@ -78,9 +78,9 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
 
             {/* Las cuatro promesas ya no van sueltas encima del titular: cierran
                 la descripción, que es donde se leen como parte de la frase. */}
-            <motion.p {...aparece(0.15)} className="text-zinc-600 dark:text-zinc-400 text-lg max-w-lg mb-8 leading-relaxed">
+            <motion.p {...aparece(0.15)} className="text-tinta-suave text-lg max-w-lg mb-8 leading-relaxed">
               {t.heroSub}{' '}
-              <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{t.heroClaims}</span>
+              <span className="text-tinta font-semibold">{t.heroClaims}</span>
             </motion.p>
 
             <motion.div {...aparece(0.2)} className="flex flex-wrap items-center gap-4">
@@ -93,7 +93,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
               </Link>
               <button
                 onClick={onQuiz}
-                className="pulsable text-sm font-semibold text-zinc-600 dark:text-zinc-300 border-b border-zinc-300 dark:border-zinc-600 hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer pb-0.5"
+                className="pulsable text-sm font-semibold text-tinta-fuerte border-b border-linea-viva hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer pb-0.5"
               >
                 {t.testBtn}
               </button>
@@ -103,8 +103,8 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
           {/* La portada la ocupa una pieza viva del catálogo, no una ilustración
               de una pieza viva del catálogo. */}
           <motion.div {...aparece(0.25)}>
-            <div className="relative h-[340px] sm:h-[400px] rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
-              <Suspense fallback={<div className="absolute inset-0 grid place-items-center font-mono text-xs text-zinc-500">{t.compLoading}</div>}>
+            <div className="relative h-[340px] sm:h-[400px] rounded-2xl overflow-hidden bg-zinc-950 border border-linea">
+              <Suspense fallback={<div className="absolute inset-0 grid place-items-center font-mono text-xs text-zinc-400">{t.compLoading}</div>}>
                 <AsciiObject
                   src="/brand/logo-blanco.svg"
                   cellSize={7}
@@ -118,7 +118,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
             </div>
             <Link
               to={rutaDe('components', 'ascii-object')}
-              className="inline-flex items-center gap-1.5 mt-3 font-mono text-[11px] text-zinc-400 dark:text-zinc-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              className="inline-flex items-center gap-1.5 mt-3 font-mono text-[11px] text-tinta-suave hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
             >
               {t.heroDemo}
               <ArrowRight size={11} />
@@ -128,10 +128,10 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
       </section>
 
       <section className="px-6 sm:px-10 pb-20 max-w-6xl mx-auto">
-        <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-4">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-4">
           {t.landingWhat}
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 dark:bg-zinc-800 border border-linea rounded-2xl overflow-hidden">
           <Seccion n={totals.langs} titulo={t.nav.languages} texto={t.landingLangs} a={rutaDe('languages')} Icono={Braces} />
           <Seccion n={totals.res} titulo={t.nav.resources} texto={t.landingRes} a={rutaDe('resources')} Icono={Wrench} />
           <Seccion n={totals.concepts} titulo={t.nav.concepts} texto={t.landingConcepts} a={rutaDe('concepts')} Icono={Sparkles} />
@@ -147,10 +147,10 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <CodeWindow lang={lang} />
           <div>
-            <h2 className="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
+            <h2 className="text-2xl font-extrabold tracking-tight text-tinta mb-3">
               {t.landingCodeTitle}
             </h2>
-            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed mb-6">{t.landingCodeText}</p>
+            <p className="text-tinta-suave leading-relaxed mb-6">{t.landingCodeText}</p>
             <Link
               to={rutaDe('languages')}
               className="grupo-cta pulsable inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 border-b border-indigo-500/40 hover:border-indigo-500 pb-0.5"
@@ -162,8 +162,8 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
         </div>
       </section>
 
-      <footer className="px-6 sm:px-10 py-8 border-t border-zinc-200 dark:border-zinc-800">
-        <div className="max-w-6xl mx-auto font-mono text-[11px] text-zinc-400 dark:text-zinc-600">
+      <footer className="px-6 sm:px-10 py-8 border-t border-linea">
+        <div className="max-w-6xl mx-auto font-mono text-[11px] text-tinta-suave">
           {t.stats({ langs: totals.langs, res: totals.res, concepts: totals.concepts, skills: totals.skills })}
         </div>
       </footer>

@@ -2,7 +2,7 @@
 export const RESOURCES = [
  {
   "key": "ai",
-  "dot": "#a78bfa",
+  "dot": "var(--tono-violeta)",
   "label": {
    "es": "Generadores de UI con IA",
    "en": "AI UI generators"
@@ -54,7 +54,7 @@ export const RESOURCES = [
  },
  {
   "key": "blocks",
-  "dot": "#818cf8",
+  "dot": "var(--tono-indigo)",
   "label": {
    "es": "Secciones y bloques",
    "en": "Sections & blocks"
@@ -106,7 +106,7 @@ export const RESOURCES = [
  },
  {
   "key": "css",
-  "dot": "#22d3ee",
+  "dot": "var(--tono-cian)",
   "label": {
    "es": "Frameworks CSS",
    "en": "CSS frameworks"
@@ -146,7 +146,7 @@ export const RESOURCES = [
  },
  {
   "key": "ui",
-  "dot": "#60a5fa",
+  "dot": "var(--tono-azul)",
   "label": {
    "es": "Componentes y librerías UI",
    "en": "UI components"
@@ -186,7 +186,7 @@ export const RESOURCES = [
  },
  {
   "key": "buttons",
-  "dot": "#f472b6",
+  "dot": "var(--tono-rosa)",
   "label": {
    "es": "Botones y efectos",
    "en": "Buttons & effects"
@@ -226,7 +226,7 @@ export const RESOURCES = [
  },
  {
   "key": "anim",
-  "dot": "#34d399",
+  "dot": "var(--tono-esmeralda)",
   "label": {
    "es": "Animación y movimiento",
    "en": "Animation & motion"
@@ -272,7 +272,7 @@ export const RESOURCES = [
  },
  {
   "key": "icons",
-  "dot": "#f59e0b",
+  "dot": "var(--tono-naranja)",
   "label": {
    "es": "Iconos",
    "en": "Icons"
@@ -312,7 +312,7 @@ export const RESOURCES = [
  },
  {
   "key": "color",
-  "dot": "#fb7185",
+  "dot": "var(--tono-rojo)",
   "label": {
    "es": "Color y gradientes",
    "en": "Color & gradients"
@@ -352,7 +352,7 @@ export const RESOURCES = [
  },
  {
   "key": "bg",
-  "dot": "#c084fc",
+  "dot": "var(--tono-purpura)",
   "label": {
    "es": "Fondos y formas",
    "en": "Backgrounds & shapes"
@@ -392,7 +392,7 @@ export const RESOURCES = [
  },
  {
   "key": "type",
-  "dot": "#38bdf8",
+  "dot": "var(--tono-cielo)",
   "label": {
    "es": "Tipografía",
    "en": "Typography"
@@ -426,7 +426,7 @@ export const RESOURCES = [
  },
  {
   "key": "img",
-  "dot": "#a3e635",
+  "dot": "var(--tono-lima)",
   "label": {
    "es": "Ilustraciones e imágenes",
    "en": "Illustrations & images"
@@ -466,7 +466,7 @@ export const RESOURCES = [
  },
  {
   "key": "learn",
-  "dot": "#fbbf24",
+  "dot": "var(--tono-ambar)",
   "label": {
    "es": "Inspiración y aprendizaje",
    "en": "Inspiration & learning"

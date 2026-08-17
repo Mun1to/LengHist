@@ -98,7 +98,7 @@ export default function ConceptDemo({ nombre, etiqueta, lang }) {
 
   return (
     <div className="mt-3">
-      <div className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-1.5">{etiqueta}</div>
+      <div className="font-mono text-[10px] uppercase tracking-wider text-tinta-suave mb-1.5">{etiqueta}</div>
       <div ref={ref}>
         {Demo ? <Demo lang={lang} /> : <div className="cd-box" />}
       </div>
