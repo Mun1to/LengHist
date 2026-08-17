@@ -16,7 +16,10 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
           onChange={(e) => setQuery(e.target.value)}
           placeholder={searchPh}
           aria-label={searchPh}
-          className="w-full bg-panel border border-linea rounded-lg pl-8 pr-8 py-2 text-sm text-tinta-fuerte placeholder:text-tinta-suave outline-none focus:border-indigo-500"
+          /* El hueco de la derecha solo se reserva cuando hay equis que poner:
+             con él siempre puesto, «Filtrar herramientas…» se comía los puntos
+             suspensivos contra el borde. */
+          className={`w-full bg-panel border border-linea rounded-lg pl-8 py-2 text-sm text-tinta-fuerte placeholder:text-tinta-suave outline-none focus:border-indigo-500 ${query ? 'pr-8' : 'pr-3'}`}
         />
         {query && (
           <button

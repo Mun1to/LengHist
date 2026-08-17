@@ -205,15 +205,17 @@ export default function TopBar({
           <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-5">
             <Enlaces t={t} claves={DERECHA} activeNav={activeNav} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
-              {/* Con el panel abierto, tema e idioma están dentro de él con su
-                  nombre escrito: repetirlos aquí solo aprieta la barra. */}
+              {/* Tema e idioma viven aquí solo donde caben los seis enlaces. Por
+                  debajo de xl están dentro del panel, con su nombre escrito, y
+                  repetirlos aquí apretaba la barra hasta dejar el buscador en
+                  «Buscar er» en un móvil. */}
               {!menu && (
                 <>
                   <button
                     onClick={onCambiarTema}
                     aria-label={`${t.tema}: ${t.temas[tema]}`}
                     title={`${t.tema}: ${t.temas[tema]}`}
-                    className="pulsable grid place-items-center w-9 h-9 rounded-lg text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
+                    className="pulsable hidden xl:grid place-items-center w-9 h-9 rounded-lg text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
                   >
                     <IconoTema key={tema} size={15} className="brinca" />
                   </button>
@@ -221,7 +223,7 @@ export default function TopBar({
                     onClick={onToggleLang}
                     aria-label={t.ariaLang}
                     title={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
-                    className="pulsable flex items-center gap-1.5 h-9 px-1.5 text-xs font-mono font-bold text-tinta-suave hover:text-tinta cursor-pointer"
+                    className="pulsable hidden xl:flex items-center gap-1.5 h-9 px-1.5 text-xs font-mono font-bold text-tinta-suave hover:text-tinta cursor-pointer"
                   >
                     <Languages size={14} />
                     {lang.toUpperCase()}
