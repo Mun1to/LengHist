@@ -283,13 +283,34 @@ amplitude down instead of switching it off, see the FrontLaxWeb skill.`,
       what: 'Convierte una landing en una web-experiencia: parallax, scroll interactivo y gestos premium, siempre a 60fps.',
       when: 'Al montar un hero, el storytelling de un producto o cualquier web que deba sentirse como un vídeo que el usuario dirige con el scroll, el ratón o el dedo.',
       description:
-        'Diseña parallax, scroll interactivo, micro-interacciones y gestos premium en React (Motion + Lenis) o en HTML/CSS/JS puro (GSAP + Lenis), con una política de movimiento que gradúa la amplitud en vez de apagarla. Úsalo para heros, efectos ligados al scroll, reveals al entrar en viewport, sticky y stacking cards, tilt 3D y arrastrar con springs. Es la versión pro de "Animar con el scroll".',
+        'Diseña parallax, scroll interactivo, micro-interacciones y gestos premium en React (Motion + Lenis) o en HTML/CSS/JS puro (GSAP + Lenis), con una política de movimiento que gradúa la amplitud en vez de apagarla. Arranca SIEMPRE con un cuestionario obligatorio antes de construir. Úsalo para heros, efectos ligados al scroll, reveals, sticky y stacking cards, tilt 3D y arrastrar con springs. Es la versión pro de "Animar con el scroll".',
       body: `# FrontLaxWeb — parallax y scroll interactivo premium
 
-Convierte una landing normal en una web-experiencia: el scroll y el puntero se vuelven el
-mando de una animación continua. Marca-agnóstico: recibe los colores y tokens de cada proyecto.
-Es la versión pro de la skill "Animar con el scroll"; si solo quieres apariciones sencillas y
-seguras, esa te basta y es más conservadora en accesibilidad.
+Convierte una landing normal en una web-experiencia: el scroll y el puntero se vuelven el mando de
+una animación continua. Marca-agnóstico: recibe los colores y tokens de cada proyecto. Es la versión
+pro de la skill "Animar con el scroll"; si solo quieres apariciones sencillas y seguras, esa basta.
+
+## Lo primero, siempre: el cuestionario de arranque (OBLIGATORIO)
+
+No empieces a construir en frío. Antes de tocar una línea, hazle al usuario este cuestionario y
+devuélvele un brief que apruebe. Construir sin contexto es exactamente como sale el diseño genérico.
+Si dice "hazlo ya" o "tú decides", pásale al menos las tres primeras. Se hace una vez por proyecto.
+
+1. **El producto en una frase.** ¿Qué es y qué hace? ¿Cuál es la UNA acción que quieres del visitante
+   (comprar, registrarse, leer, contactar)?
+2. **Para quién y en qué nicho.** ¿Quién la va a ver? ¿Sector? (fintech, moda, SaaS, portfolio, evento).
+3. **El tono, en dos ejes.** ¿Más funcional (confianza, sobrio) o más expresivo (impacto, marca)?
+   ¿Vende rápido, capta un lead, o cuenta una historia?
+4. **La marca.** Tres adjetivos que quieras transmitir. Colores y tipografía si ya los tienes.
+5. **Tu gusto.** Abre vibeset.dev/components y vibeset.dev/concepts y di 2 o 3 efectos o conceptos que
+   te gusten, y por qué. Pega 1 o 2 webs que te vuelen la cabeza. Sin gusto de referencia salen tokens
+   genéricos, y las referencias las pone el usuario, no el diseñador.
+6. **Lo práctico.** ¿React o HTML/CSS/JS puro? ¿Restricciones (rendimiento estricto, público sensible
+   al movimiento, plazo)?
+
+Con las respuestas, entrega un **brief** y apruébalo antes de construir: arquetipo e intensidad,
+dirección de tokens (marcada "a validar" si no hay referencias, sin inventar), 1 o 2 efectos del
+catálogo, componentes sugeridos y las tres paradas del dial.
 
 ## Los 7 efectos (el catálogo)
 
@@ -300,24 +321,22 @@ seguras, esa te basta y es más conservadora en accesibilidad.
 5. Sticky / pin — algo se pega mientras cambia lo de alrededor (stacking cards).
 6. Micro-interacciones de puntero — tilt 3D, cursor con lerp, hover magnético.
 7. Gestos con springs — arrastrar, soltar, tap: física de resorte interrumpible en vez de
-   transiciones CSS de duración fija. Destilado de los principios de motion de las WWDC de
-   Apple recopilados por Emil Kowalski (github.com/emilkowalski/skills).
+   transiciones CSS de duración fija. Destilado de los principios de motion de las WWDC de Apple
+   recopilados por Emil Kowalski (github.com/emilkowalski/skills).
 
 ## Cimientos no negociables (rendimiento)
 
 - Anima SOLO transform y opacity: van por GPU. Nunca top, left, width, height ni margin.
 - Apariciones con IntersectionObserver, nunca con un listener de scroll suelto.
-- Si necesitas la posición exacta del scroll, léela dentro de requestAnimationFrame, no en el
-  propio evento; guarda el último valor y descarta las lecturas sobrantes.
-- Listeners con { passive: true }, o el navegador espera a tu código antes de desplazar.
-- Cinturón de seguridad: nunca dejes contenido invisible a merced de un observer o de rAF. En
-  una pestaña en segundo plano no disparan. Tras load, un setTimeout de rescate revela lo que
-  ya esté en pantalla.
+- Si necesitas la posición exacta del scroll, léela dentro de requestAnimationFrame, no en el evento.
+- Listeners con { passive: true }.
+- Cinturón de seguridad: nunca dejes contenido invisible a merced de un observer o de rAF. En una
+  pestaña en segundo plano no disparan. Tras load, un setTimeout de rescate revela lo que ya esté visible.
 
 ## El dial --motion-gain (la política de movimiento)
 
-Lo estándar es apagar el movimiento cuando el sistema pide prefers-reduced-motion. FrontLaxWeb
-ofrece otra vía: en vez de apagar, baja la AMPLITUD. Un solo dial gobierna la web entera.
+Lo estándar es apagar el movimiento cuando el sistema pide prefers-reduced-motion. FrontLaxWeb ofrece
+otra vía: en vez de apagar, baja la AMPLITUD. Un solo dial gobierna la web entera.
 
 - Por defecto: gain 1 — la experiencia completa.
 - Sistema en reduce: gain 0.25 — el mismo diseño con un cuarto de recorrido, acento y no cámara.
@@ -326,16 +345,11 @@ ofrece otra vía: en vez de apagar, baja la AMPLITUD. Un solo dial gobierna la w
 
 Las tres reglas del dial:
 
-1. gain multiplica el RECORRIDO: píxeles, escala, rotación, skew. En efectos continuos
-   (marquee, loops) multiplica la velocidad.
-2. gain NUNCA multiplica la opacidad. Un fundido no marea a nadie, así que se ve siempre; por
-   eso, con gain 0, un efecto no se rompe: degrada a un fundido en vez de a un hueco vacío.
-3. gain NO escala el movimiento que dirige el usuario (arrastrar, hover, tilt, cursor): el oído
-   interno no protesta por lo que uno mismo provoca. Escala solo el movimiento no solicitado:
-   parallax, zoom al scroll, scrubbing, horizontal, velocity skew.
-
-Y siempre, además: una válvula VISIBLE en la interfaz (no solo en la URL), foco de teclado y
-anclas intactos, y contenido legible sin JS.
+1. gain multiplica el RECORRIDO: píxeles, escala, rotación, skew. En efectos continuos multiplica la velocidad.
+2. gain NUNCA multiplica la opacidad. Un fundido no marea, así que se ve siempre; por eso, con gain 0,
+   un efecto no se rompe: degrada a un fundido en vez de a un hueco vacío.
+3. gain NO escala el movimiento que dirige el usuario (arrastrar, hover, tilt, cursor). Escala solo el
+   no solicitado: parallax, zoom al scroll, scrubbing, horizontal, velocity skew.
 
 Interruptor central, en el head, antes de cualquier CSS de animación:
 
@@ -350,56 +364,79 @@ Interruptor central, en el head, antes de cualquier CSS de animación:
     })();
     </script>
 
-Honestidad sobre esto: reducir la amplitud en vez de apagar es una postura OPINADA. Es
-defendible solo si mantienes una válvula real y visible y de verdad no mareas. Si el público es
-sensible o el sitio es funcional (banca, salud, formularios, checkout), quédate con el apagado
-estándar de la skill "Animar con el scroll". No copies esta regla de accesibilidad sin querer.
+**Accesibilidad, con rigor (WCAG, MDN, web.dev).** Esta política es opinada y solo se sostiene si:
+- Existe la **válvula** de apagado. WCAG 2.3.3 (nivel AAA) exige poder DESACTIVAR el movimiento, no
+  solo reducirlo; ?motion=off es ese mecanismo, y debe estar siempre y ser descubrible. Sin ella, no
+  cumples la norma.
+- Bajo reduce, el 0.25 es un PUNTO DE PARTIDA. Lo que marea es el movimiento de gran amplitud
+  (parallax, zoom, translación de gran superficie), no la opacidad. Ese movimiento grande hay que
+  llevarlo a ~cero o sustituirlo por un fundido, no dejarlo "más pequeño pero presente". Para un reveal
+  de 16 px, 0.25 sobra; para un parallax de 300 px, sigue mareando: baja más o pásalo a opacidad.
+- **WCAG 2.2.2 "Pause, Stop, Hide" (nivel A, obligatorio):** todo bucle automático de más de 5 s
+  (marquee, vídeo de fondo, gradiente en movimiento) DEBE tener un control de pausa o stop. El dial no
+  lo sustituye.
+
+Si el público es sensible o el sitio es funcional (banca, salud, formularios, checkout), usa el apagado
+estándar de "Animar con el scroll".
 
 ## Cuándo SÍ y cuándo NO
 
 - SÍ: hero de producto, storytelling de features, "cómo funciona", secciones largas de scroll.
-- NO: formularios, dashboards densos, tablas, checkout, páginas legales, o si baja el LCP, el
-  INP o el CLS.
+- NO: formularios, dashboards densos, tablas, checkout, páginas legales, o si baja el LCP, el INP o el CLS.
+  (Umbrales buenos p75, verificados 2026: LCP < 2,5 s, INP < 200 ms, CLS < 0,1.)
 - Regla de oro: el efecto sirve al mensaje, no al revés. Si distrae o marea, sobra.
 
 ## El contexto manda (paso 0) y la matriz por arquetipo
 
-Sitúa la web en dos ejes antes de elegir un solo efecto: funcional contra expresivo, y
-conversión contra narrativa. De ahí sale el arquetipo, y el arquetipo decide todo lo demás.
+Sitúa la web en dos ejes antes de elegir un solo efecto: funcional contra expresivo, y conversión
+contra narrativa. El arquetipo cae de ahí, y decide el resto.
 
-- SaaS / B2B — intensidad baja-media. SÍ reveal con stagger, sticky demo, contadores, hover
-  micro. NO scrolljacking ni WebGL pesado. Referentes: Linear, Vercel.
-- Fintech / salud — baja. SÍ fade y slide sutil, jerarquía tipográfica. NO parallax profundo
-  ni scrolljacking. El público amplio y la sobriedad mandan.
-- E-commerce / producto físico — media. SÍ sticky con scrubbing del producto, zoom al scroll.
-  NO secuencias sin optimizar ni hijack en el checkout.
-- Marca creativa / moda / agencia — alta. SÍ WebGL, horizontal, tipografía cinética, cursor
-  con lerp. NO lo genérico y tímido. Referentes: Obys, Lusion.
+- SaaS / B2B — baja-media. SÍ reveal con stagger, sticky demo, contadores, micro hover. NO scrolljacking
+  ni WebGL pesado. Referentes: Linear, Vercel.
+- Fintech / salud — baja. SÍ fade y slide sutil, jerarquía tipográfica. NO parallax profundo ni scrolljacking.
+- E-commerce / producto físico — media. SÍ sticky con scrubbing del producto, zoom al scroll. NO hijack en checkout.
+- Marca creativa / moda / agencia — alta. SÍ WebGL, horizontal, tipografía cinética, cursor con lerp.
+  NO lo genérico y tímido. Referentes: Obys, Lusion.
 - Portfolio — media-alta. SÍ máscaras, hover magnético, WebGL si eres dev.
 - Editorial / medio — media. SÍ scrollytelling, parallax narrativo. NO hijacking.
-- Landing de lanzamiento — media-alta. SÍ hero parallax, marquee, countdown. NO preloaders
-  largos ni animarlo todo.
+- Landing de lanzamiento — media-alta. SÍ hero parallax, marquee, countdown. NO preloaders largos.
+
+## Transiciones entre páginas: View Transitions API (nativo)
+
+El paso de una página a otra ya es nativo, antes que Barba.js o AnimatePresence.
+- Same-document (SPA): document.startViewTransition(() => actualizarDOM()). Ya es Baseline (~90%).
+- Multipágina (MPA): dos líneas de CSS y cero JS:
+
+    @view-transition { navigation: auto; }
+    .hero { view-transition-name: hero; }
+
+  Cubre ~85% (Chrome/Edge 126, Safari 18.2). Firefox aún no la hace, pero degrada solo a navegación
+  normal. Por eso: nunca la uses como única señal de un cambio de estado, y exige mismo origen.
 
 ## El kitchen sink: de un nicho a una web entera
 
-1. Contexto: ¿qué vende o hace?, ¿a quién?, ¿en qué nicho? De ahí sale el arquetipo.
-2. Tokens de diseño estático: tipografía, escala de color, espaciado, jerarquía. Es la capa
-   más fácil de descuidar y la que más se nota; hazla a conciencia.
-3. Componentes: elige las piezas coherentes con el arquetipo, no por vistosas.
-4. Movimiento: 1 o 2 efectos del catálogo, con el dial --motion-gain de serie.
+1. Contexto: el cuestionario de arranque de arriba. De él sale el arquetipo y el brief.
+2. Tokens de diseño estático: tipografía, escala de color, espaciado. La capa más fácil de descuidar y
+   la más notoria; hazla a conciencia, apoyada en las referencias del usuario.
+3. Componentes: elige las piezas que fijan el arquetipo, no las más vistosas.
+4. Movimiento: uno o dos efectos del catálogo, con el dial de serie.
 5. Cierre: prueba las tres paradas del dial y mide los Core Web Vitals.
 
-Cada capa la manda la de arriba. Elegir primero un efecto chulo y buscarle un sitio es el error
-que la matriz existe para frenar.
+Cada capa la manda la de arriba. Elegir primero un efecto chulo y buscarle un sitio es el error que la
+matriz existe para frenar.
 
-## Motores por stack
+## Motores por stack (verificado 2026)
 
-- React: Motion (motion/react, con LazyMotion para bajar peso) más Lenis. Añade GSAP con
-  ScrollTrigger solo para scrubbing, pin o SplitText.
-- Vanilla: por defecto CSS scroll-driven (view() y scroll()) más IntersectionObserver. Para
-  scrubbing, pin u horizontal: GSAP con ScrollTrigger, más Lenis.
-- WebGL (Three.js o React Three Fiber): solo si la marca ES la experiencia; opt-in con chequeo
-  de capacidad del dispositivo.
+- React: Motion (el antiguo Framer Motion; paquete motion, import motion/react, v13; con LazyMotion y el
+  componente m el arranque baja a ~4,6 kB) más Lenis (paquete lenis, componente ReactLenis). Añade GSAP
+  con ScrollTrigger solo para scrubbing, pin o SplitText. Al sincronizar Lenis con el ticker de GSAP,
+  arranca Lenis con autoRaf: false, o corres dos bucles de rAF a la vez (el fallo típico).
+- Vanilla: para reveals y parallax, CSS scroll-driven (animation-timeline: view()/scroll()) es 0 KB pero
+  es mejora progresiva, NO base: Firefox estable aún no lo trae (~85%). El estado base debe ser el
+  visible y el efecto va encima con @supports (animation-timeline: view()); si el base es opacity: 0, el
+  usuario de Firefox no ve nada. Para scrubbing, pin u horizontal: GSAP con ScrollTrigger, más Lenis.
+- GSAP es 100% gratis desde 2025 (compra por Webflow): SplitText, MorphSVG y ScrollSmoother incluidos.
+- WebGL (Three.js o React Three Fiber): solo si la marca ES la experiencia; opt-in con chequeo de capacidad.
 
 Al terminar, di qué se anima, con qué está hecho y qué pasa en las tres paradas del dial.`,
     },
@@ -408,13 +445,34 @@ Al terminar, di qué se anima, con qué está hecho y qué pasa en las tres para
       what: 'Turns a landing into a web experience: parallax, scroll-driven motion and premium gestures, always at 60fps.',
       when: 'When building a hero, product storytelling, or any site that should feel like a video the visitor drives with scroll, cursor or finger.',
       description:
-        'Designs parallax, scroll-driven motion, pointer micro-interactions and premium gestures in React (Motion + Lenis) or plain HTML/CSS/JS (GSAP + Lenis), with a motion policy that scales amplitude down instead of switching motion off. Use it for heroes, scroll-linked effects, viewport reveals, sticky and stacking cards, 3D tilt and spring-based dragging. It is the pro version of "Animate on scroll".',
+        'Designs parallax, scroll-driven motion, pointer micro-interactions and premium gestures in React (Motion + Lenis) or plain HTML/CSS/JS (GSAP + Lenis), with a motion policy that scales amplitude down instead of switching motion off. It ALWAYS starts with a mandatory intake questionnaire before building. Use it for heroes, scroll-linked effects, viewport reveals, sticky and stacking cards, 3D tilt and spring dragging. It is the pro version of "Animate on scroll".',
       body: `# FrontLaxWeb — premium parallax and scroll-driven motion
 
 Turns an ordinary landing into a web experience: scroll and pointer become the controller of a
-continuous animation. Brand-agnostic: it takes each project's own colors and tokens. It is the
-pro version of the "Animate on scroll" skill; if you only need simple, safe reveals, that one is
-enough and more conservative on accessibility.
+continuous animation. Brand-agnostic: it takes each project's own colors and tokens. It is the pro
+version of the "Animate on scroll" skill; if you only need simple, safe reveals, that one is enough.
+
+## First, always: the intake questionnaire (MANDATORY)
+
+Do not start building cold. Before touching a line, ask the user this questionnaire and hand back a
+brief they approve. Building without context is exactly how generic design happens. If they say "just
+do it", ask at least the first three. Once per project.
+
+1. **The product in one sentence.** What is it and what does it do? What is the ONE action you want
+   from the visitor (buy, sign up, read, contact)?
+2. **Who for and which niche.** Who will see it? Which sector? (fintech, fashion, SaaS, portfolio, event).
+3. **Tone, on two axes.** More functional (trust, restraint) or more expressive (impact, brand)? Does it
+   sell fast, capture a lead, or tell a story?
+4. **The brand.** Three adjectives it should convey. Colors and type if you already have them.
+5. **Your taste.** Open vibeset.dev/components and vibeset.dev/concepts and name 2 or 3 effects or
+   concepts you like, and why. Paste 1 or 2 sites that blow your mind. Without reference taste you get
+   generic tokens, and the references come from the user, not the designer.
+6. **The practical bits.** React or plain HTML/CSS/JS? Any constraints (strict performance, motion-
+   sensitive audience, deadline)?
+
+From the answers, deliver a **brief** and approve it before building: archetype and intensity, token
+direction (marked "to validate" if there are no references, never invented), 1 or 2 catalog effects,
+suggested components, and the three dial stops.
 
 ## The 7 effects (the catalog)
 
@@ -430,37 +488,30 @@ enough and more conservative on accessibility.
 
 ## Non-negotiable foundations (performance)
 
-- Animate transform and opacity ONLY: they run on the GPU. Never top, left, width, height, margin.
+- Animate transform and opacity ONLY: GPU. Never top, left, width, height, margin.
 - Reveals use IntersectionObserver, never a bare scroll listener.
-- If you need the exact scroll position, read it inside requestAnimationFrame, not in the event;
-  keep the last value and drop the extras.
-- Listeners with { passive: true }, or the browser waits for your code before scrolling.
-- Safety belt: never leave content invisible at the mercy of an observer or rAF. In a background
-  tab they do not fire. After load, a rescue setTimeout reveals whatever is already on screen.
+- If you need the exact scroll position, read it inside requestAnimationFrame, not in the event.
+- Listeners with { passive: true }.
+- Safety belt: never leave content invisible at the mercy of an observer or rAF. In a background tab
+  they do not fire. After load, a rescue setTimeout reveals whatever is already visible.
 
 ## The --motion-gain dial (the motion policy)
 
-The standard move is to switch motion off when the system asks for prefers-reduced-motion.
-FrontLaxWeb offers another path: instead of switching off, it scales the AMPLITUDE down. A single
-dial governs the whole site.
+The standard move is to switch motion off when the system asks for prefers-reduced-motion. FrontLaxWeb
+offers another path: instead of switching off, it scales AMPLITUDE down. One dial governs the whole site.
 
 - Default: gain 1 — the full experience.
-- System set to reduce: gain 0.25 — the same design with a quarter of the travel, accent not camera.
+- System set to reduce: gain 0.25 — the same design with a quarter of the travel.
 - URL with ?motion=off: gain 0 — whatever moved on its own goes still.
 - URL with ?motion=full: forces 1, ignoring the system preference.
 
-The three rules of the dial:
+The three rules:
 
-1. gain multiplies TRAVEL: pixels, scale, rotation, skew. In continuous effects (marquee, loops)
-   it multiplies speed.
-2. gain NEVER multiplies opacity. A crossfade makes no one dizzy, so it always shows; that is why,
-   at gain 0, an effect does not break: it degrades to a fade instead of an empty gap.
-3. gain does NOT scale user-driven motion (drag, hover, tilt, cursor): the inner ear does not
-   protest what you cause yourself. It scales only unsolicited motion: parallax, scroll zoom,
-   scrubbing, horizontal, velocity skew.
-
-And always: a VISIBLE valve in the interface (not only in the URL), keyboard focus and anchors
-intact, and content readable without JS.
+1. gain multiplies TRAVEL: pixels, scale, rotation, skew. In continuous effects it multiplies speed.
+2. gain NEVER multiplies opacity. A crossfade makes no one dizzy, so it always shows; at gain 0 an
+   effect degrades to a fade instead of an empty gap.
+3. gain does NOT scale user-driven motion (drag, hover, tilt, cursor). It scales only unsolicited
+   motion: parallax, scroll zoom, scrubbing, horizontal, velocity skew.
 
 Central switch, in the head, before any animation CSS:
 
@@ -475,56 +526,77 @@ Central switch, in the head, before any animation CSS:
     })();
     </script>
 
-Honesty about this: scaling amplitude down instead of switching off is an OPINIONATED stance. It
-holds up only if you keep a real, visible valve and genuinely do not induce dizziness. If your
-audience is sensitive or the site is functional (banking, health, forms, checkout), stick with the
-standard off switch from "Animate on scroll". Do not copy this accessibility rule by accident.
+**Accessibility, done right (WCAG, MDN, web.dev).** This policy is opinionated and only holds if:
+- The **off valve** exists. WCAG 2.3.3 (AAA) requires being able to DISABLE motion, not just reduce it;
+  ?motion=off is that mechanism and must always be present and discoverable. Without it you do not comply.
+- Under reduce, 0.25 is a STARTING POINT. What makes people dizzy is large-amplitude motion (parallax,
+  zoom, large-surface translation), not opacity. That large motion must go to ~zero or be replaced by a
+  fade, not left "smaller but present". For a 16px reveal, 0.25 is plenty; for a 300px parallax it still
+  dizzies: go lower or switch to opacity.
+- **WCAG 2.2.2 "Pause, Stop, Hide" (level A, mandatory):** any auto-looping motion over 5s (marquee,
+  background video, moving gradient) MUST have a pause or stop control. The dial does not replace it.
+
+If the audience is sensitive or the site is functional (banking, health, forms, checkout), use the
+standard off switch from "Animate on scroll".
 
 ## When to and when not to
 
 - YES: product hero, feature storytelling, "how it works", long scrolling sections.
 - NO: forms, dense dashboards, tables, checkout, legal pages, or if it drops LCP, INP or CLS.
-- Golden rule: the effect serves the message, not the other way round. If it distracts or dizzies,
-  it goes.
+  (Good p75 thresholds, verified 2026: LCP < 2.5s, INP < 200ms, CLS < 0.1.)
+- Golden rule: the effect serves the message, not the other way round.
 
 ## Context rules (step 0) and the archetype matrix
 
-Place the site on two axes before picking a single effect: functional versus expressive, and
-conversion versus narrative. The archetype falls out of that, and the archetype decides the rest.
+Place the site on two axes before picking a single effect: functional vs expressive, conversion vs
+narrative. The archetype falls out, and it decides the rest.
 
-- SaaS / B2B — low-medium intensity. YES reveal with stagger, sticky demo, counters, micro hover.
-  NO scrolljacking or heavy WebGL. References: Linear, Vercel.
-- Fintech / health — low. YES subtle fade and slide, typographic hierarchy. NO deep parallax or
-  scrolljacking. Broad audience and restraint win.
-- E-commerce / physical product — medium. YES sticky with product scrubbing, scroll zoom. NO
-  unoptimized sequences or checkout hijack.
-- Creative brand / fashion / agency — high. YES WebGL, horizontal, kinetic type, lerped cursor.
-  NO the generic and timid. References: Obys, Lusion.
+- SaaS / B2B — low-medium. YES reveal with stagger, sticky demo, counters, micro hover. NO scrolljacking
+  or heavy WebGL. References: Linear, Vercel.
+- Fintech / health — low. YES subtle fade and slide, typographic hierarchy. NO deep parallax or scrolljacking.
+- E-commerce / physical product — medium. YES sticky with product scrubbing, scroll zoom. NO checkout hijack.
+- Creative brand / fashion / agency — high. YES WebGL, horizontal, kinetic type, lerped cursor. NO the
+  generic and timid. References: Obys, Lusion.
 - Portfolio — medium-high. YES masks, magnetic hover, WebGL if you are a dev.
 - Editorial / media — medium. YES scrollytelling, narrative parallax. NO hijacking.
-- Launch landing — medium-high. YES hero parallax, marquee, countdown. NO long preloaders or
-  animating everything.
+- Launch landing — medium-high. YES hero parallax, marquee, countdown. NO long preloaders.
+
+## Page transitions: the View Transitions API (native)
+
+Moving from one page to another is native now, ahead of Barba.js or AnimatePresence.
+- Same-document (SPA): document.startViewTransition(() => updateDOM()). Already Baseline (~90%).
+- Multi-page (MPA): two lines of CSS, zero JS:
+
+    @view-transition { navigation: auto; }
+    .hero { view-transition-name: hero; }
+
+  Covers ~85% (Chrome/Edge 126, Safari 18.2). Firefox does not do it yet but degrades to a normal
+  navigation. So: never use it as the only signal of a state change, and it requires same origin.
 
 ## The kitchen sink: from a niche to a whole site
 
-1. Context: what does it sell or do, for whom, in which niche? The archetype comes from that.
-2. Static design tokens: type, color scale, spacing, hierarchy. The easiest layer to neglect and
-   the most noticeable; do it deliberately.
-3. Components: pick the pieces that fit the archetype, not the flashiest ones.
-4. Motion: one or two effects from the catalog, with the --motion-gain dial built in.
+1. Context: the intake questionnaire above. The archetype and brief come from it.
+2. Static design tokens: type, color scale, spacing. The easiest layer to neglect and the most
+   noticeable; do it deliberately, anchored to the user's references.
+3. Components: pick the pieces that set the archetype, not the flashiest.
+4. Motion: one or two catalog effects, with the dial built in.
 5. Close: test the three dial stops and measure Core Web Vitals.
 
-Each layer is ruled by the one above it. Picking a cool effect first and then hunting for a place
-to put it is the mistake the matrix exists to prevent.
+Each layer is ruled by the one above it.
 
-## Engines by stack
+## Engines by stack (verified 2026)
 
-- React: Motion (motion/react, with LazyMotion to cut weight) plus Lenis. Add GSAP with
-  ScrollTrigger only for scrubbing, pin or SplitText.
-- Vanilla: by default CSS scroll-driven (view() and scroll()) plus IntersectionObserver. For
-  scrubbing, pin or horizontal: GSAP with ScrollTrigger, plus Lenis.
-- WebGL (Three.js or React Three Fiber): only if the brand IS the experience; opt-in with a
-  device-capability check.
+- React: Motion (formerly Framer Motion; package motion, import motion/react, v13; with LazyMotion and
+  the m component startup drops to ~4.6kb) plus Lenis (package lenis, ReactLenis component). Add GSAP
+  with ScrollTrigger only for scrubbing, pin or SplitText. When syncing Lenis with GSAP's ticker, start
+  Lenis with autoRaf: false, or you run two rAF loops at once (the classic bug).
+- Vanilla: for reveals and parallax, CSS scroll-driven (animation-timeline: view()/scroll()) is 0 KB but
+  it is progressive enhancement, NOT a base: Firefox stable does not ship it yet (~85%). The base state
+  must be the visible one and the effect goes on top with @supports (animation-timeline: view()); if the
+  base is opacity: 0, Firefox users see nothing. For scrubbing, pin or horizontal: GSAP with
+  ScrollTrigger, plus Lenis.
+- GSAP is 100% free since 2025 (Webflow acquisition): SplitText, MorphSVG and ScrollSmoother included.
+- WebGL (Three.js or React Three Fiber): only if the brand IS the experience; opt-in with a capability check.
 
 When you finish, say what animates, what it was built with, and what happens at the three dial stops.`,
     },
