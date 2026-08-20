@@ -39,18 +39,21 @@ export default function VistazoMenu({ seccion, lang, t, onCerrar, anclaX = 0 }) 
   const ref = useRef(null)
   const [x, setX] = useState(anclaX)
 
-  // El tope de la derecha se mide en JS y no con `calc(100vw - 100%)`, que fue
-  // el primer intento y salió mal: dentro de `left`, ese `100%` es el ancho del
-  // CONTENEDOR (la barra entera), no el del panel, así que la cuenta daba un
-  // número negativo y el panel se pegaba al borde izquierdo en las seis
-  // secciones. Aquí se mide el panel de verdad, ya montado.
+  // `anclaX` es el CENTRO del enlace, así que se le resta medio panel para que
+  // quede centrado debajo. Y luego se le pone tope a los dos lados, porque las
+  // secciones de los extremos empujarían el panel fuera de la pantalla.
+  //
+  // Todo esto se mide en JS y no con `calc(100vw - 100%)`, que fue el primer
+  // intento y salió mal: dentro de `left`, ese `100%` es el ancho del CONTENEDOR
+  // (la barra entera), no el del panel, así que la cuenta daba un número
+  // negativo y el panel se pegaba al borde izquierdo en las seis secciones.
   //
   // `useLayoutEffect` y no `useEffect`: corrige la posición antes de pintar, así
   // que el panel no aparece en un sitio y salta al otro.
   useLayoutEffect(() => {
     const ancho = ref.current?.offsetWidth ?? 0
     const tope = document.documentElement.clientWidth - ancho - MARGEN
-    setX(Math.max(MARGEN, Math.min(anclaX, tope)))
+    setX(Math.max(MARGEN, Math.min(anclaX - ancho / 2, tope)))
   }, [anclaX, seccion, lang])
 
   const grupos = vistazoDe(seccion, lang)

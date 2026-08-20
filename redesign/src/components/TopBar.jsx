@@ -193,10 +193,14 @@ export default function TopBar({
     clearTimeout(reloj.current)
     reloj.current = setTimeout(() => setAsomada(valor), ms)
   }
-  // Viaja la posición del enlace, no solo su nombre: el panel se ancla debajo
-  // de la sección que lo abre, así que necesita saber dónde está.
-  const asomar = (clave, el) =>
-    programar({ clave, x: el ? Math.round(el.getBoundingClientRect().left) : 0 }, 120)
+  // Viaja el CENTRO del enlace, no su borde izquierdo: el panel se centra debajo
+  // de la sección que lo abre. Con el borde izquierdo, el panel crecía siempre
+  // hacia la derecha, y en las secciones de la derecha eso lo mandaba al filo de
+  // la pantalla en vez de dejarlo debajo de lo que estabas señalando.
+  const asomar = (clave, el) => {
+    const r = el?.getBoundingClientRect()
+    programar({ clave, x: r ? Math.round(r.left + r.width / 2) : 0 }, 120)
+  }
   const cerrarAsomo = () => programar(null, 180)
   // Cerrar de golpe, sin espera: al pulsar un enlace o al dar a Escape no hay
   // ningún gesto en curso que proteger.
