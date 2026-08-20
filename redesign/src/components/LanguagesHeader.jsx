@@ -2,7 +2,7 @@ import { HERO_PILLS } from '../data/languages'
 
 // Encabezado de la sección: el hero grande vive ahora en la portada, aquí
 // basta con el título y los filtros rápidos.
-export default function LanguagesHeader({ t, lang, filter, setFilter, total, shown }) {
+export default function LanguagesHeader({ t, lang, filter, onFiltrar, total, shown }) {
   const activo = (f) => {
     if (f.type === 'all') return filter.type === 'all'
     if (f.type === 'cat') return filter.type === 'cat' && filter.value === f.value
@@ -27,7 +27,7 @@ export default function LanguagesHeader({ t, lang, filter, setFilter, total, sho
         {HERO_PILLS.map((p) => (
           <button
             key={p.label[lang]}
-            onClick={() => setFilter(p.filter)}
+            onClick={() => onFiltrar(p.key)}
             /* El area pulsable llega a 24px de alto sin que la letra cambie: el
                relleno crece y el margen negativo lo devuelve, asi la linea de
                abajo sigue pegada al texto. */

@@ -16,10 +16,13 @@ import { vistazoDe, TOTAL_SECCION } from '../lib/vistazo'
 // categoría concreta dentro del catálogo y en el menú no significaba nada. Lo
 // que separa y ordena son las líneas y la tipografía.
 //
-// **Los grupos no son enlaces, y también es a propósito.** No existe una ruta
-// por categoría, así que hacerlos pulsables llevaría a los seis al mismo sitio y
-// el visitante descubriría el engaño al segundo clic. Son el vistazo; la acción
-// es una sola y está abajo, como el «See all products» de Cloudflare.
+// **Los grupos SON enlaces, y antes no lo eran.** La primera versión los dejó
+// como texto muerto porque no existía ninguna ruta por categoría, y el resultado
+// fue el previsible: parecen botones, la gente los pulsa y no pasa nada.
+// Reportado por Munir el 2026-08-20 con estas palabras: «los botones no
+// funcionan». La respuesta no era apagarlos más, era darles el destino que
+// prometen, así que ahora la categoría viaja en la dirección (`?cat=web`) y de
+// paso cualquier filtro del catálogo se puede enlazar y compartir.
 
 const FILAS = 4
 
@@ -110,14 +113,23 @@ export default function VistazoMenu({ seccion, lang, t, onCerrar, anclaX = 0 }) 
             className={`px-5 py-3 ${i > 0 ? 'border-l border-linea' : ''}`}
           >
             {col.map((g) => (
-              <div key={g.clave} className="flex items-baseline gap-6 py-[3px]">
+              <Link
+                key={g.clave}
+                to={`${rutaDe(seccion)}?cat=${g.clave}`}
+                onClick={onCerrar}
+                // Se responde con el fondo, no con color: en esta casa el color
+                // clasifica contenido y en un menú no clasifica nada. El área
+                // pulsable la da el relleno negativo, que ensancha la fila hasta
+                // el borde de la columna sin mover la retícula.
+                className="flex items-baseline gap-6 py-1.5 px-2 -mx-2 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+              >
                 <span className="flex-1 text-[13px] text-tinta-fuerte whitespace-nowrap">
                   {g.etiqueta}
                 </span>
                 <span className="font-mono text-[11px] text-tinta-suave tabular-nums">
                   {g.cuenta}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         ))}

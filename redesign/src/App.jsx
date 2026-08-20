@@ -133,6 +133,33 @@ export default function App() {
     if (window.location.pathname !== base) irA(base, { replace: true })
   }
 
+  // La categoría abierta viaja en la dirección (`/languages?cat=web`), y no solo
+  // en el estado de React. Dos cosas se arreglan con esto: el panel del header
+  // puede enlazar «Web · 26» en vez de enseñarlo como texto muerto, y cualquier
+  // filtro se puede compartir o guardar en marcadores.
+  //
+  // La dirección es la fuente y el estado la sigue, nunca al revés. Por eso los
+  // filtros de la barra lateral navegan en vez de llamar a su setter: si
+  // escribieran las dos cosas, un botón de atrás bastaría para dejarlas
+  // diciendo cosas distintas.
+  //
+  // Va con `replace` a propósito: filtrar no es cambiar de página, y sin esto
+  // cada clic en la lateral dejaría un escalón en el historial y salir de la
+  // sección costaría diez veces atrás.
+  const catUrl = new URLSearchParams(location.search).get('cat') ?? 'all'
+  const irACategoria = (sec, k) =>
+    irA(k === 'all' ? rutaDe(sec) : `${rutaDe(sec)}?cat=${k}`, { replace: true })
+
+  // Lenguajes filtra de tres formas (por categoría, por fama y por año) y las
+  // tres viajan por la misma clave: `top` y `recent` no chocan con ninguna
+  // categoría, así que no hace falta un segundo parámetro que además habría que
+  // mantener en sincronía con el primero.
+  const filtroDeClave = (k) =>
+    k === 'all' ? { type: 'all' }
+      : k === 'top' ? { type: 'fame', value: 'top' }
+      : k === 'recent' ? { type: 'recent' }
+      : { type: 'cat', value: k }
+
   const cambiarIdioma = () =>
     setLang((anterior) => {
       const nuevo = anterior === 'es' ? 'en' : 'es'
@@ -165,6 +192,22 @@ export default function App() {
   // El muro sale mezclado y se puede volver a mezclar: el orden del archivo no
   // dice nada, y así no salen siempre los mismos arriba.
   const [cjSemilla, setCjSemilla] = useState(() => Math.random())
+
+  // La dirección manda: al entrar, al pulsar atrás o al llegar desde el panel
+  // del header, la categoría de la sección activa se pone a lo que dice la URL.
+  // Marcar «solo favoritos» y filtrar por categoría son excluyentes, así que
+  // entrar por categoría apaga el otro.
+  useEffect(() => {
+    switch (activeNav) {
+      case 'languages': setFilter(filtroDeClave(catUrl)); setLangFavOnly(false); break
+      case 'resources': setResCat(catUrl); setResFavOnly(false); break
+      case 'concepts': setConCat(catUrl); setConFavOnly(false); break
+      case 'components': setCompCat(catUrl); setCompFavOnly(false); break
+      case 'skills': setSkiCat(catUrl); setSkiFavOnly(false); break
+      case 'consejos': setCjCat(catUrl); setCjFavOnly(false); break
+      default: break
+    }
+  }, [activeNav, catUrl])
 
   // Los ajustes de cada componente viven aquí para que no se pierdan al cambiar
   // de sección y volver. Qué ficha está abierta lo dice la URL.
@@ -262,7 +305,7 @@ export default function App() {
         searchPh: t.searchPh, query, setQuery,
         categories: CATEGORIES.map((c) => ({ key: c.key, label: c.label[lang], count: c.count, dot: c.dot })),
         activeCat: langFavOnly ? null : activeCat,
-        setActiveCat: (k) => { setFilter(k === 'all' ? { type: 'all' } : { type: 'cat', value: k }); setLangFavOnly(false) },
+        setActiveCat: (k) => irACategoria('languages', k),
         extraGroup: {
           showFavOnly: langFavOnly, onToggleFavOnly: () => setLangFavOnly((v) => !v),
           favCount: langFavs.size, compareCount: compareSet.length,
@@ -275,7 +318,7 @@ export default function App() {
         categories: [{ key: 'all', label: t.all, count: RESOURCES.reduce((n, g) => n + g.items.length, 0), dot: 'var(--tono-indigo)' },
           ...RESOURCES.map((g) => ({ key: g.key, label: g.label[lang], count: g.items.length, dot: g.dot }))],
         activeCat: resFavOnly ? null : resCat,
-        setActiveCat: (k) => { setResCat(k); setResFavOnly(false) },
+        setActiveCat: (k) => irACategoria('resources', k),
         extraGroup: { showFavOnly: resFavOnly, onToggleFavOnly: () => setResFavOnly((v) => !v), favCount: resFavs.size },
       }
     }
@@ -285,7 +328,7 @@ export default function App() {
         categories: [{ key: 'all', label: t.all, count: CONCEPTS.reduce((n, g) => n + g.items.length, 0), dot: 'var(--tono-indigo)' },
           ...CONCEPTS.map((g) => ({ key: g.key, label: g.label[lang], count: g.items.length, dot: g.color }))],
         activeCat: conFavOnly ? null : conCat,
-        setActiveCat: (k) => { setConCat(k); setConFavOnly(false) },
+        setActiveCat: (k) => irACategoria('concepts', k),
         extraGroup: { showFavOnly: conFavOnly, onToggleFavOnly: () => setConFavOnly((v) => !v), favCount: conFavs.size },
       }
     }
@@ -297,7 +340,7 @@ export default function App() {
           ...SKILL_GROUPS.map((g) => ({ key: g.key, label: g.label[lang],
             count: SKILL_ITEMS.filter((s) => s.group === g.key).length }))],
         activeCat: skiFavOnly ? null : skiCat,
-        setActiveCat: (k) => { setSkiCat(k); setSkiFavOnly(false); volverALista('skills') },
+        setActiveCat: (k) => irACategoria('skills', k),
         extraGroup: { showFavOnly: skiFavOnly,
           onToggleFavOnly: () => { setSkiFavOnly((v) => !v); volverALista('skills') }, favCount: skiFavs.size },
       }
@@ -309,7 +352,7 @@ export default function App() {
           ...CONSEJO_GRUPOS.map((g) => ({ key: g.key, label: g.label[lang],
             count: CONSEJOS.filter((c) => c.grupo === g.key).length }))],
         activeCat: cjFavOnly ? null : cjCat,
-        setActiveCat: (k) => { setCjCat(k); setCjFavOnly(false) },
+        setActiveCat: (k) => irACategoria('consejos', k),
         extraGroup: { showFavOnly: cjFavOnly, onToggleFavOnly: () => setCjFavOnly((v) => !v), favCount: cjFavs.size },
       }
     }
@@ -320,10 +363,10 @@ export default function App() {
         ...COMPONENT_GROUPS.map((g) => ({ key: g.key, label: g.label[lang],
           count: COMPONENT_ITEMS.filter((c) => c.group === g.key).length }))],
       activeCat: compFavOnly ? null : compCat,
-      setActiveCat: (k) => { setCompCat(k); setCompFavOnly(false); volverALista('components') },
+      setActiveCat: (k) => irACategoria('components', k),
       extraGroup: { showFavOnly: compFavOnly, onToggleFavOnly: () => { setCompFavOnly((v) => !v); volverALista('components') }, favCount: compFavs.size },
     }
-  }, [activeNav, t, lang, query, filter, langFavOnly, langFavs, compareSet,
+  }, [activeNav, location.pathname, t, lang, query, filter, langFavOnly, langFavs, compareSet,
       resQuery, resCat, resFavOnly, resFavs, conQuery, conCat, conFavOnly, conFavs,
       compQuery, compCat, compFavOnly, compFavs, skiQuery, skiCat, skiFavOnly, skiFavs,
       cjQuery, cjCat, cjFavOnly, cjFavs])
@@ -394,7 +437,8 @@ export default function App() {
                     {/* `shown` es lo que hay pintado, no lo que pasa el filtro:
                         «Mostrando 24 de 100» tiene que poder comprobarse
                         contando las fichas de la pantalla. */}
-                    <LanguagesHeader t={t} lang={lang} filter={filter} setFilter={setFilter}
+                    <LanguagesHeader t={t} lang={lang} filter={filter}
+                                     onFiltrar={(k) => irACategoria('languages', k)}
                                      total={LANGUAGES.length} shown={corteLangs} />
                     <LanguageGrid
                       t={t} lang={lang} list={visible.slice(0, corteLangs)} total={LANGUAGES.length}
