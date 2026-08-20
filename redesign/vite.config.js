@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { defineConfig } from 'vite'
@@ -122,6 +123,16 @@ function prerenderMeta() {
       const { resumenDelCatalogo } = await import('./src/lib/totales.js')
       const alt = resumenDelCatalogo()
 
+      // X, Slack, LinkedIn, WhatsApp y Discord guardan la vista previa por URL y
+      // no vuelven a mirar si el archivo cambió: regenerar la imagen no sirve de
+      // nada si la dirección es la misma. Se le cuelga la huella del archivo, así
+      // que la dirección cambia sola cuando cambia el dibujo, y no cuando alguien
+      // se acuerda de subir un número a mano.
+      const huella = createHash('sha256')
+        .update(readFileSync(join(outDir, 'brand/og.png')))
+        .digest('hex').slice(0, 8)
+      const imagen = `${BASE}/brand/og.png?v=${huella}`
+
       // El HTML servido se declara en español, así que el meta cocinado va en
       // español. El inglés lo elige el visitante y llega después de React, que
       // es tarde para el robot: eso solo se arregla de verdad con direcciones
@@ -161,6 +172,8 @@ function prerenderMeta() {
           [/(<link rel="canonical" href=")[^"]*(")/, escapar(url)],
           [/(<meta property="og:image:alt" content=")[^"]*(")/, escapar(alt)],
           [/(<meta name="twitter:image:alt" content=")[^"]*(")/, escapar(alt)],
+          [/(<meta property="og:image" content=")[^"]*(")/, escapar(imagen)],
+          [/(<meta name="twitter:image" content=")[^"]*(")/, escapar(imagen)],
         ].reduce((doc, [re, valor]) => poner(doc, re, valor, ruta), plantilla)
           .replace('</head>', () => `${jsonLd}</head>`)
           .replace('<div id="pre"></div>',
