@@ -33,7 +33,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
       </div>
 
       <div>
-        <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave px-2 mb-1.5">
+        <div className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave px-2 mb-1.5">
           {t.categorias}
         </div>
         <div className="flex flex-col gap-0.5">
@@ -66,7 +66,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
 
       {extraGroup && (
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave px-2 mb-1.5">
+          <div className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave px-2 mb-1.5">
             {t.tuSeleccion}
           </div>
           <div className="flex flex-col gap-0.5">

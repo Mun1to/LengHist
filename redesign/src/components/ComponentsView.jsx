@@ -64,7 +64,7 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
         <h2 className="font-bold text-sm text-tinta group-hover/nombre:text-blue-600 dark:group-hover/nombre:text-blue-400 transition-colors shrink-0">
           {item.name}
         </h2>
-        <span className="font-mono text-[11px] text-tinta-suave truncate">{item.tag[lang]}</span>
+        <span className="font-mono text-[12px] text-tinta-suave truncate">{item.tag[lang]}</span>
       </Link>
     </div>
   )

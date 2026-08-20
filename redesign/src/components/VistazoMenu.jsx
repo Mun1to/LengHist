@@ -95,10 +95,10 @@ export default function VistazoMenu({ seccion, lang, t, onCerrar, anclaX = 0 }) 
       <span aria-hidden="true" className="pointer-events-none absolute -bottom-px -right-px w-2.5 h-2.5 border-b border-r border-tinta" />
 
       <div className="flex items-baseline justify-between gap-8 px-5 py-2.5 border-b border-linea">
-        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-tinta-suave">
+        <span className="font-mono text-[12px] uppercase tracking-[0.16em] text-tinta-suave">
           {t.nav[seccion]}
         </span>
-        <span className="font-mono text-[11px] text-tinta-suave tabular-nums">
+        <span className="font-mono text-[12px] text-tinta-suave tabular-nums">
           {TOTAL_SECCION[seccion]}
         </span>
       </div>
@@ -126,7 +126,7 @@ export default function VistazoMenu({ seccion, lang, t, onCerrar, anclaX = 0 }) 
                 <span className="flex-1 text-[13px] text-tinta-fuerte whitespace-nowrap">
                   {g.etiqueta}
                 </span>
-                <span className="font-mono text-[11px] text-tinta-suave tabular-nums">
+                <span className="font-mono text-[12px] text-tinta-suave tabular-nums">
                   {g.cuenta}
                 </span>
               </Link>

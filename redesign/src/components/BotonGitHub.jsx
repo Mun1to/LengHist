@@ -92,7 +92,7 @@ export default function BotonGitHub({ t, conTexto = false }) {
           botón invita a algo. */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute top-full right-0 mt-1.5 px-2 py-1 whitespace-nowrap bg-tinta text-[11px] font-semibold text-zinc-50 dark:text-zinc-900 opacity-0 translate-y-0.5 transition-all duration-150 peer-hover:opacity-100 peer-hover:translate-y-0 peer-focus-visible:opacity-100 peer-focus-visible:translate-y-0"
+        className="pointer-events-none absolute top-full right-0 mt-1.5 px-2 py-1 whitespace-nowrap bg-tinta text-[12px] font-semibold text-zinc-50 dark:text-zinc-900 opacity-0 translate-y-0.5 transition-all duration-150 peer-hover:opacity-100 peer-hover:translate-y-0 peer-focus-visible:opacity-100 peer-focus-visible:translate-y-0"
       >
         {t.githubContribuye}
       </span>

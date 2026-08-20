@@ -35,7 +35,7 @@ export default function FiltrosMovil({ t, ...props }) {
           <SlidersHorizontal size={14} />
           {t.filtros}
           {activos > 0 && (
-            <span className="grid place-items-center min-w-5 h-5 px-1 bg-blue-600 text-white font-mono text-[11px]">
+            <span className="grid place-items-center min-w-5 h-5 px-1 bg-blue-600 text-white font-mono text-[12px]">
               {activos}
             </span>
           )}

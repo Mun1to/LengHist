@@ -13,7 +13,7 @@ import { rutaDe } from '../lib/rutas'
 function Dato({ titulo, children, mono = false }) {
   return (
     <div>
-      <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-1.5">{titulo}</div>
+      <div className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-1.5">{titulo}</div>
       <div className={`text-sm text-tinta-fuerte leading-relaxed ${mono ? 'font-mono' : ''}`}>
         {children}
       </div>
@@ -138,7 +138,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
             href={wiki}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center gap-1.5 min-h-6 font-mono text-[11px] text-tinta-suave hover:text-tinta transition-colors"
+            className="inline-flex items-center gap-1.5 min-h-6 font-mono text-[12px] text-tinta-suave hover:text-tinta transition-colors"
           >
             <ExternalLink size={11} /> Wikipedia ({lang.toUpperCase()})
           </a>

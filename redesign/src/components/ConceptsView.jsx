@@ -38,7 +38,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
         <div className="flex flex-col gap-9">
           {gruposEnPantalla.map((group) => (
             <div key={group.key} className="scroll-mt-20">
-              <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
+              <h2 className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
                 {group.label[lang]}
               </h2>
               <Reticula cols="sm:grid-cols-2 2xl:grid-cols-3">
@@ -57,7 +57,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                       <h3 className="font-bold text-sm text-tinta min-w-0 flex-1">
                         {lang === 'en' && c.nameEn ? c.nameEn : c.name}
                       </h3>
-                      <span className="font-mono text-[11px] shrink-0" style={{ color: group.color }}>
+                      <span className="font-mono text-[12px] shrink-0" style={{ color: group.color }}>
                         {lang === 'en' && c.tagEn ? c.tagEn : c.tag}
                       </span>
                       <FavButton active={favorites.has(c.name)} onClick={() => onToggleFav(c.name)} label={t.favoritos} />

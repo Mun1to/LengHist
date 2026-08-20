@@ -37,7 +37,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
         </div>
       </div>
 
-      <div className="font-mono text-[11px] uppercase tracking-wider text-blue-600 dark:text-blue-400 mt-1.5">
+      <div className="font-mono text-[12px] uppercase tracking-wider text-blue-600 dark:text-blue-400 mt-1.5">
         {item.labels.join(' · ')}
       </div>
 
@@ -88,7 +88,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
             href={item.url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex min-h-6 font-mono text-[11px] text-tinta-suave hover:text-tinta transition-colors break-all"
+            className="inline-flex min-h-6 font-mono text-[12px] text-tinta-suave hover:text-tinta transition-colors break-all"
           >
             {t.compCredit} {item.url.replace('https://', '')}
           </a>

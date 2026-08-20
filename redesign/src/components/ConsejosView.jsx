@@ -53,7 +53,7 @@ export default function ConsejosView({
         <div className="flex items-baseline gap-3 min-w-0">
           <h1 className="text-3xl font-extrabold tracking-tight">{t.consejosTitle}</h1>
           {/* En pruebas: se dice con una palabra, no con una pegatina */}
-          <span className="font-mono text-[11px] uppercase tracking-widest text-ambar">
+          <span className="font-mono text-[12px] uppercase tracking-widest text-ambar">
             {t.beta}
           </span>
         </div>
@@ -79,7 +79,7 @@ export default function ConsejosView({
           {t.consejosAportar}
           <ArrowUpRight size={12} />
         </a>
-        <span className="ml-auto font-mono text-[11px] text-tinta-suave">{t.consejosQuienAporta}</span>
+        <span className="ml-auto font-mono text-[12px] text-tinta-suave">{t.consejosQuienAporta}</span>
       </div>
 
       {lista.length === 0 ? (

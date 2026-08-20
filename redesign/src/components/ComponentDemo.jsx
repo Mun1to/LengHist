@@ -32,7 +32,7 @@ function UnderContent({ compact, t }) {
       <div className={`font-extrabold tracking-tight ${compact ? 'text-base' : 'text-2xl'}`}>
         {t.demoUnder}
       </div>
-      <div className={`opacity-80 mt-2 ${compact ? 'text-[11px]' : 'text-sm'}`}>
+      <div className={`opacity-80 mt-2 ${compact ? 'text-[12px]' : 'text-sm'}`}>
         {t.demoLine(TOTALES)}
       </div>
     </div>

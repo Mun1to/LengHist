@@ -43,7 +43,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
         <div className="flex flex-col gap-9">
           {groups.map((group, gi) => (
             <div key={group.key} className="scroll-mt-20">
-              <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
+              <h2 className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
                 <span className="w-1.5 h-1.5" style={{ background: group.dot }} />
                 {group.label[lang]}
               </h2>
@@ -70,7 +70,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
                           en una retícula, las fichas de una fila miden lo mismo
                           y un dominio que sigue al texto sale a una altura por
                           ficha según cuántas líneas ocupe la descripción. */}
-                      <div className="font-mono text-[11px] text-tinta-suave truncate mt-auto pt-1.5">
+                      <div className="font-mono text-[12px] text-tinta-suave truncate mt-auto pt-1.5">
                         {dominio(r.url)}
                       </div>
                     </div>

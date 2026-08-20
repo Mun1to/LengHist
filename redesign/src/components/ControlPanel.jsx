@@ -17,7 +17,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
   return (
     <div>
       <div className="flex items-baseline justify-between gap-3 pb-2 border-b border-linea">
-        <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave">
+        <div className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave">
           {t.compControls}
         </div>
         <button

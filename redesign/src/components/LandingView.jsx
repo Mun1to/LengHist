@@ -134,7 +134,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                 </div>
                 <Link
                   to={rutaDe('components', 'ascii-object')}
-                  className="inline-flex items-center gap-1.5 min-h-6 mt-3 font-mono text-[11px] text-tinta-suave hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 min-h-6 mt-3 font-mono text-[12px] text-tinta-suave hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   {t.heroDemo}
                   <ArrowRight size={11} />
@@ -148,7 +148,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
       <Banda>
         <Canal>
           <section className="px-6 sm:px-10 py-14">
-            <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-4">
+            <div className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-4">
               {t.landingWhat}
             </div>
             {/* La esquina se queda recta y el encuadre la señala. El ``

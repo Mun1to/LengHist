@@ -18,7 +18,7 @@ export default function Pie({ t, totals, lang, onToggleLang }) {
   return (
     <footer className="border-t border-linea px-6 sm:px-10 py-8 mt-4">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <p className="font-mono text-[11px] text-tinta-suave">
+        <p className="font-mono text-[12px] text-tinta-suave">
           {t.stats({ langs: totals.langs, res: totals.res, concepts: totals.concepts, skills: totals.skills })}
         </p>
         <nav className="flex flex-wrap items-center gap-x-5 gap-y-1" aria-label={t.pieTitulo}>

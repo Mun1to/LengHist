@@ -128,7 +128,7 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
       >
         <Search size={15} className="shrink-0 text-tinta-suave" />
         <span className="flex-1 min-w-0 truncate text-sm text-tinta-suave">{t.buscarTodoPh}</span>
-        <span className="hidden sm:block font-mono text-[11px] text-tinta-suave select-none">
+        <span className="hidden sm:block font-mono text-[12px] text-tinta-suave select-none">
           {atajoBuscar(mac)}
         </span>
       </button>
@@ -175,7 +175,7 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
                 placeholder={t.buscarTodoPh}
                 className="flex-1 min-w-0 h-14 bg-transparent text-base text-tinta placeholder:text-tinta-suave outline-none"
               />
-              <span className="font-mono text-[11px] text-tinta-suave select-none">esc</span>
+              <span className="font-mono text-[12px] text-tinta-suave select-none">esc</span>
             </div>
 
             {hayConsulta && (
@@ -193,7 +193,7 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
                 ) : (
                   grupos.map((g) => (
                     <div key={g.seccion}>
-                      <div className="px-4 pt-2 pb-1 font-mono text-[11px] uppercase tracking-wider text-tinta-suave">
+                      <div className="px-4 pt-2 pb-1 font-mono text-[12px] uppercase tracking-wider text-tinta-suave">
                         {t.nav[g.seccion]}
                       </div>
                       {g.items.map((item) => {
@@ -237,7 +237,7 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
               </div>
             )}
 
-            <div className="px-4 py-2.5 border-t border-linea font-mono text-[11px] text-tinta-suave">
+            <div className="px-4 py-2.5 border-t border-linea font-mono text-[12px] text-tinta-suave">
               {t.buscarAyuda}
             </div>
           </div>

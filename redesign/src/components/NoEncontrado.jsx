@@ -25,7 +25,7 @@ export default function NoEncontrado({ t }) {
         <ArrowRight size={14} className="flecha-desliza" />
       </Link>
 
-      <div className="font-mono text-[11px] text-tinta-suave mt-4">{t.noHayBuscar(atajoBuscar(mac))}</div>
+      <div className="font-mono text-[12px] text-tinta-suave mt-4">{t.noHayBuscar(atajoBuscar(mac))}</div>
     </section>
   )
 }

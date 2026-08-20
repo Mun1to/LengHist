@@ -44,7 +44,7 @@ const seccionesDelSitio = ['/', '/languages', '/resources', '/concepts', '/compo
 // escriba `text-violeta` devuelve vacío y el navegador cae a negro sin avisar.
 
 const Rotulo = ({ children }) => (
-  <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-tinta-suave">{children}</div>
+  <div className="font-mono text-[12px] uppercase tracking-[0.16em] text-tinta-suave">{children}</div>
 )
 
 // Cada bloque va dentro de su marco de 1px con las cuatro marcas de encuadre: es
@@ -98,12 +98,12 @@ function Muestra({ variable, uso, umbral = 4.5 }) {
       />
       <span className="min-w-0 flex-1">
         <span className="block font-mono text-[13px] text-tinta truncate">{variable.replace(/^--/, '')}</span>
-        <span className="block text-[11px] text-tinta-suave truncate">{uso}</span>
+        <span className="block text-[12px] text-tinta-suave truncate">{uso}</span>
       </span>
-      <span className="font-mono text-[11px] tabular-nums text-tinta-suave shrink-0">
+      <span className="font-mono text-[12px] tabular-nums text-tinta-suave shrink-0">
         {dato ? `${dato.ratio.toFixed(2)}:1` : '…'}
       </span>
-      <span className={`font-mono text-[11px] shrink-0 w-16 text-right ${veredicto === 'AA' || veredicto === '—' ? 'text-tinta-suave' : 'text-tinta font-bold'}`}>
+      <span className={`font-mono text-[12px] shrink-0 w-16 text-right ${veredicto === 'AA' || veredicto === '—' ? 'text-tinta-suave' : 'text-tinta font-bold'}`}>
         {veredicto}
       </span>
     </div>
@@ -145,7 +145,7 @@ function SueloDelGris() {
               <span data-sobre={nombre} className="text-sm text-tinta-suave">
                 Texto de apoyo sobre {nombre}
               </span>
-              <span className="font-mono text-[11px] tabular-nums shrink-0">
+              <span className="font-mono text-[12px] tabular-nums shrink-0">
                 <span className="text-tinta-suave">{m ? `${m.ratio.toFixed(2)}:1` : '…'}</span>
                 <span className={`ml-2 ${pasa ? 'text-tinta-suave' : 'text-tinta font-bold'}`}>
                   {m ? (pasa ? 'AA' : 'NO') : ''}
@@ -251,7 +251,7 @@ function Auditoria() {
 
       {filas.length > 0 && (
         <div className="mt-4 border-t border-linea">
-          <div className="grid grid-cols-[1fr_repeat(4,auto)] gap-x-6 py-2 border-b border-linea font-mono text-[11px] uppercase tracking-wider text-tinta-suave">
+          <div className="grid grid-cols-[1fr_repeat(4,auto)] gap-x-6 py-2 border-b border-linea font-mono text-[12px] uppercase tracking-wider text-tinta-suave">
             <span>ruta</span><span>contraste</span><span>táctil</span><span>letra</span><span>color en nav</span>
           </div>
           {filas.map((f) => (
@@ -275,7 +275,7 @@ function Auditoria() {
             if (!listas.length) return null
             return (
               <details key={`d-${f.ruta}`} className="mt-3 border-b border-linea pb-2">
-                <summary className="cursor-pointer font-mono text-[11px] uppercase tracking-wider text-tinta-suave hover:text-tinta">
+                <summary className="cursor-pointer font-mono text-[12px] uppercase tracking-wider text-tinta-suave hover:text-tinta">
                   {f.ruta}
                 </summary>
                 {listas.map(([nombre, lista, formato]) => (
@@ -283,10 +283,10 @@ function Auditoria() {
                     <Rotulo>{nombre} · {lista.length}</Rotulo>
                     <ul className="mt-1 space-y-0.5">
                       {lista.slice(0, 12).map((x, i) => (
-                        <li key={i} className="font-mono text-[11px] text-tinta-fuerte">{formato(x)}</li>
+                        <li key={i} className="font-mono text-[12px] text-tinta-fuerte">{formato(x)}</li>
                       ))}
                       {lista.length > 12 && (
-                        <li className="font-mono text-[11px] text-tinta-suave">y {lista.length - 12} más</li>
+                        <li className="font-mono text-[12px] text-tinta-suave">y {lista.length - 12} más</li>
                       )}
                     </ul>
                   </div>
@@ -352,10 +352,10 @@ function Medidas({ zona }) {
         ninguno se vea mal por separado. Si estas dos cuentas suben, hay algo que decidir.
       </p>
       <div className="grid grid-cols-[auto_auto_auto_1fr] gap-x-6 gap-y-1 font-mono text-[13px] tabular-nums">
-        <span className="text-[11px] uppercase tracking-wider text-tinta-suave">alto</span>
-        <span className="text-[11px] uppercase tracking-wider text-tinta-suave">radio</span>
-        <span className="text-[11px] uppercase tracking-wider text-tinta-suave">veces</span>
-        <span className="text-[11px] uppercase tracking-wider text-tinta-suave">ejemplo</span>
+        <span className="text-[12px] uppercase tracking-wider text-tinta-suave">alto</span>
+        <span className="text-[12px] uppercase tracking-wider text-tinta-suave">radio</span>
+        <span className="text-[12px] uppercase tracking-wider text-tinta-suave">veces</span>
+        <span className="text-[12px] uppercase tracking-wider text-tinta-suave">ejemplo</span>
         {filas.map((f, i) => (
           <div key={i} className="contents">
             <span className="text-tinta">{f.alto}px</span>
@@ -386,7 +386,7 @@ export default function KitchenSink() {
     ['Titular de ficha', 'text-lg font-bold text-tinta'],
     ['Texto normal', 'text-sm text-tinta-fuerte'],
     ['Apoyo', 'text-[13px] text-tinta-suave'],
-    ['Rótulo monoespaciado, el suelo de la casa', 'font-mono text-[11px] uppercase tracking-[0.16em] text-tinta-suave'],
+    ['Rótulo monoespaciado, el suelo de la casa', 'font-mono text-[12px] uppercase tracking-[0.16em] text-tinta-suave'],
   ]
 
   return (
@@ -402,7 +402,7 @@ export default function KitchenSink() {
                 escrito a mano: los colores se le preguntan al navegador y los contrastes se
                 calculan aquí mismo, así que esta página no puede quedarse desfasada.
               </p>
-              <p className="mt-3 font-mono text-[11px] text-tinta-suave">
+              <p className="mt-3 font-mono text-[12px] text-tinta-suave">
                 solo en desarrollo · no entra en el build ni en el sitemap
               </p>
             </div>
@@ -441,7 +441,7 @@ export default function KitchenSink() {
                 {tipografia.map(([nombre, clases]) => (
                   <div key={nombre} className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-linea pb-2">
                     <span className={clases}>{nombre}</span>
-                    <span className="font-mono text-[11px] text-tinta-suave">{clases}</span>
+                    <span className="font-mono text-[12px] text-tinta-suave">{clases}</span>
                   </div>
                 ))}
               </div>

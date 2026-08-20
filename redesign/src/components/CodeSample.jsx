@@ -35,7 +35,7 @@ function Bloque({ t, lenguaje, codigo, primero }) {
   return (
     <div className={primero ? '' : 'border-t border-linea'}>
       <div className="flex items-center justify-between gap-2 px-2.5 py-1 border-b border-linea">
-        <span className={`font-mono text-[11px] font-bold tracking-wider ${COLOR[lenguaje] ?? ''}`}>
+        <span className={`font-mono text-[12px] font-bold tracking-wider ${COLOR[lenguaje] ?? ''}`}>
           {NOMBRE[lenguaje] ?? lenguaje}
         </span>
         <button
@@ -46,7 +46,7 @@ function Bloque({ t, lenguaje, codigo, primero }) {
           {copiado ? t.compCopied : t.compCopy}
         </button>
       </div>
-      <pre className="vs-pre px-2.5 py-2 font-mono text-[11px] leading-relaxed">
+      <pre className="vs-pre px-2.5 py-2 font-mono text-[12px] leading-relaxed">
         {lineas.map((linea, i) => (
           <span key={i} className="vs-linea">
             {linea.map(([tipo, texto], j) =>
@@ -63,7 +63,7 @@ export default function CodeSample({ t, etiqueta, bloques }) {
   if (!bloques?.length) return null
   return (
     <div className="mt-3">
-      <div className="font-mono text-[11px] uppercase tracking-wider text-tinta-suave mb-1.5">{etiqueta}</div>
+      <div className="font-mono text-[12px] uppercase tracking-wider text-tinta-suave mb-1.5">{etiqueta}</div>
       <div className="overflow-hidden bg-zinc-50 dark:bg-zinc-950 border border-linea">
         {bloques.map(([lenguaje, codigo], i) => (
           <Bloque key={i} t={t} lenguaje={lenguaje} codigo={codigo} primero={i === 0} />

@@ -7,7 +7,7 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
 
   const Row = ({ label, render }) => (
     <tr className="border-b border-linea align-top">
-      <td className="py-3 pr-4 text-[11px] font-bold uppercase tracking-wider text-tinta-suave whitespace-nowrap">{label}</td>
+      <td className="py-3 pr-4 text-[12px] font-bold uppercase tracking-wider text-tinta-suave whitespace-nowrap">{label}</td>
       {items.map((l) => (
         <td key={l.name} className="py-3 px-3 text-sm text-tinta-fuerte">{render(l)}</td>
       ))}
