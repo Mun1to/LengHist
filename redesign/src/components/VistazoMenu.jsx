@@ -70,12 +70,21 @@ export default function VistazoMenu({ seccion, lang, t, onCerrar, anclaX = 0 }) 
       // asoma, no una lista de opciones que haya que recorrer con las flechas.
       // Ponerle `role="menu"` le prometería a un lector de pantalla una
       // navegación por teclado que aquí no existe.
-      className="absolute top-full w-max max-w-[min(56rem,calc(100vw-3rem))] border-x border-b border-linea bg-white dark:bg-zinc-950 shadow-xl shadow-zinc-900/5 dark:shadow-black/40"
+      className="absolute top-full mt-2.5 w-max max-w-[min(56rem,calc(100vw-3rem))] border border-linea bg-white dark:bg-zinc-950 shadow-2xl shadow-zinc-900/10 dark:shadow-black/60"
     >
-      {/* Las marcas de encuadre de las esquinas de abajo, el mismo lenguaje de
-          plano técnico que estrenó la portada. Arriba no van: ahí el panel se
-          pega a la barra y una marca en L sobre la línea del header se lee como
-          una rotura. */}
+      {/* El puente que salva el hueco con la barra. Sin él, bajar el ratón hasta
+          el panel pasa por una franja que no es ni barra ni panel, y aunque el
+          cierre tenga su retardo, basta con dudar un segundo ahí para que se
+          cierre en las narices. Es hijo del panel, así que para los eventos del
+          ratón estar aquí es estar dentro. */}
+      <span aria-hidden="true" className="absolute -top-2.5 inset-x-0 h-2.5" />
+
+      {/* Las cuatro marcas de encuadre, el mismo lenguaje de plano técnico que
+          estrenó la portada. Ahora van las cuatro: mientras el panel se pegaba a
+          la barra, las de arriba caían sobre la línea del header y se leían como
+          una rotura; despegado, encuadran la pieza entera. */}
+      <span aria-hidden="true" className="pointer-events-none absolute -top-px -left-px w-2.5 h-2.5 border-t border-l border-tinta" />
+      <span aria-hidden="true" className="pointer-events-none absolute -top-px -right-px w-2.5 h-2.5 border-t border-r border-tinta" />
       <span aria-hidden="true" className="pointer-events-none absolute -bottom-px -left-px w-2.5 h-2.5 border-b border-l border-tinta" />
       <span aria-hidden="true" className="pointer-events-none absolute -bottom-px -right-px w-2.5 h-2.5 border-b border-r border-tinta" />
 
