@@ -1578,7 +1578,9 @@ queda siempre visible y alcanzable.
   controles nativos del navegador acompañen al tema.
 - El body necesita su propio color de fondo; sin él se ve el del navegador.
 - Si el sitio tiene URLs separadas por idioma, añade las etiquetas alternate
-  hreflang. Con textos intercambiados en la misma URL no aplican.
+  hreflang. Con textos intercambiados en la misma URL no aplican. Ahí acaba esta
+  skill y empieza WebIndex, que es la que se ocupa de que esas versiones existan
+  para el buscador.
 
 ## Comprobación
 
@@ -1638,7 +1640,9 @@ and reachable.
   follow the theme.
 - The body needs its own background colour; without it the browser's shows through.
 - If the site has separate URLs per language, add the alternate hreflang tags.
-  With swapped texts on the same URL they do not apply.
+  With swapped texts on the same URL they do not apply. That is where this skill
+  ends and WebIndex begins, the one that makes those versions exist for search
+  engines.
 
 ## The check
 
@@ -1656,13 +1660,13 @@ something stored, it must ignore the browser language.`,
     repo: 'https://github.com/Mun1to/WebIndex',
     plugin: 'webindex@vibeset',
     extra: [['allowed-tools', 'Read Edit Write Grep Glob WebFetch']],
-    files: ['SKILL.md', 'plantillas/robots.txt', 'plantillas/head-meta.html', 'plantillas/jsonld.html', 'plantillas/sitemap.xml'],
+    files: ['SKILL.md', 'plantillas/robots.txt', 'plantillas/head-meta.html', 'plantillas/multiidioma.html', 'plantillas/jsonld.html', 'plantillas/sitemap.xml'],
     es: {
       label: 'WebIndex',
       what: 'Deja la web lista para que la encuentren los buscadores y los asistentes de IA, y acaba midiendo en vez de opinando.',
       when: 'Al publicar una web nueva, al preparar un lanzamiento, o cuando llevas semanas y no sales en Google.',
       description:
-        'Deja una web lista para que la encuentren los buscadores y los asistentes de IA: robots.txt que no bloquea lo que importa, sitemap real, canonical, metadatos Open Graph, JSON-LD y la decisión de qué bots de IA entran. Úsalo al publicar una web nueva, al auditar el SEO técnico de un sitio ya vivo, y cuando el usuario diga que no sale en Google, que no le indexa o que quiere que ChatGPT o Perplexity le citen.',
+        'Deja una web lista para que la encuentren los buscadores y los asistentes de IA: robots.txt que no bloquea lo que importa, sitemap real, canonical, metadatos Open Graph, JSON-LD, el multiidioma con hreflang y la decisión de qué bots de IA entran. Úsalo al publicar una web nueva, al auditar el SEO técnico de un sitio ya vivo, y cuando el usuario diga que no sale en Google, que no le indexa o que quiere que ChatGPT o Perplexity le citen.',
       body: `# WebIndex
 
 Que la web sea descubrible: que los rastreadores puedan entrar, entiendan qué es
@@ -1701,14 +1705,25 @@ redirigido. Se sube a Search Console y a Bing Webmaster Tools.
 canonical cuando el mismo contenido es alcanzable por varias URLs, y Open Graph
 con imagen, que es lo que se ve al pegar el enlace en un chat.
 
-**6. JSON-LD.** Que describa lo que se VE en la página, y validado antes de darlo
+**6. Varios idiomas.** Cada idioma con su propia URL (/es/, /en/), que es lo que
+significa esa barra que ves en tantas direcciones: no es detección, es que son
+páginas distintas. Se anotan con hreflang, y las tres reglas que más se rompen
+son que cada versión se liste a sí misma, que los enlaces sean de ida y vuelta, y
+que haya un x-default. El canonical de cada idioma apunta a SÍ MISMO: si el de
+/es/ apunta a /en/, acabas de sacar la versión española del índice. Y nada de
+redirigir automáticamente por idioma o por país, que es el error gordo: Googlebot
+rastrea sin cabecera Accept-Language y sobre todo desde IPs de Estados Unidos,
+así que cae siempre en la misma versión y las demás no se indexan nunca. Se
+detecta, se sugiere con un aviso, y decide la persona.
+
+**7. JSON-LD.** Que describa lo que se VE en la página, y validado antes de darlo
 por bueno.
 
-**7. Que te citen las IA.** Responde en las dos o tres primeras frases debajo de
+**8. Que te citen las IA.** Responde en las dos o tres primeras frases debajo de
 cada encabezado y desarrolla después. Tablas para comparar, listas para procesos,
 preguntas frecuentes reales. Y revisa el robots.txt antes de culpar al contenido.
 
-**8. Medir, que es donde acaba el trabajo.** Search Console, PageSpeed, los logs
+**9. Medir, que es donde acaba el trabajo.** Search Console, PageSpeed, los logs
 del servidor para ver qué bots entran de verdad, y preguntar tú mismo a los
 asistentes una vez al mes para ver si te citan.
 
@@ -1718,7 +1733,8 @@ Antes de tocar nada en una web que no sale, descarta por orden: un noindex
 olvidado de la fase de desarrollo, un Disallow de todo el sitio heredado del
 entorno de pruebas, un sitio nuevo sin dar de alta y sin un solo enlace entrante,
 las dos versiones del dominio vivas a la vez, un canonical que apunta a otra
-página, y contenido que solo existe tras ejecutar JavaScript.
+página, contenido que solo existe tras ejecutar JavaScript, y una redirección
+automática por idioma en un sitio multiidioma.
 
 ## Lo que queda fuera
 
@@ -1730,7 +1746,7 @@ vez de improvisar.`,
       what: 'Leaves a site ready to be found by search engines and AI assistants, and ends in a measurement instead of an opinion.',
       when: 'When shipping a new site, preparing a launch, or when weeks have passed and it still does not show up.',
       description:
-        'Leaves a website ready to be found by search engines and AI assistants: a robots.txt that does not block what matters, a real sitemap, canonical tags, Open Graph metadata, JSON-LD and the decision on which AI crawlers get in. Use it when shipping a new site, when auditing the technical SEO of a live one, and when the user says they do not show up on Google, that it is not indexed, or that they want ChatGPT or Perplexity to cite them.',
+        'Leaves a website ready to be found by search engines and AI assistants: a robots.txt that does not block what matters, a real sitemap, canonical tags, Open Graph metadata, JSON-LD, multilingual URLs with hreflang and the decision on which AI crawlers get in. Use it when shipping a new site, when auditing the technical SEO of a live one, and when the user says they do not show up on Google, that it is not indexed, or that they want ChatGPT or Perplexity to cite them.',
       body: `# WebIndex
 
 Make the site discoverable: crawlers can get in, they understand what each page
@@ -1770,14 +1786,25 @@ or redirected. Submit it to Search Console and Bing Webmaster Tools.
 canonical when the same content is reachable through several URLs, and Open Graph
 with an image, which is what shows when the link is pasted in a chat.
 
-**6. JSON-LD.** It must describe what is VISIBLE on the page, and be validated
+**6. Several languages.** One URL per language (/es/, /en/): that slash you see
+in so many addresses is not detection, it is that they are separate pages. They
+are annotated with hreflang, and the three rules that break most often are that
+each version must list itself, that the links must go both ways, and that there
+must be an x-default. Each language canonical points at ITSELF: if the one on
+/es/ points to /en/, the Spanish version has just been removed from the index.
+And no automatic redirect by language or country, which is the big one: Googlebot
+crawls without an Accept-Language header and mostly from US addresses, so it
+lands on the same version every time and the rest never get indexed. Detect,
+suggest with a banner, let the person choose.
+
+**7. JSON-LD.** It must describe what is VISIBLE on the page, and be validated
 before it is trusted.
 
-**7. Getting cited by AI.** Answer in the first two or three sentences under each
+**8. Getting cited by AI.** Answer in the first two or three sentences under each
 heading, then expand. Tables to compare, lists for processes, real FAQs. And
 audit the robots.txt before blaming the content.
 
-**8. Measure, which is where the work ends.** Search Console, PageSpeed, server
+**9. Measure, which is where the work ends.** Search Console, PageSpeed, server
 logs to see which bots actually come in, and asking the assistants your own key
 questions once a month to see whether they cite you.
 
@@ -1786,8 +1813,9 @@ questions once a month to see whether they cite you.
 Before touching anything on a site that does not show up, rule these out in
 order: a noindex left over from development, a site-wide Disallow inherited from
 staging, a new site never registered and with no inbound links, both domain
-versions live at once, a canonical pointing at another page, and content that
-only exists after JavaScript runs.
+versions live at once, a canonical pointing at another page, content that only
+exists after JavaScript runs, and an automatic language redirect on a
+multilingual site.
 
 ## What is out of scope
 
