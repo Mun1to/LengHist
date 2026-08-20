@@ -386,7 +386,7 @@ estándar de "Animar con el scroll".
   (Umbrales buenos p75, verificados 2026: LCP < 2,5 s, INP < 200 ms, CLS < 0,1.)
 - Regla de oro: el efecto sirve al mensaje, no al revés. Si distrae o marea, sobra.
 
-## Lo que esto puede romper: la indexación (cruce con WebIndex)
+## Lo que esto puede romper: la indexación (cruce con SiteIndex)
 
 El orden es primero indexable y luego bonita. Si la web no se encuentra, el efecto
 más cuidado lo ve solo quien ya sabía la dirección.
@@ -562,7 +562,7 @@ standard off switch from "Animate on scroll".
   (Good p75 thresholds, verified 2026: LCP < 2.5s, INP < 200ms, CLS < 0.1.)
 - Golden rule: the effect serves the message, not the other way round.
 
-## What this can break: indexing (cross with WebIndex)
+## What this can break: indexing (cross with SiteIndex)
 
 Indexable first, beautiful second. If the site cannot be found, the most polished
 effect is only seen by people who already knew the address.
@@ -1611,7 +1611,7 @@ queda siempre visible y alcanzable.
 - El body necesita su propio color de fondo; sin él se ve el del navegador.
 - Si el sitio tiene URLs separadas por idioma, añade las etiquetas alternate
   hreflang. Con textos intercambiados en la misma URL no aplican. Ahí acaba esta
-  skill y empieza WebIndex, que es la que se ocupa de que esas versiones existan
+  skill y empieza SiteIndex, que es la que se ocupa de que esas versiones existan
   para el buscador.
 
 ## Comprobación
@@ -1673,7 +1673,7 @@ and reachable.
 - The body needs its own background colour; without it the browser's shows through.
 - If the site has separate URLs per language, add the alternate hreflang tags.
   With swapped texts on the same URL they do not apply. That is where this skill
-  ends and WebIndex begins, the one that makes those versions exist for search
+  ends and SiteIndex begins, the one that makes those versions exist for search
   engines.
 
 ## The check
@@ -1685,21 +1685,21 @@ something stored, it must ignore the browser language.`,
   },
 
   {
-    key: 'webindex',
+    key: 'siteindex',
     group: 'web',
-    name: 'webindex',
-    nameEn: 'webindex',
-    repo: 'https://github.com/Mun1to/WebIndex',
-    plugin: 'webindex@vibeset',
+    name: 'siteindex',
+    nameEn: 'siteindex',
+    repo: 'https://github.com/Mun1to/SiteIndex',
+    plugin: 'siteindex@vibeset',
     extra: [['allowed-tools', 'Read Edit Write Grep Glob WebFetch']],
     files: ['SKILL.md', 'plantillas/robots.txt', 'plantillas/head-meta.html', 'plantillas/multiidioma.html', 'plantillas/jsonld.html', 'plantillas/sitemap.xml'],
     es: {
-      label: 'WebIndex',
+      label: 'SiteIndex',
       what: 'Deja la web lista para que la encuentren los buscadores y los asistentes de IA, y acaba midiendo en vez de opinando.',
       when: 'Al publicar una web nueva, al preparar un lanzamiento, o cuando llevas semanas y no sales en Google.',
       description:
         'Deja una web lista para que la encuentren los buscadores y los asistentes de IA: robots.txt que no bloquea lo que importa, sitemap real, canonical, metadatos Open Graph, JSON-LD, el multiidioma con hreflang y la decisión de qué bots de IA entran. Úsalo al publicar una web nueva, al auditar el SEO técnico de un sitio ya vivo, y cuando el usuario diga que no sale en Google, que no le indexa o que quiere que ChatGPT o Perplexity le citen.',
-      body: `# WebIndex
+      body: `# SiteIndex
 
 Que la web sea descubrible: que los rastreadores puedan entrar, entiendan qué es
 cada página, y que además te puedan citar los asistentes de IA.
@@ -1778,12 +1778,12 @@ vez de improvisar, y para el correo se dan las herramientas: Spamhaus y MXToolbo
 Email Health, las dos en la sección de recursos de este sitio.`,
     },
     en: {
-      label: 'WebIndex',
+      label: 'SiteIndex',
       what: 'Leaves a site ready to be found by search engines and AI assistants, and ends in a measurement instead of an opinion.',
       when: 'When shipping a new site, preparing a launch, or when weeks have passed and it still does not show up.',
       description:
         'Leaves a website ready to be found by search engines and AI assistants: a robots.txt that does not block what matters, a real sitemap, canonical tags, Open Graph metadata, JSON-LD, multilingual URLs with hreflang and the decision on which AI crawlers get in. Use it when shipping a new site, when auditing the technical SEO of a live one, and when the user says they do not show up on Google, that it is not indexed, or that they want ChatGPT or Perplexity to cite them.',
-      body: `# WebIndex
+      body: `# SiteIndex
 
 Make the site discoverable: crawlers can get in, they understand what each page
 is, and AI assistants can cite you.

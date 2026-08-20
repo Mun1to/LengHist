@@ -14,3 +14,10 @@
 # El salto de www a vibeset.dev NO se puede poner aquí: Cloudflare Pages no
 # admite redirecciones a nivel de dominio en este archivo. Va como Redirect Rule
 # en el panel.
+
+# La skill WebIndex pasó a llamarse SiteIndex el 2026-08-20, y su ficha cambió
+# de dirección con ella. Esta línea es lo que impide que el enlace que alguien
+# ya tenga guardado (o el que ya esté indexado) caiga en el 404: el nombre viejo
+# lleva al nuevo con un 301, que es como se dice «esto se ha mudado» sin perder
+# lo que la página tuviera ganado en los buscadores.
+/skills/webindex  /skills/siteindex  301
