@@ -128,10 +128,18 @@ function prerenderMeta() {
       // nada si la dirección es la misma. Se le cuelga la huella del archivo, así
       // que la dirección cambia sola cuando cambia el dibujo, y no cuando alguien
       // se acuerda de subir un número a mano.
+      // **La tarjeta que se sirve es la INGLESA**, y no por descuido de idioma.
+      // El texto de una imagen no lo traduce nadie: ni el navegador, ni un
+      // traductor, ni el asistente que resume el enlace. El del HTML, que va
+      // justo al lado, sí. Asi que en la imagen conviene el idioma que mas gente
+      // entiende de este publico, y el resto del mensaje se queda donde todavia
+      // se puede traducir. La española se sigue generando y espera al dia que
+      // haya direcciones por idioma, que es otra decision.
+      const TARJETA = 'brand/og-en.png'
       const huella = createHash('sha256')
-        .update(readFileSync(join(outDir, 'brand/og.png')))
+        .update(readFileSync(join(outDir, TARJETA)))
         .digest('hex').slice(0, 8)
-      const imagen = `${BASE}/brand/og.png?v=${huella}`
+      const imagen = `${BASE}/${TARJETA}?v=${huella}`
 
       // El HTML servido se declara en español, así que el meta cocinado va en
       // español. El inglés lo elige el visitante y llega después de React, que
