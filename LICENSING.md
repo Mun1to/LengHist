@@ -54,11 +54,15 @@ link. Building your site with a component from here is exactly what the code is 
 
 The written material and the curated data:
 
-- the 100 language profiles (descriptions, uses, pros and cons, code examples),
-- the 64 resource entries,
-- the 41 web design concepts and their examples,
-- the 13 agent skills, including the body of every `SKILL.md`,
+- every language profile (descriptions, uses, pros and cons, code examples),
+- every resource entry,
+- every web design concept and its examples,
+- every agent skill, including the body of every `SKILL.md`,
 - the interface copy in both languages.
+
+The grant covers the catalogue as it stands on the day you read this, entries added later
+included. It is deliberately not written as a count: a number goes stale the week after it is
+typed, and a licence that says "the 64 resource entries" leaves the sixty-fifth in the dark.
 
 **Take it.** Copy it, translate it, adapt it, teach with it, build a product on top of it and charge
 for that product. Knowledge that only one site is allowed to hold is worth less than knowledge that
@@ -160,8 +164,8 @@ Permission for a specific case is easier to grant than to guess.
 > **El código es MIT.** Coges un componente, lo metes en tu web y la vendes si quieres: **sin
 > crédito, sin enlace, sin nada**. Para eso está publicado.
 >
-> **El material escrito es CC BY 4.0** (los 100 lenguajes, los 64 recursos, los 41 conceptos, las 12
-> skills y los textos). Leerlo, aprender de ello y aplicarlo no cuesta nada ni pide nada. La
+> **El material escrito es CC BY 4.0** (los lenguajes, los recursos, los conceptos, las skills y
+> los textos, todos, también los que se añadan mañana). Leerlo, aprender de ello y aplicarlo no cuesta nada ni pide nada. La
 > condición aparece solo si **republicas ese material** para que lo lea otra gente: entonces sí,
 > **cita a Vibeset con un enlace visible**, y ya puedes usarlo para lo que sea, comercial incluido.
 >

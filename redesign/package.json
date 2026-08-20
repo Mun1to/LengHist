@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "tarjeta": "node scripts/tarjeta-social.mjs"
+    "tarjeta": "node scripts/tarjeta-social.mjs",
+    "contadores": "node scripts/comprobar-contadores.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.0.0",
