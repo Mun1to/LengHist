@@ -110,7 +110,13 @@ const listaConceptos = (t, lang) => `
   ${p(t.conceptsSub)}
   ${CONCEPTS.map((g) => `<h2>${esc(g.label[lang])}</h2>${ul(g.items.map((i) => {
     const d = i[lang] ?? i.es
-    return `<b>${esc(i.name)}</b>${nota(i.tag)}${d?.what ? ` ${esc(d.what)}` : ''}${d?.use ? ` ${esc(d.use)}` : ''}`
+    // El «visto en» entra en el HTML plano igual que el resto: es contenido, y
+    // encima el más citable de la ficha. Un robot que responde «¿qué webs usan
+    // scroll-driven animations?» necesita leer esto sin ejecutar JavaScript.
+    const visto = i.vistoEn
+      ? ` ${esc(t.vistoEn)}: ${a(i.vistoEn.url, i.vistoEn.sitio)}, ${esc(i.vistoEn[lang])}.`
+      : ''
+    return `<b>${esc(i.name)}</b>${nota(i.tag)}${d?.what ? ` ${esc(d.what)}` : ''}${d?.use ? ` ${esc(d.use)}` : ''}${visto}`
   }))}`).join('')}`
 
 const listaComponentes = (t, lang) => `
