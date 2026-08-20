@@ -38,7 +38,7 @@ const DERECHA = ORDEN_MENU.slice(3)
 const ALTO = 'h-9'
 const CONTROL = `${ALTO} grid place-items-center w-9 text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer`
 
-function Enlaces({ t, claves, activeNav, onAsomar }) {
+function Enlaces({ t, claves, activeNav, onAsomar, onCerrar }) {
   return (
     <nav className="hidden xl:flex items-center">
       {claves.map((key) => (
@@ -56,6 +56,11 @@ function Enlaces({ t, claves, activeNav, onAsomar }) {
           // También con el foco del teclado: si el asomo solo respondiera al
           // ratón, quien navega con el tabulador no sabría nunca que existe.
           onFocus={(e) => onAsomar(key, e.currentTarget)}
+          // Y se cierra al pulsar. Sin esto el panel se queda abierto encima de
+          // la página recién cargada hasta que el ratón sale del header: se
+          // pulsa, la página cambia debajo y lo que se sigue viendo es el mismo
+          // panel, así que parece que el enlace no ha hecho nada.
+          onClick={onCerrar}
           className={`${ALTO} relative inline-flex items-center px-3 text-sm whitespace-nowrap transition-colors ${
             activeNav === key
               ? 'text-tinta font-semibold'
@@ -266,7 +271,7 @@ export default function TopBar({
                 <Logo size={28} wide />
               </span>
             </Link>
-            <Enlaces t={t} claves={IZQUIERDA} activeNav={activeNav} onAsomar={asomar} />
+            <Enlaces t={t} claves={IZQUIERDA} activeNav={activeNav} onAsomar={asomar} onCerrar={cerrarYa} />
           </div>
 
           {/* Con el panel abierto el buscador está dentro de él, a lo ancho:
@@ -280,7 +285,7 @@ export default function TopBar({
           </div>
 
           <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-6">
-            <Enlaces t={t} claves={DERECHA} activeNav={activeNav} onAsomar={asomar} />
+            <Enlaces t={t} claves={DERECHA} activeNav={activeNav} onAsomar={asomar} onCerrar={cerrarYa} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
               <BotonGitHub t={t} />
               {/* El test entra a 1620px y no en `2xl` (1536), que es donde estaba:
