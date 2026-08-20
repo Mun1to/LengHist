@@ -35,17 +35,13 @@ import { contraste, fondoReal, tokenResuelto, auditar } from './medir'
 
 const seccionesDelSitio = ['/', '/languages', '/resources', '/concepts', '/components', '/skills', '/tips']
 
-// Los tonos se leen de `--tono-*`, que son las variables escritas a mano en
-// `:root`, y NO de las utilidades `--color-*` que declara el bloque `@theme`.
-// Costó un rato entender por qué la mitad salían negros: Tailwind v4 hace
-// limpieza de las variables de `@theme` que ninguna clase usa, así que
-// `--color-violeta` no existe en el CSS servido mientras nadie escriba
-// `text-violeta`. La declaración sigue estando bien, pero preguntar por ella
-// devuelve vacío y el navegador cae a negro sin avisar.
-const TONOS = [
-  'indigo', 'violeta', 'purpura', 'fucsia', 'rosa', 'rojo', 'naranja',
-  'ambar', 'lima', 'esmeralda', 'turquesa', 'cian', 'cielo', 'azul',
-]
+// Los catorce tonos de categoría tuvieron aquí su muestrario y se quitó el
+// 2026-08-20, a petición de Munir. Tiene sentido: son contenido del catálogo, no
+// piezas del sistema, y esta página es para decidir sobre lo segundo. Si algún
+// día hace falta volver a mirarlos, se leen de `--tono-*` y NO de las utilidades
+// `--color-*` del bloque `@theme`, porque Tailwind v4 limpia las variables de
+// `@theme` que ninguna clase usa: preguntar por `--color-violeta` sin que nadie
+// escriba `text-violeta` devuelve vacío y el navegador cae a negro sin avisar.
 
 const Rotulo = ({ children }) => (
   <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-tinta-suave">{children}</div>
@@ -439,19 +435,6 @@ export default function KitchenSink() {
             </div>
 
             <SueloDelGris />
-
-            <Bloque titulo="Tonos de categoría" nota="14 · el color que sí clasifica">
-              <div className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
-                {TONOS.map((tono) => (
-                  <Muestra key={tono} variable={`--tono-${tono}`} uso="categoría del catálogo" />
-                ))}
-              </div>
-              <p className="mt-3 text-[13px] text-tinta-suave max-w-prose">
-                Van a 700 en claro y 400 en oscuro, siempre. Un hex único vale para un tema y
-                falla en el otro: el mismo escalón no da el mismo contraste sobre blanco que
-                sobre negro.
-              </p>
-            </Bloque>
 
             <Bloque titulo="Tipografía">
               <div className="grid gap-3">
