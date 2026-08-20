@@ -2,21 +2,33 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Search, ArrowUpRight, CornerDownLeft } from 'lucide-react'
 import { construirIndice, buscar } from '../data/buscador'
 
-// Buscador del centro del header: mira en los cinco catálogos a la vez, no solo
-// en la sección abierta. Se maneja entero con el teclado y se abre con ⌘K / Ctrl+K.
+// Buscador: mira en los cinco catálogos a la vez, no solo en la sección abierta.
+// Se maneja entero con el teclado y se abre con ⌘K / Ctrl+K.
+//
+// Desde el 2026-08-20 se abre como una paleta en el centro de la pantalla, con
+// el resto de la página difuminada por detrás. Antes era un campo en la barra
+// con una lista colgando, y eso tenía dos problemas de verdad, no de gusto:
+// la lista competía en anchura con un campo pensado para caber en la barra, y
+// buscar no se sentía como una acción sino como escribir en un hueco. Con la
+// paleta, la página de detrás se aparta y solo queda lo que estás haciendo.
+//
+// Lo que hay en la barra pasa a ser un DISPARADOR, no un campo: mide lo mismo y
+// se ve igual, pero es un botón. Un input que al enfocarse abre otro input
+// distinto es una trampa para los lectores de pantalla y para el teclado.
 
 const esMac = () =>
   typeof navigator !== 'undefined' &&
   /Mac|iPhone|iPad|iPod/.test(navigator.userAgentData?.platform || navigator.platform || '')
 
-export default function Buscador({ t, lang, onAbrir }) {
+export default function Buscador({ t, lang, onAbrir, className = '' }) {
   const [consulta, setConsulta] = useState('')
   const [abierto, setAbierto] = useState(false)
   const [activo, setActivo] = useState(0)
   const [mac, setMac] = useState(false)
-  const cajaRef = useRef(null)
+  const panelRef = useRef(null)
   const campoRef = useRef(null)
   const listaRef = useRef(null)
+  const disparadorRef = useRef(null)
 
   useEffect(() => { setMac(esMac()) }, [])
 
@@ -32,20 +44,33 @@ export default function Buscador({ t, lang, onAbrir }) {
     const atajo = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault()
-        campoRef.current?.focus()
-        campoRef.current?.select()
+        setAbierto(true)
       }
     }
     window.addEventListener('keydown', atajo)
     return () => window.removeEventListener('keydown', atajo)
   }, [])
 
-  // Clic fuera: cierra la lista pero no borra lo escrito.
+  // Con la paleta abierta: el foco entra en el campo y la página de detrás no se
+  // mueve. Sin bloquear el scroll, la rueda del ratón desplaza el catálogo por
+  // debajo del velo, que es de las cosas que más delatan un modal mal hecho.
   useEffect(() => {
     if (!abierto) return
-    const fuera = (e) => { if (!cajaRef.current?.contains(e.target)) setAbierto(false) }
-    document.addEventListener('pointerdown', fuera)
-    return () => document.removeEventListener('pointerdown', fuera)
+    const previo = document.body.style.overflow
+    // El disparador se guarda AL ABRIR y no se lee al cerrar: para entonces el
+    // ref puede apuntar a otro nodo (el mismo componente se pinta en la barra y
+    // en el panel del móvil), y el foco acabaría en el botón equivocado.
+    const volverA = disparadorRef.current
+    document.body.style.overflow = 'hidden'
+    const foco = requestAnimationFrame(() => campoRef.current?.focus())
+    return () => {
+      document.body.style.overflow = previo
+      cancelAnimationFrame(foco)
+      // El foco vuelve de donde salió, que es lo que espera quien navega con el
+      // tabulador: si se pierde, el siguiente tabulador empieza desde el
+      // principio del documento.
+      volverA?.focus()
+    }
   }, [abierto])
 
   // Mantiene a la vista la fila señalada al moverse con las flechas.
@@ -54,16 +79,16 @@ export default function Buscador({ t, lang, onAbrir }) {
       ?.scrollIntoView({ block: 'nearest' })
   }, [activo, grupos])
 
+  const cerrar = () => { setAbierto(false); setConsulta('') }
+
   const elegir = (entrada) => {
     if (!entrada) return
-    setAbierto(false)
-    setConsulta('')
-    campoRef.current?.blur()
+    cerrar()
     onAbrir(entrada)
   }
 
   const teclas = (e) => {
-    if (e.key === 'Escape') { setAbierto(false); campoRef.current?.blur(); return }
+    if (e.key === 'Escape') { e.preventDefault(); cerrar(); return }
     if (!planos.length) return
     if (e.key === 'ArrowDown') { e.preventDefault(); setActivo((i) => (i + 1) % planos.length) }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setActivo((i) => (i - 1 + planos.length) % planos.length) }
@@ -71,99 +96,128 @@ export default function Buscador({ t, lang, onAbrir }) {
   }
 
   const hayConsulta = consulta.trim().length >= 2
-  const desplegado = abierto && hayConsulta
   let indiceGlobal = -1
 
   return (
-    <div ref={cajaRef} className="relative w-full">
-      <div className="relative">
-        <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-tinta-suave pointer-events-none" />
-        <input
-          ref={campoRef}
-          type="text"
-          role="combobox"
-          aria-expanded={desplegado}
-          aria-controls="buscadorLista"
-          aria-activedescendant={desplegado && planos[activo] ? `res-${activo}` : undefined}
-          aria-label={t.ariaSearch}
-          autoComplete="off"
-          spellCheck="false"
-          value={consulta}
-          onChange={(e) => { setConsulta(e.target.value); setAbierto(true) }}
-          onFocus={() => setAbierto(true)}
-          onKeyDown={teclas}
-          placeholder={t.buscarTodoPh}
-          className="w-full h-9 bg-zinc-100 dark:bg-zinc-900 border border-linea pl-9 pr-4 sm:pr-14 text-sm text-tinta placeholder:text-tinta-suave outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-950 transition-colors"
-        />
-        {/* El atajo es una pista, no un control: texto suelto, sin caja */}
-        <span className="hidden sm:block absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-[11px] text-tinta-suave pointer-events-none select-none">
+    <>
+      {/* El disparador. Mide y pesa lo mismo que el campo de antes para no mover
+          la simetría de la barra, pero es un botón. */}
+      <button
+        ref={disparadorRef}
+        type="button"
+        onClick={() => setAbierto(true)}
+        aria-label={t.ariaSearch}
+        aria-haspopup="dialog"
+        className={`group/b flex items-center gap-2.5 w-full h-9 px-3 bg-zinc-100 dark:bg-zinc-900 border border-linea hover:border-linea-viva text-left cursor-pointer transition-colors ${className}`}
+      >
+        <Search size={15} className="shrink-0 text-tinta-suave" />
+        <span className="flex-1 min-w-0 truncate text-sm text-tinta-suave">{t.buscarTodoPh}</span>
+        <span className="hidden sm:block font-mono text-[11px] text-tinta-suave select-none">
           {mac ? '⌘K' : 'Ctrl K'}
         </span>
-      </div>
+      </button>
 
-      {desplegado && (
+      {abierto && (
         <div
-          ref={listaRef}
-          id="buscadorLista"
-          role="listbox"
-          aria-label={t.ariaSearch}
-          className="absolute left-0 right-0 top-11 max-h-[70vh] overflow-y-auto border border-linea bg-white dark:bg-zinc-950 shadow-2xl shadow-zinc-900/10 dark:shadow-black/50 py-2"
+          className="fixed inset-0 z-[60] bg-zinc-900/30 dark:bg-black/50 backdrop-blur-md px-4 pt-[10vh] sm:pt-[14vh]"
+          // El velo cierra al pulsarlo, pero solo si el clic empieza Y acaba en
+          // él: sin esta comprobación, arrastrar para seleccionar texto dentro
+          // del panel y soltar fuera cerraba la paleta y borraba la búsqueda.
+          onMouseDown={(e) => { if (e.target === e.currentTarget) cerrar() }}
         >
-          {planos.length === 0 ? (
-            <div className="px-4 py-6 text-center text-sm text-tinta-suave">
-              {t.buscarNada}
+          <div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={t.ariaSearch}
+            onKeyDown={teclas}
+            className="mx-auto w-full max-w-[640px] border border-linea bg-white dark:bg-zinc-950 shadow-2xl shadow-zinc-900/20 dark:shadow-black/60"
+          >
+            <div className="flex items-center gap-3 px-4 border-b border-linea">
+              <Search size={17} className="shrink-0 text-tinta-suave" />
+              <input
+                ref={campoRef}
+                type="text"
+                role="combobox"
+                aria-expanded={hayConsulta}
+                aria-controls="buscadorLista"
+                aria-activedescendant={hayConsulta && planos[activo] ? `res-${activo}` : undefined}
+                aria-label={t.ariaSearch}
+                autoComplete="off"
+                spellCheck="false"
+                value={consulta}
+                onChange={(e) => setConsulta(e.target.value)}
+                placeholder={t.buscarTodoPh}
+                className="flex-1 min-w-0 h-14 bg-transparent text-base text-tinta placeholder:text-tinta-suave outline-none"
+              />
+              <span className="font-mono text-[11px] text-tinta-suave select-none">esc</span>
             </div>
-          ) : (
-            <>
-              {grupos.map((g) => (
-                <div key={g.seccion}>
-                  <div className="px-4 pt-2 pb-1 font-mono text-[11px] uppercase tracking-wider text-tinta-suave">
-                    {t.nav[g.seccion]}
+
+            {hayConsulta && (
+              <div
+                ref={listaRef}
+                id="buscadorLista"
+                role="listbox"
+                aria-label={t.ariaSearch}
+                className="max-h-[52vh] overflow-y-auto py-2"
+              >
+                {planos.length === 0 ? (
+                  <div className="px-4 py-8 text-center text-sm text-tinta-suave">
+                    {t.buscarNada}
                   </div>
-                  {g.items.map((item) => {
-                    indiceGlobal++
-                    const i = indiceGlobal
-                    const señalado = i === activo
-                    return (
-                      <button
-                        key={`${g.seccion}-${item.clave}`}
-                        id={`res-${i}`}
-                        role="option"
-                        aria-selected={señalado}
-                        data-activo={señalado}
-                        onMouseEnter={() => setActivo(i)}
-                        onClick={() => elegir(item)}
-                        className={`w-full flex items-center gap-3 px-4 py-2 text-left cursor-pointer transition-colors ${
-                          señalado ? 'bg-indigo-500/10' : ''
-                        }`}
-                      >
-                        {/* El mismo distintivo que en la rejilla: una barra con el color del
-                            lenguaje. El emoji quedaba de otra web, y además cada sistema
-                            operativo dibuja el suyo. */}
-                        {item.color && <span className="w-1 h-4 rounded-full shrink-0" style={{ background: item.color }} />}
-                        <span className="min-w-0 flex-1">
-                          <span className="block text-sm font-semibold text-tinta truncate">
-                            {item.titulo}
-                          </span>
-                          {item.sub && (
-                            <span className="block text-xs text-tinta-suave truncate">{item.sub}</span>
-                          )}
-                        </span>
-                        {item.url
-                          ? <ArrowUpRight size={14} className="shrink-0 text-tinta-suave" />
-                          : señalado && <CornerDownLeft size={13} className="shrink-0 text-tinta-suave" />}
-                      </button>
-                    )
-                  })}
-                </div>
-              ))}
-              <div className="px-4 pt-2 mt-1 border-t border-linea font-mono text-[11px] text-tinta-suave">
-                {t.buscarAyuda}
+                ) : (
+                  grupos.map((g) => (
+                    <div key={g.seccion}>
+                      <div className="px-4 pt-2 pb-1 font-mono text-[11px] uppercase tracking-wider text-tinta-suave">
+                        {t.nav[g.seccion]}
+                      </div>
+                      {g.items.map((item) => {
+                        indiceGlobal++
+                        const i = indiceGlobal
+                        const señalado = i === activo
+                        return (
+                          <button
+                            key={`${g.seccion}-${item.clave}`}
+                            id={`res-${i}`}
+                            role="option"
+                            aria-selected={señalado}
+                            data-activo={señalado}
+                            onMouseEnter={() => setActivo(i)}
+                            onClick={() => elegir(item)}
+                            className={`w-full flex items-center gap-3 px-4 py-2 text-left cursor-pointer transition-colors ${
+                              señalado ? 'bg-zinc-100 dark:bg-zinc-900' : ''
+                            }`}
+                          >
+                            {/* El mismo distintivo que en la rejilla: una barra con el color
+                                del lenguaje. El emoji quedaba de otra web, y además cada
+                                sistema operativo dibuja el suyo. */}
+                            {item.color && <span className="w-1 h-4 rounded-full shrink-0" style={{ background: item.color }} />}
+                            <span className="min-w-0 flex-1">
+                              <span className="block text-sm font-semibold text-tinta truncate">
+                                {item.titulo}
+                              </span>
+                              {item.sub && (
+                                <span className="block text-xs text-tinta-suave truncate">{item.sub}</span>
+                              )}
+                            </span>
+                            {item.url
+                              ? <ArrowUpRight size={14} className="shrink-0 text-tinta-suave" />
+                              : señalado && <CornerDownLeft size={13} className="shrink-0 text-tinta-suave" />}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  ))
+                )}
               </div>
-            </>
-          )}
+            )}
+
+            <div className="px-4 py-2.5 border-t border-linea font-mono text-[11px] text-tinta-suave">
+              {t.buscarAyuda}
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
