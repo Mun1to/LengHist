@@ -386,6 +386,22 @@ estándar de "Animar con el scroll".
   (Umbrales buenos p75, verificados 2026: LCP < 2,5 s, INP < 200 ms, CLS < 0,1.)
 - Regla de oro: el efecto sirve al mensaje, no al revés. Si distrae o marea, sobra.
 
+## Lo que esto puede romper: la indexación (cruce con WebIndex)
+
+El orden es primero indexable y luego bonita. Si la web no se encuentra, el efecto
+más cuidado lo ve solo quien ya sabía la dirección.
+
+- El contenido tiene que estar en el HTML servido. Aquí es donde más se falla: en una
+  web de storytelling al scroll, el texto acaba dentro de componentes que solo existen
+  cuando monta el JavaScript. Los buscadores acaban renderizando, pero los asistentes
+  que responden preguntas no ejecutan JavaScript y se van con las manos vacías. Un
+  reveal oculta por CSS algo que YA está en el HTML; nunca decide si el texto existe.
+- INP: el smooth scroll y el scrubbing interceptan la entrada del usuario.
+- LCP: una secuencia de 120 fotogramas son 120 peticiones. Se precargan aparte y nunca
+  por delante del elemento mayor.
+- CLS: un reveal que empuja el layout en vez de moverse con transform cuenta como
+  desplazamiento inesperado.
+
 ## El contexto manda (paso 0) y la matriz por arquetipo
 
 Sitúa la web en dos ejes antes de elegir un solo efecto: funcional contra expresivo, y conversión
@@ -545,6 +561,22 @@ standard off switch from "Animate on scroll".
 - NO: forms, dense dashboards, tables, checkout, legal pages, or if it drops LCP, INP or CLS.
   (Good p75 thresholds, verified 2026: LCP < 2.5s, INP < 200ms, CLS < 0.1.)
 - Golden rule: the effect serves the message, not the other way round.
+
+## What this can break: indexing (cross with WebIndex)
+
+Indexable first, beautiful second. If the site cannot be found, the most polished
+effect is only seen by people who already knew the address.
+
+- The content has to be in the served HTML. This is where scroll storytelling fails:
+  the copy ends up inside components that only exist once JavaScript mounts. Search
+  engines do render eventually, but the assistants that answer questions do not run
+  JavaScript and leave empty-handed. A reveal hides with CSS something that is ALREADY
+  in the HTML; it never decides whether the text exists.
+- INP: smooth scroll and scrubbing intercept user input.
+- LCP: a 120-frame sequence is 120 requests. Preload them separately, never ahead of
+  the largest element.
+- CLS: a reveal that pushes layout instead of moving with transform counts as an
+  unexpected shift.
 
 ## Context rules (step 0) and the archetype matrix
 
@@ -1696,7 +1728,10 @@ indexación en Google, solo al entrenamiento de Gemini.
 
 **3. Cimientos que no se negocian.** HTTPS, una sola versión canónica del dominio
 con 301 desde la otra, contenido presente en la versión móvil, 404 de verdad, y
-contenido visible en el HTML servido y no solo tras ejecutar JavaScript.
+contenido visible en el HTML servido y no solo tras ejecutar JavaScript. Si la
+web lleva movimiento, cruza aquí con FrontLaxWeb: el storytelling al scroll es
+donde ese fallo nace, porque el texto acaba dentro de algo que solo existe cuando
+monta el JavaScript.
 
 **4. Sitemap y alta.** Solo URLs indexables y finales, nada con noindex ni
 redirigido. Se sube a Search Console y a Bing Webmaster Tools.
@@ -1739,7 +1774,8 @@ automática por idioma en un sitio multiidioma.
 ## Lo que queda fuera
 
 Entregabilidad de correo, geo SEO local y enlaces entrantes. Se dice de frente en
-vez de improvisar.`,
+vez de improvisar, y para el correo se dan las herramientas: Spamhaus y MXToolbox
+Email Health, las dos en la sección de recursos de este sitio.`,
     },
     en: {
       label: 'WebIndex',
@@ -1777,7 +1813,9 @@ indexing, only Gemini training.
 **3. Foundations that are not negotiable.** HTTPS, a single canonical version of
 the domain with a 301 from the other, content present in the mobile version, real
 404s, and content visible in the served HTML rather than only after JavaScript
-runs.
+runs. If the site has motion, cross over to FrontLaxWeb here: scroll storytelling
+is where that failure is born, because the copy ends up inside something that only
+exists once JavaScript mounts.
 
 **4. Sitemap and registration.** Only indexable, final URLs, nothing with noindex
 or redirected. Submit it to Search Console and Bing Webmaster Tools.
@@ -1820,7 +1858,8 @@ multilingual site.
 ## What is out of scope
 
 Email deliverability, local geo SEO and link building. Say so plainly instead of
-improvising.`,
+improvising, and for email hand over the tools: Spamhaus and MXToolbox Email
+Health, both in the resources section of this site.`,
     },
   },
 
