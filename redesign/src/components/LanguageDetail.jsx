@@ -10,10 +10,13 @@ import { rutaDe } from '../lib/rutas'
 // Cada lenguaje tiene su propia página, como cada componente y cada skill. Antes
 // era un panel al final de una rejilla de cien tarjetas: al pulsar una no pasaba
 // nada visible porque la ficha quedaba veinte pantallas más abajo.
-function Dato({ titulo, children, mono = false }) {
+// Un rótulo y su valor. El rótulo va pegado a lo que nombra y con una línea
+// encima: son los dos que hacen que una lista de datos se lea como una tabla y
+// no como párrafos sueltos con el título en mayúsculas.
+function Dato({ titulo, children, mono = false, className = '' }) {
   return (
-    <div>
-      <div className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-1.5">{titulo}</div>
+    <div className={`border-t border-linea pt-3 ${className}`}>
+      <div className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-1">{titulo}</div>
       <div className={`text-sm text-tinta-fuerte leading-relaxed ${mono ? 'font-mono' : ''}`}>
         {children}
       </div>
@@ -32,7 +35,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="px-6 sm:px-10 py-10 max-w-5xl"
+      className="px-6 sm:px-10 py-10 max-w-5xl mx-auto"
     >
       <Link
         to={rutaDe('languages')}
@@ -58,7 +61,10 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
         </div>
       </div>
 
-      <p className="text-tinta-suave mt-5 max-w-2xl leading-relaxed">{d.fullDesc}</p>
+      {/* El resumen es lo que de verdad se lee de la ficha, así que va en el
+          tamaño de lectura y en la tinta normal. En gris de apoyo parecía un
+          pie de foto debajo del titular. */}
+      <p className="text-base text-tinta-fuerte mt-5 max-w-[68ch] leading-relaxed">{d.fullDesc}</p>
 
       <button
         onClick={onToggleCompare}
@@ -83,7 +89,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
         <pre className="p-5 font-mono text-[13px] leading-relaxed text-zinc-200 overflow-x-auto">{code.example}</pre>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-x-10 gap-y-7 mt-10">
+      <div className="grid sm:grid-cols-2 gap-x-10 gap-y-6 mt-12">
         <Dato titulo={t.creador}>{l.creator}</Dato>
         <Dato titulo={t.popularidad}>
           <div className="flex items-center gap-3">
@@ -99,17 +105,13 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
           </div>
         </Dato>
 
-        <Dato titulo={t.extensiones} mono>
-          <span className="text-blue-600 dark:text-blue-400">{l.extensions.join('  ')}</span>
-        </Dato>
+        <Dato titulo={t.extensiones} mono>{l.extensions.join('  ')}</Dato>
         <Dato titulo={t.usos}>{d.uses.join(' · ')}</Dato>
 
         {l.eco.length > 0 && (
-          <div className="sm:col-span-2">
-            <Dato titulo={t.ecosistema} mono>
-              <span className="text-esmeralda">{l.eco.join(' · ')}</span>
-            </Dato>
-          </div>
+          <Dato titulo={t.ecosistema} mono className="sm:col-span-2">
+            {l.eco.join(' · ')}
+          </Dato>
         )}
 
         <Dato titulo={t.ventajas}>
