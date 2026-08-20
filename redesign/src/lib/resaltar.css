@@ -7,7 +7,7 @@
 :root {
   --vs-txt: #3f3f46;
   --vs-com: #71717a;
-  --vs-key: #4f46e5;
+  --vs-key: #2563eb;
   --vs-fn:  #0369a1;
   --vs-str: #047857;
   --vs-num: #b45309;
@@ -21,7 +21,7 @@
 [data-theme="dark"] {
   --vs-txt: #d4d4d8;
   --vs-com: #a1a1aa;
-  --vs-key: #a5b4fc;
+  --vs-key: #93c5fd;
   --vs-fn:  #7dd3fc;
   --vs-str: #86efac;
   --vs-num: #fcd34d;

@@ -44,7 +44,7 @@ export function Tilt3D({ lang }) {
   return (
     <div ref={ref} className="cd-box grid place-items-center" style={{ perspective: '700px' }}>
       <div
-        className="cd-tilt cd-card w-[130px] h-[86px] grid place-items-center font-bold text-indigo-300"
+        className="cd-tilt cd-card w-[130px] h-[86px] grid place-items-center font-bold text-blue-300"
         style={{
           transform: `rotateY(${(x - 0.5) * 26}deg) rotateX(${-(y - 0.5) * 26}deg) scale(${dentro ? 1.05 : 1})`,
           boxShadow: dentro ? '0 14px 30px rgba(0,0,0,.5)' : 'none',
@@ -94,7 +94,7 @@ export function HoverMagnetico({ lang }) {
     <div ref={ref} className="cd-box grid place-items-center">
       <div
         ref={botonRef}
-        className="cd-magnet cd-card px-5 py-2.5 font-bold text-indigo-300"
+        className="cd-magnet cd-card px-5 py-2.5 font-bold text-blue-300"
         style={{ translate: `${d.x}px ${d.y}px` }}
       >
         {t.acercate}
@@ -145,8 +145,8 @@ export function CursorLerp({ lang }) {
   return (
     <div ref={ref} className="cd-box grid place-items-center cursor-none">
       <span className="font-mono text-[11px] text-zinc-400">{t.circuloTarde}</span>
-      <div ref={estelaRef} className="cd-dot" style={{ width: 34, height: 34, border: '1px solid #818cf8', opacity: 0 }} />
-      <div ref={puntoRef} className="cd-dot" style={{ background: '#818cf8', opacity: 0 }} />
+      <div ref={estelaRef} className="cd-dot" style={{ width: 34, height: 34, border: '1px solid #60a5fa', opacity: 0 }} />
+      <div ref={puntoRef} className="cd-dot" style={{ background: '#60a5fa', opacity: 0 }} />
     </div>
   )
 }
@@ -157,9 +157,9 @@ export function MicroInteracciones({ lang }) {
   return (
     <div className="cd-box grid place-items-center gap-3">
       <button
-        className="cd-micro cd-card px-4 py-2 font-bold text-indigo-300"
+        className="cd-micro cd-card px-4 py-2 font-bold text-blue-300"
         onClick={() => setMe((v) => !v)}
-        style={me ? { background: '#4f46e5', color: '#fff', borderColor: '#4f46e5' } : undefined}
+        style={me ? { background: '#2563eb', color: '#fff', borderColor: '#2563eb' } : undefined}
       >
         {me ? t.meGustaOk : t.meGusta}
       </button>
@@ -204,7 +204,7 @@ export function Spotlight({ lang }) {
           transition: 'opacity .25s',
         }}
       />
-      <div className="cd-card relative px-5 py-3 font-bold text-indigo-200">{t.luzTeSigue}</div>
+      <div className="cd-card relative px-5 py-3 font-bold text-blue-200">{t.luzTeSigue}</div>
       <span className="cd-hint">{t.mueveCursor}</span>
     </div>
   )

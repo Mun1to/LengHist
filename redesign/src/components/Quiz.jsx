@@ -58,7 +58,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
         <div>
           <div className="h-1 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden mb-3">
             <motion.div
-              className="h-full bg-indigo-500"
+              className="h-full bg-blue-500"
               animate={{ width: `${(state.step / steps.length) * 100}%` }}
               transition={{ duration: 0.3 }}
             />
@@ -70,7 +70,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
               <button
                 key={o.label}
                 onClick={() => pick(o)}
-                className="pulsable text-left rounded-xl border border-linea bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3.5 text-sm font-medium cursor-pointer hover:border-indigo-500 hover:bg-indigo-500/5"
+                className="pulsable text-left rounded-xl border border-linea bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3.5 text-sm font-medium cursor-pointer hover:border-blue-500 hover:bg-blue-500/5"
               >
                 {o.label}
               </button>
@@ -92,14 +92,14 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
               >
                 {/* El borde izquierdo ya lleva el color del lenguaje: el emoji
                     no añadía nada y venía de la identidad anterior. */}
-                <span className="font-mono font-bold text-indigo-500 dark:text-indigo-400">#{i + 1}</span>
+                <span className="font-mono font-bold text-blue-500 dark:text-blue-400">#{i + 1}</span>
                 <div className="min-w-0 flex-1">
                   <div className="font-bold text-sm">{r.l.name}</div>
                   <div className="text-xs text-tinta-suave line-clamp-2">{r.l[lang].desc}</div>
                 </div>
                 <button
                   onClick={() => { onSeeLanguage(r.l.name); close() }}
-                  className="shrink-0 text-xs font-semibold text-indigo-600 dark:text-indigo-400 border-b border-indigo-500/40 hover:border-indigo-500 pb-0.5 cursor-pointer"
+                  className="shrink-0 text-xs font-semibold text-blue-600 dark:text-blue-400 border-b border-blue-500/40 hover:border-blue-500 pb-0.5 cursor-pointer"
                 >
                   {t.verFicha}
                 </button>
@@ -108,7 +108,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
           </div>
           <button
             onClick={() => setState(EMPTY)}
-            className="mt-6 text-sm font-semibold text-tinta-suave border-b border-linea-viva hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500 pb-0.5 cursor-pointer transition-colors"
+            className="mt-6 text-sm font-semibold text-tinta-suave border-b border-linea-viva hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500 pb-0.5 cursor-pointer transition-colors"
           >
             {t.quizRestart}
           </button>

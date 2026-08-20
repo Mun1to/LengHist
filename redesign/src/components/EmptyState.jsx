@@ -7,7 +7,7 @@ export default function EmptyState({ t, onClear }) {
       <p className="text-sm mb-4">{t.empty}</p>
       <button
         onClick={onClear}
-        className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 border-b border-indigo-500/40 hover:border-indigo-500 pb-0.5 cursor-pointer transition-colors"
+        className="text-sm font-semibold text-blue-600 dark:text-blue-400 border-b border-blue-500/40 hover:border-blue-500 pb-0.5 cursor-pointer transition-colors"
       >
         {t.emptyReset}
       </button>

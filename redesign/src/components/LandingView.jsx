@@ -42,7 +42,7 @@ function Seccion({ n, titulo, texto, a, Icono }) {
         {n}
       </span>
 
-      <Icono size={19} className="relative text-indigo-600 dark:text-indigo-400" />
+      <Icono size={19} className="relative text-blue-600 dark:text-blue-400" />
 
       <div className="relative font-bold text-tinta mt-3 flex items-center gap-1.5">
         {titulo}
@@ -84,7 +84,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                   className="text-[2.4rem] sm:text-[3.1rem] leading-[1.08] font-extrabold tracking-tight text-balance text-tinta mb-5"
                 >
                   {t.heroTitle1}
-                  <span className="block text-indigo-600 dark:text-indigo-400">{t.heroTitle2}</span>
+                  <span className="block text-blue-600 dark:text-blue-400">{t.heroTitle2}</span>
                 </motion.h1>
 
                 {/* Las cuatro promesas ya no van sueltas encima del titular: cierran
@@ -104,7 +104,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                   </Link>
                   <button
                     onClick={onQuiz}
-                    className="pulsable inline-flex items-center min-h-6 pt-1 text-sm font-semibold text-tinta-fuerte border-b border-linea-viva hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer pb-0.5"
+                    className="pulsable inline-flex items-center min-h-6 pt-1 text-sm font-semibold text-tinta-fuerte border-b border-linea-viva hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer pb-0.5"
                   >
                     {t.testBtn}
                   </button>
@@ -122,14 +122,14 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                       scale={3.6}
                       autoRotate
                       autoRotateSpeed={1.2}
-                      highlight="#4f46e5"
+                      highlight="#2563eb"
                       style={{ position: 'absolute', inset: 0 }}
                     />
                   </Suspense>
                 </div>
                 <Link
                   to={rutaDe('components', 'ascii-object')}
-                  className="inline-flex items-center gap-1.5 mt-3 font-mono text-[11px] text-tinta-suave hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 mt-3 font-mono text-[11px] text-tinta-suave hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   {t.heroDemo}
                   <ArrowRight size={11} />
@@ -179,7 +179,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                 <p className="text-tinta-suave leading-relaxed mb-6">{t.landingCodeText}</p>
                 <Link
                   to={rutaDe('languages')}
-                  className="grupo-cta pulsable inline-flex items-center gap-1.5 min-h-6 pt-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400 border-b border-indigo-500/40 hover:border-indigo-500 pb-0.5"
+                  className="grupo-cta pulsable inline-flex items-center gap-1.5 min-h-6 pt-1 text-sm font-semibold text-blue-600 dark:text-blue-400 border-b border-blue-500/40 hover:border-blue-500 pb-0.5"
                 >
                   {t.landingCodeCta}
                   <ArrowRight size={14} className="flecha-desliza" />

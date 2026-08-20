@@ -37,7 +37,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
         </div>
       </div>
 
-      <div className="font-mono text-[11px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mt-1.5">
+      <div className="font-mono text-[11px] uppercase tracking-wider text-blue-600 dark:text-blue-400 mt-1.5">
         {item.labels.join(' · ')}
       </div>
 

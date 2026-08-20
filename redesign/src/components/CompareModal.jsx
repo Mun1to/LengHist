@@ -38,15 +38,15 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
               <>
                 <span className="font-mono text-xs">{l.pop}/100</span>
                 <div className="h-1.5 mt-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
-                  <div className="h-full bg-indigo-500" style={{ width: `${l.pop}%` }} />
+                  <div className="h-full bg-blue-500" style={{ width: `${l.pop}%` }} />
                 </div>
               </>
             )} />
             <Row label={t.extensiones} render={(l) => (
-              <span className="font-mono text-xs text-indigo-500 dark:text-indigo-400">{l.extensions.join(' ')}</span>
+              <span className="font-mono text-xs text-blue-500 dark:text-blue-400">{l.extensions.join(' ')}</span>
             )} />
             <Row label={t.ecosistema} render={(l) => (
-              <span className="font-mono text-xs text-indigo-500 dark:text-indigo-400">{l.eco.join(' · ') || '—'}</span>
+              <span className="font-mono text-xs text-blue-500 dark:text-blue-400">{l.eco.join(' · ') || '—'}</span>
             )} />
             <Row label={t.usos} render={(l) => l[lang].uses.join(', ')} />
             <Row label={t.ventajas} render={(l) => (

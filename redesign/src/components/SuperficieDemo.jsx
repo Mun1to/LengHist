@@ -118,7 +118,7 @@ function Terminal({ compact }) {
   const lineas = [
     ['~/.claude/skills/', '#71717a'],
     ['└── revisar-responsive/', '#a1a1aa'],
-    ['    └── SKILL.md', '#818cf8'],
+    ['    └── SKILL.md', '#60a5fa'],
     ['', '#71717a'],
     ['$ /revisar-responsive', '#34d399'],
     ['  leyendo 3 anchos...', '#71717a'],
@@ -140,7 +140,7 @@ function Terminal({ compact }) {
 // Para los efectos que necesitan formas grandes (levantar una portada, doblarla).
 function Titular({ compact, t }) {
   return (
-    <div className={`h-full flex flex-col justify-end ${compact ? 'p-4' : 'p-10'}`} style={{ background: '#4f46e5' }}>
+    <div className={`h-full flex flex-col justify-end ${compact ? 'p-4' : 'p-10'}`} style={{ background: '#2563eb' }}>
       <div className={`font-extrabold tracking-tight text-white leading-[1.05] ${compact ? 'text-xl' : 'text-5xl'}`}>
         Vibeset
       </div>

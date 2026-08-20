@@ -132,11 +132,11 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
               >
                 <Icono
                   size={17}
-                  className={`shrink-0 ${activa ? 'text-indigo-600 dark:text-indigo-400' : 'text-tinta-suave'}`}
+                  className={`shrink-0 ${activa ? 'text-blue-600 dark:text-blue-400' : 'text-tinta-suave'}`}
                 />
                 <span
                   className={`text-2xl font-extrabold tracking-tight leading-none ${
-                    activa ? 'text-indigo-600 dark:text-indigo-400' : 'text-tinta'
+                    activa ? 'text-blue-600 dark:text-blue-400' : 'text-tinta'
                   }`}
                 >
                   {t.nav[key]}
@@ -151,7 +151,7 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
 
         <button
           onClick={() => { onCerrar(); onQuizClick() }}
-          className="grupo-cta pulsable inline-flex items-center gap-2 mt-5 font-bold text-[15px] text-indigo-600 dark:text-indigo-400 cursor-pointer"
+          className="grupo-cta pulsable inline-flex items-center gap-2 mt-5 font-bold text-[15px] text-blue-600 dark:text-blue-400 cursor-pointer"
         >
           {t.testBtn}
           <ArrowRight size={15} className="flecha-desliza" />
@@ -289,7 +289,7 @@ export default function TopBar({
                   margen. Medido. */}
               <button
                 onClick={onQuizClick}
-                className={`pulsable hidden min-[1620px]:inline-flex items-center ${ALTO} px-4 bg-indigo-600 hover:bg-indigo-500 text-white text-[13px] font-semibold whitespace-nowrap cursor-pointer`}
+                className={`pulsable hidden min-[1620px]:inline-flex items-center ${ALTO} px-4 bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-semibold whitespace-nowrap cursor-pointer`}
               >
                 {t.ctaQuiz}
               </button>

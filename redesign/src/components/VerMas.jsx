@@ -8,7 +8,7 @@ export default function VerMas({ quedan, onMas, etiqueta }) {
     <div className="flex justify-center pt-8">
       <button
         onClick={onMas}
-        className="pulsable alzable inline-flex items-center gap-2 min-h-11 px-5 rounded-full border border-linea bg-panel text-sm font-semibold text-tinta-fuerte hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer"
+        className="pulsable alzable inline-flex items-center gap-2 min-h-11 px-5 rounded-full border border-linea bg-panel text-sm font-semibold text-tinta-fuerte hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
       >
         {etiqueta(quedan)}
         <ChevronDown size={15} />

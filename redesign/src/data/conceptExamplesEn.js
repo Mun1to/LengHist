@@ -134,7 +134,7 @@ button.onpointerleave = () => {
 }`],
     ['css', `.card {
   background: radial-gradient(260px circle
-    at var(--x) var(--y), #6366f133, transparent 60%);
+    at var(--x) var(--y), #3b82f633, transparent 60%);
 }`],
   ],
 
@@ -153,7 +153,7 @@ button.onpointerleave = () => {
 
   'Aurora / mesh gradient': css(`.backdrop {
   background:
-    radial-gradient(at 20% 30%, #6366f1 0, transparent 50%),
+    radial-gradient(at 20% 30%, #3b82f6 0, transparent 50%),
     radial-gradient(at 80% 20%, #22d3ee 0, transparent 50%),
     radial-gradient(at 60% 80%, #a855f7 0, transparent 50%);
 }`),

@@ -41,7 +41,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
                 type="range"
                 min={c.min} max={c.max} step={c.step} value={value}
                 onChange={(e) => onChange(c.key, Number(e.target.value))}
-                className="w-full h-6 accent-indigo-500 cursor-pointer"
+                className="w-full h-6 accent-blue-500 cursor-pointer"
                 aria-label={c.label[lang]}
               />
             </Row>
@@ -55,7 +55,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
               <select
                 value={value}
                 onChange={(e) => onChange(c.key, e.target.value)}
-                className="w-full bg-panel border border-linea rounded-lg px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-indigo-500 cursor-pointer"
+                className="w-full bg-panel border border-linea rounded-lg px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-blue-500 cursor-pointer"
               >
                 {c.options.map((o) => (
                   <option key={o.value} value={o.value}>{o.label[lang]}</option>
@@ -78,7 +78,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
                 <span
                   aria-hidden="true"
                   className={`relative w-9 h-5 rounded-full shrink-0 transition-colors ${
-                    value ? 'bg-indigo-500' : 'bg-zinc-300 dark:bg-zinc-700'
+                    value ? 'bg-blue-500' : 'bg-zinc-300 dark:bg-zinc-700'
                   }`}
                 >
                   <span
@@ -100,7 +100,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
                 value={value}
                 maxLength={c.maxLength || 14}
                 onChange={(e) => onChange(c.key, e.target.value)}
-                className="w-full bg-panel border border-linea rounded-lg px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-indigo-500"
+                className="w-full bg-panel border border-linea rounded-lg px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-blue-500"
               />
             </Row>
           )

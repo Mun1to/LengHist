@@ -50,7 +50,7 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
         tabIndex={0}
         aria-label={item.name}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}
-        className="group relative h-56 rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 cursor-pointer hover:border-zinc-600 focus-visible:border-indigo-500 outline-none transition-colors"
+        className="group relative h-56 rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 cursor-pointer hover:border-zinc-600 focus-visible:border-blue-500 outline-none transition-colors"
       >
         {live && <ComponentDemo item={item} values={values} lang={lang} compact t={t} />}
         <div className="absolute top-2 right-2 z-20" data-no-open>
@@ -60,7 +60,7 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
       {/* El nombre es el enlace de verdad de la tarjeta: la demo de arriba tiene
           que recibir el ratón, así que no puede ser ella el enlace. */}
       <Link to={ruta} className="flex items-baseline gap-3 min-h-6 py-0.5 mt-2 px-0.5 group/nombre">
-        <h2 className="font-bold text-sm text-tinta group-hover/nombre:text-indigo-600 dark:group-hover/nombre:text-indigo-400 transition-colors shrink-0">
+        <h2 className="font-bold text-sm text-tinta group-hover/nombre:text-blue-600 dark:group-hover/nombre:text-blue-400 transition-colors shrink-0">
           {item.name}
         </h2>
         <span className="font-mono text-[11px] text-tinta-suave truncate">{item.tag[lang]}</span>

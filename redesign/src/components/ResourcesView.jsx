@@ -56,13 +56,13 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.25, delay: Math.min(gi * 0.04 + i * 0.02, 0.3) }}
-                    className="group pulsable pulsable-suave flex items-start gap-3 rounded-xl border border-linea bg-panel p-3.5 hover:border-indigo-500/50 hover:bg-indigo-500/5"
+                    className="group pulsable pulsable-suave flex items-start gap-3 rounded-xl border border-linea bg-panel p-3.5 hover:border-blue-500/50 hover:bg-blue-500/5"
                   >
                     <Monograma nombre={r.name} color={group.dot} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <h3 className="font-bold text-sm text-tinta truncate">{r.name}</h3>
-                        <ArrowUpRight size={13} className="shrink-0 text-tinta-suave group-hover:text-indigo-500 transition-colors" />
+                        <ArrowUpRight size={13} className="shrink-0 text-tinta-suave group-hover:text-blue-500 transition-colors" />
                       </div>
                       <div className="text-sm text-tinta-suave leading-snug mt-0.5">{r[lang]}</div>
                       {/* A dónde te lleva, dicho antes de pulsar. */}

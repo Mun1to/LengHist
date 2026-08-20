@@ -19,7 +19,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
           /* El hueco de la derecha solo se reserva cuando hay equis que poner:
              con él siempre puesto, «Filtrar herramientas…» se comía los puntos
              suspensivos contra el borde. */
-          className={`w-full bg-panel border border-linea rounded-lg pl-8 py-2 text-sm text-tinta-fuerte placeholder:text-tinta-suave outline-none focus:border-indigo-500 ${query ? 'pr-8' : 'pr-3'}`}
+          className={`w-full bg-panel border border-linea rounded-lg pl-8 py-2 text-sm text-tinta-fuerte placeholder:text-tinta-suave outline-none focus:border-blue-500 ${query ? 'pr-8' : 'pr-3'}`}
         />
         {query && (
           <button
@@ -43,7 +43,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
               onClick={() => { setActiveCat(c.key); onElegir?.() }}
               className={`pulsable flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer text-left ${
                 activeCat === c.key
-                  ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 font-semibold'
+                  ? 'bg-blue-500/10 text-blue-600 dark:text-blue-300 font-semibold'
                   : 'text-tinta-suave hover:bg-zinc-100 dark:hover:bg-zinc-900'
               }`}
             >

@@ -71,7 +71,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
         </div>
       </div>
 
-      <div className="font-mono text-[13px] text-indigo-600 dark:text-indigo-400 mt-1.5">/{slug}</div>
+      <div className="font-mono text-[13px] text-blue-600 dark:text-blue-400 mt-1.5">/{slug}</div>
 
       {/* Autoría y código: quién la escribió y dónde vive de verdad el archivo.
           Una skill aportada por otra persona trae su propio autor y su repo. */}
@@ -82,7 +82,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
             href={autor.url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center min-h-6 font-medium text-tinta-fuerte hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            className="inline-flex items-center min-h-6 font-medium text-tinta-fuerte hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             {autor.name}
           </a>
@@ -93,7 +93,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
           target="_blank"
           rel="noreferrer"
           title={hasOwnRepo(item) ? t.skillOwnRepo : t.skillInThisRepo}
-          className="inline-flex items-center gap-1 min-h-6 font-mono hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors break-all"
+          className="inline-flex items-center gap-1 min-h-6 font-mono hover:text-blue-600 dark:hover:text-blue-400 transition-colors break-all"
         >
           {repoLabel(item)}
           <ArrowUpRight size={11} />

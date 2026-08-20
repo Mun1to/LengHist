@@ -60,7 +60,7 @@
   --v-linea: var(--color-zinc-200);
   --v-linea-viva: var(--color-zinc-300);
   --v-panel: #fff;
-  --v-acento: var(--color-indigo-600);
+  --v-acento: var(--color-blue-600);
   --v-papel: rgba(0, 0, 0, 0.055);
 }
 
@@ -71,7 +71,7 @@
   --v-linea: var(--color-zinc-800);
   --v-linea-viva: var(--color-zinc-700);
   --v-panel: var(--color-zinc-900);
-  --v-acento: var(--color-indigo-400);
+  --v-acento: var(--color-blue-400);
   --v-papel: rgba(255, 255, 255, 0.055);
 }
 
@@ -132,7 +132,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, theme(colors.indigo.500) 35%, transparent);
+  background: color-mix(in srgb, theme(colors.blue.500) 35%, transparent);
 }
 
 /* El papel de plano: el rayado diagonal que queda FUERA del canal, como el
@@ -198,7 +198,7 @@ body {
    rastro que deja quien no usa ratón. */
 .pulsable:focus-visible,
 .alzable:focus-visible {
-  outline: 2px solid theme(colors.indigo.500);
+  outline: 2px solid theme(colors.blue.500);
   outline-offset: 2px;
 }
 

@@ -30,7 +30,7 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
               transition={{ duration: 0.22, delay: Math.min(i, 12) * 0.02 }}
               className="group relative rounded-xl bg-panel border border-linea hover:border-linea-viva transition-colors"
             >
-              <Link to={rutaDe('languages', slugLenguaje(l.name))} className="pulsable pulsable-suave block p-4 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl">
+              <Link to={rutaDe('languages', slugLenguaje(l.name))} className="pulsable pulsable-suave block p-4 outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-xl">
                 {/* El color del lenguaje se queda en una barra fina: identifica
                     igual que la cabecera de degradado y no se come la tarjeta. */}
                 <div className="flex items-center gap-2.5 mb-1.5">
@@ -54,7 +54,7 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
                      píxel. Antes había cien botones por debajo del mínimo. */
                   className={`inline-flex items-center gap-1.5 min-h-7 px-1.5 -mx-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
                     compareSet.has(l.name)
-                      ? 'text-indigo-600 dark:text-indigo-400'
+                      ? 'text-blue-600 dark:text-blue-400'
                       : 'text-tinta-suave hover:text-tinta'
                   }`}
                 >

@@ -150,7 +150,7 @@ export function ScrollSnap({ lang }) {
       <div ref={ref} className="cd-scroller-x cd-snap-x cd-arrastrable">
         <div className="cd-snap">
           {[t.uno, t.dos, t.tres, t.cuatro].map((x) => (
-            <div key={x} className="cd-card grid place-items-center h-[92px] font-bold text-indigo-300">{x}</div>
+            <div key={x} className="cd-card grid place-items-center h-[92px] font-bold text-blue-300">{x}</div>
           ))}
         </div>
       </div>
@@ -177,8 +177,8 @@ export function ScrollDriven({ lang }) {
   return (
     <div className="cd-box cd-sd">
       <div className="absolute top-0 left-0 right-0 h-1 bg-zinc-800 z-10">
-        <div className="cd-sd-js h-full bg-indigo-500" style={{ width: `${p * 100}%` }} />
-        <div className="cd-sd-css h-full bg-indigo-500" />
+        <div className="cd-sd-js h-full bg-blue-500" style={{ width: `${p * 100}%` }} />
+        <div className="cd-sd-css h-full bg-blue-500" />
       </div>
       <div ref={ref} className="cd-scroller pt-4">
         <div className="p-3 pb-8 flex flex-col gap-2">
@@ -249,7 +249,7 @@ export function HorizontalScroll({ lang }) {
       <div className="absolute inset-0 grid place-items-center pointer-events-none">
         <div className="flex gap-3" style={{ transform: `translateX(${(0.5 - p) * 260}px)` }}>
           {['A', 'B', 'C', 'D', 'E'].map((x) => (
-            <div key={x} className="cd-card w-[74px] h-[74px] grid place-items-center font-bold text-indigo-300 shrink-0">
+            <div key={x} className="cd-card w-[74px] h-[74px] grid place-items-center font-bold text-blue-300 shrink-0">
               {x}
             </div>
           ))}
@@ -269,7 +269,7 @@ export function Marquee({ lang }) {
       <div className="w-full overflow-hidden">
         <div className="cd-marquee-track">
           {[...linea, ...linea].map((x, i) => (
-            <span key={i} className="font-extrabold text-xl text-indigo-300/90 whitespace-nowrap">{x}</span>
+            <span key={i} className="font-extrabold text-xl text-blue-300/90 whitespace-nowrap">{x}</span>
           ))}
         </div>
       </div>
@@ -288,13 +288,13 @@ export function Scrollytelling({ lang }) {
     <div className="cd-box">
       <div className="absolute inset-0 grid place-items-center pointer-events-none">
         <div
-          className="w-14 h-14 rounded-lg bg-indigo-500"
+          className="w-14 h-14 rounded-lg bg-blue-500"
           style={{ transform: `scale(${0.5 + p * 1.1}) rotate(${p * 180}deg)`, opacity: 0.35 + p * 0.65 }}
         />
       </div>
       <div ref={ref} className="cd-scroller"><div style={{ height: '260%' }} /></div>
       <div className="absolute left-0 right-0 bottom-0 px-3 py-2 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none">
-        <span className="font-semibold text-indigo-200">{t.story[paso]}</span>
+        <span className="font-semibold text-blue-200">{t.story[paso]}</span>
       </div>
       <span className="cd-hint">{t.scroll}</span>
     </div>
@@ -305,7 +305,7 @@ export function PageTransitions({ lang }) {
   const t = textoDe(lang)
   const [vista, setVista] = useState(0)
   const vistas = [
-    { t: t.portada, c: '#4f46e5' },
+    { t: t.portada, c: '#2563eb' },
     { t: t.detalle, c: '#0891b2' },
   ]
 

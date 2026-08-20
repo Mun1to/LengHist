@@ -23,7 +23,7 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
               key={tb}
               onClick={() => setTab(tb)}
               className={`font-mono text-[13px] inline-flex items-end min-h-6 px-1.5 pb-0.5 border-b cursor-pointer transition-colors ${
-                tab === tb ? 'text-zinc-100 border-indigo-400' : 'text-zinc-400 border-transparent hover:text-zinc-300'
+                tab === tb ? 'text-zinc-100 border-blue-400' : 'text-zinc-400 border-transparent hover:text-zinc-300'
               }`}
             >
               {tb}
@@ -51,7 +51,7 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
           <span className="w-1 h-3.5 rounded-full" style={{ background: demo.color[0] }} />
           {demo.name} · {demo.year}
         </span>
-        <span className="text-indigo-300 font-bold">{demo.pop}/100</span>
+        <span className="text-blue-300 font-bold">{demo.pop}/100</span>
       </div>
     </div>
   )

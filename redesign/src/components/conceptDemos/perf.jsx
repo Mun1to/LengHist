@@ -60,7 +60,7 @@ export function WillChange({ lang }) {
         {Array.from({ length: 60 }, (_, i) => (
           <div
             key={i}
-            className="w-3.5 h-3.5 rounded-sm bg-indigo-500"
+            className="w-3.5 h-3.5 rounded-sm bg-blue-500"
             style={{
               willChange: on ? 'transform' : 'auto',
               transform: corriendo ? `rotate(${(i % 7) * 40}deg) scale(.7)` : 'none',
@@ -142,7 +142,7 @@ export function ReducedMotion({ lang }) {
       {/* la pista acota el recorrido: centrado, la caja se le quedaba corta */}
       <div className="w-[150px]">
         <div
-          className="w-12 h-12 rounded-xl bg-indigo-500"
+          className="w-12 h-12 rounded-xl bg-blue-500"
           style={{ animation: `cd-vaiven ${reduce ? '3.4s' : '1.4s'} ease-in-out infinite alternate`,
                    opacity: reduce ? 0.85 : 1 }}
         />
@@ -200,7 +200,7 @@ export function MobileFirst({ lang }) {
         style={{ width: a.px, gridTemplateColumns: `repeat(${a.cols}, 1fr)`, transition: 'width .3s ease' }}
       >
         {Array.from({ length: 3 }, (_, i) => (
-          <div key={i} className="h-9 rounded bg-indigo-500/70" />
+          <div key={i} className="h-9 rounded bg-blue-500/70" />
         ))}
       </div>
       <div className="flex gap-3">
@@ -269,7 +269,7 @@ export function DebounceThrottle({ lang }) {
       <input
         onChange={alEscribir}
         placeholder={t.escribeDeprisa}
-        className="w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1.5 text-xs text-zinc-100 outline-none focus:border-indigo-500"
+        className="w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-1.5 text-xs text-zinc-100 outline-none focus:border-blue-500"
       />
       <div className="flex gap-4 font-mono text-[10px]">
         <span className="text-rose-400">{t.bruto} {n.bruto}</span>
@@ -302,9 +302,9 @@ export function RequestAnimationFrame({ lang }) {
 
   return (
     <div className="cd-box grid place-items-center gap-3">
-      <div ref={ref} className="w-9 h-9 rounded-full bg-indigo-500" />
+      <div ref={ref} className="w-9 h-9 rounded-full bg-blue-500" />
       <div className="text-center">
-        <div className="font-mono text-lg font-bold text-indigo-300">{fps} fps</div>
+        <div className="font-mono text-lg font-bold text-blue-300">{fps} fps</div>
         <div className="cd-nota">{t.unFotograma}</div>
       </div>
     </div>

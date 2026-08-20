@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 export default function NoEncontrado({ t }) {
   return (
     <section className="px-6 sm:px-10 py-24 max-w-2xl">
-      <div className="font-mono text-xs uppercase tracking-[.14em] text-indigo-600 dark:text-indigo-400">404</div>
+      <div className="font-mono text-xs uppercase tracking-[.14em] text-blue-600 dark:text-blue-400">404</div>
       <h1 className="text-3xl font-extrabold tracking-tight mt-3">{t.noHayTitulo}</h1>
       <p className="text-tinta-suave mt-3 leading-relaxed">{t.noHayTexto}</p>
 

@@ -28,7 +28,7 @@ const TallContent = ({ compact, t }) => <SuperficieAlta compact={compact} t={t} 
 // La capa que asoma cuando el Peel levanta la portada.
 function UnderContent({ compact, t }) {
   return (
-    <div className={`w-full h-full bg-indigo-600 text-white ${compact ? 'p-4' : 'p-8'}`}>
+    <div className={`w-full h-full bg-blue-600 text-white ${compact ? 'p-4' : 'p-8'}`}>
       <div className={`font-extrabold tracking-tight ${compact ? 'text-base' : 'text-2xl'}`}>
         {t.demoUnder}
       </div>

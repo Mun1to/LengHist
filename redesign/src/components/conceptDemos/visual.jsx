@@ -37,7 +37,7 @@ export function Neumorphism({ lang }) {
 export function Aurora() {
   return (
     <div className="cd-box grid place-items-center" style={{ background: '#0b0b12' }}>
-      <div className="cd-aurora" style={{ background: 'radial-gradient(40% 40% at 25% 30%, #6366f1, transparent 70%)' }} />
+      <div className="cd-aurora" style={{ background: 'radial-gradient(40% 40% at 25% 30%, #3b82f6, transparent 70%)' }} />
       <div className="cd-aurora" style={{ background: 'radial-gradient(38% 38% at 75% 35%, #22d3ee, transparent 70%)', animationDelay: '-4s' }} />
       <div className="cd-aurora" style={{ background: 'radial-gradient(42% 42% at 55% 78%, #a855f7, transparent 70%)', animationDelay: '-8s' }} />
       <div className="relative font-extrabold text-white text-lg tracking-tight">aurora</div>
@@ -89,7 +89,7 @@ export function ViewTransitions({ lang }) {
           width: grande ? 140 : 62,
           height: grande ? 76 : 62,
           borderRadius: grande ? 10 : 999,
-          background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+          background: 'linear-gradient(135deg, #3b82f6, #a855f7)',
           transition: soporta ? 'none' : 'all .35s ease',
           viewTransitionName: 'cd-vt-card',
         }}
@@ -123,7 +123,7 @@ export function Skeleton({ lang }) {
     <div className="cd-box p-3">
       <div className="flex gap-3 items-center">
         {cargado
-          ? <div className="w-10 h-10 rounded-full bg-indigo-500 shrink-0" />
+          ? <div className="w-10 h-10 rounded-full bg-blue-500 shrink-0" />
           : <div className="cd-skeleton w-10 h-10 rounded-full shrink-0" />}
         <div className="flex-1 flex flex-col gap-2">
           {cargado ? (
@@ -149,7 +149,7 @@ export function TipografiaCinetica({ lang }) {
   const [ronda, setRonda] = useState(0)
   return (
     <div className="cd-box grid place-items-center gap-3">
-      <div className="font-extrabold text-2xl tracking-tight text-indigo-200">
+      <div className="font-extrabold text-2xl tracking-tight text-blue-200">
         {t.palabraCinetica.split('').map((c, i) => (
           <span key={`${ronda}-${i}`} className="cd-char" style={{ animationDelay: `${i * 45}ms` }}>{c}</span>
         ))}
@@ -164,7 +164,7 @@ export function Noise({ lang }) {
   const [on, setOn] = useState(true)
   return (
     <div className="cd-box grid place-items-center">
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #4f46e5, #0891b2)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #2563eb, #0891b2)' }} />
       {on && (
         <svg className="absolute inset-0 w-full h-full opacity-[.22] mix-blend-overlay pointer-events-none">
           <filter id="cd-grano">
@@ -202,7 +202,7 @@ export function Preloader({ lang }) {
   return (
     <div className="cd-box grid place-items-center">
       <div className="text-center">
-        <div className="font-extrabold text-lg text-indigo-200">{t.contenidoListo}</div>
+        <div className="font-extrabold text-lg text-blue-200">{t.contenidoListo}</div>
         <button className="cd-btn mt-1" onClick={reiniciar}>{t.volverCargar}</button>
       </div>
       <div

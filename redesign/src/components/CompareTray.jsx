@@ -42,7 +42,7 @@ export default function CompareTray({ t, names, onRemove, onClear, onOpen }) {
               <button
                 onClick={onOpen}
                 disabled={names.length < 2}
-                className="inline-flex items-center gap-2 rounded-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2 cursor-pointer transition-colors"
+                className="inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2 cursor-pointer transition-colors"
               >
                 <ArrowLeftRight size={14} /> {t.comparar} ({names.length})
               </button>

@@ -113,7 +113,7 @@ function plantilla(lang, n) {
     margin-top: 38px; font-size: 52px; font-weight: 800;
     letter-spacing: -1.6px; line-height: 1.14; max-width: 900px;
   }
-  .lema em { font-style: normal; color: #818cf8 }
+  .lema em { font-style: normal; color: #60a5fa }
   .piezas {
     margin-top: auto; display: grid; grid-template-columns: repeat(3, max-content);
     gap: 16px 56px; font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #a1a1aa;
@@ -125,9 +125,9 @@ function plantilla(lang, n) {
     font-family: 'JetBrains Mono', monospace; font-size: 25px;
   }
   .promesa { color: #a1a1aa }
-  .url { color: #818cf8; font-weight: 700 }
+  .url { color: #60a5fa; font-weight: 700 }
   .barra { position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
-    background: linear-gradient(90deg, #4f46e5, #818cf8, #4f46e5) }
+    background: linear-gradient(90deg, #2563eb, #60a5fa, #2563eb) }
 </style>
 </head>
 <body>

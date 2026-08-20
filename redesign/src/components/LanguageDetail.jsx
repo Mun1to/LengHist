@@ -64,7 +64,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
         onClick={onToggleCompare}
         className={`inline-flex items-center gap-1.5 mt-5 h-8 px-3 rounded-lg border text-xs font-semibold cursor-pointer transition-colors ${
           enComparacion
-            ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
+            ? 'border-blue-500 text-blue-600 dark:text-blue-400'
             : 'border-linea text-tinta-suave hover:border-linea-viva'
         }`}
       >
@@ -92,7 +92,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
                 initial={{ width: 0 }}
                 animate={{ width: `${l.pop}%` }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="h-full bg-indigo-500"
+                className="h-full bg-blue-500"
               />
             </div>
             <span className="font-mono text-xs text-tinta-suave shrink-0">{l.pop}/100</span>
@@ -100,7 +100,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
         </Dato>
 
         <Dato titulo={t.extensiones} mono>
-          <span className="text-indigo-600 dark:text-indigo-400">{l.extensions.join('  ')}</span>
+          <span className="text-blue-600 dark:text-blue-400">{l.extensions.join('  ')}</span>
         </Dato>
         <Dato titulo={t.usos}>{d.uses.join(' · ')}</Dato>
 
