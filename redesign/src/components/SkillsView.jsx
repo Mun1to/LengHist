@@ -5,7 +5,7 @@ import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import BotonCopiar from './BotonCopiar'
 import CodeBlock from './CodeBlock'
-import { Reticula } from './Plano'
+import { Encuadre, Reticula } from './Plano'
 import { authorOf, hasOwnRepo, MERCADO, repoLabel, skillFile, slugOf } from '../data/skills'
 import { rutaDe, slugClave } from '../lib/rutas'
 import { TOTALES } from '../lib/totales'
@@ -30,8 +30,9 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
         if (p && Math.hypot(e.clientX - p.x, e.clientY - p.y) > 6) return
         onOpen()
       }}
-      className="pulsable pulsable-suave flex flex-col bg-panel border border-linea p-4 cursor-pointer hover:border-linea-viva"
+      className="relative pulsable pulsable-suave flex flex-col bg-panel border border-linea p-4 cursor-pointer hover:border-linea-viva"
     >
+      <Encuadre suave />
       <div className="flex items-center gap-1 mb-1">
         <h3 className="font-bold text-sm text-tinta min-w-0 flex-1">{d.label}</h3>
         {/* Copiar el archivo sin entrar en la ficha: quien ya sabe qué skill

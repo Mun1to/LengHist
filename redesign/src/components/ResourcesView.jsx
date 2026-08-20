@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
-import { Reticula } from './Plano'
+import { Encuadre, Reticula } from './Plano'
 
 // Un directorio se lee por la marca, así que cada herramienta necesita un ancla
 // visual. No se traen los favicons de fuera a propósito: serían 64 peticiones a
@@ -57,8 +57,9 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.25, delay: Math.min(gi * 0.04 + i * 0.02, 0.3) }}
-                    className="group pulsable pulsable-suave flex items-stretch gap-3 bg-panel border border-linea p-3.5 hover:border-linea-viva"
+                    className="group relative pulsable pulsable-suave flex items-stretch gap-3 bg-panel border border-linea p-3.5 hover:border-linea-viva"
                   >
+                    <Encuadre suave />
                     <Monograma nombre={r.name} color={group.dot} />
                     <div className="min-w-0 flex-1 flex flex-col">
                       <div className="flex items-center gap-1.5">

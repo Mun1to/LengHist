@@ -6,7 +6,7 @@ import { CONCEPT_EXAMPLES_EN } from '../data/conceptExamplesEn'
 import ConceptDemo from './ConceptDemo'
 import CodeSample from './CodeSample'
 import VerMas from './VerMas'
-import { Reticula } from './Plano'
+import { Encuadre, Reticula } from './Plano'
 import { usePaginado, recortarGrupos } from '../lib/paginar'
 
 export default function ConceptsView({ t, lang, groups, onClear, favorites, onToggleFav }) {
@@ -51,8 +51,9 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.25, delay: Math.min((i % 6) * 0.03, 0.2) }}
-                    className="bg-panel border border-linea p-4"
+                    className="relative bg-panel border border-linea p-4"
                   >
+                    <Encuadre suave />
                     <div className="flex items-center gap-2 mb-1.5">
                       <h3 className="font-bold text-sm text-tinta min-w-0 flex-1">
                         {lang === 'en' && c.nameEn ? c.nameEn : c.name}

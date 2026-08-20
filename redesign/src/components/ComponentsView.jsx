@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import ComponentDemo from './ComponentDemo'
+import { Encuadre } from './Plano'
 import { rutaDe, slugClave } from '../lib/rutas'
 
 // Cada demo se monta al acercarse a la pantalla y se suelta al alejarse:
@@ -42,20 +43,26 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
 
   return (
     <div className="scroll-mt-20">
-      <div
-        ref={ref}
-        onPointerDown={onPointerDown}
-        onClick={onClick}
-        role="button"
-        tabIndex={0}
-        aria-label={item.name}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}
-        data-demo
-        className="group relative h-56 overflow-hidden bg-zinc-950 border border-zinc-800 cursor-pointer hover:border-zinc-600 focus-visible:border-blue-500 outline-none transition-colors"
-      >
-        {live && <ComponentDemo item={item} values={values} lang={lang} compact t={t} />}
-        <div className="absolute top-2 right-2 z-20" data-no-open>
-          <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} floating />
+      {/* La marca cuelga de un envoltorio propio y no de la tarjeta: la tarjeta
+          recorta lo que se salga (`overflow-hidden`) para que la demo no se
+          desborde, y las cuatro esquinas van justo en el filo. */}
+      <div className="relative">
+        <Encuadre suave tono="border-zinc-400" />
+        <div
+          ref={ref}
+          onPointerDown={onPointerDown}
+          onClick={onClick}
+          role="button"
+          tabIndex={0}
+          aria-label={item.name}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}
+          data-demo
+          className="group relative h-56 overflow-hidden bg-zinc-950 border border-zinc-800 cursor-pointer hover:border-zinc-600 focus-visible:border-blue-500 outline-none transition-colors"
+        >
+          {live && <ComponentDemo item={item} values={values} lang={lang} compact t={t} />}
+          <div className="absolute top-2 right-2 z-20" data-no-open>
+            <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} floating />
+          </div>
         </div>
       </div>
       {/* El nombre es el enlace de verdad de la tarjeta: la demo de arriba tiene

@@ -78,8 +78,15 @@ export function Canal({ children, nudos = false, className = '' }) {
 // de un `grid` cuenta como un hijo más y se come una celda. Pasó al primer
 // intento, y en la portada se vio como un hueco en blanco arriba a la izquierda
 // con las seis secciones corridas un sitio.
-export function Encuadre() {
-  const lado = 'pointer-events-none absolute w-2.5 h-2.5 border-tinta'
+// `suave` es la versión para una ficha del catálogo: la misma marca en la misma
+// tinta, dos píxeles más corta. Se probó además en el gris de las líneas para
+// que cien fichas no hicieran ruido, y el resultado fue que no se veía: sobre un
+// borde del mismo gris, la marca solo engrosaba la esquina. Si señala, se ve.
+// `tono` existe para las superficies que son oscuras SIEMPRE (la pantalla de una
+// demo del catálogo): ahí la tinta es negra en tema claro y la marca se pierde
+// contra el marco, así que se le pasa el tono literal.
+export function Encuadre({ suave = false, tono = 'border-tinta' }) {
+  const lado = `pointer-events-none absolute ${suave ? 'w-2 h-2' : 'w-2.5 h-2.5'} ${tono}`
   return (
     <span aria-hidden="true" className="pointer-events-none absolute inset-0">
       <span className={`${lado} -top-px -left-px border-t border-l`} />

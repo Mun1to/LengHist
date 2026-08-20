@@ -5,7 +5,7 @@ import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import { rutaDe, slugLenguaje } from '../lib/rutas'
 import VerMas from './VerMas'
-import { Reticula } from './Plano'
+import { Encuadre, Reticula } from './Plano'
 
 // Cada tarjeta es un enlace de verdad, no un div que escucha clics: se abre en
 // otra pestaña con el botón central, se copia con el derecho y los buscadores
@@ -35,6 +35,7 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
             // cajas estén alineadas.
             className="group relative flex flex-col bg-panel border border-linea hover:border-linea-viva transition-colors"
           >
+            <Encuadre suave />
             <Link to={rutaDe('languages', slugLenguaje(l.name))} className="pulsable pulsable-suave block p-4 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500">
               {/* El color del lenguaje se queda en una barra fina: identifica
                   igual que la cabecera de degradado y no se come la tarjeta. */}
