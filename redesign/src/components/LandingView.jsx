@@ -6,6 +6,7 @@ import CodeWindow from './CodeWindow'
 import Logo from './Logo'
 import { Banda, Canal, Encuadre } from './Plano'
 import { rutaDe } from '../lib/rutas'
+import { useEsOscuro } from '../lib/tema'
 
 // El objeto 3D en ASCII no depende de funciones experimentales: se ve en
 // cualquier navegador, así que sirve de escaparate en la portada. Y es una pieza
@@ -54,6 +55,9 @@ function Seccion({ n, titulo, texto, a, Icono }) {
 }
 
 export default function LandingView({ t, lang, onQuiz, totals }) {
+  // El ASCII del hero se pinta en un canvas, y un canvas no hereda `dark:`.
+  const oscuro = useEsOscuro()
+
   return (
     <div>
       {/* Las tres bandas comparten UN canal: las dos verticales son las mismas
@@ -114,12 +118,13 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
               {/* La portada la ocupa una pieza viva del catálogo, no una ilustración
                   de una pieza viva del catálogo. */}
               <motion.div {...aparece(0.25)}>
-                {/* Esquina recta, como la rejilla de secciones de abajo. Era el
-                    último `` que quedaba en la portada, y encerraba la
-                    demo en una caja curva en medio de una página construida con
-                    líneas de 1px. El fondo oscuro sí se queda: el ASCII es
-                    blanco, y sin él no se ve nada en tema claro. */}
-                <div className="relative h-[340px] sm:h-[400px] overflow-hidden bg-zinc-950 border border-linea">
+                {/* Sin caja: ni borde ni rectángulo negro detrás. El logo gira
+                    sobre el papel de la página, como el resto de la portada.
+                    Para poder quitar el fondo hubo que quitarle antes el color
+                    fijo: el ASCII se pintaba blanco y sobre fondo claro no se
+                    habría visto nada, así que ahora se pinta en la tinta del
+                    tema y el canvas va transparente. */}
+                <div className="relative h-[340px] sm:h-[400px]">
                   <Suspense fallback={<div className="absolute inset-0 grid place-items-center font-mono text-xs text-zinc-400">{t.compLoading}</div>}>
                     <AsciiObject
                       src="/brand/logo-blanco.svg"
@@ -127,6 +132,9 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                       scale={3.6}
                       autoRotate
                       autoRotateSpeed={1.2}
+                      colored={false}
+                      color={oscuro ? '#fafafa' : '#18181b'}
+                      background=""
                       highlight="#2563eb"
                       style={{ position: 'absolute', inset: 0 }}
                     />

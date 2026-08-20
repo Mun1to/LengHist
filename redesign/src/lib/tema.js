@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // El tema sigue al sistema y punto: no hay interruptor, ni preferencia guardada,
 // ni tres estados que recordar. Decisión de Munir el 2026-08-20, y es la
@@ -55,4 +55,21 @@ export function useTema() {
     CONSULTA_OSCURO.addEventListener('change', alCambiar)
     return () => CONSULTA_OSCURO.removeEventListener('change', alCambiar)
   }, [])
+}
+
+// Un canvas no entiende `dark:`, así que las piezas que pintan con un color de
+// verdad (el ASCII de la portada, por ejemplo) tienen que preguntar en qué tema
+// están. Se suscribe a LA MISMA consulta que el resto del módulo.
+export function useEsOscuro() {
+  const [oscuro, setOscuro] = useState(sistemaEsOscuro)
+  useEffect(() => {
+    if (!CONSULTA_OSCURO) return
+    // Se vuelve a leer al montar: entre el primer render y este efecto puede
+    // haber cambiado, y el primer valor se calculó sin escuchar a nadie.
+    setOscuro(sistemaEsOscuro())
+    const alCambiar = (e) => setOscuro(e.matches)
+    CONSULTA_OSCURO.addEventListener('change', alCambiar)
+    return () => CONSULTA_OSCURO.removeEventListener('change', alCambiar)
+  }, [])
+  return oscuro
 }
