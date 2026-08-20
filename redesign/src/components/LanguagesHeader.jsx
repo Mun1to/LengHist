@@ -19,7 +19,11 @@ export default function LanguagesHeader({ t, lang, filter, setFilter, total, sho
       </div>
       <p className="text-tinta-suave mb-6 max-w-2xl">{t.langsSub}</p>
 
-      <div className="flex flex-wrap items-center gap-5 pt-5 border-t border-linea">
+      {/* `data-nav` no es decoración: es lo que el kitchen sink busca para saber
+          qué es una lista de navegación. Estos filtros se quedaron fuera del
+          barrido justo por no llevarlo, y siguieron pintados de color mientras
+          el resto del sitio ya se había limpiado. */}
+      <div data-nav className="flex flex-wrap items-center gap-5 pt-5 border-t border-linea">
         {HERO_PILLS.map((p) => (
           <button
             key={p.label[lang]}
@@ -29,7 +33,7 @@ export default function LanguagesHeader({ t, lang, filter, setFilter, total, sho
                abajo sigue pegada al texto. */
             className={`font-mono text-sm inline-flex items-center min-h-6 pt-1 pb-0.5 border-b cursor-pointer transition-colors ${
               activo(p.filter)
-                ? 'text-blue-600 dark:text-blue-300 font-bold border-blue-500'
+                ? 'text-tinta font-bold border-tinta'
                 : 'text-tinta-suave border-transparent hover:text-tinta-fuerte'
             }`}
           >

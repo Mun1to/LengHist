@@ -41,14 +41,24 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
             <button
               key={c.key}
               onClick={() => { setActiveCat(c.key); onElegir?.() }}
+              // La categoría elegida se marca en TINTA, no en el acento. En esta
+              // casa el color clasifica dentro del contenido (el tono de un
+              // lenguaje, el fondo de una tarjeta de consejo) y en una lista de
+              // navegación no clasifica nada, así que solo lo gasta. Aquí manda
+              // el peso de la letra y el fondo, que es lo que ya hace el header.
               className={`pulsable flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer text-left ${
                 activeCat === c.key
-                  ? 'bg-blue-500/10 text-blue-600 dark:text-blue-300 font-semibold'
+                  ? 'bg-zinc-100 dark:bg-zinc-900 text-tinta font-semibold'
                   : 'text-tinta-suave hover:bg-zinc-100 dark:hover:bg-zinc-900'
               }`}
             >
               <span className="truncate">{c.label}</span>
-              <span className="font-mono text-xs text-tinta-suave shrink-0">{c.count}</span>
+              {/* La cuenta de la categoría elegida sube un nivel de tinta, y no
+                  es estética: sobre el gris que marca el activo, `tinta-suave`
+                  da 4,46:1 y se queda por debajo del aprobado. Es el mismo
+                  descuido que tenía el buscador, y sale del mismo sitio: ese
+                  gris solo cumple sobre el fondo base. */}
+              <span className={`font-mono text-xs shrink-0 ${activeCat === c.key ? 'text-tinta-fuerte' : 'text-tinta-suave'}`}>{c.count}</span>
             </button>
           ))}
         </div>
