@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  ArrowRight, Boxes, Braces, Languages, Lightbulb, Menu, Monitor, Moon, Sparkles, Sun, Terminal, Wrench, X,
+  ArrowRight, Boxes, Braces, Lightbulb, Menu, Sparkles, Terminal, Wrench, X,
 } from 'lucide-react'
 import Logo from './Logo'
 import Buscador from './Buscador'
@@ -39,30 +39,33 @@ const CONTROL = `${ALTO} grid place-items-center w-9 text-tinta-suave hover:text
 
 function Enlaces({ t, claves, activeNav }) {
   return (
-    <nav className="hidden xl:flex items-center gap-6">
+    <nav className="hidden xl:flex items-center">
       {claves.map((key) => (
         <Link
           key={key}
           to={rutaDe(key)}
-          // `inline-flex` con el alto de control para que el texto de la
-          // navegación caiga en el mismo eje que los iconos de al lado. Con
-          // `py-1` cada uno se centraba por su cuenta y quedaban a distinta
-          // altura por dos o tres píxeles, que es de lo que menos se sospecha y
-          // más se nota.
-          className={`${ALTO} inline-flex items-center text-sm whitespace-nowrap border-b-2 transition-colors ${
+          // El área pulsable la hace el relleno, no el tamaño de la letra: antes
+          // solo se podía pulsar sobre las letras, y en «C» o en «Skills» eso es
+          // un blanco muy pequeño. Ahora cada enlace ocupa su celda entera.
+          //
+          // El activo se marca en TINTA y no en indigo. En esta barra el indigo
+          // era el único color de marca suelto, y competía con los catorce
+          // colores de categoría que ya usa el catálogo para decir otra cosa.
+          className={`${ALTO} relative inline-flex items-center px-3 text-sm whitespace-nowrap transition-colors ${
             activeNav === key
-              ? 'border-indigo-500 text-tinta font-semibold'
-              : 'border-transparent text-tinta-suave hover:text-tinta'
+              ? 'text-tinta font-semibold'
+              : 'text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900'
           }`}
         >
           {t.nav[key]}
+          {activeNav === key && (
+            <span aria-hidden="true" className="absolute inset-x-2 bottom-0 h-0.5 bg-tinta" />
+          )}
         </Link>
       ))}
     </nav>
   )
 }
-
-const ICONO_TEMA = { sistema: Monitor, claro: Sun, oscuro: Moon }
 
 // Un icono por sección, en el color del texto y no en el suyo: el color aquí
 // competiría con el nombre, que es lo que se lee.
@@ -85,7 +88,7 @@ const CUENTA_SECCION = {
 // buscador. El panel se lee como el índice de una revista: cada sección con su
 // icono y cuántas fichas tiene dentro, que es el dato que de verdad ayuda a
 // decidir por dónde entrar.
-function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrirResultado, totales, tema, onCambiarTema, onToggleLang }) {
+function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrirResultado, totales }) {
   // Con el panel abierto no se scrollea la página de detrás.
   useEffect(() => {
     if (!abierto) return
@@ -103,8 +106,6 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
   }, [abierto, onCerrar])
 
   if (!abierto) return null
-
-  const IconoTema = ICONO_TEMA[tema] ?? Monitor
 
   return (
     <div className="xl:hidden fixed inset-x-0 top-[57px] bottom-0 z-40 bg-white dark:bg-zinc-950 border-t border-linea overflow-y-auto">
@@ -151,40 +152,26 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
           <ArrowRight size={15} className="flecha-desliza" />
         </button>
 
-        {/* Tema e idioma bajan aquí: en la barra son dos iconos de 14px que en un
-            móvil nadie encuentra, y aquí caben con su nombre escrito. */}
-        <div className="flex items-center gap-2 mt-6 pt-5 border-t border-linea">
-          <button
-            onClick={onCambiarTema}
-            className="pulsable flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-linea text-sm font-semibold text-tinta-fuerte cursor-pointer"
-          >
-            <IconoTema key={tema} size={15} className="brinca" />
-            {t.temasCorto[tema]}
-          </button>
-          <button
-            onClick={onToggleLang}
-            className="pulsable flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-linea font-mono text-sm font-bold text-tinta-fuerte cursor-pointer"
-          >
-            <Languages size={15} />
-            {lang === 'es' ? 'ES / EN' : 'EN / ES'}
-          </button>
-        </div>
-
         {/* En la barra este botón está oculto por debajo de xl, así que sin esta
             fila el repositorio no se alcanzaba desde el móvil salvo bajando
             hasta el pie. Aquí la invitación va escrita, porque el `hover` que la
-            enseña en escritorio no existe en un dedo. */}
-        <BotonGitHub t={t} conTexto />
+            enseña en escritorio no existe en un dedo.
+
+            El tema y el idioma estaban aquí y se fueron: el tema ya no tiene
+            interruptor en ningún sitio (sigue al sistema, en vivo) y el idioma
+            bajó al pie. */}
+        <div className="mt-6 pt-5 border-t border-linea">
+          <BotonGitHub t={t} conTexto />
+        </div>
       </div>
     </div>
   )
 }
 
 export default function TopBar({
-  t, lang, onToggleLang, activeNav, onLogoClick, onQuizClick, onAbrirResultado, tema, onCambiarTema, totales,
+  t, lang, activeNav, onLogoClick, onQuizClick, onAbrirResultado, totales,
 }) {
   const [menu, setMenu] = useState(false)
-  const IconoTema = ICONO_TEMA[tema] ?? Monitor
 
   // El panel del móvil se cierra solo al llegar a un ancho de escritorio.
   // Sin esto queda abierto en un estado imposible: el panel se oculta por CSS
@@ -248,31 +235,6 @@ export default function TopBar({
           <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-6">
             <Enlaces t={t} claves={DERECHA} activeNav={activeNav} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
-              {/* Tema e idioma viven aquí solo donde caben los seis enlaces. Por
-                  debajo de xl están dentro del panel, con su nombre escrito, y
-                  repetirlos aquí apretaba la barra hasta dejar el buscador en
-                  «Buscar er» en un móvil. */}
-              {!menu && (
-                <>
-                  <button
-                    onClick={onCambiarTema}
-                    aria-label={`${t.tema}: ${t.temas[tema]}`}
-                    title={`${t.tema}: ${t.temas[tema]}`}
-                    className={`pulsable hidden xl:grid ${CONTROL}`}
-                  >
-                    <IconoTema key={tema} size={15} className="brinca" />
-                  </button>
-                  <button
-                    onClick={onToggleLang}
-                    aria-label={t.ariaLang}
-                    title={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
-                    className={`pulsable hidden xl:flex items-center gap-1.5 ${ALTO} px-2 text-[13px] font-mono font-bold text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer`}
-                  >
-                    <Languages size={14} />
-                    {lang.toUpperCase()}
-                  </button>
-                </>
-              )}
               <BotonGitHub t={t} />
               {/* El test entra a 1620px y no en `2xl` (1536), que es donde estaba:
                   justo en ese ancho el botón dejaba 6px hasta el borde en vez de
@@ -299,7 +261,6 @@ export default function TopBar({
 
       <MenuMovil
         t={t} lang={lang} activeNav={activeNav} abierto={menu} totales={totales}
-        tema={tema} onCambiarTema={onCambiarTema} onToggleLang={onToggleLang}
         onAbrirResultado={onAbrirResultado}
         onCerrar={() => setMenu(false)}
         onQuizClick={onQuizClick}

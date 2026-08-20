@@ -90,7 +90,9 @@ function idiomaInicial() {
 
 export default function App() {
   const [lang, setLang] = useState(idiomaInicial)
-  const [tema, cambiarTema] = useTema()
+  // Ya no devuelve nada: el tema sigue al sistema en vivo y no hay interruptor
+  // que necesite su estado. Ver `lib/tema.js`.
+  useTema()
   const t = I18N[lang]
 
   // Dónde estamos lo dice la URL y nada más: así se puede enlazar cualquier
@@ -355,7 +357,7 @@ export default function App() {
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-tinta">
       <TopBar
         t={t} lang={lang} onToggleLang={cambiarIdioma} activeNav={activeNav}
-        tema={tema} onCambiarTema={cambiarTema} totales={TOTALES}
+        totales={TOTALES}
         onLogoClick={goHome}
         onAbrirResultado={abrirResultado}
         onQuizClick={() => setQuizOpen(true)}
@@ -459,7 +461,12 @@ export default function App() {
 
       {/* Fuera del flex: el pie cruza de lado a lado por debajo de la barra
           lateral, que es pegajosa y termina donde termina la ventana. */}
-      <Pie t={t} totals={TOTALES} />
+      {/* El idioma baja aquí desde la barra: se detecta solo del navegador, así
+          que en la barra era un control que casi nadie toca ocupando sitio de
+          primera fila. Pero tiene que seguir estando en algún lado, porque un
+          español con el navegador en inglés vería la web en inglés y sin esto no
+          tendría cómo cambiarla. */}
+      <Pie t={t} totals={TOTALES} lang={lang} onToggleLang={cambiarIdioma} />
 
       <CompareTray t={t} names={compareSet} onRemove={toggleCompare}
         onClear={() => setCompareSet([])} onOpen={() => setCmpOpen(true)} />

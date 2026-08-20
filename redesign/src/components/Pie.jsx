@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Languages } from 'lucide-react'
 
 // El pie vivía dentro de la portada, así que en las seis vistas de catálogo no
 // existía: quien llega por un buscador a una ficha suelta, la lee y se va, no
@@ -14,7 +14,7 @@ const ENLACES = [
   { clave: 'pieAuditar', url: `${REPO}/blob/main/AI-AUDIT.md` },
 ]
 
-export default function Pie({ t, totals }) {
+export default function Pie({ t, totals, lang, onToggleLang }) {
   return (
     <footer className="border-t border-linea px-6 sm:px-10 py-8 mt-4">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -34,6 +34,24 @@ export default function Pie({ t, totals }) {
               <ArrowUpRight size={12} />
             </a>
           ))}
+
+          {/* El idioma vive aquí y no en la barra: se acierta solo con el del
+              navegador, así que es un control que la mayoría no toca nunca y no
+              se gana la primera fila. Pero sigue estando, y a la vista: quien
+              lee en un idioma distinto al de su navegador (un español fuera de
+              España, alguien que prefiere los términos técnicos en inglés) se
+              quedaría atrapado si esto no existiera en ningún sitio.
+
+              Y llega: las listas largas se paginan justamente para que el pie se
+              alcance, así que aquí no se esconde nada. */}
+          <button
+            onClick={onToggleLang}
+            aria-label={t.ariaLang}
+            className="pulsable inline-flex items-center gap-1.5 min-h-6 font-mono text-xs font-bold text-tinta-suave hover:text-tinta transition-colors cursor-pointer"
+          >
+            <Languages size={12} />
+            {lang === 'es' ? 'ES / EN' : 'EN / ES'}
+          </button>
         </nav>
       </div>
     </footer>
