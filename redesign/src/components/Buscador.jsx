@@ -93,7 +93,7 @@ export default function Buscador({ t, lang, onAbrir }) {
           onFocus={() => setAbierto(true)}
           onKeyDown={teclas}
           placeholder={t.buscarTodoPh}
-          className="w-full h-9 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-linea pl-9 pr-4 sm:pr-14 text-sm text-tinta placeholder:text-tinta-suave outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-950 transition-colors"
+          className="w-full h-9 bg-zinc-100 dark:bg-zinc-900 border border-linea pl-9 pr-4 sm:pr-14 text-sm text-tinta placeholder:text-tinta-suave outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-zinc-950 transition-colors"
         />
         {/* El atajo es una pista, no un control: texto suelto, sin caja */}
         <span className="hidden sm:block absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-[11px] text-tinta-suave pointer-events-none select-none">
@@ -107,7 +107,7 @@ export default function Buscador({ t, lang, onAbrir }) {
           id="buscadorLista"
           role="listbox"
           aria-label={t.ariaSearch}
-          className="absolute left-0 right-0 top-11 max-h-[70vh] overflow-y-auto rounded-xl border border-linea bg-white dark:bg-zinc-950 shadow-2xl shadow-zinc-900/10 dark:shadow-black/50 py-2"
+          className="absolute left-0 right-0 top-11 max-h-[70vh] overflow-y-auto border border-linea bg-white dark:bg-zinc-950 shadow-2xl shadow-zinc-900/10 dark:shadow-black/50 py-2"
         >
           {planos.length === 0 ? (
             <div className="px-4 py-6 text-center text-sm text-tinta-suave">

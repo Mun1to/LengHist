@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import Logo from './Logo'
 import Buscador from './Buscador'
+import BotonGitHub from './BotonGitHub'
 import { rutaDe } from '../lib/rutas'
 
 // El buscador manda en el centro y la navegación se reparte a los lados, tres y
@@ -21,6 +22,21 @@ const ORDEN_MENU = ['languages', 'resources', 'concepts', 'components', 'skills'
 const IZQUIERDA = ORDEN_MENU.slice(0, 3)
 const DERECHA = ORDEN_MENU.slice(3)
 
+// La escala de la barra, en un sitio y no repartida por doce clases sueltas.
+//
+// Antes había cuatro alturas conviviendo (el logo a 32, los botones a 36, el
+// CTA a 38 por su relleno), tres radios (`rounded-lg`, `rounded-full` y el del
+// buscador) y cuatro espaciados sin relación entre ellos (1.5, 2, 4 y 5). Nada
+// de eso se ve como un fallo por separado, y juntos son exactamente por qué una
+// barra se siente descuidada aunque no sepas señalar dónde.
+//
+// El sistema: **una sola altura de control (36px)** para todo lo pulsable, así
+// todo comparte eje; **esquina recta**, que es lo que habla la retícula que
+// estrenó la portada; y el espaciado en dos escalones nada más, 8px dentro de un
+// grupo y 24px entre grupos.
+const ALTO = 'h-9'
+const CONTROL = `${ALTO} grid place-items-center w-9 text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer`
+
 function Enlaces({ t, claves, activeNav }) {
   return (
     <nav className="hidden xl:flex items-center gap-6">
@@ -28,7 +44,12 @@ function Enlaces({ t, claves, activeNav }) {
         <Link
           key={key}
           to={rutaDe(key)}
-          className={`text-sm py-1 border-b-2 whitespace-nowrap transition-colors ${
+          // `inline-flex` con el alto de control para que el texto de la
+          // navegación caiga en el mismo eje que los iconos de al lado. Con
+          // `py-1` cada uno se centraba por su cuenta y quedaban a distinta
+          // altura por dos o tres píxeles, que es de lo que menos se sospecha y
+          // más se nota.
+          className={`${ALTO} inline-flex items-center text-sm whitespace-nowrap border-b-2 transition-colors ${
             activeNav === key
               ? 'border-indigo-500 text-tinta font-semibold'
               : 'border-transparent text-tinta-suave hover:text-tinta'
@@ -148,6 +169,12 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
             {lang === 'es' ? 'ES / EN' : 'EN / ES'}
           </button>
         </div>
+
+        {/* En la barra este botón está oculto por debajo de xl, así que sin esta
+            fila el repositorio no se alcanzaba desde el móvil salvo bajando
+            hasta el pie. Aquí la invitación va escrita, porque el `hover` que la
+            enseña en escritorio no existe en un dedo. */}
+        <BotonGitHub t={t} conTexto />
       </div>
     </div>
   )
@@ -158,6 +185,19 @@ export default function TopBar({
 }) {
   const [menu, setMenu] = useState(false)
   const IconoTema = ICONO_TEMA[tema] ?? Monitor
+
+  // El panel del móvil se cierra solo al llegar a un ancho de escritorio.
+  // Sin esto queda abierto en un estado imposible: el panel se oculta por CSS
+  // (`xl:hidden`) pero React sigue creyendo que está abierto, y como el buscador
+  // de la barra se pinta con `{!menu && ...}`, desaparece y no vuelve. Se ve
+  // girando el teléfono a horizontal con el menú abierto, o arrastrando el borde
+  // de la ventana. Encontrado probando el botón de GitHub, no reportado.
+  useEffect(() => {
+    const escritorio = window.matchMedia('(min-width: 1280px)')
+    const cerrar = (e) => { if (e.matches) setMenu(false) }
+    escritorio.addEventListener('change', cerrar)
+    return () => escritorio.removeEventListener('change', cerrar)
+  }, [])
 
   return (
     <>
@@ -173,18 +213,18 @@ export default function TopBar({
             sobra, así que el buscador cae en el centro exacto de la ventana. Con un
             simple ml-auto quedaba 70px a la izquierda, porque el logo pesa mucho
             menos que el idioma y el botón del test juntos. */}
-        <div className="flex items-center gap-4 px-6 py-3">
-          <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-5">
+        <div className="flex items-center gap-6 px-6 h-14">
+          <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-6">
             <Link
               to="/"
               onClick={() => { setMenu(false); onLogoClick() }}
               aria-label="Vibeset"
               title="Vibeset"
-              className="group relative grid place-items-center shrink-0 w-14 h-8"
+              className={`group relative grid place-items-center shrink-0 w-14 ${ALTO}`}
             >
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute w-14 h-7 rounded-full bg-zinc-900/8 dark:bg-white/20 blur-xl opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                className="pointer-events-none absolute w-14 h-8 rounded-full bg-zinc-900/8 dark:bg-white/20 blur-xl opacity-90 group-hover:opacity-100 transition-opacity duration-300"
               />
               <span
                 className="relative text-zinc-900 dark:text-white transition-transform duration-300 group-hover:scale-110 [filter:drop-shadow(0_0_6px_rgba(24,24,27,0.20))] dark:[filter:drop-shadow(0_0_5px_rgba(255,255,255,0.55))_drop-shadow(0_0_16px_rgba(255,255,255,0.30))]"
@@ -198,11 +238,14 @@ export default function TopBar({
           {/* Con el panel abierto el buscador está dentro de él, a lo ancho:
               aquí, con el logo y los botones al lado, se quedaba en «Buscar er».
               El hueco se conserva para que la equis siga cayendo a la derecha. */}
-          <div className="flex-1 xl:flex-none xl:w-[clamp(20rem,26vw,34rem)] min-w-0 flex justify-center">
+          {/* El ancho bajó de 34rem a 30rem al entrar el botón de GitHub: con el
+              anterior, a 1600px la barra desbordaba y el botón del test se salía
+              por la derecha. Medido, no supuesto. */}
+          <div className="flex-1 xl:flex-none xl:w-[clamp(18rem,22vw,30rem)] min-w-0 flex justify-center">
             {!menu && <Buscador t={t} lang={lang} onAbrir={onAbrirResultado} />}
           </div>
 
-          <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-5">
+          <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-6">
             <Enlaces t={t} claves={DERECHA} activeNav={activeNav} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
               {/* Tema e idioma viven aquí solo donde caben los seis enlaces. Por
@@ -215,7 +258,7 @@ export default function TopBar({
                     onClick={onCambiarTema}
                     aria-label={`${t.tema}: ${t.temas[tema]}`}
                     title={`${t.tema}: ${t.temas[tema]}`}
-                    className="pulsable hidden xl:grid place-items-center w-9 h-9 rounded-lg text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
+                    className={`pulsable hidden xl:grid ${CONTROL}`}
                   >
                     <IconoTema key={tema} size={15} className="brinca" />
                   </button>
@@ -223,16 +266,21 @@ export default function TopBar({
                     onClick={onToggleLang}
                     aria-label={t.ariaLang}
                     title={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
-                    className="pulsable hidden xl:flex items-center gap-1.5 h-9 px-1.5 text-xs font-mono font-bold text-tinta-suave hover:text-tinta cursor-pointer"
+                    className={`pulsable hidden xl:flex items-center gap-1.5 ${ALTO} px-2 text-[13px] font-mono font-bold text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer`}
                   >
                     <Languages size={14} />
                     {lang.toUpperCase()}
                   </button>
                 </>
               )}
+              <BotonGitHub t={t} />
+              {/* El test entra a 1620px y no en `2xl` (1536), que es donde estaba:
+                  justo en ese ancho el botón dejaba 6px hasta el borde en vez de
+                  los 24 del relleno de la barra, o sea que aparecía pisando el
+                  margen. Medido. */}
               <button
                 onClick={onQuizClick}
-                className="pulsable hidden 2xl:inline-flex items-center rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-2 whitespace-nowrap cursor-pointer"
+                className={`pulsable hidden min-[1620px]:inline-flex items-center ${ALTO} px-4 bg-indigo-600 hover:bg-indigo-500 text-white text-[13px] font-semibold whitespace-nowrap cursor-pointer`}
               >
                 {t.ctaQuiz}
               </button>
@@ -240,7 +288,7 @@ export default function TopBar({
                 onClick={() => setMenu((v) => !v)}
                 aria-label={menu ? t.menuCerrar : t.menuAbrir}
                 aria-expanded={menu}
-                className="pulsable xl:hidden grid place-items-center w-9 h-9 rounded-lg text-tinta-fuerte hover:bg-zinc-100 dark:hover:bg-zinc-900 cursor-pointer"
+                className={`pulsable xl:hidden grid ${CONTROL}`}
               >
                 {menu ? <X size={18} /> : <Menu size={18} />}
               </button>
