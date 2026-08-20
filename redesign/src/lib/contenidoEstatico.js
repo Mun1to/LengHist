@@ -188,21 +188,27 @@ export function jsonLdDePagina({ vista, ficha, lang, t, base, url, titulo, descr
     '@id': `${base}/#organizacion`,
     name: 'Vibeset',
     url: base,
-    logo: `${base}/brand/og.png`,
+    // El logo, no la tarjeta social: `og.png` es un banner de 1200x630 con
+    // texto dentro, y quien pide el logo de una organización espera la marca.
+    logo: `${base}/brand/icon-512.png`,
     sameAs: ['https://github.com/Mun1to/Vibeset'],
   }
 
-  if (vista === 'home') {
-    return [organizacion, {
-      '@type': 'WebSite',
-      '@id': `${base}/#sitio`,
-      name: 'Vibeset',
-      url: base,
-      description: descripcion,
-      inLanguage: lang === 'en' ? 'en' : 'es',
-      publisher: { '@id': `${base}/#organizacion` },
-    }]
+  // El sitio y la organización van en TODAS las páginas, no solo en la portada.
+  // Antes se emitían solo ahí, y las otras 137 referenciaban `#sitio` y
+  // `#organizacion` con un `@id` que en ese documento no existía: quien lee el
+  // grafo de forma estricta se encontraba una referencia colgando y descartaba
+  // la asociación de la página con el sitio.
+  const sitio = {
+    '@type': 'WebSite',
+    '@id': `${base}/#sitio`,
+    name: 'Vibeset',
+    url: base,
+    inLanguage: lang === 'en' ? 'en' : 'es',
+    publisher: { '@id': `${base}/#organizacion` },
   }
+
+  if (vista === 'home') return [organizacion, { ...sitio, description: descripcion }]
 
   const migas = [{ '@type': 'ListItem', position: 1, name: 'Vibeset', item: base }]
   if (vista !== '404') {
@@ -210,7 +216,7 @@ export function jsonLdDePagina({ vista, ficha, lang, t, base, url, titulo, descr
     if (ficha) migas.push({ '@type': 'ListItem', position: 3, name: titulo.split(' · ')[0], item: url })
   }
 
-  const nodos = [{ '@type': 'BreadcrumbList', itemListElement: migas }]
+  const nodos = [organizacion, sitio, { '@type': 'BreadcrumbList', itemListElement: migas }]
 
   // En una sección sin fichas propias, la lista es la página entera: se declara
   // cuántas cosas hay, que es justo lo que se enseña.
