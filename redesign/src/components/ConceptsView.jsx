@@ -7,6 +7,7 @@ import ConceptDemo from './ConceptDemo'
 import CodeSample from './CodeSample'
 import VerMas from './VerMas'
 import { Encuadre, Reticula } from './Plano'
+import VistoEn from './VistoEn'
 import { usePaginado, recortarGrupos } from '../lib/paginar'
 
 export default function ConceptsView({ t, lang, groups, onClear, favorites, onToggleFav }) {
@@ -67,6 +68,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                     <p className="text-xs text-tinta-suave mt-2">
                       <b className="text-tinta-suave">{t.conceptUse}:</b> {c[lang].use}
                     </p>
+                    <VistoEn dato={c.vistoEn} lang={lang} etiqueta={t.vistoEn} />
                     <ConceptDemo nombre={c.name} etiqueta={t.conceptDemo} lang={lang} />
                     <CodeSample t={t} etiqueta={t.conceptExample} bloques={ejemplos[c.name]} />
                   </motion.div>

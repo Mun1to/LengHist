@@ -18,6 +18,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Scroll with inertia and easing that makes the page feel fluid and premium.",
      "use": "Foundation of almost every scroll effect; gives that buttery feel."
+    },
+    "vistoEn": {
+     "sitio": "lenis.darkroom.engineering",
+     "url": "https://lenis.darkroom.engineering",
+     "prueba": "lenis",
+     "visto": "2026-08-21",
+     "es": "la web de la propia librería, movida con Lenis",
+     "en": "the library home page, running on Lenis"
     }
    },
    {
@@ -42,6 +50,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Scrolling snaps automatically to each section or slide (scroll-snap-type).",
      "use": "Full-screen presentations, carousels and slide-like sections."
+    },
+    "vistoEn": {
+     "sitio": "stripe.com",
+     "url": "https://stripe.com",
+     "prueba": "scroll-snap-type",
+     "visto": "2026-08-21",
+     "es": "los carruseles de su portada encajan con scroll-snap",
+     "en": "its homepage carousels snap with scroll-snap"
     }
    },
    {
@@ -54,6 +70,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Animations tied to scroll progress, now native in CSS with no JS needed.",
      "use": "Progress bars, reveals and light parallax at 0 KB."
+    },
+    "vistoEn": {
+     "sitio": "stripe.com",
+     "url": "https://stripe.com",
+     "prueba": "animation-timeline",
+     "visto": "2026-08-21",
+     "es": "anima con animation-timeline, sin JavaScript de scroll",
+     "en": "animates with animation-timeline, no scroll JavaScript"
     }
    },
    {
@@ -78,6 +102,14 @@ export const CONCEPTS = [
     "en": {
      "what": "An element sticks on screen while the rest of the content keeps moving.",
      "use": "Stacking cards, pinned demos and chapters."
+    },
+    "vistoEn": {
+     "sitio": "vercel.com",
+     "url": "https://vercel.com",
+     "prueba": "position:sticky",
+     "visto": "2026-08-21",
+     "es": "once elementos que se quedan pegados al bajar",
+     "en": "eleven elements that stick as you scroll"
     }
    },
    {
@@ -233,6 +265,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Frosted-glass effect: blurred, translucent background.",
      "use": "Modern floating bars, cards and menus."
+    },
+    "vistoEn": {
+     "sitio": "tailwindcss.com",
+     "url": "https://tailwindcss.com",
+     "prueba": "backdrop-filter",
+     "visto": "2026-08-21",
+     "es": "las capas translúcidas de su interfaz",
+     "en": "the translucent layers in its interface"
     }
    },
    {
@@ -391,6 +431,14 @@ export const CONCEPTS = [
     "en": {
      "what": "System preference to reduce animations (accessibility).",
      "use": "Respect it to avoid motion sickness; or, if your brand decides, offer a switch to turn motion off."
+    },
+    "vistoEn": {
+     "sitio": "stripe.com",
+     "url": "https://stripe.com",
+     "prueba": "prefers-reduced-motion",
+     "visto": "2026-08-21",
+     "es": "ciento diez reglas que respetan a quien pide menos movimiento",
+     "en": "a hundred and ten rules honoring reduced motion"
     }
    },
    {
@@ -428,6 +476,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Load images and resources only as they approach the viewport.",
      "use": "Speeds up initial load and saves data."
+    },
+    "vistoEn": {
+     "sitio": "clerk.com",
+     "url": "https://clerk.com",
+     "prueba": "loading=\"lazy\"",
+     "visto": "2026-08-21",
+     "es": "noventa y siete imágenes que esperan a hacer falta",
+     "en": "ninety-seven images that wait until needed"
     }
    },
    {
@@ -475,6 +531,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Styles based on the container's size, not the window's.",
      "use": "Truly reusable components that adapt to their slot."
+    },
+    "vistoEn": {
+     "sitio": "vercel.com",
+     "url": "https://vercel.com",
+     "prueba": "@container",
+     "visto": "2026-08-21",
+     "es": "su CSS lleva noventa y seis consultas de contenedor",
+     "en": "its CSS carries ninety-six container queries"
     }
    },
    {
@@ -487,6 +551,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Font sizes that scale smoothly between a min and a max.",
      "use": "Type that looks good from mobile to large screens with no jumps."
+    },
+    "vistoEn": {
+     "sitio": "vercel.com",
+     "url": "https://vercel.com",
+     "prueba": "clamp(",
+     "visto": "2026-08-21",
+     "es": "los tamaños se calculan con clamp, sin saltos",
+     "en": "sizes are computed with clamp, no jumps"
     }
    },
    {
@@ -499,6 +571,14 @@ export const CONCEPTS = [
     "en": {
      "what": "The 'parent selector': style an element based on what it contains.",
      "use": "Styling logic previously impossible without JS."
+    },
+    "vistoEn": {
+     "sitio": "vercel.com",
+     "url": "https://vercel.com",
+     "prueba": ":has(",
+     "visto": "2026-08-21",
+     "es": "lo usa más de cien veces para reaccionar al hijo",
+     "en": "used over a hundred times to react to a child"
     }
    },
    {
@@ -511,6 +591,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Organize CSS priority into layers to avoid specificity wars.",
      "use": "Keep CSS tidy in large projects."
+    },
+    "vistoEn": {
+     "sitio": "stripe.com",
+     "url": "https://stripe.com",
+     "prueba": "@layer",
+     "visto": "2026-08-21",
+     "es": "ordena su CSS en capas en vez de pelear con la especificidad",
+     "en": "orders its CSS in layers instead of fighting specificity"
     }
    },
    {
@@ -523,6 +611,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Mix two colors directly in CSS.",
      "use": "Generate shades, hovers and transparencies from a base color (used a lot on this site)."
+    },
+    "vistoEn": {
+     "sitio": "tailwindcss.com",
+     "url": "https://tailwindcss.com",
+     "prueba": "color-mix(",
+     "visto": "2026-08-21",
+     "es": "más de mil colores mezclados en su hoja de estilos",
+     "en": "over a thousand mixed colors in its stylesheet"
     }
    },
    {
@@ -535,6 +631,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Let a child element inherit the parent's grid lines.",
      "use": "Align cards and lists perfectly."
+    },
+    "vistoEn": {
+     "sitio": "vercel.com",
+     "url": "https://vercel.com",
+     "prueba": "subgrid",
+     "visto": "2026-08-21",
+     "es": "rejillas hijas alineadas con la de su padre",
+     "en": "child grids lining up with their parent"
     }
    },
    {
@@ -547,6 +651,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Properties by logical axis (inline/block) instead of left/right/top/bottom.",
      "use": "Automatic support for right-to-left (RTL) languages."
+    },
+    "vistoEn": {
+     "sitio": "stripe.com",
+     "url": "https://stripe.com",
+     "prueba": "margin-inline",
+     "visto": "2026-08-21",
+     "es": "márgenes en lógico, para que el sitio pueda girar de dirección",
+     "en": "logical margins, so the site can flip direction"
     }
    }
   ]
