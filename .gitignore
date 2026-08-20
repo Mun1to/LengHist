@@ -16,3 +16,6 @@ GEMINI.md
 .github/copilot-instructions.md
 .cursor/rules/contexto.mdc
 .agents/
+
+# Capturas y trazas del servidor MCP de navegador: son de la sesion, no del producto.
+.playwright-mcp/
