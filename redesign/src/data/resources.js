@@ -1,4 +1,6 @@
-// Generado desde el index.html de producción — 64 recursos reales
+// El catálogo de recursos. Nació volcado del index.html vanilla, pero desde el
+// 2026-08-20 se edita a mano aquí: ese HTML ya no se sirve y no es la fuente.
+// El orden de los grupos es el que se ve en pantalla.
 export const RESOURCES = [
  {
   "key": "ai",
@@ -49,6 +51,12 @@ export const RESOURCES = [
     "url": "https://www.dora.run",
     "es": "Webs 3D animadas sin código",
     "en": "Animated 3D sites, no-code"
+   },
+   {
+    "name": "Refero Styles",
+    "url": "https://styles.refero.design",
+    "es": "Sistemas de diseño de webs reales, en formato que lee tu agente",
+    "en": "Design systems from real products, in a format your agent reads"
    }
   ]
  },
@@ -181,6 +189,12 @@ export const RESOURCES = [
     "url": "https://www.hyperui.dev",
     "es": "Componentes Tailwind gratis",
     "en": "Free Tailwind components"
+   },
+   {
+    "name": "Unlumen UI",
+    "url": "https://ui.unlumen.com",
+    "es": "Componentes React con documentación y primitivas",
+    "en": "React components with docs and primitives"
    }
   ]
  },
@@ -267,6 +281,12 @@ export const RESOURCES = [
     "url": "https://threejs.org",
     "es": "Gráficos y 3D en la web",
     "en": "Web graphics & 3D"
+   },
+   {
+    "name": "EZGIF vídeo a JPG",
+    "url": "https://ezgif.com/video-to-jpg",
+    "es": "Parte un vídeo en fotogramas para animarlo con el scroll",
+    "en": "Splits a video into frames to scrub it with scroll"
    }
   ]
  },
@@ -465,11 +485,11 @@ export const RESOURCES = [
   ]
  },
  {
-  "key": "learn",
-  "dot": "var(--tono-ambar)",
+  "key": "inspiracion",
+  "dot": "var(--tono-fucsia)",
   "label": {
-   "es": "Inspiración y aprendizaje",
-   "en": "Inspiration & learning"
+   "es": "Inspiración",
+   "en": "Inspiration"
   },
   "items": [
    {
@@ -491,6 +511,22 @@ export const RESOURCES = [
     "en": "Front-end demos & experiments"
    },
    {
+    "name": "CollectUI",
+    "url": "https://collectui.com",
+    "es": "Interfaces nuevas cada día, elegidas a mano",
+    "en": "Hand-picked interface designs, daily"
+   }
+  ]
+ },
+ {
+  "key": "learn",
+  "dot": "var(--tono-ambar)",
+  "label": {
+   "es": "Aprender",
+   "en": "Learn"
+  },
+  "items": [
+   {
     "name": "MDN Web Docs",
     "url": "https://developer.mozilla.org",
     "es": "La referencia de la web",
@@ -501,6 +537,40 @@ export const RESOURCES = [
     "url": "https://css-tricks.com",
     "es": "Guías y trucos de CSS",
     "en": "CSS guides & tricks"
+   },
+   {
+    "name": "roadmap.sh",
+    "url": "https://roadmap.sh",
+    "es": "Qué estudiar y en qué orden, por oficio",
+    "en": "What to learn and in what order, by role"
+   },
+   {
+    "name": "AI Hero",
+    "url": "https://www.aihero.dev",
+    "es": "Cursos y tutoriales para programar con IA",
+    "en": "Courses and tutorials for building with AI"
+   }
+  ]
+ },
+ {
+  "key": "comprobar",
+  "dot": "var(--tono-turquesa)",
+  "label": {
+   "es": "Comprobar antes de lanzar",
+   "en": "Check before you ship"
+  },
+  "items": [
+   {
+    "name": "Spamhaus",
+    "url": "https://www.spamhaus.org",
+    "es": "Mira si tu dominio o tu IP están en listas de spam",
+    "en": "Check if your domain or IP is on a spam blocklist"
+   },
+   {
+    "name": "MXToolbox Email Health",
+    "url": "https://mxtoolbox.com/emailhealth",
+    "es": "Revisa el correo del dominio: MX, SPF, DMARC y listas negras (1 análisis gratis al día)",
+    "en": "Audits a domain email setup: MX, SPF, DMARC and blocklists (1 free check a day)"
    }
   ]
  }
