@@ -11,6 +11,8 @@
 // detalle con mucho contraste para tener algo que deformar, así que la retícula
 // de fichas de colores les da más juego que cualquier fotografía.
 
+import { TOTALES } from '../lib/totales'
+
 const FICHAS = [
   { name: 'Python', year: 1991, color: '#3776ab' },
   { name: 'Rust', year: 2010, color: '#ce4a2f' },
@@ -60,7 +62,7 @@ const CODIGO = [
   [[')', '#a1a1aa']],
 ]
 
-function Cabecera({ compact }) {
+function Cabecera({ compact, t }) {
   return (
     <div
       className={`flex items-baseline justify-between border-b border-zinc-700 ${compact ? 'px-3 py-2' : 'px-6 py-4'}`}
@@ -70,7 +72,7 @@ function Cabecera({ compact }) {
       {/* En la rejilla, la estrella de favorito flota sobre la esquina derecha de
           la tarjeta: el texto se aparta para no quedar debajo. */}
       <span className={`font-mono text-zinc-400 shrink-0 ${compact ? 'text-[9px] pr-9' : 'text-xs'}`}>
-        {compact ? '100 · 64' : '100 lenguajes · 64 recursos · 41 conceptos'}
+        {compact ? t.demoLineCorta(TOTALES) : t.demoLine(TOTALES)}
       </span>
     </div>
   )
@@ -142,7 +144,7 @@ function Titular({ compact, t }) {
       <div className={`font-extrabold tracking-tight text-white leading-[1.05] ${compact ? 'text-xl' : 'text-5xl'}`}>
         Vibeset
       </div>
-      <div className={`font-mono text-white/80 mt-1 ${compact ? 'text-[10px]' : 'text-sm'}`}>{t.demoLine}</div>
+      <div className={`font-mono text-white/80 mt-1 ${compact ? 'text-[10px]' : 'text-sm'}`}>{t.demoLine(TOTALES)}</div>
     </div>
   )
 }
@@ -164,7 +166,7 @@ export default function SuperficieDemo({ clave, compact = false, t, variante }) 
 
   return (
     <div className="w-full h-full overflow-hidden flex flex-col" style={{ background: '#0a0a0b' }}>
-      <Cabecera compact={compact} />
+      <Cabecera compact={compact} t={t} />
       {/* Debajo del código y del terminal va una fila de fichas: rellena el alto
           de la caja y le da al efecto algo con contraste hasta abajo, que es
           justo lo que necesitan la lente de ASCII y el trama de un bit. */}
@@ -180,7 +182,7 @@ export default function SuperficieDemo({ clave, compact = false, t, variante }) 
 export function SuperficieAlta({ compact, t }) {
   return (
     <div className="w-full" style={{ background: '#0a0a0b' }}>
-      <Cabecera compact={compact} />
+      <Cabecera compact={compact} t={t} />
       <Catalogo compact={compact} filas={2} />
       <div className={compact ? 'px-3 pb-3' : 'px-6 pb-6'}>
         {FICHAS.map((f) => (
@@ -201,7 +203,7 @@ export function SuperficieAlta({ compact, t }) {
       </div>
       <Codigo compact={compact} />
       <div className={`font-mono text-zinc-400 ${compact ? 'text-[9px] px-3 pb-3' : 'text-xs px-6 pb-6'}`}>
-        {t.demoLine}
+        {t.demoLine(TOTALES)}
       </div>
     </div>
   )

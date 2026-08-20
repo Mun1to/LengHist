@@ -31,6 +31,7 @@ import { COMPONENT_GROUPS, COMPONENT_ITEMS } from './data/components'
 import { SKILL_GROUPS, SKILL_ITEMS } from './data/skills'
 import { CONSEJO_GRUPOS, CONSEJOS } from './data/consejos'
 import { I18N } from './data/i18n'
+import { TOTALES } from './lib/totales'
 
 // Los favoritos aguantan la recarga: guardar una estrella y perderla al refrescar
 // es peor que no tener el botón. Cada catálogo lleva su propia lista.
@@ -62,16 +63,6 @@ const URL_APORTAR = 'https://github.com/Mun1to/Vibeset/blob/main/redesign/src/da
 const IDIOMAS = ['es', 'en']
 const CLAVE_IDIOMA = 'vibeset-lang'
 
-// Cuánto hay en cada sección. Sale del catálogo, no de un número escrito a mano
-// que se queda viejo, y lo usan la portada y el menú del móvil.
-const TOTALES = {
-  langs: LANGUAGES.length,
-  res: RESOURCES.reduce((n, g) => n + g.items.length, 0),
-  concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0),
-  comps: COMPONENT_ITEMS.length,
-  skills: SKILL_ITEMS.length,
-  consejos: CONSEJOS.length,
-}
 
 // Vuelta de la URL a la clave interna. Se arman una vez, no en cada pintado.
 const LENGUAJE_POR_SLUG = Object.fromEntries(LANGUAGES.map((l) => [slugLenguaje(l.name), l.name]))

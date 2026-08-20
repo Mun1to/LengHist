@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import SuperficieDemo, { SuperficieAlta } from './SuperficieDemo'
+import { TOTALES } from '../lib/totales'
 
 // Componentes originales de canvasui.dev: shaders pesados (dos con three.js),
 // así que se descargan solo cuando alguien los mira, no en la carga inicial.
@@ -32,7 +33,7 @@ function UnderContent({ compact, t }) {
         {t.demoUnder}
       </div>
       <div className={`opacity-80 mt-2 ${compact ? 'text-[11px]' : 'text-sm'}`}>
-        {t.demoLine}
+        {t.demoLine(TOTALES)}
       </div>
     </div>
   )

@@ -35,21 +35,12 @@ function buscarChrome() {
   return encontrado
 }
 
+// Los números que se dibujan en la tarjeta salen de la misma cuenta que usan la
+// aplicación y el texto alternativo del build, para que la imagen y su
+// descripción no puedan decir cosas distintas.
 async function totales() {
-  const { LANGUAGES } = await import('../src/data/languages.js')
-  const { RESOURCES } = await import('../src/data/resources.js')
-  const { CONCEPTS } = await import('../src/data/concepts.js')
-  const { COMPONENT_ITEMS } = await import('../src/data/components.js')
-  const { SKILL_ITEMS } = await import('../src/data/skills.js')
-  const { CONSEJOS } = await import('../src/data/consejos.js')
-  return {
-    langs: LANGUAGES.length,
-    res: RESOURCES.reduce((n, g) => n + g.items.length, 0),
-    concepts: CONCEPTS.reduce((n, g) => n + g.items.length, 0),
-    comps: COMPONENT_ITEMS.length,
-    skills: SKILL_ITEMS.length,
-    consejos: CONSEJOS.length,
-  }
+  const { TOTALES } = await import('../src/lib/totales.js')
+  return TOTALES
 }
 
 const TEXTOS = {
