@@ -32,9 +32,9 @@ async function rutasDelSitio() {
   ]
 }
 
-// El sitemap se genera del propio catálogo en cada build, no a mano: son 136
-// direcciones y una lista escrita a mano se queda vieja en cuanto se añade un
-// lenguaje. Se emite al dist, así que no hay un archivo generado versionado.
+// El sitemap se genera del propio catálogo en cada build, no a mano: son ciento
+// y pico direcciones, y una lista escrita a mano se queda vieja en cuanto se
+// añade un lenguaje. Se emite al dist, así que no hay un archivo generado versionado.
 function sitemap() {
   return {
     name: 'vibeset-sitemap',
@@ -85,7 +85,7 @@ function poner(doc, re, valor, ruta) {
 //
 // 1. El meta lo ponía solo React al arrancar, y los robots que dibujan la vista
 //    previa de un enlace (X, Slack, LinkedIn, WhatsApp, Discord) no ejecutan
-//    JavaScript: leían el HTML crudo y las 136 direcciones les decían lo mismo,
+//    JavaScript: leían el HTML crudo y todas las direcciones les decían lo mismo,
 //    el título de la portada. Compartir una ficha concreta no servía de nada.
 // 2. El cuerpo era `<div id="root"></div>` y punto. Los robots que responden
 //    preguntas (Claude, ChatGPT, Perplexity) tampoco ejecutan JavaScript, así
@@ -100,7 +100,7 @@ function poner(doc, re, valor, ruta) {
 // Se escribe `languages/rust.html` y NO `languages/rust/index.html`, y la
 // diferencia no es de gusto: con la carpeta, Cloudflare Pages responde a
 // `/languages/rust` con un **308 hacia `/languages/rust/`**, así que todos los
-// enlaces publicados y las 136 entradas del sitemap se comían un salto y además
+// enlaces publicados y todas las entradas del sitemap se comían un salto y además
 // discrepaban del `canonical` que va dentro, que no lleva barra. Con el archivo
 // suelto, `/languages/rust` se sirve con un 200 directo.
 function prerenderMeta() {
@@ -175,6 +175,11 @@ function prerenderMeta() {
           [/(<meta property="og:image" content=")[^"]*(")/, escapar(imagen)],
           [/(<meta name="twitter:image" content=")[^"]*(")/, escapar(imagen)],
         ].reduce((doc, [re, valor]) => poner(doc, re, valor, ruta), plantilla)
+          // La página de «aquí no hay nada» no se indexa. Se sirve con un 404 de
+          // verdad, pero además se dice, porque a esa plantilla le llega el
+          // canonical apuntándose a sí misma y sin esto queda invitando a que la
+          // guarden como una página más del sitio.
+          .replace('</head>', () => (ruta === '/404' ? '<meta name="robots" content="noindex" /></head>' : '</head>'))
           .replace('</head>', () => `${jsonLd}</head>`)
           .replace('<div id="pre"></div>',
             () => `<div id="pre">${contenidoDePagina({ vista, ficha, lang, t })}</div>`)

@@ -38,7 +38,7 @@ export function recortar(texto, max = 155) {
 // los pone al navegar, y el build los escribe dentro del HTML de cada dirección
 // (`prerenderMeta` en vite.config.js). Los robots que dibujan la vista previa de
 // un enlace (X, Slack, LinkedIn, WhatsApp, Discord) NO ejecutan JavaScript: si
-// esto solo lo hiciera React, las 136 direcciones compartirían tarjeta.
+// esto solo lo hiciera React, todas las direcciones compartirían tarjeta.
 //
 // `ficha` es la entrada ya resuelta cuando la ruta apunta a una: el lenguaje, el
 // componente o la skill. Sin ella, la vista es una sección entera.
