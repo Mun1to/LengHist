@@ -8,7 +8,7 @@
 // después de que el sitio dejara de ser eso y creciera a seis secciones. Así se
 // vuelve a generar en diez segundos y nunca miente sobre lo que hay dentro.
 import { spawn } from 'node:child_process'
-import { existsSync, readFileSync, writeFileSync, mkdtempSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -209,6 +209,14 @@ async function capturar(chrome, perfil, htmlPath, destino) {
     try { await cdp.send('Browser.close') } catch { /* ya se estaba cerrando */ }
   } finally {
     proc.kill()
+    // Se espera a que muera de verdad: mientras viva, Windows mantiene abiertos
+    // los archivos de su perfil y la carpeta temporal no se deja borrar.
+    if (proc.exitCode === null) {
+      await Promise.race([
+        new Promise((r) => proc.once('exit', r)),
+        new Promise((r) => setTimeout(r, 3000)),
+      ])
+    }
   }
 }
 
@@ -222,6 +230,16 @@ for (const [lang, archivo] of [['es', 'og.png'], ['en', 'og-en.png']]) {
   const destino = join(RAIZ, 'public/brand', archivo)
   await capturar(chrome, join(tmp, `perfil-${lang}`), html, destino)
   console.log(`  ${archivo}  ${n.langs}/${n.res}/${n.concepts}/${n.comps}/${n.skills}/${n.consejos}`)
+}
+
+// Dentro de `tmp` hay dos perfiles enteros de Chrome, unos 26 MB por pasada, y
+// nadie vacía la carpeta temporal del sistema: el 2026-08-20 había 73 MB de
+// ejecuciones viejas ahí. Se reintenta porque Windows tarda un momento en
+// soltar los archivos aunque el proceso ya haya muerto. Si aun así no se puede,
+// no se aborta nada: es caché, y la siguiente pasada la barre.
+for (let i = 0; i < 10; i++) {
+  try { rmSync(tmp, { recursive: true, force: true }); break } catch { /* aún abierta */ }
+  await new Promise((r) => setTimeout(r, 300))
 }
 
 console.log('\nTarjetas regeneradas desde el catálogo.')
