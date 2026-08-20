@@ -12,6 +12,10 @@
 // otra persona trae el suyo, para que el crédito viaje con la ficha.
 export const AUTOR_CASA = { name: 'Mun1to', url: 'https://github.com/Mun1to' }
 export const VIBESET_REPO = 'https://github.com/Mun1to/Vibeset'
+// El mercado de plugins, tal y como se teclea detrás de `/plugin marketplace
+// add`. Lo enseñan la vista de skills y la ficha de cada una, así que vive aquí
+// y no escrito a mano en los dos sitios.
+export const MERCADO = 'Mun1to/Vibeset'
 
 export const authorOf = (item) => item.author || AUTOR_CASA
 // Algunas skills se publican además como repo propio, instalable como plugin.

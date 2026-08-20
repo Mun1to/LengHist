@@ -4,14 +4,10 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import CodeBlock from './CodeBlock'
 import FavButton from './FavButton'
 import CopiarEnlace from './CopiarEnlace'
-import { authorOf, hasOwnRepo, repoLabel, repoOf, skillFile, skillPath, skillTree, slugOf } from '../data/skills'
+import { authorOf, hasOwnRepo, MERCADO, repoLabel, repoOf, skillFile, skillPath, skillTree, slugOf } from '../data/skills'
 import { rutaDe } from '../lib/rutas'
 
 const DOCS = 'https://code.claude.com/docs/en/skills'
-
-// El marketplace de plugins del propio repositorio: es el primer comando de los
-// dos que hacen falta para instalar una skill publicada como plugin.
-const MERCADO = 'Mun1to/Vibeset'
 
 // Qué hace cada campo del frontmatter que aparece en estas skills. Tomado de la
 // referencia oficial, resumido en una línea.
@@ -105,14 +101,14 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
         <b className="text-tinta-suave">{t.skillWhen}:</b> {d.when}
       </p>
       {group && (
-        <div className="font-mono text-[11px] uppercase tracking-wider text-tinta-suave mt-3">{group.label[lang]}</div>
+        <div className="font-mono text-[12px] uppercase tracking-wider text-tinta-suave mt-3">{group.label[lang]}</div>
       )}
 
       {/* Lo primero accionable de la página, como en cualquier galería de
           componentes: el comando que la instala, listo para copiar. */}
       {item.plugin && (
         <div className="mt-8">
-          <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillInstall}</h2>
+          <h2 className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillInstall}</h2>
           <p className="text-sm text-tinta-suave mb-4 max-w-2xl leading-relaxed">{t.skillInstallText}</p>
           <CodeBlock
             t={t}
@@ -127,7 +123,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillWhere}</h2>
+        <h2 className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillWhere}</h2>
         <p className="text-sm text-tinta-suave mb-4 max-w-2xl leading-relaxed">{t.skillWhereText}</p>
         <CodeBlock
           t={t}
@@ -137,14 +133,14 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillUse}</h2>
+        <h2 className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillUse}</h2>
         <p className="text-sm text-tinta-suave max-w-2xl leading-relaxed">
           {t.skillUseText(slug)}
         </p>
       </div>
 
       <div className="mt-10">
-        <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillFields}</h2>
+        <h2 className="text-[12px] font-bold uppercase tracking-wider text-tinta-suave mb-3">{t.skillFields}</h2>
         <div className="flex flex-col gap-2">
           {campos.map((c) => (
             <div key={c} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
@@ -163,7 +159,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
           href={DOCS}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 min-h-6 font-mono text-[11px] text-tinta-suave hover:text-tinta transition-colors break-all"
+          className="inline-flex items-center gap-1 min-h-6 font-mono text-[12px] text-tinta-suave hover:text-tinta transition-colors break-all"
         >
           {t.skillDocs} {DOCS.replace('https://', '')}
           <ArrowUpRight size={11} />
