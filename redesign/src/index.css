@@ -61,6 +61,7 @@
   --v-linea-viva: var(--color-zinc-300);
   --v-panel: #fff;
   --v-acento: var(--color-indigo-600);
+  --v-papel: rgba(0, 0, 0, 0.055);
 }
 
 [data-theme="dark"] {
@@ -71,6 +72,7 @@
   --v-linea-viva: var(--color-zinc-700);
   --v-panel: var(--color-zinc-900);
   --v-acento: var(--color-indigo-400);
+  --v-papel: rgba(255, 255, 255, 0.055);
 }
 
 /* ---------------------------------------------------------------------------
@@ -131,6 +133,18 @@ body {
 
 ::selection {
   background: color-mix(in srgb, theme(colors.indigo.500) 35%, transparent);
+}
+
+/* El papel de plano: el rayado diagonal que queda FUERA del canal, como el
+   margen de una lámina técnica. Va en la banda y no en el canal a propósito.
+
+   El segundo tramo del degradado se declara al 50% y no en píxeles: así el
+   rayado sale de una línea fina sin tener que calcular el grosor a mano, que es
+   el truco con el que lo dibuja tailwindcss.com. */
+.papel-plano {
+  background-image: repeating-linear-gradient(315deg,
+    var(--v-papel) 0, var(--v-papel) 1px, transparent 0, transparent 50%);
+  background-size: 9px 9px;
 }
 
 /* El resplandor de la portada. Va aquí y no en una clase de utilidad porque
