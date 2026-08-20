@@ -24,14 +24,12 @@
          Es la misma cuenta que hace src/lib/tema.js, y es a propósito que esté
          escrita dos veces: aquí no puede haber ni un import. -->
     <script>
+      // El tema es el del sistema, sin preferencia guardada ni interruptor.
+      // Sigue en línea y antes del primer <link> de estilos porque si se decide
+      // más tarde el navegador ya pintó con el tema por defecto y se ve el
+      // cambio, que es el fogonazo que delata una web hecha a medias.
       (function () {
-        var pref = 'sistema'
-        try {
-          var guardado = localStorage.getItem('vibeset-tema')
-          if (guardado === 'claro' || guardado === 'oscuro' || guardado === 'sistema') pref = guardado
-        } catch (e) { /* navegación privada */ }
-        var sistemaOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        var oscuro = pref === 'oscuro' || (pref === 'sistema' && sistemaOscuro)
+        var oscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         document.documentElement.dataset.theme = oscuro ? 'dark' : 'light'
         document.documentElement.style.colorScheme = oscuro ? 'dark' : 'light'
       })()
