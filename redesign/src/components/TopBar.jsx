@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight, Boxes, Braces, Lightbulb, Menu, Sparkles, Terminal, Wrench, X,
@@ -6,6 +6,7 @@ import {
 import Logo from './Logo'
 import Buscador from './Buscador'
 import BotonGitHub from './BotonGitHub'
+import VistazoMenu from './VistazoMenu'
 import { rutaDe } from '../lib/rutas'
 
 // El buscador manda en el centro y la navegación se reparte a los lados, tres y
@@ -37,7 +38,7 @@ const DERECHA = ORDEN_MENU.slice(3)
 const ALTO = 'h-9'
 const CONTROL = `${ALTO} grid place-items-center w-9 text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer`
 
-function Enlaces({ t, claves, activeNav }) {
+function Enlaces({ t, claves, activeNav, onAsomar }) {
   return (
     <nav className="hidden xl:flex items-center">
       {claves.map((key) => (
@@ -51,6 +52,10 @@ function Enlaces({ t, claves, activeNav }) {
           // El activo se marca en TINTA y no en indigo. En esta barra el indigo
           // era el único color de marca suelto, y competía con los catorce
           // colores de categoría que ya usa el catálogo para decir otra cosa.
+          onMouseEnter={() => onAsomar(key)}
+          // También con el foco del teclado: si el asomo solo respondiera al
+          // ratón, quien navega con el tabulador no sabría nunca que existe.
+          onFocus={() => onAsomar(key)}
           className={`${ALTO} relative inline-flex items-center px-3 text-sm whitespace-nowrap transition-colors ${
             activeNav === key
               ? 'text-tinta font-semibold'
@@ -173,6 +178,36 @@ export default function TopBar({
 }) {
   const [menu, setMenu] = useState(false)
 
+  // Qué sección se está asomando, con retardo a los dos lados.
+  //
+  // Los dos retardos hacen falta y no son iguales. **Al abrir (120ms)**, porque
+  // el ratón cruza la barra de camino a otro sitio y sin espera el panel se
+  // enciende y se apaga tres veces en un gesto que no iba con él. **Al cerrar
+  // (180ms)**, porque el puntero pasa por el hueco entre el enlace y el panel, y
+  // sin margen el panel se cierra justo cuando ibas a entrar en él, que es el
+  // fallo clásico de los menús de este tipo.
+  const [asomada, setAsomada] = useState(null)
+  const reloj = useRef(null)
+
+  const programar = (valor, ms) => {
+    clearTimeout(reloj.current)
+    reloj.current = setTimeout(() => setAsomada(valor), ms)
+  }
+  const asomar = (clave) => programar(clave, 120)
+  const cerrarAsomo = () => programar(null, 180)
+  // Cerrar de golpe, sin espera: al pulsar un enlace o al dar a Escape no hay
+  // ningún gesto en curso que proteger.
+  const cerrarYa = () => { clearTimeout(reloj.current); setAsomada(null) }
+
+  useEffect(() => () => clearTimeout(reloj.current), [])
+
+  useEffect(() => {
+    if (!asomada) return
+    const tecla = (e) => { if (e.key === 'Escape') cerrarYa() }
+    window.addEventListener('keydown', tecla)
+    return () => window.removeEventListener('keydown', tecla)
+  }, [asomada])
+
   // El panel del móvil se cierra solo al llegar a un ancho de escritorio.
   // Sin esto queda abierto en un estado imposible: el panel se oculta por CSS
   // (`xl:hidden`) pero React sigue creyendo que está abierto, y como el buscador
@@ -195,7 +230,12 @@ export default function TopBar({
         {t.saltarAlContenido}
       </a>
 
-      <header className="sticky top-0 z-50 border-b border-linea bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
+      <header
+        className="sticky top-0 z-50 border-b border-linea bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md"
+        // Se cierra al salir del header entero y no de cada enlace: así el
+        // puntero puede bajar del enlace al panel sin cruzar tierra de nadie.
+        onMouseLeave={cerrarAsomo}
+      >
         {/* Los dos flancos van con flex-1 basis-0: reparten a partes iguales lo que
             sobra, así que el buscador cae en el centro exacto de la ventana. Con un
             simple ml-auto quedaba 70px a la izquierda, porque el logo pesa mucho
@@ -219,7 +259,7 @@ export default function TopBar({
                 <Logo size={28} wide />
               </span>
             </Link>
-            <Enlaces t={t} claves={IZQUIERDA} activeNav={activeNav} />
+            <Enlaces t={t} claves={IZQUIERDA} activeNav={activeNav} onAsomar={asomar} />
           </div>
 
           {/* Con el panel abierto el buscador está dentro de él, a lo ancho:
@@ -233,7 +273,7 @@ export default function TopBar({
           </div>
 
           <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-6">
-            <Enlaces t={t} claves={DERECHA} activeNav={activeNav} />
+            <Enlaces t={t} claves={DERECHA} activeNav={activeNav} onAsomar={asomar} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
               <BotonGitHub t={t} />
               {/* El test entra a 1620px y no en `2xl` (1536), que es donde estaba:
@@ -257,6 +297,15 @@ export default function TopBar({
             </div>
           </div>
         </div>
+
+        {/* Solo en escritorio: en táctil no hay ratón que pueda pasar por
+            encima, y el panel del móvil ya enseña las seis secciones con sus
+            cifras, que es la misma información. */}
+        {asomada && !menu && (
+          <div className="hidden xl:block">
+            <VistazoMenu seccion={asomada} lang={lang} t={t} onCerrar={cerrarYa} />
+          </div>
+        )}
       </header>
 
       <MenuMovil
