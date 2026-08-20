@@ -19,7 +19,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
           /* El hueco de la derecha solo se reserva cuando hay equis que poner:
              con él siempre puesto, «Filtrar herramientas…» se comía los puntos
              suspensivos contra el borde. */
-          className={`w-full bg-panel border border-linea rounded-lg pl-8 py-2 text-sm text-tinta-fuerte placeholder:text-tinta-suave outline-none focus:border-blue-500 ${query ? 'pr-8' : 'pr-3'}`}
+          className={`w-full bg-panel border border-linea pl-8 py-2 text-sm text-tinta-fuerte placeholder:text-tinta-suave outline-none focus:border-blue-500 ${query ? 'pr-8' : 'pr-3'}`}
         />
         {query && (
           <button
@@ -46,7 +46,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
               // lenguaje, el fondo de una tarjeta de consejo) y en una lista de
               // navegación no clasifica nada, así que solo lo gasta. Aquí manda
               // el peso de la letra y el fondo, que es lo que ya hace el header.
-              className={`pulsable flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer text-left ${
+              className={`pulsable flex items-center justify-between gap-2 px-2 py-1.5 text-sm cursor-pointer text-left ${
                 activeCat === c.key
                   ? 'bg-zinc-100 dark:bg-zinc-900 text-tinta font-semibold'
                   : 'text-tinta-suave hover:bg-zinc-100 dark:hover:bg-zinc-900'
@@ -72,7 +72,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
           <div className="flex flex-col gap-0.5">
             <button
               onClick={() => { extraGroup.onToggleFavOnly(); onElegir?.() }}
-              className={`pulsable flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm cursor-pointer ${
+              className={`pulsable flex items-center gap-2 px-2 py-1.5 text-sm cursor-pointer ${
                 extraGroup.showFavOnly
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-300 font-semibold'
                   : 'text-tinta-suave hover:bg-zinc-100 dark:hover:bg-zinc-900'
@@ -82,7 +82,7 @@ export function PanelFiltros({ t, searchPh, query, setQuery, categories, activeC
               <span className="ml-auto font-mono text-xs text-tinta-suave">{extraGroup.favCount}</span>
             </button>
             {extraGroup.compareCount != null && (
-              <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm text-tinta-suave">
+              <div className="flex items-center gap-2 px-2 py-1.5 text-sm text-tinta-suave">
                 <ArrowLeftRight size={14} /> {t.comparar}
                 <span className="ml-auto font-mono text-xs text-tinta-suave">{extraGroup.compareCount}</span>
               </div>

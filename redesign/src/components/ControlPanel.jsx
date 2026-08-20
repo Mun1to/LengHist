@@ -22,7 +22,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
         </div>
         <button
           onClick={onReset}
-          className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 rounded-md text-xs text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 text-xs text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
         >
           <RotateCcw size={12} />
           {t.compReset}
@@ -55,7 +55,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
               <select
                 value={value}
                 onChange={(e) => onChange(c.key, e.target.value)}
-                className="w-full bg-panel border border-linea rounded-lg px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-blue-500 cursor-pointer"
+                className="w-full bg-panel border border-linea px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-blue-500 cursor-pointer"
               >
                 {c.options.map((o) => (
                   <option key={o.value} value={o.value}>{o.label[lang]}</option>
@@ -100,7 +100,7 @@ export default function ControlPanel({ t, lang, controls, values, onChange, onRe
                 value={value}
                 maxLength={c.maxLength || 14}
                 onChange={(e) => onChange(c.key, e.target.value)}
-                className="w-full bg-panel border border-linea rounded-lg px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-blue-500"
+                className="w-full bg-panel border border-linea px-2 py-1.5 text-sm text-tinta-fuerte outline-none focus:border-blue-500"
               />
             </Row>
           )

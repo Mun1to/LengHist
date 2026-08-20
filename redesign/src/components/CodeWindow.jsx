@@ -12,12 +12,13 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
   const code = codeFor(demo, lang)
 
   return (
-    <div data-demo className={`relative rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 shadow-[0_20px_60px_rgba(0,0,0,.35)] ${className}`}>
-      <div className="flex items-center gap-1.5 px-3.5 py-3 border-b border-zinc-800">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-        <div className="flex gap-0.5 ml-2.5">
+    <div data-demo className={`relative overflow-hidden bg-zinc-950 border border-zinc-800 shadow-[0_20px_60px_rgba(0,0,0,.35)] ${className}`}>
+      {/* Sin los tres puntos de macOS. Eran redondos en una pieza que ya no
+          tiene ninguna esquina curva, y cuadrados no dicen nada: tres colores
+          sueltos que no se pueden pulsar. Lo que identifica esta ventana son
+          sus pestañas, que además funcionan. */}
+      <div className="flex items-center px-3.5 py-3 border-b border-zinc-800">
+        <div className="flex gap-0.5">
           {TABS.map((tb) => (
             <button
               key={tb}
@@ -48,7 +49,7 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
 
       <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-800 font-mono text-xs text-zinc-400">
         <span className="inline-flex items-center gap-2">
-          <span className="w-1 h-3.5 rounded-full" style={{ background: demo.color[0] }} />
+          <span className="w-1 h-3.5" style={{ background: demo.color[0] }} />
           {demo.name} · {demo.year}
         </span>
         <span className="text-blue-300 font-bold">{demo.pop}/100</span>

@@ -24,7 +24,7 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
               {items.map((l) => (
                 <th key={l.name} className="py-3 px-3 text-left">
                   <span className="flex items-center gap-2 font-extrabold" style={{ color: l.color[0] }}>
-                    <span className="w-1.5 h-5 rounded-full shrink-0" style={{ background: l.color[0] }} />{l.name}
+                    <span className="w-1.5 h-5 shrink-0" style={{ background: l.color[0] }} />{l.name}
                   </span>
                 </th>
               ))}
@@ -37,7 +37,7 @@ export default function CompareModal({ t, lang, open, onClose, names }) {
             <Row label={t.popularidad} render={(l) => (
               <>
                 <span className="font-mono text-xs">{l.pop}/100</span>
-                <div className="h-1.5 mt-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+                <div className="h-1.5 mt-1.5 bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
                   <div className="h-full bg-blue-500" style={{ width: `${l.pop}%` }} />
                 </div>
               </>

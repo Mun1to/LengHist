@@ -18,7 +18,7 @@ export default function CopiarEnlace({ t }) {
     <button
       onClick={copiar}
       title={t.enlaceCopiar}
-      className="pulsable inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-linea text-xs font-medium text-tinta-suave hover:text-tinta hover:border-linea-viva cursor-pointer"
+      className="pulsable inline-flex items-center gap-1.5 h-8 px-2.5 border border-linea text-xs font-medium text-tinta-suave hover:text-tinta hover:border-linea-viva cursor-pointer"
     >
       {copiado ? <Check size={13} className="text-esmeralda brinca" /> : <Link2 size={13} />}
       <span className="hidden sm:inline">{copiado ? t.enlaceCopiado : t.enlaceCopiar}</span>

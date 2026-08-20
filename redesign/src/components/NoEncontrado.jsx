@@ -12,7 +12,7 @@ export default function NoEncontrado({ t }) {
 
       <Link
         to="/"
-        className="grupo-cta pulsable alzable inline-flex items-center gap-1.5 mt-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold px-5 py-2.5 text-sm"
+        className="grupo-cta pulsable alzable inline-flex items-center gap-1.5 mt-7 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold px-5 py-2.5 text-sm"
       >
         {t.noHayVolver}
         <ArrowRight size={14} className="flecha-desliza" />

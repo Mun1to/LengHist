@@ -57,7 +57,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
     >
       <Link
         to={rutaDe('skills')}
-        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 rounded-md text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.skillBack}

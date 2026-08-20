@@ -40,7 +40,7 @@ function Bloque({ t, lenguaje, codigo, primero }) {
         </span>
         <button
           onClick={copiar}
-          className="inline-flex items-center gap-1 min-h-6 px-1.5 -mx-1.5 rounded-md text-xs text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1 min-h-6 px-1.5 -mx-1.5 text-xs text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
         >
           {copiado ? <Check size={11} /> : <Copy size={11} />}
           {copiado ? t.compCopied : t.compCopy}
@@ -64,7 +64,7 @@ export default function CodeSample({ t, etiqueta, bloques }) {
   return (
     <div className="mt-3">
       <div className="font-mono text-[11px] uppercase tracking-wider text-tinta-suave mb-1.5">{etiqueta}</div>
-      <div className="rounded-lg overflow-hidden bg-zinc-50 dark:bg-zinc-950 border border-linea">
+      <div className="overflow-hidden bg-zinc-50 dark:bg-zinc-950 border border-linea">
         {bloques.map(([lenguaje, codigo], i) => (
           <Bloque key={i} t={t} lenguaje={lenguaje} codigo={codigo} primero={i === 0} />
         ))}

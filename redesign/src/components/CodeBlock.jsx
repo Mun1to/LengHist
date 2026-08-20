@@ -15,12 +15,12 @@ export default function CodeBlock({ t, title, code }) {
   }
 
   return (
-    <div className="rounded-xl border border-linea overflow-hidden bg-panel">
+    <div className="border border-linea overflow-hidden bg-panel">
       <div className="flex items-center justify-between gap-3 px-3.5 py-2 border-b border-linea">
         <span className="font-mono text-xs text-tinta-suave">{title}</span>
         <button
           onClick={copy}
-          className="pulsable inline-flex items-center gap-1.5 min-h-6 rounded-md px-1.5 py-1 -mr-1.5 text-xs text-tinta-suave hover:text-tinta cursor-pointer"
+          className="pulsable inline-flex items-center gap-1.5 min-h-6 px-1.5 py-1 -mr-1.5 text-xs text-tinta-suave hover:text-tinta cursor-pointer"
         >
           {copied ? <Check size={12} className="text-esmeralda brinca" /> : <Copy size={12} />}
           {copied ? t.compCopied : t.compCopy}

@@ -97,7 +97,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                 <motion.div {...aparece(0.2)} className="flex flex-wrap items-center gap-4">
                   <Link
                     to={rutaDe('languages')}
-                    className="grupo-cta pulsable alzable inline-flex items-center gap-1.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold px-6 py-3 text-sm hover:shadow-lg hover:shadow-zinc-900/20 dark:hover:shadow-white/10"
+                    className="grupo-cta pulsable alzable inline-flex items-center gap-1.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold px-6 py-3 text-sm hover:shadow-lg hover:shadow-zinc-900/20 dark:hover:shadow-white/10"
                   >
                     {t.exploreBtn}
                     <ArrowRight size={15} className="flecha-desliza" />
@@ -115,7 +115,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                   de una pieza viva del catálogo. */}
               <motion.div {...aparece(0.25)}>
                 {/* Esquina recta, como la rejilla de secciones de abajo. Era el
-                    último `rounded-2xl` que quedaba en la portada, y encerraba la
+                    último `` que quedaba en la portada, y encerraba la
                     demo en una caja curva en medio de una página construida con
                     líneas de 1px. El fondo oscuro sí se queda: el ASCII es
                     blanco, y sin él no se ve nada en tema claro. */}
@@ -151,7 +151,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
             <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-4">
               {t.landingWhat}
             </div>
-            {/* La esquina se queda recta y el encuadre la señala. El `rounded-2xl`
+            {/* La esquina se queda recta y el encuadre la señala. El ``
                 que había aquí es incompatible con las marcas en L: sobre una
                 esquina curva la marca flota separada del borde y parece un fallo
                 de maquetación. Y sin `overflow-hidden`, que también las cortaba;

@@ -8,8 +8,8 @@ export default function FavButton({ active, onClick, label, floating = false }) 
       title={label}
       className={
         floating
-          ? 'pulsable absolute top-2.5 right-2.5 w-7 h-7 grid place-items-center rounded-lg bg-black/25 backdrop-blur-sm text-white hover:bg-black/40 cursor-pointer z-10'
-          : `pulsable shrink-0 w-7 h-7 grid place-items-center rounded-lg cursor-pointer ${
+          ? 'pulsable absolute top-2.5 right-2.5 w-7 h-7 grid place-items-center bg-black/25 backdrop-blur-sm text-white hover:bg-black/40 cursor-pointer z-10'
+          : `pulsable shrink-0 w-7 h-7 grid place-items-center cursor-pointer ${
               active
                 ? 'text-ambar'
                 : 'text-tinta-suave hover:text-ambar'

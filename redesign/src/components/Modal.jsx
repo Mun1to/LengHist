@@ -27,7 +27,7 @@ export default function Modal({ open, onClose, title, children, closeLabel = 'Cl
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
-            className={`w-full ${wide ? 'max-w-4xl' : 'max-w-2xl'} rounded-2xl bg-panel border border-linea shadow-2xl`}
+            className={`w-full ${wide ? 'max-w-4xl' : 'max-w-2xl'} bg-panel border border-linea shadow-2xl`}
           >
             <div className="flex items-center justify-between gap-4 px-6 py-5 border-b border-linea">
               <h2 className="text-lg font-extrabold tracking-tight">{title}</h2>

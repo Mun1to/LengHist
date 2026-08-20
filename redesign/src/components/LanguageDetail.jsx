@@ -36,7 +36,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
     >
       <Link
         to={rutaDe('languages')}
-        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 rounded-md text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.langBack}
@@ -45,7 +45,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <h1 className="text-3xl font-extrabold tracking-tight flex items-center gap-3">
-            <span className="w-1.5 h-7 rounded-full shrink-0" style={{ background: l.color[0] }} />
+            <span className="w-1.5 h-7 shrink-0" style={{ background: l.color[0] }} />
             {l.name}
           </h1>
           <div className="font-mono text-xs text-tinta-suave mt-2">
@@ -62,7 +62,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
 
       <button
         onClick={onToggleCompare}
-        className={`inline-flex items-center gap-1.5 mt-5 h-8 px-3 rounded-lg border text-xs font-semibold cursor-pointer transition-colors ${
+        className={`inline-flex items-center gap-1.5 mt-5 h-8 px-3 border text-xs font-semibold cursor-pointer transition-colors ${
           enComparacion
             ? 'border-blue-500 text-blue-600 dark:text-blue-400'
             : 'border-linea text-tinta-suave hover:border-linea-viva'
@@ -73,12 +73,12 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
 
       {/* El ejemplo de código es lo primero que la gente mira: cómo se ve de
           verdad el lenguaje, no cómo se lo cuentan. */}
-      <div className="mt-8 rounded-2xl overflow-hidden border border-linea bg-zinc-950">
-        <div className="flex items-center gap-1.5 px-3.5 py-3 border-b border-zinc-800">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-          <span className="ml-2 font-mono text-xs text-zinc-400">{code.file}</span>
+      <div className="mt-8 overflow-hidden border border-linea bg-zinc-950">
+        {/* El nombre del archivo hace de rotulo, sin los tres puntos de
+            macOS: la barra de color del lenguaje ya identifica la ficha. */}
+        <div className="flex items-center gap-2.5 px-3.5 py-3 border-b border-zinc-800">
+          <span className="w-1 h-3.5 shrink-0" style={{ background: l.color[0] }} />
+          <span className="font-mono text-xs text-zinc-400">{code.file}</span>
         </div>
         <pre className="p-5 font-mono text-[13px] leading-relaxed text-zinc-200 overflow-x-auto">{code.example}</pre>
       </div>
@@ -87,7 +87,7 @@ export default function LanguageDetail({ t, lang, nombre, fav, onToggleFav, enCo
         <Dato titulo={t.creador}>{l.creator}</Dato>
         <Dato titulo={t.popularidad}>
           <div className="flex items-center gap-3">
-            <div className="h-1.5 flex-1 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+            <div className="h-1.5 flex-1 bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${l.pop}%` }}

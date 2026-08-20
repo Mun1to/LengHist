@@ -6,6 +6,7 @@ import { CONCEPT_EXAMPLES_EN } from '../data/conceptExamplesEn'
 import ConceptDemo from './ConceptDemo'
 import CodeSample from './CodeSample'
 import VerMas from './VerMas'
+import { Reticula } from './Plano'
 import { usePaginado, recortarGrupos } from '../lib/paginar'
 
 export default function ConceptsView({ t, lang, groups, onClear, favorites, onToggleFav }) {
@@ -40,14 +41,17 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
               <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
                 {group.label[lang]}
               </h2>
-              <div className="grid sm:grid-cols-2 2xl:grid-cols-3 gap-3 items-start">
+              <Reticula cols="sm:grid-cols-2 2xl:grid-cols-3">
                 {group.items.map((c, i) => (
                   <motion.div
                     key={c.name}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    // Solo opacidad: dentro de la retícula, un desplazamiento de
+                    // entrada abre y cierra la línea de 1px que separa las fichas, y
+                    // la rejilla entera parece temblar mientras carga.
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     transition={{ duration: 0.25, delay: Math.min((i % 6) * 0.03, 0.2) }}
-                    className="rounded-xl bg-panel border border-linea p-4"
+                    className="bg-panel p-4"
                   >
                     <div className="flex items-center gap-2 mb-1.5">
                       <h3 className="font-bold text-sm text-tinta min-w-0 flex-1">
@@ -66,7 +70,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                     <CodeSample t={t} etiqueta={t.conceptExample} bloques={ejemplos[c.name]} />
                   </motion.div>
                 ))}
-              </div>
+              </Reticula>
             </div>
           ))}
           <VerMas quedan={quedan} onMas={verMas} etiqueta={t.verMas} />

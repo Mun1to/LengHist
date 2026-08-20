@@ -56,7 +56,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
     <Modal open={open} onClose={close} title={done ? t.quizResult : t.quizTitle} closeLabel={t.cerrar}>
       {!done ? (
         <div>
-          <div className="h-1 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden mb-3">
+          <div className="h-1 bg-zinc-100 dark:bg-zinc-800 overflow-hidden mb-3">
             <motion.div
               className="h-full bg-blue-500"
               animate={{ width: `${(state.step / steps.length) * 100}%` }}
@@ -70,7 +70,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
               <button
                 key={o.label}
                 onClick={() => pick(o)}
-                className="pulsable text-left rounded-xl border border-linea bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3.5 text-sm font-medium cursor-pointer hover:border-blue-500 hover:bg-blue-500/5"
+                className="pulsable text-left border border-linea bg-zinc-50 dark:bg-zinc-800/50 px-4 py-3.5 text-sm font-medium cursor-pointer hover:border-blue-500 hover:bg-blue-500/5"
               >
                 {o.label}
               </button>
@@ -87,7 +87,7 @@ export default function Quiz({ t, lang, open, onClose, onSeeLanguage }) {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, delay: i * 0.06 }}
-                className="flex items-center gap-4 rounded-xl border-l-[3px] border border-linea bg-zinc-50 dark:bg-zinc-800/50 p-4"
+                className="flex items-center gap-4 border-l-[3px] border border-linea bg-zinc-50 dark:bg-zinc-800/50 p-4"
                 style={{ borderLeftColor: r.l.color[0] }}
               >
                 {/* El borde izquierdo ya lleva el color del lenguaje: el emoji

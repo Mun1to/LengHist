@@ -19,7 +19,7 @@ export default function CompareTray({ t, names, onRemove, onClear, onOpen }) {
                 const l = LANGUAGES.find((x) => x.name === n)
                 return (
                   <span key={n} className="inline-flex items-center gap-2 text-sm font-semibold">
-                    <span className="w-1 h-3.5 rounded-full shrink-0" style={{ background: l?.color[0] }} />
+                    <span className="w-1 h-3.5 shrink-0" style={{ background: l?.color[0] }} />
                     {n}
                     <button
                       onClick={() => onRemove(n)}
@@ -42,7 +42,7 @@ export default function CompareTray({ t, names, onRemove, onClear, onOpen }) {
               <button
                 onClick={onOpen}
                 disabled={names.length < 2}
-                className="inline-flex items-center gap-2 rounded-full bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2 cursor-pointer transition-colors"
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2 cursor-pointer transition-colors"
               >
                 <ArrowLeftRight size={14} /> {t.comparar} ({names.length})
               </button>

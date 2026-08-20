@@ -73,7 +73,7 @@ export default function ConsejosView({
           href={urlAportar}
           target="_blank"
           rel="noopener"
-          className="inline-flex items-center gap-1.5 min-h-6 px-1 -mx-1 rounded-md text-xs font-semibold text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
+          className="inline-flex items-center gap-1.5 min-h-6 px-1 -mx-1 text-xs font-semibold text-tinta-suave hover:text-tinta cursor-pointer transition-colors"
         >
           <Plus size={13} />
           {t.consejosAportar}

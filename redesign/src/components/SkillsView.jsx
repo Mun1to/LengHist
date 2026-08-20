@@ -5,6 +5,7 @@ import EmptyState from './EmptyState'
 import FavButton from './FavButton'
 import BotonCopiar from './BotonCopiar'
 import CodeBlock from './CodeBlock'
+import { Reticula } from './Plano'
 import { authorOf, hasOwnRepo, repoLabel, skillFile, slugOf } from '../data/skills'
 import { rutaDe, slugClave } from '../lib/rutas'
 
@@ -18,8 +19,8 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.25, delay }}
       onPointerDown={(e) => { press.current = { x: e.clientX, y: e.clientY } }}
       onClick={(e) => {
@@ -28,7 +29,10 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
         if (p && Math.hypot(e.clientX - p.x, e.clientY - p.y) > 6) return
         onOpen()
       }}
-      className="pulsable pulsable-suave rounded-xl bg-panel border border-linea p-4 cursor-pointer hover:border-blue-500/50 hover:bg-blue-500/5"
+      // El hover responde con el fondo y no con un borde de color: dentro de
+      // la retícula el borde de la ficha ES la línea que la separa de su
+      // vecina, así que teñirlo movería la rejilla entera de sitio.
+      className="pulsable pulsable-suave flex flex-col bg-panel p-4 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900"
     >
       <div className="flex items-center gap-1 mb-1">
         <h3 className="font-bold text-sm text-tinta min-w-0 flex-1">{d.label}</h3>
@@ -49,7 +53,7 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
 
       {/* Crédito en la propia tarjeta, sin enlace: la tarjeta entera ya es
           clicable y un enlace dentro competiría con ella. */}
-      <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-linea/60 text-[11px] text-tinta-suave">
+      <div className="flex items-center gap-2 mt-auto pt-2.5 border-t border-linea/60 text-[11px] text-tinta-suave">
         <span>{t.skillBy} {authorOf(item).name}</span>
         {hasOwnRepo(item) && (
           <>
@@ -78,7 +82,7 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
       <p className="text-tinta-suave mb-8 max-w-2xl leading-relaxed">{t.skillsSub}</p>
 
       {/* Explicación corta: la mayoría de quien llega aquí no sabe todavía qué es una skill. */}
-      <div className="rounded-xl border border-linea bg-panel/50 p-5 mb-10">
+      <div className="border border-linea bg-panel/50 p-5 mb-10">
         <div className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-2">
           {t.skillsWhatTitle}
         </div>
@@ -105,7 +109,7 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
               <h2 className="text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
                 {group.label[lang]}
               </h2>
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3 items-start">
+              <Reticula cols="sm:grid-cols-2 xl:grid-cols-3">
                 {group.items.map((item, i) => (
                   <Tarjeta
                     key={item.key}
@@ -115,7 +119,7 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
                     delay={Math.min(gi * 0.04 + i * 0.02, 0.3)}
                   />
                 ))}
-              </div>
+              </Reticula>
             </div>
           ))}
         </div>

@@ -26,7 +26,7 @@ const DERECHA = ORDEN_MENU.slice(3)
 // La escala de la barra, en un sitio y no repartida por doce clases sueltas.
 //
 // Antes había cuatro alturas conviviendo (el logo a 32, los botones a 36, el
-// CTA a 38 por su relleno), tres radios (`rounded-lg`, `rounded-full` y el del
+// CTA a 38 por su relleno), tres radios (``, `` y el del
 // buscador) y cuatro espaciados sin relación entre ellos (1.5, 2, 4 y 5). Nada
 // de eso se ve como un fallo por separado, y juntos son exactamente por qué una
 // barra se siente descuidada aunque no sepas señalar dónde.
@@ -133,7 +133,7 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
                 key={key}
                 to={rutaDe(key)}
                 onClick={onCerrar}
-                className="pulsable flex items-center gap-3.5 py-3.5 px-2 -mx-2 rounded-lg border-b border-linea/70 active:bg-zinc-100 dark:active:bg-zinc-900 group"
+                className="pulsable flex items-center gap-3.5 py-3.5 px-2 -mx-2 border-b border-linea/70 active:bg-zinc-100 dark:active:bg-zinc-900 group"
               >
                 <Icono
                   size={17}
@@ -237,7 +237,7 @@ export default function TopBar({
     <>
       <a
         href="#principal"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-zinc-900 focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-zinc-900 focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold"
       >
         {t.saltarAlContenido}
       </a>

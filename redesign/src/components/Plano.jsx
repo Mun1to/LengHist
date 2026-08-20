@@ -89,3 +89,41 @@ export function Encuadre() {
     </span>
   )
 }
+
+// La retícula del catálogo: las fichas se tocan y lo que las separa es una línea
+// de 1px, no un hueco.
+//
+// De dónde sale. Con `gap-3` y esquina redondeada, las fichas de una fila miden
+// lo que mide su contenido, así que la fila entera crece hasta la más alta y las
+// demás dejan un hueco debajo. En una sección de conceptos, donde una ficha
+// lleva demo y bloque de código y la de al lado tres líneas, esos huecos son
+// enormes y se leen como un fallo de maquetación. Reportado por Munir el
+// 2026-08-20 con una captura de dos huecos seguidos.
+//
+// Cómo se arregla: el hueco pasa a ser de 1px y el fondo del contenedor se ve a
+// través de él, así que ESE hueco es la línea. Las celdas se estiran hasta el
+// alto de su fila (comportamiento normal de una rejilla, aquí no se pisa con
+// `items-start`) y no queda ningún vacío entre unas y otras.
+//
+// La línea de 1px exacta también se gana aquí: con un borde por ficha, donde dos
+// se tocan salen dos píxeles y la retícula se ve sucia.
+//
+// **La línea la dibuja un `outline` y no el fondo del contenedor**, que fue el
+// primer intento y tenía un fallo a la vista: si el hueco de 1px deja ver el
+// fondo, la última fila incompleta deja ver ese mismo fondo en TODA la celda que
+// falta, y donde debería haber nada aparece un bloque gris. Se vio en Recursos,
+// que tiene grupos de ocho fichas en rejillas de tres.
+//
+// El `outline` no ocupa espacio y se pinta fuera de la caja, así que cae justo
+// en el hueco de 1px y se solapa con el de la ficha vecina: sale una línea de un
+// píxel exacto, las esquinas cierran, y donde no hay ficha no hay nada que
+// pintar. El `p-px` del contenedor le deja sitio al outline del perímetro, que
+// si no sobresaldría un píxel por los cuatro lados.
+export function Reticula({ cols, encuadre = true, className = '', children }) {
+  return (
+    <div className={`reticula relative grid ${cols} gap-px p-px bg-panel ${className}`}>
+      {encuadre && <Encuadre />}
+      {children}
+    </div>
+  )
+}

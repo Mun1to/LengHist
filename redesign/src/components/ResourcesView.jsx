@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
+import { Reticula } from './Plano'
 
 // Un directorio se lee por la marca, así que cada herramienta necesita un ancla
 // visual. No se traen los favicons de fuera a propósito: serían 64 peticiones a
@@ -13,7 +14,7 @@ function Monograma({ nombre, color }) {
   return (
     <span
       aria-hidden="true"
-      className="grid place-items-center w-9 h-9 rounded-lg shrink-0 font-mono text-xs font-bold uppercase"
+      className="grid place-items-center w-9 h-9 shrink-0 font-mono text-xs font-bold uppercase"
       style={{ background: `color-mix(in srgb, ${color} 12%, transparent)`, color }}
     >
       {letras}
@@ -43,30 +44,33 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
           {groups.map((group, gi) => (
             <div key={group.key} className="scroll-mt-20">
               <h2 className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-tinta-suave mb-3">
-                <span className="w-1.5 h-1.5 rounded-full" style={{ background: group.dot }} />
+                <span className="w-1.5 h-1.5" style={{ background: group.dot }} />
                 {group.label[lang]}
               </h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3">
+              <Reticula cols="sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                 {group.items.map((r, i) => (
                   <motion.a
                     key={r.name}
                     href={r.url}
                     target="_blank"
                     rel="noopener"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     transition={{ duration: 0.25, delay: Math.min(gi * 0.04 + i * 0.02, 0.3) }}
-                    className="group pulsable pulsable-suave flex items-start gap-3 rounded-xl border border-linea bg-panel p-3.5 hover:border-blue-500/50 hover:bg-blue-500/5"
+                    className="group pulsable pulsable-suave flex items-stretch gap-3 bg-panel p-3.5 hover:bg-zinc-50 dark:hover:bg-zinc-900"
                   >
                     <Monograma nombre={r.name} color={group.dot} />
-                    <div className="min-w-0 flex-1">
+                    <div className="min-w-0 flex-1 flex flex-col">
                       <div className="flex items-center gap-1.5">
                         <h3 className="font-bold text-sm text-tinta truncate">{r.name}</h3>
                         <ArrowUpRight size={13} className="shrink-0 text-tinta-suave group-hover:text-blue-500 transition-colors" />
                       </div>
                       <div className="text-sm text-tinta-suave leading-snug mt-0.5">{r[lang]}</div>
-                      {/* A dónde te lleva, dicho antes de pulsar. */}
-                      <div className="font-mono text-[11px] text-tinta-suave truncate mt-1.5">
+                      {/* A dónde te lleva, dicho antes de pulsar. Anclado abajo:
+                          en una retícula, las fichas de una fila miden lo mismo
+                          y un dominio que sigue al texto sale a una altura por
+                          ficha según cuántas líneas ocupe la descripción. */}
+                      <div className="font-mono text-[11px] text-tinta-suave truncate mt-auto pt-1.5">
                         {dominio(r.url)}
                       </div>
                     </div>
@@ -75,7 +79,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
                     </span>
                   </motion.a>
                 ))}
-              </div>
+              </Reticula>
             </div>
           ))}
         </div>

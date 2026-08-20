@@ -23,7 +23,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
     >
       <Link
         to={rutaDe('components')}
-        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 rounded-md text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
+        className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />
         {t.compBack}
@@ -57,14 +57,14 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
         <div className="text-sm text-tinta-suave mt-3">{t.compOwn}</div>
       )}
 
-      <div className="relative h-[420px] rounded-2xl overflow-hidden bg-zinc-950 border border-linea mt-8">
+      <div className="relative h-[420px] overflow-hidden bg-zinc-950 border border-linea mt-8">
         <ComponentDemo item={item} values={values} lang={lang} t={t} />
       </div>
       {needsHtmlInCanvas && !htmlInCanvas && (
         <p className="text-xs text-tinta-suave mt-2.5 leading-relaxed max-w-2xl">{t.compHicWarn}</p>
       )}
 
-      <div className="mt-6 border border-linea rounded-2xl px-4 py-3 bg-panel/50">
+      <div className="mt-6 border border-linea px-4 py-3 bg-panel/50">
         <ControlPanel
           t={t} lang={lang} controls={item.controls} values={values}
           onChange={onChange} onReset={onReset}

@@ -51,7 +51,7 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
         aria-label={item.name}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}
         data-demo
-        className="group relative h-56 rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 cursor-pointer hover:border-zinc-600 focus-visible:border-blue-500 outline-none transition-colors"
+        className="group relative h-56 overflow-hidden bg-zinc-950 border border-zinc-800 cursor-pointer hover:border-zinc-600 focus-visible:border-blue-500 outline-none transition-colors"
       >
         {live && <ComponentDemo item={item} values={values} lang={lang} compact t={t} />}
         <div className="absolute top-2 right-2 z-20" data-no-open>

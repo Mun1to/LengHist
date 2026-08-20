@@ -234,3 +234,15 @@ body {
     transition-duration: 1ms;
   }
 }
+
+/* Las líneas de la retícula del catálogo, dibujadas con un `outline` que cae
+   dentro del hueco de 1px que deja la rejilla. El porqué de que sea un outline
+   y no el fondo del contenedor está escrito en `Reticula` (components/Plano.jsx):
+   en corto, el fondo también se ve en las celdas que faltan al final de un grupo
+   y ahí no debe haber nada.
+
+   Se salta lo que sea `aria-hidden`, que en una retícula es siempre el encuadre:
+   es un hijo más para el selector, pero no es una ficha. */
+.reticula > *:not([aria-hidden="true"]) {
+  outline: 1px solid var(--v-linea);
+}

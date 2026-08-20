@@ -57,7 +57,7 @@ export default function BotonGitHub({ t, conTexto = false }) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={etiqueta}
-        className="pulsable flex items-center gap-2.5 h-10 px-3 mt-2 border border-linea rounded-xl text-sm font-semibold text-tinta-fuerte"
+        className="pulsable flex items-center gap-2.5 h-10 px-3 mt-2 border border-linea text-sm font-semibold text-tinta-fuerte"
       >
         <LogoGitHub size={16} />
         {t.githubContribuye}

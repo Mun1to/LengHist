@@ -22,7 +22,7 @@ export default function BotonCopiar({ texto, etiqueta, etiquetaHecho, compacto =
       onClick={copiar}
       title={etiqueta}
       aria-label={etiqueta}
-      className={`pulsable inline-flex items-center gap-1.5 rounded-lg text-tinta-suave hover:text-tinta cursor-pointer ${
+      className={`pulsable inline-flex items-center gap-1.5 text-tinta-suave hover:text-tinta cursor-pointer ${
         compacto ? 'w-7 h-7 justify-center' : 'h-8 px-2.5 border border-linea text-xs font-medium hover:border-linea-viva'
       }`}
     >
