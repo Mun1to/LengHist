@@ -56,6 +56,13 @@ export const I18N = {
     heroTitle1: 'Un sitio con todo lo que necesitas',
     heroTitle2: 'para construir en la web.',
     heroSub: 'El estante que miras antes de empezar: lenguajes, herramientas, técnicas, componentes en vivo y skills para tu agente. Aquí se enseñan funcionando, no descritos.',
+    // El titular del hero y el título que viaja en el enlace ya no son el mismo
+    // texto, y separarlos arregla un fallo que se veía al pegar la dirección en
+    // un chat: el titular tiene sitio para respirar en una pantalla de 1.400px,
+    // pero en la tarjeta de Discord se cortaba en «...para construir en la ...».
+    // Aquí manda caber, así que se dice lo mismo con la mitad de palabras.
+    metaTitulo: 'Vibeset · Todo para construir en la web',
+    metaDesc: 'Lenguajes, recursos, conceptos web, componentes en vivo, skills de agente y consejos, enseñados funcionando. Gratis, sin registro y sin rastreo.',
     heroClaims: 'Gratis, bilingüe, sin registro y sin rastreo.',
     heroDemo: 'Esto es un componente del catálogo, y se puede orbitar',
     exploreBtn: 'Ver qué hay dentro',
@@ -231,6 +238,8 @@ export const I18N = {
     heroTitle1: 'One place with everything you need',
     heroTitle2: 'to build for the web.',
     heroSub: 'The shelf you check before you start: languages, tools, techniques, live components and skills for your agent. Shown running, not described.',
+    metaTitulo: 'Vibeset · Everything to build for the web',
+    metaDesc: 'Languages, resources, web concepts, live components, agent skills and tips, all shown running. Free, no sign-up, no tracking.',
     heroClaims: 'Free, bilingual, no sign-up, no tracking.',
     heroDemo: 'This is a component from the catalogue, and you can orbit it',
     exploreBtn: 'See what is inside',

@@ -3,10 +3,16 @@
 //   pnpm tarjeta            escribe public/brand/og.png y og-en.png
 //   CHROME="..." pnpm tarjeta   si Chrome no está donde se le busca
 //
-// Existe como script y no como PNG editado a mano porque los números son los del
-// catálogo: la tarjeta anterior decía «Cien lenguajes. Una guía viva» meses
-// después de que el sitio dejara de ser eso y creciera a seis secciones. Así se
-// vuelve a generar en diez segundos y nunca miente sobre lo que hay dentro.
+// Existe como script y no como PNG editado a mano porque la tarjeta anterior
+// decía «Cien lenguajes. Una guía viva» meses después de que el sitio dejara de
+// ser eso y creciera a seis secciones. Así se vuelve a generar en diez segundos
+// y no hay que abrir un editor de imágenes para cambiar una palabra.
+//
+// Desde el 2026-08-20 no dibuja NINGUNA cifra, y eso es lo que hace que casi no
+// haya que volver a lanzarlo: mientras la imagen decía «72 recursos», cada ficha
+// nueva la dejaba mintiendo y nadie se acordaba de regenerarla. Lo que enseña
+// ahora es qué hay dentro, que no caduca. Las cuentas exactas se calculan en
+// vivo dentro de la web, que es donde no pueden quedarse viejas.
 import { spawn } from 'node:child_process'
 import { existsSync, readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -35,29 +41,15 @@ function buscarChrome() {
   return encontrado
 }
 
-// Los números que se dibujan en la tarjeta salen de la misma cuenta que usan la
-// aplicación y el texto alternativo del build, para que la imagen y su
-// descripción no puedan decir cosas distintas.
-async function totales() {
-  const { TOTALES } = await import('../src/lib/totales.js')
-  return TOTALES
-}
-
 const TEXTOS = {
   es: {
     lema: 'Todo lo que necesitas<br>para construir en la web.',
-    piezas: (n) => [
-      [n.langs, 'lenguajes'], [n.res, 'recursos'], [n.concepts, 'conceptos'],
-      [n.comps, 'componentes'], [n.skills, 'skills'], [n.consejos, 'consejos'],
-    ],
+    piezas: ['lenguajes', 'recursos', 'conceptos', 'componentes', 'skills', 'consejos'],
     promesa: 'Gratis · Sin registro · Sin rastreo',
   },
   en: {
     lema: 'Everything you need<br>to build for the web.',
-    piezas: (n) => [
-      [n.langs, 'languages'], [n.res, 'resources'], [n.concepts, 'concepts'],
-      [n.comps, 'components'], [n.skills, 'skills'], [n.consejos, 'tips'],
-    ],
+    piezas: ['languages', 'resources', 'web concepts', 'components', 'skills', 'tips'],
     promesa: 'Free · No sign-up · No tracking',
   },
 }
@@ -69,14 +61,19 @@ function logoIncrustado() {
   return 'data:image/svg+xml;base64,' + Buffer.from(svg).toString('base64')
 }
 
-function plantilla(lang, n) {
+function plantilla(lang) {
   const t = TEXTOS[lang]
-  // Tres por dos, como la retícula de secciones de la portada. En una sola fila
-  // los seis se partían por donde caía y dejaban un separador colgando al final
-  // de la línea.
-  const piezas = t.piezas(n)
-    .map(([num, etq]) => `<span class="pieza"><b>${num}</b> ${etq}</span>`)
-    .join('')
+  // Las secciones van SIN cifras, y es la decisión que sostiene todo lo demás.
+  // Un «72 recursos» dibujado dentro de un PNG es un dato congelado: envejece
+  // solo, obliga a regenerar la imagen cada vez que entra una ficha y, cuando
+  // nadie se acuerda, la tarjeta que ve el mundo miente. Sin números la imagen
+  // no caduca nunca y sigue diciendo lo que importa, que es qué vas a encontrar.
+  // Los contadores exactos siguen estando donde sí se calculan en vivo: dentro
+  // de la web.
+  //
+  // Cabiendo en una fila, quedan seis palabras leídas de un tirón. Antes hacían
+  // falta dos filas de tres porque cada etiqueta arrastraba su número delante.
+  const piezas = t.piezas.map((etq) => `<span class="pieza">${etq}</span>`).join('')
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -105,20 +102,27 @@ function plantilla(lang, n) {
     background-size: 64px 64px;
     -webkit-mask-image: radial-gradient(ellipse 78% 78% at 70% 25%, #000 25%, transparent 76%);
   }
-  .marco { position: absolute; inset: 0; padding: 72px 80px; display: flex; flex-direction: column }
-  .cabecera { display: flex; align-items: center; gap: 26px }
-  .cabecera img { width: 92px; height: 92px }
-  .marca { font-size: 78px; font-weight: 900; letter-spacing: -3.5px; line-height: 1 }
+  .marco { position: absolute; inset: 0; padding: 68px 80px; display: flex; flex-direction: column }
+  .cabecera { display: flex; align-items: center; gap: 30px }
+  .cabecera img { width: 132px; height: 132px }
+  .marca { font-size: 92px; font-weight: 900; letter-spacing: -4px; line-height: 1 }
   .lema {
-    margin-top: 38px; font-size: 52px; font-weight: 800;
+    margin-top: 40px; font-size: 52px; font-weight: 800;
     letter-spacing: -1.6px; line-height: 1.14; max-width: 900px;
   }
   .lema em { font-style: normal; color: #60a5fa }
+  /* Los seis nombres en UNA fila, y el tamaño está medido para eso, no elegido a
+     ojo: a 27px con 18px de aire la fila pedía 1.087px y solo hay 1.040, así que
+     «consejos» caía sola a una segunda línea arrastrando su separador delante.
+     A 26px con 12px son 994px y entra con holgura. Si algún día entra una
+     séptima sección, esta cuenta se rehace y se mira la imagen. */
   .piezas {
-    margin-top: auto; display: grid; grid-template-columns: repeat(3, max-content);
-    gap: 16px 56px; font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #a1a1aa;
+    margin-top: auto; display: flex; align-items: baseline; gap: 0 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #d4d4d8;
   }
-  .pieza b { color: #fafafa; font-weight: 700 }
+  /* El separador se dibuja entre piezas y no dentro de cada una: escrito dentro
+     del texto, la última se queda con un punto colgando al final de la fila. */
+  .pieza + .pieza::before { content: '·'; color: #52525b; margin-right: 12px }
   .fila {
     margin-top: 38px; padding-top: 28px; border-top: 1px solid #27272a;
     display: flex; align-items: center; justify-content: space-between;
@@ -221,15 +225,14 @@ async function capturar(chrome, perfil, htmlPath, destino) {
 }
 
 const chrome = buscarChrome()
-const n = await totales()
 const tmp = mkdtempSync(join(tmpdir(), 'vibeset-og-'))
 
 for (const [lang, archivo] of [['es', 'og.png'], ['en', 'og-en.png']]) {
   const html = join(tmp, `og-${lang}.html`)
-  writeFileSync(html, plantilla(lang, n))
+  writeFileSync(html, plantilla(lang))
   const destino = join(RAIZ, 'public/brand', archivo)
   await capturar(chrome, join(tmp, `perfil-${lang}`), html, destino)
-  console.log(`  ${archivo}  ${n.langs}/${n.res}/${n.concepts}/${n.comps}/${n.skills}/${n.consejos}`)
+  console.log(`  ${archivo}`)
 }
 
 // Dentro de `tmp` hay dos perfiles enteros de Chrome, unos 26 MB por pasada, y

@@ -46,8 +46,13 @@ export function metaDePagina({ vista, ficha, lang, t }) {
   const marca = 'Vibeset'
 
   if (vista === '404') return { titulo: `${t.noHayTitulo} · ${marca}`, descripcion: t.noHayTexto }
+  // La portada NO reutiliza el titular del hero. Un titular puede permitirse
+  // catorce palabras porque se lee entero de un vistazo; la tarjeta de un chat
+  // corta por donde quiere, y «Vibeset · Un sitio con todo lo que necesitas para
+  // construir en la ...» llegaba cortado a Discord. Su texto propio está en el
+  // i18n, y ahí manda caber.
   if (vista === 'home') {
-    return { titulo: `${marca} · ${t.heroTitle1} ${t.heroTitle2}`, descripcion: recortar(t.heroSub) }
+    return { titulo: t.metaTitulo, descripcion: t.metaDesc }
   }
 
   if (ficha) {

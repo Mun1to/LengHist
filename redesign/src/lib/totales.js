@@ -21,9 +21,12 @@ export const TOTALES = {
   consejos: CONSEJOS.length,
 }
 
-// Lo que la tarjeta social dice que hay. Lo usan el texto alternativo que
-// cocina el build y la imagen que dibuja `pnpm tarjeta`, que describen lo mismo
-// y por eso tienen que contarlo igual.
-export const resumenDelCatalogo = (n = TOTALES) =>
-  `Vibeset · ${n.langs} lenguajes, ${n.res} recursos, ${n.concepts} conceptos, `
-  + `${n.comps} componentes, ${n.skills} skills y ${n.consejos} consejos`
+// Lo que la tarjeta social dice que hay: el texto alternativo de su imagen.
+//
+// Ya no lleva cifras, y no es un descuido. Un texto alternativo describe la
+// imagen que acompaña, y esa imagen dejó de dibujar números el 2026-08-20 para
+// que no caducara sola (ver `scripts/tarjeta-social.mjs`). Si aquí siguieran los
+// contadores, quien la escucha con un lector de pantalla oiría un dato que la
+// pantalla no enseña, y encima uno que envejece con cada ficha nueva.
+export const resumenDelCatalogo = () =>
+  'Vibeset · lenguajes, recursos, conceptos web, componentes, skills y consejos'
