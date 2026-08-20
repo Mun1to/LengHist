@@ -114,7 +114,12 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
               {/* La portada la ocupa una pieza viva del catálogo, no una ilustración
                   de una pieza viva del catálogo. */}
               <motion.div {...aparece(0.25)}>
-                <div className="relative h-[340px] sm:h-[400px] rounded-2xl overflow-hidden bg-zinc-950 border border-linea">
+                {/* Esquina recta, como la rejilla de secciones de abajo. Era el
+                    último `rounded-2xl` que quedaba en la portada, y encerraba la
+                    demo en una caja curva en medio de una página construida con
+                    líneas de 1px. El fondo oscuro sí se queda: el ASCII es
+                    blanco, y sin él no se ve nada en tema claro. */}
+                <div className="relative h-[340px] sm:h-[400px] overflow-hidden bg-zinc-950 border border-linea">
                   <Suspense fallback={<div className="absolute inset-0 grid place-items-center font-mono text-xs text-zinc-400">{t.compLoading}</div>}>
                     <AsciiObject
                       src="/brand/logo-blanco.svg"
