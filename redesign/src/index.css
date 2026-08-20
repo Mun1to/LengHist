@@ -10,6 +10,7 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
 
+
   /* Los colores de la interfaz se nombran por lo que hacen y no por el tono que
      tienen, para que exista UN sitio donde mirar cuál es el gris de apoyo. Cada
      uno apunta a una variable que cambia con el tema, definida más abajo. */
@@ -37,6 +38,7 @@
   --color-cian: var(--tono-cian);
   --color-cielo: var(--tono-cielo);
   --color-azul: var(--tono-azul);
+  --color-verde: var(--tono-verde);
 }
 
 /* ---------------------------------------------------------------------------
@@ -99,6 +101,7 @@
   --tono-cian: var(--color-cyan-700);
   --tono-cielo: var(--color-sky-700);
   --tono-azul: var(--color-blue-700);
+  --tono-verde: var(--color-green-700);
 }
 
 [data-theme="dark"] {
@@ -116,6 +119,7 @@
   --tono-cian: var(--color-cyan-400);
   --tono-cielo: var(--color-sky-400);
   --tono-azul: var(--color-blue-400);
+  --tono-verde: var(--color-green-400);
 }
 
 /* Nota para el futuro: para la tercera columna de las rejillas se usa 2xl: y no

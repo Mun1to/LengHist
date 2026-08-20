@@ -61,6 +61,22 @@ export const RESOURCES = [
   ]
  },
  {
+  "key": "agente",
+  "dot": "var(--tono-verde)",
+  "label": {
+   "es": "Herramientas de agente",
+   "en": "Agent tooling"
+  },
+  "items": [
+   {
+    "name": "autoskills",
+    "url": "https://autoskills.sh",
+    "es": "Mira tu proyecto, ve con qué está hecho e instala las skills que le pegan",
+    "en": "Reads your project, sees what it is built with and installs the skills that fit"
+   }
+  ]
+ },
+ {
   "key": "blocks",
   "dot": "var(--tono-indigo)",
   "label": {
