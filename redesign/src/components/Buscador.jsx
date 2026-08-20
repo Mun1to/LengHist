@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Search, ArrowUpRight, CornerDownLeft } from 'lucide-react'
 import { construirIndice, buscar } from '../data/buscador'
 
@@ -63,7 +64,18 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
     const volverA = disparadorRef.current
     document.body.style.overflow = 'hidden'
     const foco = requestAnimationFrame(() => campoRef.current?.focus())
+
+    // Escape se escucha en la VENTANA, no en el panel, y esto no es una
+    // redundancia: mientras estuvo solo en el `onKeyDown` del diálogo, bastaba
+    // con que el foco saliera del campo para que la única salida dejara de
+    // funcionar con el scroll de la página ya bloqueado. Eso es una paleta que
+    // atrapa al visitante, y pasó de verdad. La salida de emergencia no puede
+    // depender de dónde esté el foco.
+    const salir = (e) => { if (e.key === 'Escape') { e.preventDefault(); cerrar() } }
+    window.addEventListener('keydown', salir)
+
     return () => {
+      window.removeEventListener('keydown', salir)
       document.body.style.overflow = previo
       cancelAnimationFrame(foco)
       // El foco vuelve de donde salió, que es lo que espera quien navega con el
@@ -87,8 +99,9 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
     onAbrir(entrada)
   }
 
+  // Escape no está aquí a propósito: vive en la ventana, arriba, para que
+  // funcione aunque el foco se haya escapado del panel.
   const teclas = (e) => {
-    if (e.key === 'Escape') { e.preventDefault(); cerrar(); return }
     if (!planos.length) return
     if (e.key === 'ArrowDown') { e.preventDefault(); setActivo((i) => (i + 1) % planos.length) }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setActivo((i) => (i - 1 + planos.length) % planos.length) }
@@ -117,7 +130,16 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
         </span>
       </button>
 
-      {abierto && (
+      {/* El velo se cuelga del `body` con un portal, y esto no es preferencia de
+          estilo: es la única forma de que funcione. El componente vive dentro
+          del `<header>`, y ese header lleva `backdrop-blur` para su barra
+          translúcida; un ancestro con `backdrop-filter` crea un bloque
+          contenedor para todo lo `fixed` que lleve dentro, así que el velo
+          «a pantalla completa» medía 1440x126 en una ventana de 900. De ahí
+          salían los tres fallos a la vez: el desenfoque solo tapaba la barra, el
+          clic fuera no encontraba velo que pulsar, y ese clic se llevaba el foco
+          al body dejando la paleta abierta con el scroll bloqueado. */}
+      {abierto && createPortal(
         <div
           className="fixed inset-0 z-[60] bg-zinc-900/30 dark:bg-black/50 backdrop-blur-md px-4 pt-[10vh] sm:pt-[14vh]"
           // El velo cierra al pulsarlo, pero solo si el clic empieza Y acaba en
@@ -216,7 +238,8 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
               {t.buscarAyuda}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   )
