@@ -265,6 +265,12 @@ export const RESOURCES = [
     "en": "Ready CSS animations"
    },
    {
+    "name": "Tailwind Animations",
+    "url": "https://tailwind-animations.com",
+    "es": "Animaciones listas como clases de Tailwind, sin configurar nada",
+    "en": "Ready-made animations as Tailwind classes, zero config"
+   },
+   {
     "name": "AOS",
     "url": "https://michalsnik.github.io/aos/",
     "es": "Animar al hacer scroll",
@@ -549,6 +555,18 @@ export const RESOURCES = [
     "url": "https://www.aihero.dev",
     "es": "Cursos y tutoriales para programar con IA",
     "en": "Courses and tutorials for building with AI"
+   },
+   {
+    "name": "100 proyectos de JavaScript",
+    "url": "https://javascript100.dev",
+    "es": "Cien proyectos para practicar, con su código y su vídeo",
+    "en": "A hundred projects to practice, with code and video (Spanish)"
+   },
+   {
+    "name": "Libros gratis",
+    "url": "https://librosgratis.dev",
+    "es": "Libros de programación gratis, en español",
+    "en": "Free programming books, in Spanish"
    }
   ]
  },
