@@ -179,7 +179,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
               <CodeWindow lang={lang} />
               <div>
                 <h2 className="text-2xl font-extrabold tracking-tight text-tinta mb-3">
-                  {t.landingCodeTitle}
+                  {t.landingCodeTitle(totals.langs)}
                 </h2>
                 <p className="text-tinta-suave leading-relaxed mb-6">{t.landingCodeText}</p>
                 <Link

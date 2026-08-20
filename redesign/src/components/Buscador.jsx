@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Search, ArrowUpRight, CornerDownLeft } from 'lucide-react'
 import { construirIndice, buscar } from '../data/buscador'
+import { atajoBuscar, esMac } from '../lib/atajos'
 
 // Buscador: mira en los cinco catálogos a la vez, no solo en la sección abierta.
 // Se maneja entero con el teclado y se abre con ⌘K / Ctrl+K.
@@ -16,10 +17,6 @@ import { construirIndice, buscar } from '../data/buscador'
 // Lo que hay en la barra pasa a ser un DISPARADOR, no un campo: mide lo mismo y
 // se ve igual, pero es un botón. Un input que al enfocarse abre otro input
 // distinto es una trampa para los lectores de pantalla y para el teclado.
-
-const esMac = () =>
-  typeof navigator !== 'undefined' &&
-  /Mac|iPhone|iPad|iPod/.test(navigator.userAgentData?.platform || navigator.platform || '')
 
 export default function Buscador({ t, lang, onAbrir, className = '' }) {
   const [consulta, setConsulta] = useState('')
@@ -132,7 +129,7 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
         <Search size={15} className="shrink-0 text-tinta-suave" />
         <span className="flex-1 min-w-0 truncate text-sm text-tinta-suave">{t.buscarTodoPh}</span>
         <span className="hidden sm:block font-mono text-[11px] text-tinta-suave select-none">
-          {mac ? '⌘K' : 'Ctrl K'}
+          {atajoBuscar(mac)}
         </span>
       </button>
 

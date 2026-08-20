@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { TOTALES } from './totales.js'
 
 // Con una sola URL, el título y la descripción de la pestaña valían para todo el
 // sitio. Ahora que cada ficha tiene la suya, cada una dice lo suyo: es lo que se
@@ -62,7 +63,10 @@ export function metaDePagina({ vista, ficha, lang, t }) {
   }
 
   const titulos = {
-    languages: [t.gridTitle, t.langsSub], resources: [t.resTitle, t.resSub],
+    // `langsSub` lleva la cuenta dentro, así que aquí es una función y no un
+    // texto: sin llamarla, la descripción de la página saldría con el código
+    // fuente de la flecha escrito en la pestaña y en Google.
+    languages: [t.gridTitle, t.langsSub(TOTALES.langs)], resources: [t.resTitle, t.resSub],
     concepts: [t.conceptsTitle, t.conceptsSub], components: [t.compTitle, t.compSub],
     skills: [t.skillsTitle, t.skillsSub], consejos: [t.consejosTitle, t.consejosSub],
   }

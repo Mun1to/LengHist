@@ -19,6 +19,10 @@ export const TOTALES = {
   comps: COMPONENT_ITEMS.length,
   skills: SKILL_ITEMS.length,
   consejos: CONSEJOS.length,
+  // Cuántas skills se instalan con dos comandos. El texto de la sección decía
+  // «las seis» a mano, y eso deja de ser verdad en cuanto se publique la
+  // séptima sin que nadie mire este archivo.
+  skillsPlugin: SKILL_ITEMS.filter((s) => s.plugin).length,
 }
 
 // Lo que la tarjeta social dice que hay: el texto alternativo de su imagen.

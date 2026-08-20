@@ -8,6 +8,7 @@ import CodeBlock from './CodeBlock'
 import { Reticula } from './Plano'
 import { authorOf, hasOwnRepo, repoLabel, skillFile, slugOf } from '../data/skills'
 import { rutaDe, slugClave } from '../lib/rutas'
+import { TOTALES } from '../lib/totales'
 
 // Tarjeta clicable entera, como en Componentes: si el usuario estaba
 // seleccionando texto y arrastró, no se abre la ficha.
@@ -93,7 +94,7 @@ export default function SkillsView({ t, lang, groups, onClear, favorites, onTogg
     └── SKILL.md      ${t.skillsWhatFile}`}
         </pre>
         <p className="text-sm text-tinta-suave mt-4 max-w-2xl leading-relaxed">
-          {t.skillMarketplace}
+          {t.skillMarketplace(TOTALES.skillsPlugin)}
         </p>
         <div className="mt-3 max-w-xl">
           <CodeBlock t={t} title="claude code" code={`/plugin marketplace add Mun1to/Vibeset`} />

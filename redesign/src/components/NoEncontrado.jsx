@@ -1,9 +1,16 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import { atajoBuscar, esMac } from '../lib/atajos'
 
 // Con enlaces de verdad hacen falta callejones sin salida de verdad: una
 // dirección equivocada tiene que decirlo, no dejar la portada como si nada.
 export default function NoEncontrado({ t }) {
+  // En un efecto y no al pintar: esta página también se cocina en el build, y
+  // el HTML servido tiene que coincidir con el primer pintado del cliente.
+  const [mac, setMac] = useState(false)
+  useEffect(() => { setMac(esMac()) }, [])
+
   return (
     <section className="px-6 sm:px-10 py-24 max-w-2xl">
       <div className="font-mono text-xs uppercase tracking-[.14em] text-blue-600 dark:text-blue-400">404</div>
@@ -18,7 +25,7 @@ export default function NoEncontrado({ t }) {
         <ArrowRight size={14} className="flecha-desliza" />
       </Link>
 
-      <div className="font-mono text-[11px] text-tinta-suave mt-4">{t.noHayBuscar}</div>
+      <div className="font-mono text-[11px] text-tinta-suave mt-4">{t.noHayBuscar(atajoBuscar(mac))}</div>
     </section>
   )
 }

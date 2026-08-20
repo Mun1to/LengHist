@@ -17,7 +17,7 @@ export default function LanguagesHeader({ t, lang, filter, onFiltrar, total, sho
         <h1 className="text-3xl font-extrabold tracking-tight">{t.gridTitle}</h1>
         <span className="font-mono text-xs text-tinta-suave shrink-0">{t.gridSub(shown, total)}</span>
       </div>
-      <p className="text-tinta-suave mb-6 max-w-2xl">{t.langsSub}</p>
+      <p className="text-tinta-suave mb-6 max-w-2xl">{t.langsSub(total)}</p>
 
       {/* `data-nav` no es decoración: es lo que el kitchen sink busca para saber
           qué es una lista de navegación. Estos filtros se quedaron fuera del

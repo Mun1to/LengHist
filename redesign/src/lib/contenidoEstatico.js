@@ -67,7 +67,7 @@ const home = (t, lang) => `
   ${p(`${t.heroTitle1} ${t.heroTitle2}`)}
   ${p(t.heroSub)}
   ${ul([
-    a(rutaDe('languages'), t.nav.languages) + nota(`${LANGUAGES.length} fichas. ${t.langsSub}`),
+    a(rutaDe('languages'), t.nav.languages) + nota(`${LANGUAGES.length} fichas. ${t.langsSub(LANGUAGES.length)}`),
     a(rutaDe('resources'), t.nav.resources) + nota(`${RESOURCES.reduce((n, g) => n + g.items.length, 0)} recursos. ${t.resSub}`),
     a(rutaDe('concepts'), t.nav.concepts) + nota(`${CONCEPTS.reduce((n, g) => n + g.items.length, 0)} técnicas. ${t.conceptsSub}`),
     a(rutaDe('components'), t.nav.components) + nota(`${COMPONENT_ITEMS.length} componentes. ${t.compSub}`),
@@ -77,7 +77,7 @@ const home = (t, lang) => `
 
 const listaLenguajes = (t, lang) => `
   <h1>${esc(t.gridTitle)}</h1>
-  ${p(t.langsSub)}
+  ${p(t.langsSub(LANGUAGES.length))}
   ${ul(LANGUAGES.map((l) =>
     a(rutaDe('languages', slugLenguaje(l.name)), l.name) + nota(l[lang]?.desc)))}`
 

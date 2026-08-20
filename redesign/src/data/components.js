@@ -192,7 +192,7 @@ export const COMPONENT_ITEMS = [
     tag: { es: 'la web se despega como una pegatina', en: 'the page peels back like a sticker' },
     desc: {
       es: 'Acerca el cursor al borde y la página se despega como una pegatina, curvándose con su sombra y su brillo, y dejando ver la capa que hay debajo. Aquí, debajo de la portada, está el catálogo.',
-      en: 'Move the cursor toward the edge and the live page peels back like a sticker, curling with its own shading and shine, revealing the layer underneath. Here the catalogue sits under the cover.',
+      en: 'Move the cursor toward the edge and the live page peels back like a sticker, curling with its own shading and shine, revealing the layer underneath. Here the catalog sits under the cover.',
     },
     defaults: {
       side: 'left', mode: 'cursor', reveal: 220, zone: 200, curl: 260,
