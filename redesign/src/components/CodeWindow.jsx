@@ -12,7 +12,7 @@ export default function CodeWindow({ lang = 'es', className = '' }) {
   const code = codeFor(demo, lang)
 
   return (
-    <div className={`relative rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 shadow-[0_20px_60px_rgba(0,0,0,.35)] ${className}`}>
+    <div data-demo className={`relative rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 shadow-[0_20px_60px_rgba(0,0,0,.35)] ${className}`}>
       <div className="flex items-center gap-1.5 px-3.5 py-3 border-b border-zinc-800">
         <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
         <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
