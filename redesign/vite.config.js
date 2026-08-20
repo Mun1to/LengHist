@@ -200,8 +200,30 @@ function prerenderMeta() {
   }
 }
 
+// En producción, `/api/estrellas` lo sirve Cloudflare Pages desde `functions/`.
+// Vite no ejecuta esa carpeta, así que en desarrollo el endpoint no existiría y
+// el botón de GitHub se probaría siempre en su estado de fallo, que es justo el
+// que no hay que dar por bueno. Este plugin levanta el mismo camino en local
+// llamando a la MISMA función, no a una imitación: si un día cambia lo que
+// devuelve, cambia en los dos sitios a la vez.
+function endpointsEnDesarrollo() {
+  return {
+    name: 'vibeset-endpoints-dev',
+    apply: 'serve',
+    configureServer(server) {
+      server.middlewares.use('/api/estrellas', async (_req, res) => {
+        const { onRequestGet } = await server.ssrLoadModule('./functions/api/estrellas.js')
+        const r = await onRequestGet()
+        res.statusCode = r.status
+        r.headers.forEach((v, k) => res.setHeader(k, v))
+        res.end(await r.text())
+      })
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), sitemap(), prerenderMeta()],
+  plugins: [react(), tailwindcss(), sitemap(), prerenderMeta(), endpointsEnDesarrollo()],
   server: { port: 5183, strictPort: true },
 })
