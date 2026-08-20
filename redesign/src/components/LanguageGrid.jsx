@@ -19,10 +19,9 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
 
   return (
     <section id="grid" className="px-6 sm:px-10 pt-2 pb-10">
-      {/* Las cien fichas se tocan y lo que las separa es la línea de la
-          retícula. Al filtrar ya no se anima la reordenación: con `layout` y
-          `AnimatePresence`, cada ficha viajaba a su sitio nuevo por su cuenta y
-          durante el trayecto la rejilla se abría por veinte sitios a la vez. */}
+      {/* Al filtrar ya no se anima la reordenación: con `layout` y
+          `AnimatePresence`, cada ficha viajaba a su sitio nuevo por su cuenta,
+          y con cien fichas eso son veinte trayectos cruzándose a la vez. */}
       <Reticula cols="sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {list.map((l, i) => (
           <motion.article
@@ -30,11 +29,11 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.22, delay: Math.min(i, 12) * 0.02 }}
-            // En columna y con el pie anclado abajo: dentro de una retícula,
-            // las fichas de una fila miden lo mismo, así que si el pie va
-            // detrás del texto queda a una altura distinta en cada una y la
-            // fila se lee torcida aunque las cajas estén alineadas.
-            className="group relative flex flex-col bg-panel hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+            // En columna y con el pie anclado abajo: las fichas de una fila
+            // miden lo mismo, así que si el pie va detrás del texto queda a una
+            // altura distinta en cada una y la fila se lee torcida aunque las
+            // cajas estén alineadas.
+            className="group relative flex flex-col bg-panel border border-linea hover:border-linea-viva transition-colors"
           >
             <Link to={rutaDe('languages', slugLenguaje(l.name))} className="pulsable pulsable-suave block p-4 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500">
               {/* El color del lenguaje se queda en una barra fina: identifica

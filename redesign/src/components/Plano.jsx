@@ -90,39 +90,37 @@ export function Encuadre() {
   )
 }
 
-// La retícula del catálogo: las fichas se tocan y lo que las separa es una línea
-// de 1px, no un hueco.
+// La rejilla del catálogo: cada ficha con su borde y su aire alrededor.
 //
-// De dónde sale. Con `gap-3` y esquina redondeada, las fichas de una fila miden
-// lo que mide su contenido, así que la fila entera crece hasta la más alta y las
-// demás dejan un hueco debajo. En una sección de conceptos, donde una ficha
-// lleva demo y bloque de código y la de al lado tres líneas, esos huecos son
-// enormes y se leen como un fallo de maquetación. Reportado por Munir el
-// 2026-08-20 con una captura de dos huecos seguidos.
+// **Lo que arregla es el hueco, y no es lo mismo que juntar las fichas.** Con
+// `items-start`, cada ficha se queda en su alto natural mientras la FILA crece
+// hasta la más alta, así que las cortas dejaban debajo un vacío del tamaño de la
+// diferencia. En Conceptos, donde una ficha lleva demo y bloque de código y la
+// de al lado tres líneas, eso son cientos de píxeles en blanco que se leen como
+// un fallo de maquetación. Munir lo reportó el 2026-08-20 con una captura.
 //
-// Cómo se arregla: el hueco pasa a ser de 1px y el fondo del contenedor se ve a
-// través de él, así que ESE hueco es la línea. Las celdas se estiran hasta el
-// alto de su fila (comportamiento normal de una rejilla, aquí no se pisa con
-// `items-start`) y no queda ningún vacío entre unas y otras.
+// El arreglo es quitar `items-start` y dejar que la rejilla haga lo que hace por
+// defecto: estirar cada ficha hasta el alto de su fila. Aquí no se vuelve a
+// poner, y por eso esta pieza existe en vez de escribir el `grid` a mano en cada
+// vista.
 //
-// La línea de 1px exacta también se gana aquí: con un borde por ficha, donde dos
-// se tocan salen dos píxeles y la retícula se ve sucia.
+// **Lo que se probó y se descartó el mismo día:** pegar las fichas y separarlas
+// solo con una línea de 1px, al estilo de la retícula de la portada. Sobre el
+// papel es el mismo lenguaje; en pantalla, y sobre todo en tema oscuro, no hay
+// forma de saber dónde acaba una ficha y empieza la siguiente, porque dentro ya
+// hay demos y bloques de código con sus propios marcos. Munir: «pon bordes
+// independientes a cada tarjeta, se ve muy confuso». El borde por ficha es lo
+// que la hace una ficha.
 //
-// **La línea la dibuja un `outline` y no el fondo del contenedor**, que fue el
-// primer intento y tenía un fallo a la vista: si el hueco de 1px deja ver el
-// fondo, la última fila incompleta deja ver ese mismo fondo en TODA la celda que
-// falta, y donde debería haber nada aparece un bloque gris. Se vio en Recursos,
-// que tiene grupos de ocho fichas en rejillas de tres.
-//
-// El `outline` no ocupa espacio y se pinta fuera de la caja, así que cae justo
-// en el hueco de 1px y se solapa con el de la ficha vecina: sale una línea de un
-// píxel exacto, las esquinas cierran, y donde no hay ficha no hay nada que
-// pintar. El `p-px` del contenedor le deja sitio al outline del perímetro, que
-// si no sobresaldría un píxel por los cuatro lados.
-export function Reticula({ cols, encuadre = true, className = '', children }) {
+// El encuadre en L tampoco viaja aquí: señala una pieza cerrada, y una lista de
+// fichas separadas no lo es. Sus marcas caerían sobre las esquinas de las cuatro
+// fichas de los extremos y se leerían como parte de ellas.
+// El hueco es de 16px y no de 12: con las fichas ya separadas por su borde, 12
+// dejaba dos bordes de fichas distintas casi tocándose, que es medio camino
+// entre pegarlas y separarlas y se lee peor que cualquiera de las dos.
+export function Reticula({ cols, className = '', children }) {
   return (
-    <div className={`reticula relative grid ${cols} gap-px p-px bg-panel ${className}`}>
-      {encuadre && <Encuadre />}
+    <div className={`grid ${cols} gap-4 ${className}`}>
       {children}
     </div>
   )

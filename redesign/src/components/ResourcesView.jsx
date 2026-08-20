@@ -57,7 +57,7 @@ export default function ResourcesView({ t, lang, groups, onClear, favorites, onT
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.25, delay: Math.min(gi * 0.04 + i * 0.02, 0.3) }}
-                    className="group pulsable pulsable-suave flex items-stretch gap-3 bg-panel p-3.5 hover:bg-zinc-50 dark:hover:bg-zinc-900"
+                    className="group pulsable pulsable-suave flex items-stretch gap-3 bg-panel border border-linea p-3.5 hover:border-linea-viva"
                   >
                     <Monograma nombre={r.name} color={group.dot} />
                     <div className="min-w-0 flex-1 flex flex-col">

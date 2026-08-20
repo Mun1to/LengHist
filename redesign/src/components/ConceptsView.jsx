@@ -51,7 +51,7 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.25, delay: Math.min((i % 6) * 0.03, 0.2) }}
-                    className="bg-panel p-4"
+                    className="bg-panel border border-linea p-4"
                   >
                     <div className="flex items-center gap-2 mb-1.5">
                       <h3 className="font-bold text-sm text-tinta min-w-0 flex-1">
