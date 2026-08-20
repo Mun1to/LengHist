@@ -556,8 +556,8 @@ export const RESOURCES = [
   "key": "comprobar",
   "dot": "var(--tono-turquesa)",
   "label": {
-   "es": "Comprobar antes de lanzar",
-   "en": "Check before you ship"
+   "es": "Antes de lanzar",
+   "en": "Before you ship"
   },
   "items": [
    {
