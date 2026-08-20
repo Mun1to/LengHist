@@ -13,6 +13,12 @@ import { CONSEJO_GRUPOS, CONSEJOS } from '../data/consejos.js'
 // dónde entrar es «Sistemas, 52» frente a «Móvil, 7». Es lo mismo que ya hace el
 // panel del móvil, que enseña la cifra de cada sección.
 //
+// **Aquí no sale ningún color, y no es un olvido.** La primera versión daba a
+// cada grupo su barrita de tono y estaba mal por dos motivos: en esta casa el
+// color no decora la navegación, y además mentía, porque ese mismo tono
+// significa una categoría concreta dentro del catálogo y en el menú no
+// significaba nada. Lo que ordena el panel son las líneas y la tipografía.
+//
 // Se lee del catálogo en cada arranque y no hay ninguna lista escrita a mano:
 // el día que se añada una categoría, el menú se entera solo. Misma regla que
 // `totales.js`.
@@ -22,20 +28,18 @@ const traducir = (label, lang) => label?.[lang] ?? label?.es ?? ''
 // Cuenta cuántos elementos de una lista caen en cada grupo, y devuelve los
 // grupos en su orden declarado descartando los que se quedaron vacíos: un grupo
 // a cero en un menú es una promesa incumplida.
-function porGrupo(grupos, items, clave, lang, color) {
+function porGrupo(grupos, items, clave, lang) {
   const cuenta = new Map()
   for (const item of items) cuenta.set(item[clave], (cuenta.get(item[clave]) ?? 0) + 1)
   return grupos
-    .map((g) => ({ clave: g.key, etiqueta: traducir(g.label, lang), cuenta: cuenta.get(g.key) ?? 0, color: color?.(g) }))
+    .map((g) => ({ clave: g.key, etiqueta: traducir(g.label, lang), cuenta: cuenta.get(g.key) ?? 0 }))
     .filter((g) => g.cuenta > 0)
 }
 
 // Los grupos que ya traen sus elementos dentro (recursos y conceptos) no hay que
 // contarlos por clave: la longitud de `items` ya es la cuenta.
-const conItemsDentro = (grupos, lang, color) =>
-  grupos.map((g) => ({
-    clave: g.key, etiqueta: traducir(g.label, lang), cuenta: g.items.length, color: color?.(g),
-  }))
+const conItemsDentro = (grupos, lang) =>
+  grupos.map((g) => ({ clave: g.key, etiqueta: traducir(g.label, lang), cuenta: g.items.length }))
 
 export function vistazoDe(seccion, lang) {
   switch (seccion) {
@@ -44,11 +48,11 @@ export function vistazoDe(seccion, lang) {
       // «ver los 100» abajo, repetirlo arriba es ruido.
       return CATEGORIES
         .filter((c) => c.key !== 'all')
-        .map((c) => ({ clave: c.key, etiqueta: traducir(c.label, lang), cuenta: c.count, color: c.dot }))
+        .map((c) => ({ clave: c.key, etiqueta: traducir(c.label, lang), cuenta: c.count }))
     case 'resources':
-      return conItemsDentro(RESOURCES, lang, (g) => g.dot)
+      return conItemsDentro(RESOURCES, lang)
     case 'concepts':
-      return conItemsDentro(CONCEPTS, lang, (g) => g.color)
+      return conItemsDentro(CONCEPTS, lang)
     case 'components':
       return porGrupo(COMPONENT_GROUPS, COMPONENT_ITEMS, 'group', lang)
     case 'skills':

@@ -52,10 +52,10 @@ function Enlaces({ t, claves, activeNav, onAsomar }) {
           // El activo se marca en TINTA y no en indigo. En esta barra el indigo
           // era el único color de marca suelto, y competía con los catorce
           // colores de categoría que ya usa el catálogo para decir otra cosa.
-          onMouseEnter={() => onAsomar(key)}
+          onMouseEnter={(e) => onAsomar(key, e.currentTarget)}
           // También con el foco del teclado: si el asomo solo respondiera al
           // ratón, quien navega con el tabulador no sabría nunca que existe.
-          onFocus={() => onAsomar(key)}
+          onFocus={(e) => onAsomar(key, e.currentTarget)}
           className={`${ALTO} relative inline-flex items-center px-3 text-sm whitespace-nowrap transition-colors ${
             activeNav === key
               ? 'text-tinta font-semibold'
@@ -193,7 +193,10 @@ export default function TopBar({
     clearTimeout(reloj.current)
     reloj.current = setTimeout(() => setAsomada(valor), ms)
   }
-  const asomar = (clave) => programar(clave, 120)
+  // Viaja la posición del enlace, no solo su nombre: el panel se ancla debajo
+  // de la sección que lo abre, así que necesita saber dónde está.
+  const asomar = (clave, el) =>
+    programar({ clave, x: el ? Math.round(el.getBoundingClientRect().left) : 0 }, 120)
   const cerrarAsomo = () => programar(null, 180)
   // Cerrar de golpe, sin espera: al pulsar un enlace o al dar a Escape no hay
   // ningún gesto en curso que proteger.
@@ -303,7 +306,10 @@ export default function TopBar({
             cifras, que es la misma información. */}
         {asomada && !menu && (
           <div className="hidden xl:block">
-            <VistazoMenu seccion={asomada} lang={lang} t={t} onCerrar={cerrarYa} />
+            <VistazoMenu
+              seccion={asomada.clave} anclaX={asomada.x}
+              lang={lang} t={t} onCerrar={cerrarYa}
+            />
           </div>
         )}
       </header>
