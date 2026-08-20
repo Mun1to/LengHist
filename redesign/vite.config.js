@@ -64,6 +64,22 @@ ${rutas.map(({ ruta, prioridad }) => `  <url>
 const escapar = (s) => String(s)
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 
+// Lo que la tarjeta social dice que hay, contado del catálogo. Misma cuenta que
+// `scripts/tarjeta-social.mjs`, que es quien dibuja esos números en la imagen.
+async function altDeLaTarjeta() {
+  const { LANGUAGES } = await import('./src/data/languages.js')
+  const { RESOURCES } = await import('./src/data/resources.js')
+  const { CONCEPTS } = await import('./src/data/concepts.js')
+  const { COMPONENT_ITEMS } = await import('./src/data/components.js')
+  const { SKILL_ITEMS } = await import('./src/data/skills.js')
+  const { CONSEJOS } = await import('./src/data/consejos.js')
+  const suma = (grupos) => grupos.reduce((n, g) => n + g.items.length, 0)
+
+  return `Vibeset · ${LANGUAGES.length} lenguajes, ${suma(RESOURCES)} recursos, `
+    + `${suma(CONCEPTS)} conceptos, ${COMPONENT_ITEMS.length} componentes, `
+    + `${SKILL_ITEMS.length} skills y ${CONSEJOS.length} consejos`
+}
+
 // Escribe un HTML por dirección con su título, su descripción, sus datos
 // estructurados y su contenido ya dentro.
 //
@@ -101,6 +117,13 @@ function prerenderMeta() {
       const { metaDePagina } = await import('./src/lib/meta.js')
       const { contenidoDePagina, jsonLdDePagina } = await import('./src/lib/contenidoEstatico.js')
 
+      // El texto alternativo de la tarjeta social es el único meta que no
+      // depende de la ruta, así que se quedaba escrito a mano en el index.html
+      // y envejecía en silencio: el 2026-08-20 decía 64 recursos y 17 skills
+      // cuando ya había 72 y 18. Se cuenta del catálogo, como la propia imagen
+      // (`pnpm tarjeta`), que es lo que describe.
+      const alt = await altDeLaTarjeta()
+
       // El HTML servido se declara en español, así que el meta cocinado va en
       // español. El inglés lo elige el visitante y llega después de React, que
       // es tarde para el robot: eso solo se arregla de verdad con direcciones
@@ -133,6 +156,7 @@ function prerenderMeta() {
           .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${escapar(descripcion)}$2`)
           .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${escapar(url)}$2`)
           .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${escapar(url)}$2`)
+          .replace(/(<meta property="og:image:alt" content=")[^"]*(")/, `$1${escapar(alt)}$2`)
           .replace('</head>', `${jsonLd}</head>`)
           .replace('<div id="pre"></div>',
             `<div id="pre">${contenidoDePagina({ vista, ficha, lang, t })}</div>`)
