@@ -121,7 +121,13 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
         onClick={() => setAbierto(true)}
         aria-label={t.ariaSearch}
         aria-haspopup="dialog"
-        className={`group/b flex items-center gap-2.5 w-full h-9 px-3 bg-zinc-100 dark:bg-zinc-900 border border-linea hover:border-linea-viva text-left cursor-pointer transition-colors ${className}`}
+        // El fondo va al color del panel y no a un gris. `tinta-suave` es el
+        // gris más bajo que pasa AA, pero eso solo vale sobre el fondo base:
+        // sobre `zinc-100` cae a 4,46:1 y deja de cumplir. Lo destapó el kitchen
+        // sink midiendo el fondo REAL del control en vez del de la página, que
+        // es lo que se le escapaba a las auditorías anteriores. Con el borde
+        // basta para que se lea como campo, y además es el lenguaje de la casa.
+        className={`group/b flex items-center gap-2.5 w-full h-9 px-3 bg-panel border border-linea hover:border-linea-viva text-left cursor-pointer transition-colors ${className}`}
       >
         <Search size={15} className="shrink-0 text-tinta-suave" />
         <span className="flex-1 min-w-0 truncate text-sm text-tinta-suave">{t.buscarTodoPh}</span>

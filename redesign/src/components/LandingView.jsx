@@ -129,7 +129,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                 </div>
                 <Link
                   to={rutaDe('components', 'ascii-object')}
-                  className="inline-flex items-center gap-1.5 mt-3 font-mono text-[11px] text-tinta-suave hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 min-h-6 mt-3 font-mono text-[11px] text-tinta-suave hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   {t.heroDemo}
                   <ArrowRight size={11} />
