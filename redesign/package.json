@@ -13,6 +13,7 @@
     "enlaces": "node scripts/comprobar-enlaces.mjs",
     "catalogo": "node scripts/comprobar-catalogo.mjs",
     "registro": "node scripts/comprobar-registro.mjs",
+    "mcp": "node scripts/comprobar-mcp.mjs",
     "auditar": "node scripts/auditar.mjs",
     "humo": "node scripts/humo.mjs"
   },
