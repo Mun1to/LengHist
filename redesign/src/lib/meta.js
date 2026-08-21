@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { TOTALES } from './totales.js'
+import { traducirRuta } from './rutas.js'
 
 // Con una sola URL, el título y la descripción de la pestaña valían para todo el
 // sitio. Ahora que cada ficha tiene la suya, cada una dice lo suyo: es lo que se
@@ -22,6 +23,16 @@ export function useMeta({ titulo, descripcion, ruta }) {
     fijarMeta('meta[name="twitter:description"]', 'content', descripcion)
     fijarMeta('meta[property="og:url"]', 'content', BASE + ruta)
     fijarMeta('link[rel="canonical"]', 'href', BASE + ruta)
+
+    // Las alternativas por idioma también se mueven al navegar. En el HTML
+    // servido ya vienen puestas por el build, que es lo que leen los buscadores;
+    // esto es para que no se queden apuntando a la página anterior cuando se
+    // navega dentro de la aplicación, y sobre todo para que no mientan si
+    // alguien mira el head con las herramientas del navegador.
+    const hermanas = { es: traducirRuta(ruta, 'es'), en: traducirRuta(ruta, 'en') }
+    for (const [idioma, destino] of [...Object.entries(hermanas), ['x-default', hermanas.es]]) {
+      fijarMeta(`link[rel="alternate"][hreflang="${idioma}"]`, 'href', BASE + destino)
+    }
   }, [titulo, descripcion, ruta])
 }
 

@@ -14,22 +14,38 @@ async function rutasDelSitio() {
   const { LANGUAGES } = await import('./src/data/languages.js')
   const { COMPONENT_ITEMS } = await import('./src/data/components.js')
   const { SKILL_ITEMS } = await import('./src/data/skills.js')
-  const { rutaDe, slugClave, slugLenguaje } = await import('./src/lib/rutas.js')
+  const { IDIOMAS, rutaDe, slugClave, slugLenguaje } = await import('./src/lib/rutas.js')
 
-  return [
-    { ruta: '/', prioridad: '1.0', vista: 'home', ficha: null },
+  // Cada página existe en los dos idiomas y cada una es una dirección de verdad,
+  // así que el sitio tiene el doble de direcciones. Se generan emparejadas: cada
+  // entrada sabe cuál es su gemela en el otro idioma, que es lo que necesitan
+  // las etiquetas `hreflang` para decirle a un buscador que estas dos páginas
+  // son la misma cosa dicha de dos maneras, y no contenido duplicado.
+  const deIdioma = (lang) => [
+    { ruta: rutaDe('home', null, lang), prioridad: '1.0', vista: 'home', ficha: null, lang },
     ...['languages', 'resources', 'concepts', 'components', 'skills', 'consejos']
-      .map((s) => ({ ruta: rutaDe(s), prioridad: '0.9', vista: s, ficha: null })),
+      .map((s) => ({ ruta: rutaDe(s, null, lang), prioridad: '0.9', vista: s, ficha: null, lang })),
     ...LANGUAGES.map((l) => ({
-      ruta: rutaDe('languages', slugLenguaje(l.name)), prioridad: '0.7', vista: 'languages', ficha: l,
+      ruta: rutaDe('languages', slugLenguaje(l.name), lang), prioridad: '0.7', vista: 'languages', ficha: l, lang,
     })),
     ...COMPONENT_ITEMS.map((c) => ({
-      ruta: rutaDe('components', slugClave(c.key)), prioridad: '0.7', vista: 'components', ficha: c,
+      ruta: rutaDe('components', slugClave(c.key), lang), prioridad: '0.7', vista: 'components', ficha: c, lang,
     })),
     ...SKILL_ITEMS.map((s) => ({
-      ruta: rutaDe('skills', slugClave(s.key)), prioridad: '0.7', vista: 'skills', ficha: s,
+      ruta: rutaDe('skills', slugClave(s.key), lang), prioridad: '0.7', vista: 'skills', ficha: s, lang,
     })),
   ]
+
+  const porIdioma = Object.fromEntries(IDIOMAS.map((l) => [l, deIdioma(l)]))
+  // Las gemelas se emparejan por posición porque las dos listas salen del mismo
+  // catálogo y en el mismo orden. El día que una sección exista solo en un
+  // idioma, esto hay que emparejarlo por clave.
+  return IDIOMAS.flatMap((lang) =>
+    porIdioma[lang].map((entrada, i) => ({
+      ...entrada,
+      hermanas: Object.fromEntries(IDIOMAS.map((otro) => [otro, porIdioma[otro][i].ruta])),
+    })),
+  )
 }
 
 // El sitemap se genera del propio catálogo en cada build, no a mano: son ciento
@@ -41,10 +57,22 @@ function sitemap() {
     async generateBundle() {
       const rutas = await rutasDelSitio()
       const hoy = new Date().toISOString().slice(0, 10)
+
+      // Las versiones por idioma se declaran DENTRO del sitemap, además de en el
+      // head de cada página. Es lo que pide Google para un sitio en dos idiomas:
+      // cada dirección enumera todas sus versiones, incluida ella misma, y una
+      // hace de `x-default` para quien no encaja en ninguna. Sin esto, las dos
+      // mitades del sitio compiten entre ellas en vez de sumar.
+      const alternativas = (hermanas) => [
+        ...Object.entries(hermanas).map(([l, r]) => [l, r]),
+        ['x-default', hermanas.es],
+      ].map(([l, r]) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${BASE}${r}" />`).join('\n')
+
       const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${rutas.map(({ ruta, prioridad }) => `  <url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${rutas.map(({ ruta, prioridad, hermanas }) => `  <url>
     <loc>${BASE}${ruta}</loc>
+${alternativas(hermanas)}
     <lastmod>${hoy}</lastmod>
     <priority>${prioridad}</priority>
   </url>`).join('\n')}
@@ -121,48 +149,53 @@ function prerenderMeta() {
       // cuando ya había 72 y 18. Se cuenta del catálogo, igual que la imagen que
       // describe, que dibuja `pnpm tarjeta` con esta misma fuente.
       const { resumenDelCatalogo } = await import('./src/lib/totales.js')
-      const alt = resumenDelCatalogo()
 
       // X, Slack, LinkedIn, WhatsApp y Discord guardan la vista previa por URL y
       // no vuelven a mirar si el archivo cambió: regenerar la imagen no sirve de
       // nada si la dirección es la misma. Se le cuelga la huella del archivo, así
       // que la dirección cambia sola cuando cambia el dibujo, y no cuando alguien
       // se acuerda de subir un número a mano.
-      // **La tarjeta que se sirve es la INGLESA**, y no por descuido de idioma.
-      // El texto de una imagen no lo traduce nadie: ni el navegador, ni un
-      // traductor, ni el asistente que resume el enlace. El del HTML, que va
-      // justo al lado, sí. Asi que en la imagen conviene el idioma que mas gente
-      // entiende de este publico, y el resto del mensaje se queda donde todavia
-      // se puede traducir. La española se sigue generando y espera al dia que
-      // haya direcciones por idioma, que es otra decision.
-      const TARJETA = 'brand/og-en.png'
-      const huella = createHash('sha256')
-        .update(readFileSync(join(outDir, TARJETA)))
-        .digest('hex').slice(0, 8)
-      const imagen = `${BASE}/${TARJETA}?v=${huella}`
-
-      // El HTML servido se declara en español, así que el meta cocinado va en
-      // español. El inglés lo elige el visitante y llega después de React, que
-      // es tarde para el robot: eso solo se arregla de verdad con direcciones
-      // por idioma, y esa es otra decisión.
-      const lang = 'es'
-      const t = I18N[lang]
+      // Cada página se lleva la tarjeta de SU idioma. Antes se servía la inglesa
+      // en todas, y era la decisión correcta mientras había una sola dirección:
+      // el texto metido en una imagen no lo traduce nadie, ni el navegador, ni un
+      // traductor, ni el asistente que resume el enlace, así que la imagen se
+      // llevaba el idioma que más gente de este público entiende. Ahora que la
+      // página inglesa y la española son dos direcciones distintas, cada una
+      // puede decir la verdad sobre sí misma y la española deja de anunciarse en
+      // inglés.
+      const TARJETA = { es: 'brand/og.png', en: 'brand/og-en.png' }
+      const imagenDe = (lang) => {
+        const archivo = TARJETA[lang]
+        const huella = createHash('sha256')
+          .update(readFileSync(join(outDir, archivo)))
+          .digest('hex').slice(0, 8)
+        return `${BASE}/${archivo}?v=${huella}`
+      }
 
       const plantilla = readFileSync(join(outDir, 'index.html'), 'utf8')
 
       // La página de «aquí no hay nada» se sirve desde el propio Cloudflare
       // Pages cuando la dirección no existe, así que se cocina como una más.
-      const rutas = [...await rutasDelSitio(), { ruta: '/404', vista: '404', ficha: null }]
+      const rutas = [...await rutasDelSitio(), { ruta: '/404', vista: '404', ficha: null, lang: 'es' }]
       let escritas = 0
 
-      for (const { ruta, vista, ficha } of rutas) {
+      for (const { ruta, vista, ficha, lang, hermanas } of rutas) {
+        const t = I18N[lang]
         const { titulo, descripcion } = metaDePagina({ vista, ficha, lang, t })
         const url = BASE + ruta
+        const imagen = imagenDe(lang)
+        const alt = resumenDelCatalogo(lang)
         const datos = jsonLdDePagina({ vista, ficha, lang, t, base: BASE, url, titulo, descripcion })
         const jsonLd = `<script type="application/ld+json">${
           JSON.stringify({ '@context': 'https://schema.org', '@graph': datos })
             .replaceAll('<', '\\u003c')
         }</script>`
+
+        // Las etiquetas que emparejan las dos versiones. Las lee quien no
+        // ejecuta JavaScript, así que tienen que estar en el HTML servido.
+        // Vienen de la plantilla con los valores de la portada y aquí se les
+        // cambia el destino, una por una.
+        const hermanasDe = hermanas ?? { es: ruta, en: ruta }
 
         // Todas las sustituciones pasan por `poner`, que reemplaza con una
         // FUNCIÓN. Con la forma de cadena, un `$&`, un `$'` o un `$1` dentro del
@@ -178,11 +211,20 @@ function prerenderMeta() {
           [/(<meta name="twitter:description" content=")[^"]*(")/, escapar(descripcion)],
           [/(<meta property="og:url" content=")[^"]*(")/, escapar(url)],
           [/(<link rel="canonical" href=")[^"]*(")/, escapar(url)],
+          [/(<link rel="alternate" hreflang="es" href=")[^"]*(")/, escapar(BASE + hermanasDe.es)],
+          [/(<link rel="alternate" hreflang="en" href=")[^"]*(")/, escapar(BASE + hermanasDe.en)],
+          [/(<link rel="alternate" hreflang="x-default" href=")[^"]*(")/, escapar(BASE + hermanasDe.es)],
           [/(<meta property="og:image:alt" content=")[^"]*(")/, escapar(alt)],
           [/(<meta name="twitter:image:alt" content=")[^"]*(")/, escapar(alt)],
           [/(<meta property="og:image" content=")[^"]*(")/, escapar(imagen)],
           [/(<meta name="twitter:image" content=")[^"]*(")/, escapar(imagen)],
         ].reduce((doc, [re, valor]) => poner(doc, re, valor, ruta), plantilla)
+          // El idioma declarado en el html es lo que leen los lectores de
+          // pantalla y lo que decide si el navegador ofrece traducir la página.
+          // La plantilla viene en español, así que la mitad inglesa hay que
+          // corregirla aquí: servir texto en inglés dentro de un documento que
+          // se declara español es de las cosas que un buscador nota.
+          .replace(/<html lang="[^"]*"/, () => `<html lang="${lang}"`)
           // La página de «aquí no hay nada» no se indexa. Se sirve con un 404 de
           // verdad, pero además se dice, porque a esa plantilla le llega el
           // canonical apuntándose a sí misma y sin esto queda invitando a que la

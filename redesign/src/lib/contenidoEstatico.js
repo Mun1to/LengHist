@@ -51,11 +51,11 @@ const consejoHtml = (texto) => trozosDe(texto).map((t) =>
     : t.tipo === 'codigo' ? `<code>${esc(t.texto)}</code>`
     : esc(t.texto)).join('')
 
-function cabecera(t, vista) {
+function cabecera(t, vista, lang) {
   const enlaces = SECCIONES
     .filter((s) => s !== vista)
-    .map((s) => a(rutaDe(s), t.nav[s]))
-  return `<header>${a('/', 'Vibeset')}${ul(enlaces)}</header>`
+    .map((s) => a(rutaDe(s, null, lang), t.nav[s]))
+  return `<header>${a(rutaDe('home', null, lang), 'Vibeset')}${ul(enlaces)}</header>`
 }
 
 const pie = () => `<footer>${a('https://github.com/Mun1to/Vibeset', 'Vibeset en GitHub')}</footer>`
@@ -67,19 +67,19 @@ const home = (t, lang) => `
   ${p(`${t.heroTitle1} ${t.heroTitle2}`)}
   ${p(t.heroSub)}
   ${ul([
-    a(rutaDe('languages'), t.nav.languages) + nota(`${LANGUAGES.length} fichas. ${t.langsSub(LANGUAGES.length)}`),
-    a(rutaDe('resources'), t.nav.resources) + nota(`${RESOURCES.reduce((n, g) => n + g.items.length, 0)} recursos. ${t.resSub}`),
-    a(rutaDe('concepts'), t.nav.concepts) + nota(`${CONCEPTS.reduce((n, g) => n + g.items.length, 0)} técnicas. ${t.conceptsSub}`),
-    a(rutaDe('components'), t.nav.components) + nota(`${COMPONENT_ITEMS.length} componentes. ${t.compSub}`),
-    a(rutaDe('skills'), t.nav.skills) + nota(`${SKILL_ITEMS.length} skills. ${t.skillsSub}`),
-    a(rutaDe('consejos'), t.nav.consejos) + nota(`${CONSEJOS.length} consejos. ${t.consejosSub}`),
+    a(rutaDe('languages', null, lang), t.nav.languages) + nota(`${LANGUAGES.length} fichas. ${t.langsSub(LANGUAGES.length)}`),
+    a(rutaDe('resources', null, lang), t.nav.resources) + nota(`${RESOURCES.reduce((n, g) => n + g.items.length, 0)} recursos. ${t.resSub}`),
+    a(rutaDe('concepts', null, lang), t.nav.concepts) + nota(`${CONCEPTS.reduce((n, g) => n + g.items.length, 0)} técnicas. ${t.conceptsSub}`),
+    a(rutaDe('components', null, lang), t.nav.components) + nota(`${COMPONENT_ITEMS.length} componentes. ${t.compSub}`),
+    a(rutaDe('skills', null, lang), t.nav.skills) + nota(`${SKILL_ITEMS.length} skills. ${t.skillsSub}`),
+    a(rutaDe('consejos', null, lang), t.nav.consejos) + nota(`${CONSEJOS.length} consejos. ${t.consejosSub}`),
   ])}`
 
 const listaLenguajes = (t, lang) => `
   <h1>${esc(t.gridTitle)}</h1>
   ${p(t.langsSub(LANGUAGES.length))}
   ${ul(LANGUAGES.map((l) =>
-    a(rutaDe('languages', slugLenguaje(l.name)), l.name) + nota(l[lang]?.desc)))}`
+    a(rutaDe('languages', slugLenguaje(l.name), lang), l.name) + nota(l[lang]?.desc)))}`
 
 const fichaLenguaje = (l, t, lang) => {
   const d = l[lang] ?? l.es
@@ -126,7 +126,7 @@ const listaComponentes = (t, lang) => `
     const items = COMPONENT_ITEMS.filter((c) => c.group === g.key)
     if (!items.length) return ''
     return `<h2>${esc(g.label[lang])}</h2>${ul(items.map((c) =>
-      a(rutaDe('components', slugClave(c.key)), c.name) + nota(c.tag?.[lang])))}`
+      a(rutaDe('components', slugClave(c.key), lang), c.name) + nota(c.tag?.[lang])))}`
   }).join('')}`
 
 const fichaComponente = (c, t, lang) => `
@@ -142,7 +142,7 @@ const listaSkills = (t, lang) => `
   <h1>${esc(t.skillsTitle)}</h1>
   ${p(t.skillsSub)}
   ${ul(SKILL_ITEMS.map((s) =>
-    a(rutaDe('skills', slugClave(s.key)), s[lang]?.label ?? s.name) + nota(s[lang]?.what)))}`
+    a(rutaDe('skills', slugClave(s.key), lang), s[lang]?.label ?? s.name) + nota(s[lang]?.what)))}`
 
 const fichaSkill = (s, t, lang) => {
   const d = s[lang] ?? s.es
@@ -180,7 +180,7 @@ export function contenidoDePagina({ vista, ficha, lang, t }) {
     : vista === 'consejos' ? listaConsejos(t, lang)
     : home(t, lang)
 
-  return `${cabecera(t, vista)}<main>${cuerpo}</main>${pie()}`
+  return `${cabecera(t, vista, lang)}<main>${cuerpo}</main>${pie()}`
 }
 
 // Los datos estructurados de una dirección, ya en JSON.
@@ -216,9 +216,9 @@ export function jsonLdDePagina({ vista, ficha, lang, t, base, url, titulo, descr
 
   if (vista === 'home') return [organizacion, { ...sitio, description: descripcion }]
 
-  const migas = [{ '@type': 'ListItem', position: 1, name: 'Vibeset', item: base }]
+  const migas = [{ '@type': 'ListItem', position: 1, name: 'Vibeset', item: base + rutaDe('home', null, lang) }]
   if (vista !== '404') {
-    migas.push({ '@type': 'ListItem', position: 2, name: t.nav[vista] ?? vista, item: base + rutaDe(vista) })
+    migas.push({ '@type': 'ListItem', position: 2, name: t.nav[vista] ?? vista, item: base + rutaDe(vista, null, lang) })
     if (ficha) migas.push({ '@type': 'ListItem', position: 3, name: titulo.split(' · ')[0], item: url })
   }
 

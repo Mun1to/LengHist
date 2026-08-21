@@ -38,13 +38,13 @@ const DERECHA = ORDEN_MENU.slice(3)
 const ALTO = 'h-9'
 const CONTROL = `${ALTO} grid place-items-center w-9 text-tinta-suave hover:text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors cursor-pointer`
 
-function Enlaces({ t, claves, activeNav, onAsomar, onCerrar }) {
+function Enlaces({ t, lang, claves, activeNav, onAsomar, onCerrar }) {
   return (
     <nav className="hidden xl:flex items-center">
       {claves.map((key) => (
         <Link
           key={key}
-          to={rutaDe(key)}
+          to={rutaDe(key, null, lang)}
           // El área pulsable la hace el relleno, no el tamaño de la letra: antes
           // solo se podía pulsar sobre las letras, y en «C» o en «Skills» eso es
           // un blanco muy pequeño. Ahora cada enlace ocupa su celda entera.
@@ -131,7 +131,7 @@ function MenuMovil({ t, lang, activeNav, abierto, onCerrar, onQuizClick, onAbrir
             return (
               <Link
                 key={key}
-                to={rutaDe(key)}
+                to={rutaDe(key, null, lang)}
                 onClick={onCerrar}
                 className="pulsable flex items-center gap-3.5 py-3.5 px-2 -mx-2 border-b border-linea/70 active:bg-zinc-100 dark:active:bg-zinc-900 group"
               >
@@ -255,7 +255,7 @@ export default function TopBar({
         <div className="flex items-center gap-6 px-6 h-14">
           <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-6">
             <Link
-              to="/"
+              to={rutaDe('home', null, lang)}
               onClick={() => { setMenu(false); onLogoClick() }}
               aria-label="Vibeset"
               title="Vibeset"
@@ -271,7 +271,7 @@ export default function TopBar({
                 <Logo size={28} wide />
               </span>
             </Link>
-            <Enlaces t={t} claves={IZQUIERDA} activeNav={activeNav} onAsomar={asomar} onCerrar={cerrarYa} />
+            <Enlaces t={t} lang={lang} claves={IZQUIERDA} activeNav={activeNav} onAsomar={asomar} onCerrar={cerrarYa} />
           </div>
 
           {/* Con el panel abierto el buscador está dentro de él, a lo ancho:
@@ -285,7 +285,7 @@ export default function TopBar({
           </div>
 
           <div className="shrink-0 lg:flex-1 lg:basis-0 min-w-0 flex items-center justify-between gap-6">
-            <Enlaces t={t} claves={DERECHA} activeNav={activeNav} onAsomar={asomar} onCerrar={cerrarYa} />
+            <Enlaces t={t} lang={lang} claves={DERECHA} activeNav={activeNav} onAsomar={asomar} onCerrar={cerrarYa} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
               <BotonGitHub t={t} />
               {/* El test entra a 1620px y no en `2xl` (1536), que es donde estaba:

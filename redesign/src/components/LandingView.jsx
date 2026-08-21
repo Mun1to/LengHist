@@ -100,7 +100,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
 
                 <motion.div {...aparece(0.2)} className="flex flex-wrap items-center gap-4">
                   <Link
-                    to={rutaDe('languages')}
+                    to={rutaDe('languages', null, lang)}
                     className="grupo-cta pulsable alzable inline-flex items-center gap-1.5 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold px-6 py-3 text-sm hover:shadow-lg hover:shadow-zinc-900/20 dark:hover:shadow-white/10"
                   >
                     {t.exploreBtn}
@@ -141,7 +141,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                   </Suspense>
                 </div>
                 <Link
-                  to={rutaDe('components', 'ascii-object')}
+                  to={rutaDe('components', 'ascii-object', lang)}
                   className="inline-flex items-center gap-1.5 min-h-6 mt-3 font-mono text-[12px] text-tinta-suave hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   {t.heroDemo}
@@ -167,12 +167,12 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                 el suyo. */}
             <div className="relative grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 dark:bg-zinc-800 border border-linea">
               <Encuadre />
-              <Seccion n={totals.langs} titulo={t.nav.languages} texto={t.landingLangs} a={rutaDe('languages')} Icono={Braces} />
-              <Seccion n={totals.res} titulo={t.nav.resources} texto={t.landingRes} a={rutaDe('resources')} Icono={Wrench} />
-              <Seccion n={totals.concepts} titulo={t.nav.concepts} texto={t.landingConcepts} a={rutaDe('concepts')} Icono={Sparkles} />
-              <Seccion n={totals.comps} titulo={t.nav.components} texto={t.landingComps} a={rutaDe('components')} Icono={Boxes} />
-              <Seccion n={totals.skills} titulo={t.nav.skills} texto={t.landingSkills} a={rutaDe('skills')} Icono={Terminal} />
-              <Seccion n={totals.consejos} titulo={t.nav.consejos} texto={t.landingConsejos} a={rutaDe('consejos')} Icono={Lightbulb} />
+              <Seccion n={totals.langs} titulo={t.nav.languages} texto={t.landingLangs} a={rutaDe('languages', null, lang)} Icono={Braces} />
+              <Seccion n={totals.res} titulo={t.nav.resources} texto={t.landingRes} a={rutaDe('resources', null, lang)} Icono={Wrench} />
+              <Seccion n={totals.concepts} titulo={t.nav.concepts} texto={t.landingConcepts} a={rutaDe('concepts', null, lang)} Icono={Sparkles} />
+              <Seccion n={totals.comps} titulo={t.nav.components} texto={t.landingComps} a={rutaDe('components', null, lang)} Icono={Boxes} />
+              <Seccion n={totals.skills} titulo={t.nav.skills} texto={t.landingSkills} a={rutaDe('skills', null, lang)} Icono={Terminal} />
+              <Seccion n={totals.consejos} titulo={t.nav.consejos} texto={t.landingConsejos} a={rutaDe('consejos', null, lang)} Icono={Lightbulb} />
             </div>
           </section>
         </Canal>
@@ -191,7 +191,7 @@ export default function LandingView({ t, lang, onQuiz, totals }) {
                 </h2>
                 <p className="text-tinta-suave leading-relaxed mb-6">{t.landingCodeText}</p>
                 <Link
-                  to={rutaDe('languages')}
+                  to={rutaDe('languages', null, lang)}
                   className="grupo-cta pulsable inline-flex items-center gap-1.5 min-h-6 pt-1 text-sm font-semibold text-blue-600 dark:text-blue-400 border-b border-blue-500/40 hover:border-blue-500 pb-0.5"
                 >
                   {t.landingCodeCta}

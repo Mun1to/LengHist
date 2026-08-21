@@ -1,6 +1,6 @@
 // Los suelos de diseño de la casa, comprobados sin abrir el navegador a mano.
 //
-//   pnpm auditar              las 7 secciones, escritorio, en los dos temas
+//   pnpm auditar              las 7 secciones en los dos idiomas y los dos temas
 //   pnpm auditar -- --movil   además a 390px de ancho
 //
 // El taller de `/kitchen` ya medía todo esto, pero solo cuando alguien se
@@ -32,7 +32,11 @@ const DIST = join(RAIZ, 'dist')
 const PUERTO = 4183
 const DEPURACION = 9333
 
-const SECCIONES = ['/', '/languages', '/resources', '/concepts', '/components', '/skills', '/tips']
+// Las siete secciones en los DOS idiomas. El inglés no es una traducción que se
+// pinta encima: son páginas distintas, y un texto más largo puede desbordar un
+// control que en español cabía justo.
+const PAGINAS = ['/', '/languages', '/resources', '/concepts', '/components', '/skills', '/tips']
+const SECCIONES = [...PAGINAS, ...PAGINAS.map((r) => (r === '/' ? '/en' : `/en${r}`))]
 const CON_MOVIL = process.argv.includes('--movil')
 
 // ---------------------------------------------------------------- el servidor
@@ -254,7 +258,7 @@ try {
 
 console.log(
   totalFallos === 0
-    ? `\n  los suelos se cumplen en las ${SECCIONES.length} secciones, en los dos temas${CON_MOVIL ? ' y en las dos pantallas' : ''}`
+    ? `\n  los suelos se cumplen en las ${SECCIONES.length} páginas, en los dos temas${CON_MOVIL ? ' y en las dos pantallas' : ''}`
     : `\n  ${totalFallos} incumplimiento(s). Los suelos: contraste 4,5:1 (3:1 en texto grande), pulsables de 24×24, nada por debajo de 11px y cero color en la navegación.`,
 )
 process.exit(totalFallos === 0 ? 0 : 1)

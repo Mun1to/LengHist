@@ -36,7 +36,7 @@ export default function LanguageGrid({ t, lang, list, favorites, onToggleFav, co
             className="group relative flex flex-col bg-panel border border-linea hover:border-linea-viva transition-colors"
           >
             <Encuadre suave />
-            <Link to={rutaDe('languages', slugLenguaje(l.name))} className="pulsable pulsable-suave block p-4 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500">
+            <Link to={rutaDe('languages', slugLenguaje(l.name), lang)} className="pulsable pulsable-suave block p-4 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500">
               {/* El color del lenguaje se queda en una barra fina: identifica
                   igual que la cabecera de degradado y no se come la tarjeta. */}
               <div className="flex items-center gap-2.5 mb-1.5">

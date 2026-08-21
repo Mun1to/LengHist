@@ -16,7 +16,7 @@ function Tarjeta({ t, lang, item, fav, onToggleFav, delay }) {
   const press = useRef(null)
   const d = item[lang]
   const irA = useNavigate()
-  const onOpen = () => irA(rutaDe('skills', slugClave(item.key)))
+  const onOpen = () => irA(rutaDe('skills', slugClave(item.key), lang))
 
   return (
     <motion.div

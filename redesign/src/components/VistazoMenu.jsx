@@ -115,7 +115,7 @@ export default function VistazoMenu({ seccion, lang, t, onCerrar, anclaX = 0 }) 
             {col.map((g) => (
               <Link
                 key={g.clave}
-                to={`${rutaDe(seccion)}?cat=${g.clave}`}
+                to={`${rutaDe(seccion, null, lang)}?cat=${g.clave}`}
                 onClick={onCerrar}
                 // Se responde con el fondo, no con color: en esta casa el color
                 // clasifica contenido y en un menú no clasifica nada. El área
@@ -136,7 +136,7 @@ export default function VistazoMenu({ seccion, lang, t, onCerrar, anclaX = 0 }) 
       </div>
 
       <Link
-        to={rutaDe(seccion)}
+        to={rutaDe(seccion, null, lang)}
         onClick={onCerrar}
         className="grupo-cta pulsable flex items-center gap-1.5 px-5 py-2.5 border-t border-linea text-[13px] font-semibold text-tinta hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
       >

@@ -52,7 +52,7 @@ export default function SkillDetail({ t, lang, item, group, fav, onToggleFav }) 
       className="px-6 sm:px-10 py-10 max-w-4xl"
     >
       <Link
-        to={rutaDe('skills')}
+        to={rutaDe('skills', null, lang)}
         className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />

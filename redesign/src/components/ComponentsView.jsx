@@ -27,7 +27,7 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
   const live = useNearViewport(ref)
   const press = useRef(null)
   const irA = useNavigate()
-  const ruta = rutaDe('components', slugClave(item.key))
+  const ruta = rutaDe('components', slugClave(item.key), lang)
   const onOpen = () => irA(ruta)
 
   // La tarjeta entera abre la ficha, pero sin capa invisible por encima: la demo

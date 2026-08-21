@@ -38,6 +38,16 @@
     <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
     <link rel="canonical" href="https://vibeset.dev/" />
 
+    <!-- Cada página existe en español y en inglés, en dos direcciones distintas.
+         Estas tres etiquetas se lo dicen a los buscadores, para que traten las
+         dos versiones como la misma página en dos idiomas y no como contenido
+         repetido. Las escribe el build por dirección (`prerenderMeta` en
+         vite.config.js) y React las mueve al navegar. `x-default` es a dónde va
+         quien no encaja en ninguno de los dos. -->
+    <link rel="alternate" hreflang="es" href="https://vibeset.dev/" />
+    <link rel="alternate" hreflang="en" href="https://vibeset.dev/en" />
+    <link rel="alternate" hreflang="x-default" href="https://vibeset.dev/" />
+
     <link rel="icon" href="/brand/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />

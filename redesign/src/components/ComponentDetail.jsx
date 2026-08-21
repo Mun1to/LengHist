@@ -22,7 +22,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
       className="px-6 sm:px-10 py-10 max-w-5xl"
     >
       <Link
-        to={rutaDe('components')}
+        to={rutaDe('components', null, lang)}
         className="inline-flex items-center gap-1.5 min-h-6 px-1.5 -mx-1.5 text-sm text-tinta-suave hover:text-tinta transition-colors mb-6"
       >
         <ArrowLeft size={14} />

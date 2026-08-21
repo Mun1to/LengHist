@@ -21,3 +21,14 @@
 # lleva al nuevo con un 301, que es como se dice «esto se ha mudado» sin perder
 # lo que la página tuviera ganado en los buscadores.
 /skills/webindex  /skills/siteindex  301
+
+# El inglés vive en `/en` desde el 2026-08-21, y el build escribe `en.html`
+# plano, no una carpeta con índice, por la misma razón que el resto: con carpeta,
+# Pages contesta un 308 hacia la barra final y todos los enlaces se comen un
+# salto. El efecto secundario es que `/en/` con barra no lo sirve nadie, así que
+# esta línea la manda a la buena. Solo hace falta para la portada: las páginas de
+# dentro (`/en/languages`) sí son archivos dentro de la carpeta `en/`.
+/en/  /en  301
+
+# La ficha de skills que también cambió de dirección al mudarse el inglés.
+/en/skills/webindex  /en/skills/siteindex  301

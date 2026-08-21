@@ -32,5 +32,12 @@ export const TOTALES = {
 // que no caducara sola (ver `scripts/tarjeta-social.mjs`). Si aquí siguieran los
 // contadores, quien la escucha con un lector de pantalla oiría un dato que la
 // pantalla no enseña, y encima uno que envejece con cada ficha nueva.
-export const resumenDelCatalogo = () =>
-  'Vibeset · lenguajes, recursos, conceptos web, componentes, skills y consejos'
+// Va por idioma desde que cada página tiene una dirección en cada uno: el `alt`
+// describe la imagen para quien no la ve, así que tiene que estar en el idioma
+// del documento que lo contiene, no en el de la imagen.
+const RESUMEN = {
+  es: 'Vibeset · lenguajes, recursos, conceptos web, componentes, skills y consejos',
+  en: 'Vibeset · languages, resources, web concepts, components, skills and tips',
+}
+
+export const resumenDelCatalogo = (lang = 'es') => RESUMEN[lang] ?? RESUMEN.es

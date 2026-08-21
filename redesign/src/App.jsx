@@ -21,7 +21,8 @@ import { usePaginado } from './lib/paginar'
 import CompareTray from './components/CompareTray'
 import CompareModal from './components/CompareModal'
 import Quiz from './components/Quiz'
-import { leerRuta, rutaDe, slugClave, slugLenguaje } from './lib/rutas'
+import { leerRuta, rutaDe, slugClave, slugLenguaje, traducirRuta } from './lib/rutas'
+import { guardarIdioma } from './lib/idioma'
 import { useTema } from './lib/tema'
 import { metaDePagina, useMeta } from './lib/meta'
 import { LANGUAGES, CATEGORIES, matchesFilter } from './data/languages'
@@ -66,8 +67,6 @@ function useFavorites(catalogo) {
 // separados. El de la pull request sigue existiendo, en APORTAR.md.
 const URL_APORTAR = 'https://github.com/Mun1to/Vibeset/issues/new?template=consejo.yml'
 
-const IDIOMAS = ['es', 'en']
-const CLAVE_IDIOMA = 'vibeset-lang'
 
 
 // Vuelta de la URL a la clave interna. Se arman una vez, no en cada pintado.
@@ -75,37 +74,22 @@ const LENGUAJE_POR_SLUG = Object.fromEntries(LANGUAGES.map((l) => [slugLenguaje(
 const COMPONENTE_POR_SLUG = Object.fromEntries(COMPONENT_ITEMS.map((c) => [slugClave(c.key), c.key]))
 const SKILL_POR_SLUG = Object.fromEntries(SKILL_ITEMS.map((s) => [slugClave(s.key), s.key]))
 
-// El idioma se auto-selecciona, no se fuerza: manda lo que el visitante haya
-// elegido antes; si nunca eligió, el del navegador; y si tampoco encaja,
-// español. Solo se guarda la elección hecha a mano, así que a quien no ha
-// tocado el botón la web le sigue el idioma del navegador si lo cambia.
-function idiomaInicial() {
-  try {
-    const guardado = localStorage.getItem(CLAVE_IDIOMA)
-    if (IDIOMAS.includes(guardado)) return guardado
-  } catch { /* navegación privada sin almacenamiento */ }
-
-  const preferidos = navigator.languages?.length ? navigator.languages : [navigator.language]
-  for (const etiqueta of preferidos ?? []) {
-    // 'en-GB' y 'en' valen los dos: interesa la parte de antes del guion.
-    const base = String(etiqueta).toLowerCase().split('-')[0]
-    if (IDIOMAS.includes(base)) return base
-  }
-  return 'es'
-}
-
 export default function App() {
-  const [lang, setLang] = useState(idiomaInicial)
   // Ya no devuelve nada: el tema sigue al sistema en vivo y no hay interruptor
   // que necesite su estado. Ver `lib/tema.js`.
   useTema()
-  const t = I18N[lang]
 
   // Dónde estamos lo dice la URL y nada más: así se puede enlazar cualquier
   // ficha, el botón atrás del navegador funciona y Google ve el catálogo entero.
   const location = useLocation()
   const irA = useNavigate()
-  const { seccion, ficha } = leerRuta(location.pathname)
+  // El idioma es parte de la dirección desde que el inglés vive en `/en`: la
+  // mitad inglesa del sitio tiene ahora sus propias direcciones, que es lo que
+  // hace falta para que un buscador pueda indexarla. Y como el resto del estado
+  // de esta aplicación, se lee de la URL en vez de guardarse aparte, para que no
+  // pueda haber dos versiones de la verdad.
+  const { seccion, ficha, lang } = leerRuta(location.pathname)
+  const t = I18N[lang]
   const activeNav = seccion ?? 'home'
   const rutaRota = seccion === null
 
@@ -135,7 +119,7 @@ export default function App() {
   // del navegador y no del render, para que valga dentro de un useMemo sin
   // quedarse con una copia vieja.
   const volverALista = (sec) => {
-    const base = rutaDe(sec)
+    const base = rutaDe(sec, null, lang)
     if (window.location.pathname !== base) irA(base, { replace: true })
   }
 
@@ -154,7 +138,7 @@ export default function App() {
   // sección costaría diez veces atrás.
   const catUrl = new URLSearchParams(location.search).get('cat') ?? 'all'
   const irACategoria = (sec, k) =>
-    irA(k === 'all' ? rutaDe(sec) : `${rutaDe(sec)}?cat=${k}`, { replace: true })
+    irA(k === 'all' ? rutaDe(sec, null, lang) : `${rutaDe(sec, null, lang)}?cat=${k}`, { replace: true })
 
   // Lenguajes filtra de tres formas (por categoría, por fama y por año) y las
   // tres viajan por la misma clave: `top` y `recent` no chocan con ninguna
@@ -166,12 +150,19 @@ export default function App() {
       : k === 'recent' ? { type: 'recent' }
       : { type: 'cat', value: k }
 
-  const cambiarIdioma = () =>
-    setLang((anterior) => {
-      const nuevo = anterior === 'es' ? 'en' : 'es'
-      try { localStorage.setItem(CLAVE_IDIOMA, nuevo) } catch { /* sin almacenamiento */ }
-      return nuevo
-    })
+  // Cambiar de idioma es ir a la MISMA página en la otra dirección, no cambiar
+  // un estado: si solo cambiara el estado, la barra de direcciones seguiría
+  // diciendo español con la página en inglés, y ese enlace compartido llegaría
+  // al idioma equivocado.
+  const cambiarIdioma = () => {
+    const nuevo = lang === 'es' ? 'en' : 'es'
+    // Se recuerda porque es una elección explícita: a partir de aquí, entrar por
+    // una dirección española ya no le manda a la inglesa aunque su navegador lo
+    // pida.
+    guardarIdioma(nuevo)
+    irA(traducirRuta(location.pathname, nuevo) + location.search)
+  }
+
 
   // El idioma declarado en el html tiene que seguir al que se está leyendo:
   // es lo que usan los lectores de pantalla y los traductores del navegador.
@@ -380,7 +371,7 @@ export default function App() {
   // El logo ya lleva a la portada por su enlace; esto solo deja los filtros
   // limpios para que al volver a una sección no siga filtrada de antes.
   const goHome = () => { setFilter({ type: 'all' }); setQuery(''); setLangFavOnly(false) }
-  const openLanguage = (name) => irA(rutaDe('languages', slugLenguaje(name)))
+  const openLanguage = (name) => irA(rutaDe('languages', slugLenguaje(name), lang))
 
   // Un resultado del buscador deja la cosa abierta, no solo la sección: la ficha
   // del lenguaje, la del componente o la de la skill. Los recursos son enlaces a
@@ -388,17 +379,17 @@ export default function App() {
   const abrirResultado = (r) => {
     if (r.seccion === 'languages') return openLanguage(r.clave)
     if (r.seccion === 'resources') return window.open(r.url, '_blank', 'noopener')
-    if (r.seccion === 'components') return irA(rutaDe('components', slugClave(r.clave)))
-    if (r.seccion === 'skills') return irA(rutaDe('skills', slugClave(r.clave)))
+    if (r.seccion === 'components') return irA(rutaDe('components', slugClave(r.clave), lang))
+    if (r.seccion === 'skills') return irA(rutaDe('skills', slugClave(r.clave), lang))
 
     if (r.seccion === 'concepts') {
       setConCat('all'); setConFavOnly(false); setConQuery(r.clave)
-      irA(rutaDe('concepts'))
+      irA(rutaDe('concepts', null, lang))
     } else if (r.seccion === 'consejos') {
       // El consejo no tiene ficha propia: se deja el muro con ese solo a la vista.
       setCjCat('all'); setCjFavOnly(false)
       setCjQuery(CONSEJOS.find((c) => c.id === r.clave)?.[lang]?.replace(/[*`]/g, '') ?? '')
-      irA(rutaDe('consejos'))
+      irA(rutaDe('consejos', null, lang))
     }
   }
 
