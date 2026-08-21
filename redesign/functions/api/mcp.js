@@ -146,26 +146,40 @@ async function buscarFederado(query, limitePorOrigen) {
   return tandas.flat()
 }
 
+// Relevancia de un item federado a la query: el nombre pesa más que la descripción.
+function scoreFederado(it, q) {
+  if (!q) return 0
+  const n = (it.name || '').toLowerCase()
+  if (n.startsWith(q)) return 3
+  if (n.includes(q)) return 2
+  if ((it.description || '').toLowerCase().includes(q)) return 1
+  return 0
+}
+
+const CRITERIO = 'La federación se omite al filtrar por criterio de la casa (arquetipo/dial/a11y): no se puede garantizar sobre piezas de terceros.'
+
 // Ejecuta una tool. La federación hace fetch a los registries externos.
 async function ejecutarTool(name, args = {}) {
   if (name === 'search') {
     const { query = '', source = 'own', ...filtros } = args
-    const propios = source === 'federated' ? [] : buscarCatalogo(query, filtros)
-    // El criterio de la casa no se puede afirmar sobre piezas de terceros, así que
-    // cuando se filtra por él, la federación se queda fuera.
+    // El criterio de la casa no se puede afirmar sobre piezas de terceros.
     const pideCriterio = Boolean(filtros.arquetipo || filtros.dial === 'ok' || filtros.a11y)
-    let federados = []
-    let nota
-    if (source === 'federated' || source === 'all') {
-      if (pideCriterio) {
-        nota = 'La federación se omite al filtrar por criterio de la casa (arquetipo/dial/a11y): no se puede garantizar sobre piezas de terceros.'
-      } else {
-        const tope = typeof filtros.limit === 'number' ? filtros.limit : 10
-        federados = await buscarFederado(query, tope)
-      }
+    const federar = (source === 'federated' || source === 'all') && !pideCriterio
+
+    if (!federar) {
+      const results = source === 'federated' ? [] : buscarCatalogo(query, filtros)
+      const nota = source !== 'own' && pideCriterio ? CRITERIO : undefined
+      return { ok: true, data: { results, count: results.length, source, ...(nota ? { nota } : {}) } }
     }
-    const results = [...propios, ...federados]
-    return { ok: true, data: { results, count: results.length, source, ...(nota ? { nota } : {}) } }
+
+    // Camino federado: propio + externo, rankeado y cortado a un límite global.
+    const q = String(query || '').toLowerCase().trim()
+    const propios = source === 'federated' ? [] : buscarCatalogo(query, { ...filtros, limit: undefined })
+    const federados = await buscarFederado(query, 8)
+    federados.sort((a, b) => scoreFederado(b, q) - scoreFederado(a, q))
+    const tope = Math.min(Math.max(1, Number(filtros.limit) || 20), 100)
+    const results = [...propios, ...federados].slice(0, tope)
+    return { ok: true, data: { results, count: results.length, source } }
   }
   if (name === 'get_item') {
     const item = itemRegistro(args.id, args.lang || 'es')
