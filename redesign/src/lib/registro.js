@@ -106,6 +106,26 @@ export function catalogoPropio(lang = 'es') {
   return CATALOGO.map((x) => vistaCorta(x, lang))
 }
 
+// Puntúa un match: pesa más en el nombre que en la etiqueta, y en la etiqueta más
+// que en la descripción. Sin esto, el orden era el del catálogo y una skill salía
+// por delante del componente que llevaba la palabra en el título.
+function puntuar(x, q) {
+  const en = (s) => (s || '').toLowerCase()
+  const nombre = `${en(x.key)} ${en(x.name)}`
+  let s = 0
+  if (nombre.startsWith(q)) s += 5
+  if (nombre.includes(q)) s += 3
+  if (x.type === 'component') {
+    if ((en(x.tag?.es) + en(x.tag?.en)).includes(q)) s += 2
+    if ((en(x.desc?.es) + en(x.desc?.en)).includes(q)) s += 1
+    if ((x.labels || []).some((l) => en(l).includes(q))) s += 1
+  } else {
+    if ((en(x.es?.label) + en(x.en?.label)).includes(q)) s += 2
+    if ((en(x.es?.what) + en(x.en?.what) + en(x.es?.description) + en(x.en?.description)).includes(q)) s += 1
+  }
+  return s
+}
+
 // Búsqueda en memoria sobre lo propio. Filtros:
 // - tipo: 'component' | 'skill'
 // - arquetipo: solo descarta componentes que no encajen; las skills nunca se caen
@@ -122,7 +142,13 @@ export function buscarCatalogo(query = '', filtros = {}) {
   if (arquetipo) out = out.filter((x) => !x.meta.arquetipos || x.meta.arquetipos.includes(arquetipo))
   if (dial === 'ok') out = out.filter((x) => x.meta.cumpleDial !== false)
   if (a11y) out = out.filter((x) => (x.meta.a11y || 'ok') === a11y)
-  if (q) out = out.filter((x) => x.buscable.includes(q))
+  if (q) {
+    out = out
+      .filter((x) => x.buscable.includes(q))
+      .map((x, i) => ({ x, i, s: puntuar(x, q) }))
+      .sort((a, b) => b.s - a.s || a.i - b.i)
+      .map((o) => o.x)
+  }
   const resultados = out.map((x) => vistaCorta(x, lang))
   return typeof limit === 'number' ? resultados.slice(0, limit) : resultados
 }

@@ -44,6 +44,16 @@ const TOOLS = [
         limit: { type: 'number' },
       },
     },
+    outputSchema: {
+      type: 'object',
+      properties: {
+        results: { type: 'array', items: { type: 'object' } },
+        count: { type: 'number' },
+        source: { type: 'string' },
+        nota: { type: 'string' },
+      },
+      required: ['results', 'count'],
+    },
   },
   {
     name: 'get_item',
@@ -57,11 +67,27 @@ const TOOLS = [
       },
       required: ['id'],
     },
+    outputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string' },
+        type: { type: 'string' },
+        title: { type: 'string' },
+        description: { type: 'string' },
+        files: { type: 'array' },
+        meta: { type: 'object' },
+      },
+    },
   },
   {
     name: 'list_registries',
     description: 'Enumera los registries de componentes de terceros que Vibeset indexa y enlaza (nunca rehospeda).',
     inputSchema: { type: 'object', properties: {} },
+    outputSchema: {
+      type: 'object',
+      properties: { registries: { type: 'array', items: { type: 'object' } } },
+      required: ['registries'],
+    },
   },
 ]
 
