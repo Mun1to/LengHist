@@ -134,6 +134,14 @@ export const CONCEPTS = [
     "en": {
      "what": "A strip of text or logos looping infinitely.",
      "use": "Client logo strips and moving headlines."
+    },
+    "vistoEn": {
+     "sitio": "vercel.com",
+     "url": "https://vercel.com",
+     "prueba": "marquee",
+     "visto": "2026-08-21",
+     "es": "la tira de logos que no para de correr",
+     "en": "the logo strip that never stops moving"
     }
    },
    {
@@ -219,6 +227,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Tiny feedbacks on hover, focus and click (scale, color, shadow).",
      "use": "They make the UI feel alive; they reinforce each action."
+    },
+    "vistoEn": {
+     "sitio": "apple.com",
+     "url": "https://www.apple.com",
+     "prueba": "cubic-bezier",
+     "visto": "2026-08-21",
+     "es": "cada transición lleva su curva a medida, no la de fabrica",
+     "en": "every transition carries its own curve, not the default one"
     }
    },
    {
@@ -297,6 +313,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Organic, diffuse gradients, often animated, used as background.",
      "use": "Lively backgrounds without clutter (like this very site)."
+    },
+    "vistoEn": {
+     "sitio": "astro.build",
+     "url": "https://astro.build",
+     "prueba": "radial-gradient",
+     "visto": "2026-08-21",
+     "es": "el fondo son gradientes superpuestos, no una imagen",
+     "en": "the background is stacked gradients, not an image"
     }
    },
    {
@@ -310,6 +334,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Reveal or crop content with shapes (clip-path, mask).",
      "use": "Stylish reveals, uncovering text and image transitions."
+    },
+    "vistoEn": {
+     "sitio": "vercel.com",
+     "url": "https://vercel.com",
+     "prueba": "mask-image",
+     "visto": "2026-08-21",
+     "es": "recorta y difumina bordes con máscaras CSS, sin imágenes",
+     "en": "crops and fades edges with CSS masks, no images"
     }
    },
    {
@@ -322,6 +354,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Native animated transition between two states or pages.",
      "use": "Theme changes and smooth navigation (used by this site's theme toggle)."
+    },
+    "vistoEn": {
+     "sitio": "astro.build",
+     "url": "https://astro.build",
+     "prueba": "view-transition",
+     "visto": "2026-08-21",
+     "es": "el paso entre páginas lo hace la API del navegador",
+     "en": "page-to-page transitions handled by the browser API"
     }
    },
    {
@@ -334,6 +374,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Animated gray placeholders shown while the real content loads.",
      "use": "Perceived speed; they avoid blank screens."
+    },
+    "vistoEn": {
+     "sitio": "github.com",
+     "url": "https://github.com",
+     "prueba": "skeleton",
+     "visto": "2026-08-21",
+     "es": "el hueco de lo que carga tiene la forma de lo que va a venir",
+     "en": "loading gaps keep the shape of what is coming"
     }
    },
    {
@@ -359,6 +407,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Subtle grain texture over backgrounds and gradients.",
      "use": "Gives a warm, analog finish, less flat."
+    },
+    "vistoEn": {
+     "sitio": "linear.app",
+     "url": "https://linear.app",
+     "prueba": "grain",
+     "visto": "2026-08-21",
+     "es": "una capa de grano encima del color para quitarle el plástico",
+     "en": "a grain layer over the color to take the plastic out"
     }
    },
    {
@@ -394,6 +450,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Animate only transform and opacity, never top/left/width/height.",
      "use": "It's the only thing the GPU composes cheaply, giving 60fps with no jank."
+    },
+    "vistoEn": {
+     "sitio": "apple.com",
+     "url": "https://www.apple.com",
+     "prueba": "transform:translate",
+     "visto": "2026-08-21",
+     "es": "mueve con transform y no con top o left, que obliga a recalcular",
+     "en": "moves with transform, never top or left, which forces a relayout"
     }
    },
    {
@@ -406,6 +470,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Tells the browser which property will change so it prepares a layer.",
      "use": "Use it sparingly: overusing it wastes memory."
+    },
+    "vistoEn": {
+     "sitio": "framer.com",
+     "url": "https://www.framer.com",
+     "prueba": "will-change",
+     "visto": "2026-08-21",
+     "es": "avisa al navegador de lo que va a moverse, 258 veces en su portada",
+     "en": "warns the browser what is about to move, 258 times on its home page"
     }
    },
    {
@@ -419,6 +491,14 @@ export const CONCEPTS = [
     "en": {
      "what": "LCP (<2.5s), INP (<200ms) and CLS (<0.1): Google's experience metrics.",
      "use": "If an effect worsens them, lower its intensity or move it to native CSS."
+    },
+    "vistoEn": {
+     "sitio": "developer.mozilla.org",
+     "url": "https://developer.mozilla.org",
+     "prueba": "fetchpriority",
+     "visto": "2026-08-21",
+     "es": "marca qué imagen carga primero para no hundir el LCP",
+     "en": "flags which image loads first so the LCP does not suffer"
     }
    },
    {
@@ -452,6 +532,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Content works and reads without JS; the effect goes on top.",
      "use": "Robustness: if JS fails, the site is still usable."
+    },
+    "vistoEn": {
+     "sitio": "apple.com",
+     "url": "https://www.apple.com",
+     "prueba": "noscript",
+     "visto": "2026-08-21",
+     "es": "la página sigue diciendo algo con el JavaScript apagado",
+     "en": "the page still says something with JavaScript off"
     }
    },
    {
@@ -464,6 +552,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Design for mobile first and scale up.",
      "use": "Most traffic is mobile; effects must run at 60fps there too."
+    },
+    "vistoEn": {
+     "sitio": "framer.com",
+     "url": "https://www.framer.com",
+     "prueba": "srcset",
+     "visto": "2026-08-21",
+     "es": "sirve una imagen distinta según el ancho de la pantalla",
+     "en": "serves a different image depending on screen width"
     }
    },
    {
@@ -509,6 +605,14 @@ export const CONCEPTS = [
     "en": {
      "what": "Sync JS animations with the browser's screen refresh.",
      "use": "Smooth 60fps animations without clogging the main thread."
+    },
+    "vistoEn": {
+     "sitio": "vercel.com",
+     "url": "https://vercel.com",
+     "prueba": "requestAnimationFrame",
+     "visto": "2026-08-21",
+     "es": "engancha sus animaciones al reloj del navegador",
+     "en": "hooks its animations to the browser frame clock"
     }
    }
   ]
