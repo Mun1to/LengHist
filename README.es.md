@@ -64,6 +64,25 @@ Mun1to/Vibeset` y luego `/plugin install <nombre>@vibeset`.
 **38 consejos.** Cosas cortas que se aprenden perdiendo tardes, las de la casa y las que aporta la
 gente. Abierto a colaboradores por pull request.
 
+## Úsalo desde tu agente (MCP)
+
+Vibeset también habla MCP, así que un agente de código puede buscar en el catálogo y sacar los
+comandos de instalación sin salir del editor. Es de solo lectura: sirve la metadata y, de los
+componentes de terceros, el comando de instalación de su propio registry. Nunca rehospeda el código
+de nadie.
+
+Apunta cualquier cliente MCP al endpoint remoto:
+
+```bash
+npx mcp-remote https://vibeset.dev/api/mcp
+```
+
+Tres tools: `search` (por tipo, arquetipo de web, política de movimiento y accesibilidad),
+`get_item` (una skill entera, o la metadata y el comando de instalación de un componente) y
+`list_registries`. El mismo catálogo es también un registry shadcn en
+`https://vibeset.dev/r/registry.json`, un item por `/r/{name}.json`, con la mitad inglesa bajo
+`/r/en/`.
+
 ## Con qué está hecho
 
 React 19, Vite, React Router, Tailwind CSS v4, Framer Motion y Lucide. Dos de los efectos usan

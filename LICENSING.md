@@ -143,6 +143,11 @@ in their projects, but **the MIT licence of this repository does not extend to t
 want to reuse one of those effects, take it from the author's own site and follow their terms, not
 these. Every effect in Vibeset credits its source with a link on its page.
 
+The MCP server (`redesign/functions/api/mcp.js`) holds the same line. It serves the catalogue
+metadata (CC BY) and the full body of the skills, but for the components it serves only their origin
+install command, never the code in `canvasui/` or `arlan/`. The same goes for the external registries
+it federates: it indexes and links them, it does not rehost them.
+
 The photographs in `redesign/public/demo/` come from [Lorem Picsum](https://picsum.photos) and are
 only there to give the demos something to distort.
 
