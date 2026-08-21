@@ -8,7 +8,7 @@
 ### One place with everything you need to build for the web
 
 100 programming languages, 77 frontend tools, 41 design techniques, 12 live components,
-18 agent skills and 38 tips. Free, bilingual, no sign-up, no tracking.
+18 agent skills and 38 tips, plus an MCP server for agents. Free, bilingual, no sign-up, no tracking.
 
 <a href="https://vibeset.dev">
   <img alt="Open vibeset.dev" src=".github/assets/boton-open.svg" width="268">
@@ -62,6 +62,26 @@ two commands: `/plugin marketplace add Mun1to/Vibeset` and then `/plugin install
 
 **38 tips.** Short things you learn by losing afternoons, ours and whatever people send in. Open to
 contributions through a pull request.
+
+## Use it from your agent (MCP)
+
+Vibeset also speaks MCP, so a coding agent can search the catalogue and pull install commands
+without leaving the editor. It is read-only: it serves the metadata and, for third-party
+components, the install command from their own registry. It never rehosts anyone else's code.
+
+Point any MCP client at the remote endpoint:
+
+```bash
+npx mcp-remote https://vibeset.dev/api/mcp
+```
+
+Four tools: `search` (components, skills, concepts, tips and resources, filtered by house criteria),
+`get_item` (a whole skill, a concept with its prompt, or a component's install command),
+`list_registries`, and `search_icons` (Iconify: ~334k open-source icons, each with its licence). The same
+catalogue is also a shadcn registry at `https://vibeset.dev/r/registry.json`, one item per
+`/r/{name}.json`, with the English half under `/r/en/`.
+
+Full reference, with tool examples and client setup, in **[MCP.md](MCP.md)**.
 
 ## Stack
 
