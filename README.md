@@ -80,6 +80,8 @@ whole skill, or a component's metadata and install command) and `list_registries
 catalogue is also a shadcn registry at `https://vibeset.dev/r/registry.json`, one item per
 `/r/{name}.json`, with the English half under `/r/en/`.
 
+Full reference, with tool examples and client setup, in **[MCP.md](MCP.md)**.
+
 ## Stack
 
 React 19, Vite, React Router, Tailwind CSS v4, Framer Motion and Lucide. Two of the effects use

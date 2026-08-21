@@ -83,6 +83,8 @@ Tres tools: `search` (por tipo, arquetipo de web, política de movimiento y acce
 `https://vibeset.dev/r/registry.json`, un item por `/r/{name}.json`, con la mitad inglesa bajo
 `/r/en/`.
 
+Referencia completa, con ejemplos de las tools y la configuración de clientes, en **[MCP.md](MCP.md)**.
+
 ## Con qué está hecho
 
 React 19, Vite, React Router, Tailwind CSS v4, Framer Motion y Lucide. Dos de los efectos usan
