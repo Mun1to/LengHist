@@ -386,7 +386,10 @@ function endpointsEnDesarrollo() {
           res.end(await r.text())
         }
         if (req.method === 'OPTIONS') return responder(mod.onRequestOptions())
-        if (req.method === 'GET') return responder(await mod.onRequestGet())
+        if (req.method === 'GET') {
+          const request = new Request('http://localhost/api/mcp', { headers: { accept: req.headers.accept || '' } })
+          return responder(await mod.onRequestGet({ request }))
+        }
         if (req.method === 'POST') {
           const trozos = []
           for await (const c of req) trozos.push(c)

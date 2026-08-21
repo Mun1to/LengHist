@@ -15,6 +15,7 @@
 // fetch/Request/Response. La superficie es diminuta y estable, así que sale a cuenta.
 import { buscarCatalogo, itemRegistro } from '../../src/lib/registro.js'
 import { buscarFederado, scoreFederado, buscarIconos, listarDirectorio, registriesCurados, registryDeId } from '../../src/lib/fuentes.js'
+import { paginaMcp } from '../../src/lib/paginaMcp.js'
 
 const SERVER = { name: 'vibeset', version: '0.1.0' }
 const PROTOCOL = '2025-06-18'
@@ -218,8 +219,13 @@ export function onRequestOptions() {
   return new Response(null, { status: 204, headers: CORS })
 }
 
-// GET: descubrimiento y salud. No es un stream SSE; los clientes de tools usan POST.
-export function onRequestGet() {
+// GET: una página para humanos si lo abre un navegador (Accept: text/html), o la
+// tarjeta de salud JSON para todo lo demás. No es un stream SSE; las tools usan POST.
+export function onRequestGet({ request } = {}) {
+  const acepta = request?.headers?.get('accept') || ''
+  if (acepta.includes('text/html')) {
+    return new Response(paginaMcp(), { headers: { 'Content-Type': 'text/html; charset=utf-8', ...CORS } })
+  }
   return json({ ...SERVER, protocol: PROTOCOL, transport: 'streamable-http', tools: TOOLS.map((t) => t.name) })
 }
 
