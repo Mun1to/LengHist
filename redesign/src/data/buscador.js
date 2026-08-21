@@ -89,6 +89,10 @@ export function construirIndice(lang) {
       // El consejo no tiene título: el título es el consejo. Se recorta para la
       // fila y el texto entero se sigue buscando.
       titulo: recorta(limpio, 58),
+      // El texto entero, además del recortado. Al abrir un consejo desde el
+      // buscador, el muro se filtra por su texto, y el recorte lleva puntos
+      // suspensivos al final: filtrar por eso no encuentra nada.
+      texto: limpio,
       sub: c.autor ? `@${c.autor} · ${grupo?.label[lang] ?? ''}` : (grupo?.label[lang] ?? ''),
       busca: [limpio, c.autor ?? '', grupo?.label[lang] ?? ''].join(' ').toLowerCase(),
     })

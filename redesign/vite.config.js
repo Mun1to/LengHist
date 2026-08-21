@@ -90,6 +90,69 @@ ${alternativas(hermanas)}
   }
 }
 
+// Los contadores del catálogo, calculados en el build en vez de en el navegador.
+//
+// El problema que resuelve: `lib/totales.js` cuenta importando LANGUAGES,
+// RESOURCES, CONCEPTS, COMPONENT_ITEMS, SKILL_ITEMS y CONSEJOS, o sea el
+// catálogo entero, casi medio mega de datos. Y lo usan la portada, la barra y el
+// pie, así que quien entraba a ver seis números se bajaba las cien fichas de
+// lenguajes y las dieciocho de skills para nada.
+//
+// Aquí se sustituye ese módulo por sus RESULTADOS, calculados una vez al
+// compilar. Sigue habiendo una sola fuente, que es el catálogo, y sigue sin
+// haber ningún número escrito a mano: lo único que cambia es cuándo se cuenta.
+// En desarrollo no se aplica (`apply: 'build'`), así que ahí el módulo real
+// sigue vivo y cualquier fallo suyo se ve enseguida.
+//
+// Si alguien añade una exportación nueva a `totales.js` y no la añade aquí, el
+// build falla al no encontrarla. Es lo que tiene que pasar: mejor un error que
+// un contador en blanco.
+function totalesEnBuild() {
+  const ES_TOTALES = /[\\/]src[\\/]lib[\\/]totales\.js$/
+  return {
+    name: 'vibeset-totales-en-build',
+    apply: 'build',
+    async load(id) {
+      if (!ES_TOTALES.test(id.split('?')[0])) return null
+      const { TOTALES, resumenDelCatalogo } = await import('./src/lib/totales.js')
+      const resumenes = { es: resumenDelCatalogo('es'), en: resumenDelCatalogo('en') }
+      return [
+        '// Generado en el build desde el catálogo. No se edita: ver totalesEnBuild()',
+        '// en vite.config.js y el módulo de verdad en src/lib/totales.js.',
+        `export const TOTALES = ${JSON.stringify(TOTALES)}`,
+        `const RESUMEN = ${JSON.stringify(resumenes)}`,
+        `export const resumenDelCatalogo = (lang = 'es') => RESUMEN[lang] ?? RESUMEN.es`,
+        '',
+      ].join('\n')
+    },
+  }
+}
+
+// Los cuatro lenguajes de la ventana de código de la portada, resueltos en el
+// build. Misma idea que `totalesEnBuild` y por el mismo motivo: `CodeWindow`
+// enseña cuatro pestañas y para llenarlas buscaba dentro de los cien lenguajes,
+// así que la portada arrastraba el catálogo entero. Aquí se hace la búsqueda una
+// vez, al compilar, y lo que viaja al navegador son los cuatro.
+function datosDePortadaEnBuild() {
+  const ES_PORTADA = /[\\/]src[\\/]lib[\\/]portada\.js$/
+  return {
+    name: 'vibeset-portada-en-build',
+    apply: 'build',
+    async load(id) {
+      if (!ES_PORTADA.test(id.split('?')[0])) return null
+      const { EJEMPLOS_PORTADA, PESTANAS } = await import('./src/lib/portada.js')
+      return [
+        '// Generado en el build desde el catálogo. No se edita: ver',
+        '// datosDePortadaEnBuild() en vite.config.js y el módulo de verdad en',
+        '// src/lib/portada.js.',
+        `export const PESTANAS = ${JSON.stringify(PESTANAS)}`,
+        `export const EJEMPLOS_PORTADA = ${JSON.stringify(EJEMPLOS_PORTADA)}`,
+        '',
+      ].join('\n')
+    },
+  }
+}
+
 const escapar = (s) => String(s)
   .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 
@@ -274,6 +337,6 @@ function endpointsEnDesarrollo() {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), sitemap(), prerenderMeta(), endpointsEnDesarrollo()],
+  plugins: [react(), tailwindcss(), totalesEnBuild(), datosDePortadaEnBuild(), sitemap(), prerenderMeta(), endpointsEnDesarrollo()],
   server: { port: 5183, strictPort: true },
 })

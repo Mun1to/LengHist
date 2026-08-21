@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Search, ArrowUpRight, CornerDownLeft } from 'lucide-react'
-import { construirIndice, buscar } from '../data/buscador'
 import { atajoBuscar, esMac } from '../lib/atajos'
 
 // Buscador: mira en los cinco catálogos a la vez, no solo en la sección abierta.
@@ -30,9 +29,29 @@ export default function Buscador({ t, lang, onAbrir, className = '' }) {
 
   useEffect(() => { setMac(esMac()) }, [])
 
+  // El índice del buscador se trae cuando se abre la paleta, no al cargar la
+  // página, y ese detalle vale casi la mitad del peso de la portada.
+  //
+  // El motivo: para poder buscar en todo hay que tener todo, así que
+  // `data/buscador.js` importa los cien lenguajes, las dieciocho skills y el
+  // resto del catálogo. Con un import normal, ese peso viajaba con la barra, o
+  // sea en TODAS las páginas y también en la portada, que no enseña ni una
+  // ficha. Ahora llega con el primer ⌘K y se queda cacheado para el resto.
+  //
+  // Mientras no ha llegado, el panel enseña su mensaje de «nada por aquí», que
+  // es lo mismo que ve quien busca algo que no existe. Dura lo que tarda una
+  // petición ya cacheada y solo se nota la primerísima vez.
+  const [motor, setMotor] = useState(null)
+  useEffect(() => {
+    if (!abierto || motor) return
+    let vivo = true
+    import('../data/buscador').then((m) => { if (vivo) setMotor(m) })
+    return () => { vivo = false }
+  }, [abierto, motor])
+
   // El índice se arma una vez por idioma, no en cada tecla.
-  const indice = useMemo(() => construirIndice(lang), [lang])
-  const grupos = useMemo(() => buscar(indice, consulta), [indice, consulta])
+  const indice = useMemo(() => (motor ? motor.construirIndice(lang) : []), [motor, lang])
+  const grupos = useMemo(() => (motor ? motor.buscar(indice, consulta) : []), [motor, indice, consulta])
   const planos = useMemo(() => grupos.flatMap((g) => g.items), [grupos])
 
   useEffect(() => { setActivo(0) }, [consulta])

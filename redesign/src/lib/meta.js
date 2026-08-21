@@ -13,8 +13,13 @@ function fijarMeta(selector, atributo, valor) {
   if (el) el.setAttribute(atributo, valor)
 }
 
-export function useMeta({ titulo, descripcion, ruta }) {
+// `activo` existe porque hay DOS sitios que ponen el meta: esta pantalla para
+// la portada y el 404, y el catálogo para sus secciones y sus fichas (que es
+// donde están los datos para titularlas). Los hooks no se pueden llamar a
+// medias, así que el que no manda se calla en vez de no montarse.
+export function useMeta({ titulo, descripcion, ruta, activo = true }) {
   useEffect(() => {
+    if (!activo) return
     document.title = titulo
     fijarMeta('meta[name="description"]', 'content', descripcion)
     fijarMeta('meta[property="og:title"]', 'content', titulo)
@@ -33,7 +38,7 @@ export function useMeta({ titulo, descripcion, ruta }) {
     for (const [idioma, destino] of [...Object.entries(hermanas), ['x-default', hermanas.es]]) {
       fijarMeta(`link[rel="alternate"][hreflang="${idioma}"]`, 'href', BASE + destino)
     }
-  }, [titulo, descripcion, ruta])
+  }, [titulo, descripcion, ruta, activo])
 }
 
 // Corta por la última palabra entera: una descripción cortada a mitad de palabra

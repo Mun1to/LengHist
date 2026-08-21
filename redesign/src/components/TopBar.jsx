@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight, Boxes, Braces, Lightbulb, Menu, Sparkles, Terminal, Wrench, X,
@@ -6,8 +6,15 @@ import {
 import Logo from './Logo'
 import Buscador from './Buscador'
 import BotonGitHub from './BotonGitHub'
-import VistazoMenu from './VistazoMenu'
 import { rutaDe } from '../lib/rutas'
+
+// El panel que se asoma al pasar por una sección cuenta cuántas fichas tiene
+// cada grupo, así que su módulo (`lib/vistazo.js`) importa el catálogo entero.
+// Traído a la fuerza, ese peso viajaba en la barra de todas las páginas por un
+// panel que solo existe en escritorio y solo si alguien pasa el ratón por
+// encima. Con `lazy()` llega justo entonces, y como para eso hay que apuntar
+// primero al enlace, siempre le sobra tiempo.
+const VistazoMenu = lazy(() => import('./VistazoMenu'))
 
 // El buscador manda en el centro y la navegación se reparte a los lados, tres y
 // tres. El corte va por la mitad del catálogo y no en cualquier sitio: leído de
@@ -315,10 +322,12 @@ export default function TopBar({
             cifras, que es la misma información. */}
         {asomada && !menu && (
           <div className="hidden xl:block">
-            <VistazoMenu
-              seccion={asomada.clave} anclaX={asomada.x}
-              lang={lang} t={t} onCerrar={cerrarYa}
-            />
+            <Suspense fallback={null}>
+              <VistazoMenu
+                seccion={asomada.clave} anclaX={asomada.x}
+                lang={lang} t={t} onCerrar={cerrarYa}
+              />
+            </Suspense>
           </div>
         )}
       </header>
