@@ -70,6 +70,7 @@ Searches the catalogue. Returns metadata and the origin install command, never t
 | --- | --- | --- |
 | `query` | string | Free text. Matches name, description and labels, in both languages. |
 | `tipo` | `component` \| `skill` | Restrict to one kind. |
+| `grupo` | string | Catalogue group. Components: `canvas`, `cursor`, `scroll`, `texto`, `ui`. Skills: `web`, `codigo`, `flujo`, `escritura`. |
 | `arquetipo` | string | `marca-creativa`, `portfolio`, `lanzamiento`, `saas`, `fintech`, `ecommerce`, `editorial`, `evento`. Drops components that do not fit; skills are never filtered by this. |
 | `dial` | `ok` \| `any` | `ok` drops large-amplitude decorative motion that does not meet the house policy. |
 | `a11y` | `ok` \| `decorativo` \| `requiere-refuerzo` | Accessibility note. |

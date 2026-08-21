@@ -44,6 +44,7 @@ const TOOLS = [
       properties: {
         query: { type: 'string', description: 'Texto libre. Busca en nombre, descripción y etiquetas, en los dos idiomas.' },
         tipo: { type: 'string', enum: ['component', 'skill'] },
+        grupo: { type: 'string', description: 'Grupo del catálogo. Componentes: canvas, cursor, scroll, texto, ui. Skills: web, codigo, flujo, escritura.' },
         arquetipo: { type: 'string', description: 'Deja fuera los componentes que no encajan en ese arquetipo. Las skills no se filtran por esto.' },
         dial: { type: 'string', enum: ['ok', 'any'], description: '"ok" descarta el movimiento decorativo de gran amplitud que no cumple la política de la casa.' },
         a11y: { type: 'string', enum: ['ok', 'decorativo', 'requiere-refuerzo'] },

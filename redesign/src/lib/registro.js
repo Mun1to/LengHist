@@ -36,6 +36,7 @@ function normalizarComponente(item) {
     type: 'component',
     key: item.key,
     name: item.name,
+    grupo: item.group,
     origin: item.origin,
     install: item.install || null,
     homepage: item.url,
@@ -84,7 +85,7 @@ function vistaCorta(x, lang) {
       description: (x.tag && (x.tag[lang] || x.tag.es)) || '',
       homepage: x.homepage,
       install: x.install,
-      meta: x.meta,
+      meta: { ...x.meta, grupo: x.grupo },
     }
   }
   const t = x[lang] || x.es
@@ -128,17 +129,19 @@ function puntuar(x, q) {
 
 // Búsqueda en memoria sobre lo propio. Filtros:
 // - tipo: 'component' | 'skill'
+// - grupo: canvas/cursor/scroll/texto/ui (componentes) o web/codigo/flujo/escritura (skills).
 // - arquetipo: solo descarta componentes que no encajen; las skills nunca se caen
 //   por este filtro (no tienen arquetipo).
 // - dial: 'ok' deja fuera el movimiento decorativo que no cumple la política.
 // - a11y: 'ok' | 'decorativo' | 'requiere-refuerzo'
 // - limit: corta el resultado.
 export function buscarCatalogo(query = '', filtros = {}) {
-  const { tipo, arquetipo, dial, a11y, limit } = filtros
+  const { tipo, grupo, arquetipo, dial, a11y, limit } = filtros
   const lang = filtros.lang || 'es'
   const q = String(query || '').trim().toLowerCase()
   let out = CATALOGO
   if (tipo) out = out.filter((x) => x.type === tipo)
+  if (grupo) out = out.filter((x) => x.grupo === grupo)
   if (arquetipo) out = out.filter((x) => !x.meta.arquetipos || x.meta.arquetipos.includes(arquetipo))
   if (dial === 'ok') out = out.filter((x) => x.meta.cumpleDial !== false)
   if (a11y) out = out.filter((x) => (x.meta.a11y || 'ok') === a11y)
