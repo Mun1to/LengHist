@@ -583,6 +583,18 @@ export const RESOURCES = [
     "url": "https://librosgratis.dev",
     "es": "Libros de programación gratis, en español",
     "en": "Free programming books, in Spanish"
+   },
+   {
+    "name": "Aprendiendo React",
+    "url": "https://github.com/midudev/aprendiendo-react",
+    "es": "Curso de React desde cero, proyecto a proyecto",
+    "en": "React from scratch, project by project (Spanish)"
+   },
+   {
+    "name": "JSCamp",
+    "url": "https://jscamp.dev",
+    "es": "Bootcamp gratis de JavaScript full-stack, con ejercicios",
+    "en": "Free full-stack JavaScript bootcamp, with exercises (Spanish)"
    }
   ]
  },
