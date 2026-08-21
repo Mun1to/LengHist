@@ -20,6 +20,14 @@ import { REGISTRIES } from '../../src/data/registries.js'
 const SERVER = { name: 'vibeset', version: '0.1.0' }
 const PROTOCOL = '2025-06-18'
 
+// Lo que el cliente enseña al modelo para que use el server bien, no a ciegas.
+const INSTRUCTIONS = [
+  'Vibeset is a catalogue of web components and agent skills, searchable with house design criteria.',
+  'Use search to find pieces: pass arquetipo (the site archetype: fintech, saas, ecommerce, marca-creativa, portfolio, lanzamiento, editorial, evento) and dial:"ok" to get pieces that fit and respect motion-accessibility. The server drops heavy decorative WebGL for sober archetypes on its own.',
+  'source:"own" is the curated Vibeset catalogue; source:"all" also reaches the federated third-party registries (~1,400 components). Federation is skipped when you filter by house criteria.',
+  'Use get_item for a skill\'s full SKILL.md or a component\'s metadata and origin install command. The server links to third-party code, it never rehosts it.',
+].join(' ')
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -183,6 +191,7 @@ async function manejar(m) {
         protocolVersion: params?.protocolVersion || PROTOCOL,
         capabilities: { tools: {} },
         serverInfo: SERVER,
+        instructions: INSTRUCTIONS,
       })
     case 'tools/list':
       return respuesta(id, { tools: TOOLS })
