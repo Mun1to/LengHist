@@ -8,7 +8,7 @@
 ### Un sitio con todo lo que necesitas para construir en la web
 
 100 lenguajes de programación, 77 herramientas de frontend, 41 técnicas de diseño, 12 componentes
-en vivo, 18 skills de agente y 38 consejos. Gratis, bilingüe, sin registro y sin rastreo.
+en vivo, 18 skills de agente y 38 consejos, más un servidor MCP para agentes. Gratis, bilingüe, sin registro y sin rastreo.
 
 <a href="https://vibeset.dev">
   <img alt="Abrir vibeset.dev" src=".github/assets/boton-abrir.svg" width="268">

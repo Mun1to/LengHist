@@ -183,8 +183,11 @@ async function ejecutarTool(name, args = {}) {
   }
   if (name === 'get_item') {
     const item = itemRegistro(args.id, args.lang || 'es')
-    if (!item) return { ok: false, mensaje: `no existe el item ${args.id}` }
-    return { ok: true, data: item }
+    if (item) return { ok: true, data: item }
+    // Si el id es de un registry federado, orientar en vez de un seco «no existe».
+    const reg = REGISTRIES.find((r) => typeof args.id === 'string' && args.id.startsWith(`${r.key}:`))
+    if (reg) return { ok: false, mensaje: `«${args.id}» es de ${reg.name}, un registry federado. Sus items llegan completos en search con source:"federated" o "all"; se instala desde ${reg.homepage}.` }
+    return { ok: false, mensaje: `no existe el item ${args.id}` }
   }
   if (name === 'list_registries') {
     const registries = REGISTRIES.map((r) => ({

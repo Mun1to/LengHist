@@ -8,7 +8,7 @@
 ### One place with everything you need to build for the web
 
 100 programming languages, 77 frontend tools, 41 design techniques, 12 live components,
-18 agent skills and 38 tips. Free, bilingual, no sign-up, no tracking.
+18 agent skills and 38 tips, plus an MCP server for agents. Free, bilingual, no sign-up, no tracking.
 
 <a href="https://vibeset.dev">
   <img alt="Open vibeset.dev" src=".github/assets/boton-open.svg" width="268">
