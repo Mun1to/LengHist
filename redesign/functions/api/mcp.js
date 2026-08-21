@@ -39,7 +39,7 @@ const TOOLS = [
         arquetipo: { type: 'string', description: 'Deja fuera los componentes que no encajan en ese arquetipo. Las skills no se filtran por esto.' },
         dial: { type: 'string', enum: ['ok', 'any'], description: '"ok" descarta el movimiento decorativo de gran amplitud que no cumple la política de la casa.' },
         a11y: { type: 'string', enum: ['ok', 'decorativo', 'requiere-refuerzo'] },
-        source: { type: 'string', enum: ['own', 'federated', 'all'], description: 'De momento solo "own" (el catálogo propio). La federación llega en la fase 2.' },
+        source: { type: 'string', enum: ['own', 'federated', 'all'], description: '"own" (catálogo propio), "federated" (registries de terceros indexados) o "all". La federación se omite si filtras por criterio de la casa.' },
         lang: { type: 'string', enum: ['es', 'en'] },
         limit: { type: 'number' },
       },
@@ -65,12 +65,71 @@ const TOOLS = [
   },
 ]
 
-// Ejecuta una tool. Async desde ya: la federación de la fase 2 añadirá fetch aquí.
+const CACHE_FED = 900
+
+// Federación read-only: lee el índice (metadata pura) de cada registry externo,
+// cacheado en el borde, y devuelve título, descripción y el comando de instalación
+// del ORIGEN. Nunca pide las URLs por item, así que el código de terceros no toca
+// este servidor jamás. Un origen que se cae o no da JSON no rompe la búsqueda.
+async function buscarFederado(query, limitePorOrigen) {
+  const q = String(query || '').trim().toLowerCase()
+  const tandas = await Promise.all(REGISTRIES.map(async (reg) => {
+    const ctrl = new AbortController()
+    const reloj = setTimeout(() => ctrl.abort(), 8000)
+    try {
+      const r = await fetch(reg.indexUrl, {
+        headers: { accept: 'application/json' },
+        cf: { cacheTtl: CACHE_FED, cacheEverything: true },
+        signal: ctrl.signal,
+      })
+      if (!r.ok) return []
+      const data = await r.json()
+      const items = Array.isArray(data?.items) ? data.items : []
+      return items
+        .filter((it) => it && it.name)
+        .filter((it) => !q || `${it.name} ${it.title || ''} ${it.description || ''}`.toLowerCase().includes(q))
+        .slice(0, limitePorOrigen)
+        .map((it) => ({
+          id: `${reg.key}:${it.name}`,
+          source: 'federated',
+          type: (it.type || 'registry:component').replace('registry:', ''),
+          name: it.title || it.name,
+          title: it.title || it.name,
+          description: it.description || '',
+          homepage: reg.homepage,
+          install: `pnpm dlx shadcn@latest add ${reg.namespace}/${it.name}`,
+          registry: reg.name,
+          license: reg.license,
+        }))
+    } catch {
+      return []
+    } finally {
+      clearTimeout(reloj)
+    }
+  }))
+  return tandas.flat()
+}
+
+// Ejecuta una tool. La federación hace fetch a los registries externos.
 async function ejecutarTool(name, args = {}) {
   if (name === 'search') {
-    const { query = '', ...filtros } = args
-    const results = buscarCatalogo(query, filtros)
-    return { ok: true, data: { results, count: results.length, source: 'own' } }
+    const { query = '', source = 'own', ...filtros } = args
+    const propios = source === 'federated' ? [] : buscarCatalogo(query, filtros)
+    // El criterio de la casa no se puede afirmar sobre piezas de terceros, así que
+    // cuando se filtra por él, la federación se queda fuera.
+    const pideCriterio = Boolean(filtros.arquetipo || filtros.dial === 'ok' || filtros.a11y)
+    let federados = []
+    let nota
+    if (source === 'federated' || source === 'all') {
+      if (pideCriterio) {
+        nota = 'La federación se omite al filtrar por criterio de la casa (arquetipo/dial/a11y): no se puede garantizar sobre piezas de terceros.'
+      } else {
+        const tope = typeof filtros.limit === 'number' ? filtros.limit : 10
+        federados = await buscarFederado(query, tope)
+      }
+    }
+    const results = [...propios, ...federados]
+    return { ok: true, data: { results, count: results.length, source, ...(nota ? { nota } : {}) } }
   }
   if (name === 'get_item') {
     const item = itemRegistro(args.id, args.lang || 'es')
