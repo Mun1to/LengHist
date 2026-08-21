@@ -138,8 +138,11 @@ A **skill** comes with its whole `SKILL.md` inside (`files[0].content`) and a `C
 
 ### `list_registries`
 
-Enumerates the third-party registries Vibeset indexes and links (never rehosts): name, homepage,
-namespace, licence and whether the index URL has been verified to return a real registry.
+Enumerates the third-party registries. By default (`source: "curated"`) the 12 Vibeset federates
+live, with name, homepage, namespace, licence and whether the index URL is verified. With
+`source: "directory"` it returns the **289 registries of the official shadcn directory** for
+discovery — each with its namespace, homepage, description and a `federado` flag — optionally
+filtered by `query`. Vibeset indexes and links, it never rehosts.
 
 ### `search_icons`
 
@@ -240,10 +243,11 @@ pnpm dev        # then: curl http://localhost:5183/api/mcp
 
 | File | Role |
 | --- | --- |
-| `redesign/src/lib/registro.js` | Pure builder: `indiceRegistro`, `itemRegistro`, `buscarCatalogo`. Single source of truth. |
+| `redesign/src/lib/registro.js` | The own catalogue: `buscarCatalogo`, `indiceRegistro`, `itemRegistro`. Single source of truth. |
+| `redesign/src/lib/fuentes.js` | The external sources: federation, Iconify icons, the shadcn directory. |
 | `redesign/src/data/registro-meta.js` | House metadata overlay (archetype, motion cost, dial, a11y). |
 | `redesign/src/data/registries.js` | Curated third-party registries to federate. |
-| `redesign/functions/api/mcp.js` | The Streamable HTTP endpoint and the three tools. |
+| `redesign/functions/api/mcp.js` | Transport only: the Streamable HTTP endpoint and the four tools. |
 | `redesign/vite.config.js` | Emits `/r/` at build; serves `/r/` and `/api/mcp` in dev. |
 | `redesign/scripts/comprobar-registro.mjs` | Registry validation and the no-third-party-code guard. |
 | `redesign/scripts/comprobar-mcp.mjs` | Offline smoke test of the tools. |
