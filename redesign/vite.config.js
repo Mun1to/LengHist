@@ -90,6 +90,33 @@ ${alternativas(hermanas)}
   }
 }
 
+// El registro de Vibeset en formato shadcn, emitido al dist en cada build, igual
+// que el sitemap: /r/registry.json (el índice) y /r/{name}.json por item, en los
+// dos idiomas (/r/ en español, /r/en/ en inglés). No se versiona ningún archivo
+// generado. El código de terceros nunca entra: itemRegistro() sirve los
+// componentes con files vacío (ver src/lib/registro.js y LICENSING.md).
+function registroEnBuild() {
+  return {
+    name: 'vibeset-registro-en-build',
+    async generateBundle() {
+      const { indiceRegistro, itemRegistro } = await import('./src/lib/registro.js')
+      const IDIOMAS = ['es', 'en']
+      let emitidos = 0
+      for (const lang of IDIOMAS) {
+        const prefijo = lang === 'es' ? 'r' : `r/${lang}`
+        const indice = indiceRegistro(lang)
+        this.emitFile({ type: 'asset', fileName: `${prefijo}/registry.json`, source: JSON.stringify(indice, null, 2) })
+        for (const it of indice.items) {
+          const item = itemRegistro(it.name, lang)
+          this.emitFile({ type: 'asset', fileName: `${prefijo}/${it.name}.json`, source: JSON.stringify(item, null, 2) })
+          emitidos++
+        }
+      }
+      console.log(`  registro shadcn con ${emitidos} items en ${IDIOMAS.length} idiomas`)
+    },
+  }
+}
+
 // Los contadores del catálogo, calculados en el build en vez de en el navegador.
 //
 // El problema que resuelve: `lib/totales.js` cuenta importando LANGUAGES,
@@ -331,12 +358,30 @@ function endpointsEnDesarrollo() {
         r.headers.forEach((v, k) => res.setHeader(k, v))
         res.end(await r.text())
       })
+
+      // En producción /r/*.json son archivos estáticos del build (registroEnBuild).
+      // En dev el dist no existe, así que se sirven desde la MISMA lib, sin imitar.
+      server.middlewares.use('/r', async (req, res) => {
+        const { indiceRegistro, itemRegistro } = await server.ssrLoadModule('./src/lib/registro.js')
+        let ruta = req.url.split('?')[0].replace(/^\//, '')
+        let lang = 'es'
+        if (ruta.startsWith('en/')) { lang = 'en'; ruta = ruta.slice(3) }
+        const enviar = (obj) => {
+          if (!obj) { res.statusCode = 404; res.end('{"error":"not found"}'); return }
+          res.setHeader('content-type', 'application/json; charset=utf-8')
+          res.end(JSON.stringify(obj, null, 2))
+        }
+        if (ruta === 'registry.json') return enviar(indiceRegistro(lang))
+        if (ruta.endsWith('.json')) return enviar(itemRegistro(ruta.replace(/\.json$/, ''), lang))
+        res.statusCode = 404
+        res.end('{"error":"not found"}')
+      })
     },
   }
 }
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), totalesEnBuild(), datosDePortadaEnBuild(), sitemap(), prerenderMeta(), endpointsEnDesarrollo()],
+  plugins: [react(), tailwindcss(), totalesEnBuild(), datosDePortadaEnBuild(), sitemap(), registroEnBuild(), prerenderMeta(), endpointsEnDesarrollo()],
   server: { port: 5183, strictPort: true },
 })
