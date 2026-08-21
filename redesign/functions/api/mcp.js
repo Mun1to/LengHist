@@ -17,8 +17,12 @@ import { buscarCatalogo, itemRegistro } from '../../src/lib/registro.js'
 import { buscarFederado, scoreFederado, buscarIconos, listarDirectorio, registriesCurados, registryDeId } from '../../src/lib/fuentes.js'
 import { paginaMcp } from '../../src/lib/paginaMcp.js'
 
-const SERVER = { name: 'vibeset', version: '0.1.0' }
-const PROTOCOL = '2025-06-18'
+const SERVER = { name: 'vibeset', version: '0.1.0', description: 'Componentes, skills y conocimiento de Vibeset, más federación de terceros e iconos.' }
+// Versiones del protocolo que soportamos, de la más nueva a la más vieja. La spec
+// manda no hacer echo ciego: si el cliente pide una que soportamos, se la
+// confirmamos; si no, se le devuelve la más alta nuestra (VERSIONES[0]).
+const VERSIONES = ['2025-11-25', '2025-06-18']
+const PROTOCOL = VERSIONES[0]
 
 // Lo que el cliente enseña al modelo para que use el server bien, no a ciegas.
 const INSTRUCTIONS = [
@@ -184,13 +188,18 @@ const errorRpc = (id, code, message) => ({ jsonrpc: '2.0', id, error: { code, me
 async function manejar(m) {
   const { id, method, params } = m || {}
   switch (method) {
-    case 'initialize':
+    case 'initialize': {
+      // Conforme a la spec: confirmar la versión pedida solo si la soportamos; si
+      // no, devolver la más alta nuestra, nunca un echo ciego de lo que pida.
+      const pedida = params?.protocolVersion
+      const version = VERSIONES.includes(pedida) ? pedida : PROTOCOL
       return respuesta(id, {
-        protocolVersion: params?.protocolVersion || PROTOCOL,
+        protocolVersion: version,
         capabilities: { tools: {} },
         serverInfo: SERVER,
         instructions: INSTRUCTIONS,
       })
+    }
     case 'tools/list':
       return respuesta(id, { tools: TOOLS })
     case 'tools/call': {
