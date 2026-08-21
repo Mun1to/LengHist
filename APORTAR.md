@@ -5,8 +5,28 @@ se pensó automatizar la puerta de entrada más adelante.
 
 ## Cómo se aporta hoy
 
-Todo el catálogo vive en archivos de datos, no en una base de datos. Aportar es
-editar un archivo y abrir una pull request:
+Por dos puertas, y la primera no pide saber programar.
+
+### 1. El formulario (lo normal)
+
+Se rellena en el navegador y sale un issue con los campos ya separados:
+
+| Qué mandas | Formulario |
+| --- | --- |
+| Un consejo | [Un consejo para el muro](https://github.com/Mun1to/Vibeset/issues/new?template=consejo.yml) |
+| Un recurso | [Un recurso para el catálogo](https://github.com/Mun1to/Vibeset/issues/new?template=recurso.yml) |
+| Una web donde se usa una técnica | [Visto en](https://github.com/Mun1to/Vibeset/issues/new?template=visto-en.yml) |
+
+El de «visto en» es el que más falta hace: cada concepto puede nombrar una web
+real donde esa técnica está corriendo, y hace falta el **marcador** que lo
+demuestra (la cadena exacta que aparece en su HTML o en su CSS), porque
+`pnpm enlaces` lo vuelve a comprobar cada cierto tiempo. Sin marcador, la ficha
+promete una prueba que nadie puede revalidar el día que esa web se rediseñe.
+
+### 2. La pull request (si prefieres mandarlo hecho)
+
+Todo el catálogo vive en archivos de datos, no en una base de datos, así que
+aportar también es editar un archivo y abrir una pull request:
 
 | Qué | Archivo |
 | --- | --- |

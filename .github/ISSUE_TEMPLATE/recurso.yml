@@ -1,0 +1,73 @@
+name: Un recurso para el catálogo / A resource for the catalogue
+description: Una web o una herramienta que merezca la tarde. / A site or tool worth the afternoon.
+title: "Recurso: "
+labels: ["recurso"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Aquí entra lo que **usarías tú**, no todo lo que existe. Una ficha son dos líneas y un enlace.
+
+        This is for things **you would actually use**, not everything that exists.
+  - type: input
+    id: url
+    attributes:
+      label: La dirección / The URL
+      description: La web del proyecto. Si no tiene web propia, su repositorio.
+      placeholder: "https://ejemplo.dev"
+    validations:
+      required: true
+  - type: input
+    id: nombre
+    attributes:
+      label: Cómo se llama / What it is called
+      placeholder: "Tailwind Animations"
+    validations:
+      required: true
+  - type: textarea
+    id: que-es
+    attributes:
+      label: Qué hace, en una línea / What it does, in one line
+      description: Lo que verá quien pase por la ficha. Sin superlativos, di qué resuelve.
+      placeholder: "Animaciones listas como clases de Tailwind, sin configurar nada"
+    validations:
+      required: true
+  - type: dropdown
+    id: grupo
+    attributes:
+      label: En qué grupo / Which group
+      options:
+        - Generadores de UI con IA / AI UI generators
+        - Herramientas de agente / Agent tooling
+        - Secciones y bloques / Sections and blocks
+        - Frameworks CSS / CSS frameworks
+        - Componentes y librerías UI / Components and UI libraries
+        - Botones y efectos / Buttons and effects
+        - Animación y movimiento / Animation and motion
+        - Iconos / Icons
+        - Color y gradientes / Color and gradients
+        - Fondos y formas / Backgrounds and shapes
+        - Tipografía / Typography
+        - Ilustraciones e imágenes / Illustrations and images
+        - Inspiración / Inspiration
+        - Aprender / Learn
+        - Antes de lanzar / Before you ship
+        - Ninguno le pega / None of them fit
+    validations:
+      required: true
+  - type: checkboxes
+    id: comprobado
+    attributes:
+      label: Antes de mandarlo / Before you send it
+      options:
+        - label: Lo he usado o lo he abierto hoy, y el enlace funciona. / I have used it or opened it today, and the link works.
+          required: true
+        - label: No es mío ni me pagan por ponerlo. Si lo es, lo digo abajo. / It is not mine and nobody pays me for this. If it is, I say so below.
+          required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Algo más / Anything else
+      description: "Opcional. Si es tuyo, dilo aquí: no descalifica, pero se dice."
+    validations:
+      required: false

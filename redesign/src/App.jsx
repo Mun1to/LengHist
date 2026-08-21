@@ -56,9 +56,15 @@ function useFavorites(catalogo) {
   return [set, toggle]
 }
 
-// Aportar pasa por el repositorio: los consejos viven en un archivo, como el
-// resto del catálogo. Quién puede hacerlo se decide al revisar la pull request.
-const URL_APORTAR = 'https://github.com/Mun1to/Vibeset/blob/main/redesign/src/data/consejos.js'
+// Aportar es rellenar un formulario, no editar código. Antes este enlace
+// llevaba al archivo `consejos.js` en GitHub, o sea que para dejar una frase
+// había que hacer un fork, editar JavaScript sin romper la sintaxis y abrir una
+// pull request. La gente a la que va dirigida esta web es justo la que no
+// quiere hacer eso, y el marcador está: en setenta y un días, cero forks, cero
+// issues y ninguna aportación. Ahora abre la plantilla de issue, que para quien
+// aporta es un formulario del navegador y para nosotros llega con los campos ya
+// separados. El de la pull request sigue existiendo, en APORTAR.md.
+const URL_APORTAR = 'https://github.com/Mun1to/Vibeset/issues/new?template=consejo.yml'
 
 const IDIOMAS = ['es', 'en']
 const CLAVE_IDIOMA = 'vibeset-lang'

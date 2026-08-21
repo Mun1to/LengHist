@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Un fallo en la web / Something broken on the site
+    url: https://github.com/Mun1to/Vibeset/issues/new
+    about: Un enlace roto, algo que se ve mal, un texto equivocado. Cuenta qué esperabas ver. / A dead link, something rendered wrong, a wrong text.
+  - name: Cómo se aporta, por dentro / How contributing works
+    url: https://github.com/Mun1to/Vibeset/blob/main/APORTAR.md
+    about: Si prefieres mandar el cambio hecho en vez de rellenar un formulario. / If you would rather send the change yourself instead of filling a form.

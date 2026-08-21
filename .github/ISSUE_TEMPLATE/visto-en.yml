@@ -1,0 +1,51 @@
+name: Una web donde se usa una técnica / A site using a technique
+description: Has visto un concepto del catálogo funcionando en una web de verdad. / You spotted a catalogue concept running on a real site.
+title: "Visto en: "
+labels: ["visto en"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Esto es lo que hace distinta a Vibeset: no decir que una técnica se usa, sino **enseñar dónde**.
+        Cada pareja se guarda con el marcador que la demuestra, y un script la vuelve a comprobar cada cierto tiempo.
+        Por eso hace falta el marcador: sin él no hay forma de saber el día que la web se rediseñe.
+
+        This is what makes Vibeset different: not claiming a technique is used, but **showing where**.
+  - type: input
+    id: concepto
+    attributes:
+      label: Qué técnica / Which technique
+      description: El nombre tal y como aparece en la sección de Conceptos web.
+      placeholder: "Scroll snap"
+    validations:
+      required: true
+  - type: input
+    id: sitio
+    attributes:
+      label: Qué web / Which site
+      placeholder: "https://stripe.com"
+    validations:
+      required: true
+  - type: input
+    id: prueba
+    attributes:
+      label: El marcador / The marker
+      description: La cadena exacta que aparece en su HTML o en su CSS. Se busca con Ctrl+U y Ctrl+F, o en la pestaña de red.
+      placeholder: "animation-timeline"
+    validations:
+      required: true
+  - type: textarea
+    id: que-mirar
+    attributes:
+      label: Qué hay que mirar / What to look at
+      description: Una línea que le diga a quien entre dónde poner los ojos.
+      placeholder: "anima con animation-timeline, sin JavaScript de scroll"
+    validations:
+      required: true
+  - type: checkboxes
+    id: comprobado
+    attributes:
+      label: Antes de mandarlo / Before you send it
+      options:
+        - label: He mirado el código de la página hoy y el marcador está ahí. / I looked at the page source today and the marker is there.
+          required: true

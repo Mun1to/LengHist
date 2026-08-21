@@ -1,0 +1,56 @@
+name: Un consejo para el muro / A tip for the wall
+description: Una idea corta que te haya ahorrado tiempo construyendo con agentes. / A short idea that saved you time building with agents.
+title: "Consejo: "
+labels: ["consejo"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Un consejo es **una idea, dicha corta**. Si necesita un párrafo para entenderse, suelen ser dos consejos.
+        No hace falta que sepas escribir código para mandarlo: rellenas esto y ya está.
+
+        A tip is **one idea, said short**. If it takes a paragraph, it is usually two tips.
+  - type: textarea
+    id: consejo-es
+    attributes:
+      label: El consejo, en español
+      description: Una o dos frases. Puedes usar **negrita** y `código`. Déjalo vacío si solo lo tienes en inglés.
+      placeholder: 'Dile qué **no** tocar. Sin fronteras te reescribe media base de código para arreglar un botón.'
+    validations:
+      required: false
+  - type: textarea
+    id: consejo-en
+    attributes:
+      label: The tip, in English
+      description: One or two sentences. Leave it empty if you only have the Spanish one, we will translate it.
+      placeholder: 'Tell it what **not** to touch. With no fences it rewrites half your codebase to fix one button.'
+    validations:
+      required: false
+  - type: dropdown
+    id: grupo
+    attributes:
+      label: Dónde encaja / Where it fits
+      options:
+        - Con tu agente / With your agent
+        - Oficio / Craft
+        - Git
+        - Empezar / Getting started
+        - Diseño web / Web design
+        - No lo tengo claro / Not sure
+    validations:
+      required: true
+  - type: input
+    id: autor
+    attributes:
+      label: Tu usuario de GitHub / Your GitHub handle
+      description: Aparece firmado en la tarjeta, con enlace a tu perfil. Déjalo vacío si lo prefieres sin firma.
+      placeholder: "@tu-usuario"
+    validations:
+      required: false
+  - type: checkboxes
+    id: propio
+    attributes:
+      label: Antes de mandarlo / Before you send it
+      options:
+        - label: Es algo que he vivido, no una frase copiada de otro sitio. / This is something I ran into, not a line copied from elsewhere.
+          required: true

@@ -9,7 +9,9 @@ const REPO = 'https://github.com/Mun1to/Vibeset'
 
 const ENLACES = [
   { clave: 'pieCodigo', url: REPO },
-  { clave: 'pieAportar', url: `${REPO}/blob/main/APORTAR.md` },
+  // Al elegir plantilla, no al documento: el documento explica cómo se aporta,
+  // y lo que hace falta es un sitio donde aportar.
+  { clave: 'pieAportar', url: `${REPO}/issues/new/choose` },
   { clave: 'pieLicencia', url: `${REPO}/blob/main/LICENSING.md` },
   { clave: 'pieAuditar', url: `${REPO}/blob/main/AI-AUDIT.md` },
 ]
