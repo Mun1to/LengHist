@@ -224,7 +224,13 @@ export function onRequestOptions() {
 export function onRequestGet({ request } = {}) {
   const acepta = request?.headers?.get('accept') || ''
   if (acepta.includes('text/html')) {
-    return new Response(paginaMcp(), { headers: { 'Content-Type': 'text/html; charset=utf-8', ...CORS } })
+    // El idioma del visitante decide es/en, como el resto del sitio. Vary para que
+    // una caché no le sirva a un inglés la versión que pidió un español.
+    const primero = (request?.headers?.get('accept-language') || '').split(',')[0].trim().toLowerCase()
+    const lang = primero.startsWith('es') ? 'es' : 'en'
+    return new Response(paginaMcp(lang), {
+      headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Language': lang, Vary: 'Accept, Accept-Language', ...CORS },
+    })
   }
   return json({ ...SERVER, protocol: PROTOCOL, transport: 'streamable-http', tools: TOOLS.map((t) => t.name) })
 }

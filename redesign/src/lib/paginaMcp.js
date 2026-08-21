@@ -1,15 +1,54 @@
 // La cara humana del endpoint MCP. Un MCP es una API para agentes: si abres
 // /api/mcp en el navegador (un GET que pide HTML), en vez del JSON pelado sale esta
 // página. El agente, que pide JSON, sigue recibiendo la tarjeta de salud. El GET
-// mira el header Accept para decidir cuál de las dos dar (ver functions/api/mcp.js).
+// mira el header Accept para decidir cuál dar, y Accept-Language para el idioma
+// (ver functions/api/mcp.js).
 //
-// El diseño es el de la casa: el lenguaje de plano técnico de la portada (marcos de
-// 1px con marcas de encuadre, rótulos en mono, la paleta sobria de zinc con acento
-// azul, Inter + JetBrains Mono, el resplandor índigo). Los tokens salen de
-// src/index.css; aquí van resueltos porque la página es autocontenida, sin Tailwind.
+// Bilingüe es/en como el resto del sitio. El diseño es el de la casa: el lenguaje
+// de plano técnico de la portada (marcos de 1px con marcas de encuadre, rótulos en
+// mono, la paleta sobria de zinc con acento azul, Inter + JetBrains Mono, el
+// resplandor índigo). Los tokens salen de src/index.css; aquí van resueltos porque
+// la página es autocontenida, sin Tailwind.
 import { buscarCatalogo } from './registro.js'
 
 const cuenta = (tipo) => buscarCatalogo('', { tipo }).length
+
+const TX = {
+  es: {
+    rotulo: 'Vibeset · Servidor MCP',
+    h1a: 'El enchufe', h1b: 'para tu agente',
+    lead: 'Componentes, skills y todo el conocimiento de la casa, servidos por Model Context Protocol. Esto es un endpoint para máquinas: el contenido de verdad llega por las herramientas, no por esta página.',
+    catalogo: 'El catálogo', itemsProp: (n) => `${n} items propios`,
+    stItems: 'items propios de la casa', stFed: 'componentes federados', stReg: 'registries descubribles', stIco: 'iconos, con su licencia',
+    desglose: (c, s, co, t, r) => `${c} componentes · ${s} skills · ${co} conceptos · ${t} consejos · ${r} recursos`,
+    tools: 'Cuatro herramientas',
+    tSearch: (c, s, co, t, r) => `${c} componentes, ${s} skills, ${co} conceptos, ${t} consejos y ${r} recursos, filtrados por el criterio de la casa. Con source:"all", federa terceros.`,
+    tGet: 'Una skill entera, un concepto con su prompt listo, o el comando de instalación de un componente.',
+    tList: 'Los 12 registries que se federan en vivo, o los 289 del directorio oficial de shadcn.',
+    tIcons: 'Iconos de Iconify con su licencia SPDX y si permiten uso comercial. Sin API key.',
+    conectar: 'Cómo se conecta',
+    alt: 'O en cualquier cliente stdio:',
+    copiar: 'copiar', copiado: 'copiado',
+    lic: 'Vibeset indexa y enlaza, nunca rehospeda el código de terceros. Las skills, los conceptos y los recursos son CC BY de la casa.',
+  },
+  en: {
+    rotulo: 'Vibeset · MCP Server',
+    h1a: 'The plug', h1b: 'for your agent',
+    lead: 'Components, skills and all the house knowledge, served over the Model Context Protocol. This is an endpoint for machines: the real content comes through the tools, not through this page.',
+    catalogo: 'The catalogue', itemsProp: (n) => `${n} own items`,
+    stItems: 'own items of the house', stFed: 'federated components', stReg: 'discoverable registries', stIco: 'icons, with their licence',
+    desglose: (c, s, co, t, r) => `${c} components · ${s} skills · ${co} concepts · ${t} tips · ${r} resources`,
+    tools: 'Four tools',
+    tSearch: (c, s, co, t, r) => `${c} components, ${s} skills, ${co} concepts, ${t} tips and ${r} resources, filtered by house criteria. With source:"all", it federates third parties.`,
+    tGet: 'A whole skill, a concept with its ready-to-run prompt, or a component install command from its origin.',
+    tList: 'The 12 registries federated live, or the 289 of the official shadcn directory.',
+    tIcons: 'Iconify icons with their SPDX licence and whether they allow commercial use. No API key.',
+    conectar: 'How to connect',
+    alt: 'Or in any stdio client:',
+    copiar: 'copy', copiado: 'copied',
+    lic: 'Vibeset indexes and links, it never rehosts third-party code. Skills, concepts and resources are CC BY of the house.',
+  },
+}
 
 // Un bloque con marco de plano técnico y sus cuatro marcas de encuadre en L.
 function bloque(rotulo, nota, cuerpo) {
@@ -20,7 +59,8 @@ function bloque(rotulo, nota, cuerpo) {
     </section>`
 }
 
-export function paginaMcp() {
+export function paginaMcp(lang = 'es') {
+  const t = TX[lang] || TX.es
   const total = buscarCatalogo('', {}).length
   const componentes = cuenta('component')
   const skills = cuenta('skill')
@@ -29,36 +69,36 @@ export function paginaMcp() {
   const recursos = cuenta('resource')
 
   const stat = (n, l) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`
-  const stats = bloque('El catálogo', `${total} items propios`, `<div class="stats">
-        ${stat(total, 'items propios de la casa')}
-        ${stat('~4.400', 'componentes federados')}
-        ${stat('289', 'registries descubribles')}
-        ${stat('~334k', 'iconos, con su licencia')}
+  const stats = bloque(t.catalogo, t.itemsProp(total), `<div class="stats">
+        ${stat(total, t.stItems)}
+        ${stat('~4.400', t.stFed)}
+        ${stat('289', t.stReg)}
+        ${stat('~334k', t.stIco)}
       </div>
-      <p class="desglose">${componentes} componentes · ${skills} skills · ${conceptos} conceptos · ${consejos} consejos · ${recursos} recursos</p>`)
+      <p class="desglose">${t.desglose(componentes, skills, conceptos, consejos, recursos)}</p>`)
 
   const tool = (n, d) => `<div class="tool"><code>${n}</code><p>${d}</p></div>`
-  const tools = bloque('Cuatro herramientas', null, `<div class="tools">
-        ${tool('search', `${componentes} componentes, ${skills} skills, ${conceptos} conceptos, ${consejos} consejos y ${recursos} recursos, filtrados por el criterio de la casa. Con source:"all", federa terceros.`)}
-        ${tool('get_item', 'Una skill entera, un concepto con su prompt listo, o el comando de instalación de un componente.')}
-        ${tool('list_registries', 'Los 12 registries que se federan en vivo, o los 289 del directorio oficial de shadcn.')}
-        ${tool('search_icons', 'Iconos de Iconify con su licencia SPDX y si permiten uso comercial. Sin API key.')}
+  const tools = bloque(t.tools, null, `<div class="tools">
+        ${tool('search', t.tSearch(componentes, skills, conceptos, consejos, recursos))}
+        ${tool('get_item', t.tGet)}
+        ${tool('list_registries', t.tList)}
+        ${tool('search_icons', t.tIcons)}
       </div>`)
 
-  const conectar = bloque('Cómo se conecta', null, `<div class="term">
+  const conectar = bloque(t.conectar, null, `<div class="term">
         <span class="p">$</span><code id="cmd">claude mcp add --transport http vibeset https://vibeset.dev/api/mcp</code>
-        <button class="copy pulsable" onclick="copiar()">copiar</button>
+        <button class="copy pulsable" data-c="${t.copiar}" data-d="${t.copiado}" onclick="copiar(this)">${t.copiar}</button>
       </div>
-      <p class="alt">O en cualquier cliente stdio: <code>npx mcp-remote https://vibeset.dev/api/mcp</code></p>`)
+      <p class="alt">${t.alt} <code>npx mcp-remote https://vibeset.dev/api/mcp</code></p>`)
 
   return `<!doctype html>
-<html lang="es">
+<html lang="${lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>Vibeset · MCP</title>
-<meta name="description" content="El servidor MCP de Vibeset: componentes, skills, conceptos, ~4.400 componentes federados e iconos, para tu agente.">
+<meta name="description" content="${lang === 'es' ? 'El servidor MCP de Vibeset: componentes, skills, conceptos, ~4.400 componentes federados e iconos, para tu agente.' : 'The Vibeset MCP server: components, skills, concepts, ~4,400 federated components and icons, for your agent.'}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -79,11 +119,12 @@ export function paginaMcp() {
   }
   .resplandor { position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background: radial-gradient(900px 420px at 12% -8%, rgba(129,140,248,.22), transparent 70%); }
-  main { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: clamp(2.5rem, 7vw, 5.5rem) 1.25rem 4rem; }
+  main { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: clamp(2.5rem, 7vw, 5.5rem) 1.25rem 4rem; }
   .rotulo { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .16em; color: var(--tinta-suave); }
-  h1 { font-size: clamp(2.2rem, 7vw, 3.25rem); line-height: 1.06; letter-spacing: -.02em; font-weight: 800; margin: 1rem 0 .75rem; }
+  h1 { font-size: clamp(2rem, 6vw, 3rem); line-height: 1.08; letter-spacing: -.02em; font-weight: 800; margin: 1rem 0 .75rem; }
   h1 span { color: var(--tinta-suave); font-weight: 500; }
-  .lead { font-size: 1.15rem; color: var(--tinta-fuerte); max-width: 52ch; margin: 0 0 2.5rem; }
+  @media (min-width: 680px) { h1 { white-space: nowrap; } }
+  .lead { font-size: 1.15rem; color: var(--tinta-fuerte); max-width: 54ch; margin: 0 0 2.5rem; }
 
   .bloque { position: relative; border: 1px solid var(--linea); background: var(--panel); margin-bottom: 1.1rem; }
   .esq { position: absolute; width: 10px; height: 10px; pointer-events: none; }
@@ -92,7 +133,7 @@ export function paginaMcp() {
   .bl { bottom: -1px; left: -1px; border-bottom: 1px solid var(--tinta); border-left: 1px solid var(--tinta); }
   .br { bottom: -1px; right: -1px; border-bottom: 1px solid var(--tinta); border-right: 1px solid var(--tinta); }
   .bloque-h { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: .8rem 1.25rem; border-bottom: 1px solid var(--linea); }
-  .bloque-h .nota { font-family: var(--mono); font-size: 12px; color: var(--tinta-suave); }
+  .bloque-h .nota { font-family: var(--mono); font-size: 12px; color: var(--tinta-suave); white-space: nowrap; }
   .bloque-b { padding: 1.25rem; }
 
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--linea); border: 1px solid var(--linea); }
@@ -132,15 +173,15 @@ export function paginaMcp() {
 <body>
   <div class="resplandor"></div>
   <main>
-    <div class="rotulo">Vibeset · Servidor MCP</div>
-    <h1>El enchufe de Vibeset <span>para tu agente</span></h1>
-    <p class="lead">Componentes, skills y todo el conocimiento de la casa, servidos por Model Context Protocol. Esto es un endpoint para máquinas: el contenido de verdad llega por las herramientas, no por esta página.</p>
+    <div class="rotulo">${t.rotulo}</div>
+    <h1>${t.h1a} <span>${t.h1b}</span></h1>
+    <p class="lead">${t.lead}</p>
 
     ${stats}
     ${tools}
     ${conectar}
 
-    <p class="nota-lic">Vibeset indexa y enlaza, nunca rehospeda el código de terceros. Las skills, los conceptos y los recursos son CC BY de la casa.</p>
+    <p class="nota-lic">${t.lic}</p>
 
     <footer>
       <a href="https://vibeset.dev">vibeset.dev</a>
@@ -149,10 +190,9 @@ export function paginaMcp() {
     </footer>
   </main>
   <script>
-    function copiar() {
-      var t = document.getElementById('cmd').textContent;
-      var b = document.querySelector('.copy');
-      navigator.clipboard.writeText(t).then(function () { b.textContent = 'copiado'; setTimeout(function () { b.textContent = 'copiar'; }, 1500); });
+    function copiar(b) {
+      var s = document.getElementById('cmd').textContent;
+      navigator.clipboard.writeText(s).then(function () { b.textContent = b.dataset.d; setTimeout(function () { b.textContent = b.dataset.c; }, 1500); });
     }
   </script>
 </body>

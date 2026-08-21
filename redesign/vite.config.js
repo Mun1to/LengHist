@@ -387,7 +387,7 @@ function endpointsEnDesarrollo() {
         }
         if (req.method === 'OPTIONS') return responder(mod.onRequestOptions())
         if (req.method === 'GET') {
-          const request = new Request('http://localhost/api/mcp', { headers: { accept: req.headers.accept || '' } })
+          const request = new Request('http://localhost/api/mcp', { headers: { accept: req.headers.accept || '', 'accept-language': req.headers['accept-language'] || '' } })
           return responder(await mod.onRequestGet({ request }))
         }
         if (req.method === 'POST') {
