@@ -116,7 +116,11 @@ const listaConceptos = (t, lang) => `
     const visto = i.vistoEn
       ? ` ${esc(t.vistoEn)}: ${a(i.vistoEn.url, i.vistoEn.sitio)}, ${esc(i.vistoEn[lang])}.`
       : ''
-    return `<b>${esc(i.name)}</b>${nota(i.tag)}${d?.what ? ` ${esc(d.what)}` : ''}${d?.use ? ` ${esc(d.use)}` : ''}${visto}`
+    // Y el prompt igual, por el mismo motivo y con más razón: es la parte de la
+    // ficha que alguien va a querer copiar tal cual, y quien pregunta «cómo le
+    // pido a mi agente un scroll horizontal» está preguntando exactamente esto.
+    const pedir = i.prompt?.[lang] ? ` ${esc(t.conceptPrompt)}: ${esc(i.prompt[lang])}` : ''
+    return `<b>${esc(i.name)}</b>${nota(i.tag)}${d?.what ? ` ${esc(d.what)}` : ''}${d?.use ? ` ${esc(d.use)}` : ''}${visto}${pedir}`
   }))}`).join('')}`
 
 const listaComponentes = (t, lang) => `

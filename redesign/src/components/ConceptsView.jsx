@@ -8,6 +8,7 @@ import CodeSample from './CodeSample'
 import VerMas from './VerMas'
 import { Encuadre, Reticula } from './Plano'
 import VistoEn from './VistoEn'
+import PromptPieza from './PromptPieza'
 import { usePaginado, recortarGrupos } from '../lib/paginar'
 
 export default function ConceptsView({ t, lang, groups, onClear, favorites, onToggleFav }) {
@@ -69,7 +70,16 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
                       <b className="text-tinta-suave">{t.conceptUse}:</b> {c[lang].use}
                     </p>
                     <VistoEn dato={c.vistoEn} lang={lang} etiqueta={t.vistoEn} />
+                    {/* El orden de la ficha es el del que llega sin saber nada:
+                        qué es, dónde se usa de verdad, verlo funcionando, cómo
+                        pedirlo y, por último, el código. El prompt estuvo un rato
+                        antes de la demo y se leía al revés: te decían cómo pedir
+                        algo que todavía no habías visto. */}
                     <ConceptDemo nombre={c.name} etiqueta={t.conceptDemo} lang={lang} />
+                    <PromptPieza
+                      prompt={c.prompt} lang={lang}
+                      etiqueta={t.conceptPrompt} copiar={t.compCopy} copiado={t.compCopied}
+                    />
                     <CodeSample t={t} etiqueta={t.conceptExample} bloques={ejemplos[c.name]} />
                   </motion.div>
                 ))}

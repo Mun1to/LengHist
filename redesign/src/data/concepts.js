@@ -19,6 +19,10 @@ export const CONCEPTS = [
      "what": "Scroll with inertia and easing that makes the page feel fluid and premium.",
      "use": "Foundation of almost every scroll effect; gives that buttery feel."
     },
+    "prompt": {
+     "es": "Añade smooth scroll con Lenis a esta página. Instálalo, arráncalo en el punto de entrada y engancha su bucle a requestAnimationFrame. No toques el CSS de scroll-behavior ni rompas los enlaces de ancla: comprueba que un enlace a #seccion sigue llevando ahí. Respeta prefers-reduced-motion apagando la inercia.",
+     "en": "Add Lenis smooth scroll to this page. Install it, start it at the entry point and hook its loop to requestAnimationFrame. Do not touch scroll-behavior in CSS and do not break anchor links: check that a link to #section still gets there. Respect prefers-reduced-motion by turning the inertia off."
+    },
     "vistoEn": {
      "sitio": "lenis.darkroom.engineering",
      "url": "https://lenis.darkroom.engineering",
@@ -38,6 +42,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Layers moving at different speeds while scrolling, creating a sense of depth.",
      "use": "Immersive heroes and visual storytelling."
+    },
+    "prompt": {
+     "es": "Haz que el fondo de esta sección se mueva más lento que el contenido al hacer scroll. Usa transform: translate3d y nunca top ni background-position, que fuerzan recálculo. Que la amplitud sea de pocos píxeles, no de media pantalla, y que se apague con prefers-reduced-motion.",
+     "en": "Make this section background move slower than the content on scroll. Use transform: translate3d, never top or background-position, which force a relayout. Keep the amplitude to a few pixels, not half the screen, and turn it off under prefers-reduced-motion."
     }
    },
    {
@@ -50,6 +58,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Scrolling snaps automatically to each section or slide (scroll-snap-type).",
      "use": "Full-screen presentations, carousels and slide-like sections."
+    },
+    "prompt": {
+     "es": "Convierte estas secciones en diapositivas que encajen al hacer scroll, con CSS puro: scroll-snap-type en el contenedor y scroll-snap-align en cada hija. Usa proximity y no mandatory si el contenido de una sección puede ser más alto que la pantalla, porque si no se queda gente sin poder leer el final.",
+     "en": "Turn these sections into slides that snap on scroll, in plain CSS: scroll-snap-type on the container and scroll-snap-align on each child. Use proximity rather than mandatory if a section can be taller than the screen, otherwise people cannot reach the bottom of it."
     },
     "vistoEn": {
      "sitio": "stripe.com",
@@ -71,6 +83,10 @@ export const CONCEPTS = [
      "what": "Animations tied to scroll progress, now native in CSS with no JS needed.",
      "use": "Progress bars, reveals and light parallax at 0 KB."
     },
+    "prompt": {
+     "es": "Ata esta animación al progreso del scroll con CSS nativo: animation-timeline con scroll() o view(), sin JavaScript. Deja una alternativa para los navegadores que no lo soportan con @supports (animation-timeline: view()), y que sin soporte el elemento se vea igual pero quieto.",
+     "en": "Tie this animation to scroll progress with native CSS: animation-timeline with scroll() or view(), no JavaScript. Leave a fallback for browsers without support using @supports (animation-timeline: view()), and make sure the element still looks right, just static, when unsupported."
+    },
     "vistoEn": {
      "sitio": "stripe.com",
      "url": "https://stripe.com",
@@ -90,6 +106,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Elements that appear or animate as they enter the viewport.",
      "use": "Reveal sections on scroll; with stagger it looks very elegant."
+    },
+    "prompt": {
+     "es": "Haz que estos bloques aparezcan al entrar en pantalla, con IntersectionObserver y no con un listener de scroll. Que cada elemento se anime una sola vez y luego deje de observarse. Importante: el contenido tiene que estar en el HTML y visible por defecto, y que la animación solo lo esconda si hay JavaScript, para que no desaparezca en un buscador.",
+     "en": "Make these blocks appear as they enter the viewport, with IntersectionObserver rather than a scroll listener. Animate each element once and then stop observing it. Important: the content must be in the HTML and visible by default, with the animation hiding it only when JavaScript runs, so it never disappears for a crawler."
     }
    },
    {
@@ -102,6 +122,10 @@ export const CONCEPTS = [
     "en": {
      "what": "An element sticks on screen while the rest of the content keeps moving.",
      "use": "Stacking cards, pinned demos and chapters."
+    },
+    "prompt": {
+     "es": "Deja esta columna pegada mientras la de al lado sigue subiendo, con position: sticky y top. Antes de dar por hecho que funciona, comprueba que ningún ancestro tiene overflow hidden, auto o scroll: es lo que rompe sticky el noventa por ciento de las veces, y encima no da ningún error.",
+     "en": "Pin this column while the one next to it keeps scrolling, using position: sticky and top. Before assuming it works, check that no ancestor has overflow hidden, auto or scroll: that is what breaks sticky nine times out of ten, and it fails silently."
     },
     "vistoEn": {
      "sitio": "vercel.com",
@@ -122,6 +146,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Sideways movement driven by the vertical scroll.",
      "use": "Galleries, timelines and portfolios."
+    },
+    "prompt": {
+     "es": "Convierte esta sección en un desplazamiento lateral movido por el scroll vertical. Que el contenedor se quede pegado y las tarjetas se muevan con transform. Deja salida: cuando la tira se acaba, la página tiene que seguir bajando con normalidad, y en móvil vale más un carrusel con scroll-snap que secuestrar el scroll.",
+     "en": "Turn this section into a sideways move driven by vertical scroll. Pin the container and shift the cards with transform. Leave an exit: when the strip ends the page must keep scrolling normally, and on mobile a scroll-snap carousel beats hijacking the scroll."
     }
    },
    {
@@ -134,6 +162,10 @@ export const CONCEPTS = [
     "en": {
      "what": "A strip of text or logos looping infinitely.",
      "use": "Client logo strips and moving headlines."
+    },
+    "prompt": {
+     "es": "Monta una cinta de logos que corra en bucle sin cortes. Duplica el contenido y anima el conjunto con transform: translateX en un @keyframes lineal, que es lo que hace que el salto no se vea. Que se pare al pasar el ratón por encima y con prefers-reduced-motion. Nada de la etiqueta marquee, que está muerta.",
+     "en": "Build a logo strip that loops with no visible seam. Duplicate the content and animate the whole set with transform: translateX in a linear @keyframes, which is what hides the jump. Pause it on hover and under prefers-reduced-motion. Do not use the marquee tag, it is dead."
     },
     "vistoEn": {
      "sitio": "vercel.com",
@@ -154,6 +186,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Telling a story driven by scroll, with text and visuals in sync.",
      "use": "Interactive features, 'how it works' sections, narrated data."
+    },
+    "prompt": {
+     "es": "Monta una historia guiada por el scroll: una visual que se queda fija a un lado y pasos de texto al otro que la van cambiando. Detecta el paso activo con IntersectionObserver. Cada paso tiene que entenderse leído solo, sin la visual, porque es lo que va a ver quien llegue desde un buscador o con el JavaScript caído.",
+     "en": "Build a scroll-driven story: one visual pinned to one side and text steps on the other that change it. Detect the active step with IntersectionObserver. Every step has to make sense read on its own, without the visual, because that is what a crawler or a broken-JavaScript visitor gets."
     }
    },
    {
@@ -166,6 +202,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Animated transition when navigating between pages or views.",
      "use": "Make navigation feel app-like, without harsh reloads."
+    },
+    "prompt": {
+     "es": "Añade una transición al navegar entre páginas con la View Transitions API del navegador, no con una librería. Envuelve el cambio en document.startViewTransition y comprueba antes que existe. Sin soporte, la navegación tiene que seguir siendo instantánea y correcta: la transición es un extra, nunca un requisito.",
+     "en": "Add a transition between pages with the browser View Transitions API, not a library. Wrap the change in document.startViewTransition and check it exists first. Without support, navigation must stay instant and correct: the transition is a bonus, never a requirement."
     }
    }
   ]
