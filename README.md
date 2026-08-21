@@ -7,7 +7,7 @@
 
 ### One place with everything you need to build for the web
 
-100 programming languages, 78 frontend tools, 41 design techniques, 12 live components,
+100 programming languages, 77 frontend tools, 41 design techniques, 12 live components,
 18 agent skills and 38 tips. Free, bilingual, no sign-up, no tracking.
 
 <a href="https://vibeset.dev">
@@ -43,7 +43,7 @@ code example that shows what the thing actually looks like. Search by name, use 
 (`.py`, `.rs`), filter by category, compare up to three side by side, or take a short quiz that
 recommends one based on what you want to build, your level and what you value.
 
-**78 frontend resources.** The tools that are worth the afternoon: AI interface generators, ready
+**77 frontend resources.** The tools that are worth the afternoon: AI interface generators, ready
 made blocks, CSS frameworks, component libraries, animation, icons, colour, backgrounds, typography
 and inspiration.
 

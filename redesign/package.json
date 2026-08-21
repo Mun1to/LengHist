@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "tarjeta": "node scripts/tarjeta-social.mjs",
     "contadores": "node scripts/comprobar-contadores.mjs",
-    "enlaces": "node scripts/comprobar-enlaces.mjs"
+    "enlaces": "node scripts/comprobar-enlaces.mjs",
+    "catalogo": "node scripts/comprobar-catalogo.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.0.0",

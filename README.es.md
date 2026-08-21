@@ -7,7 +7,7 @@
 
 ### Un sitio con todo lo que necesitas para construir en la web
 
-100 lenguajes de programación, 78 herramientas de frontend, 41 técnicas de diseño, 12 componentes
+100 lenguajes de programación, 77 herramientas de frontend, 41 técnicas de diseño, 12 componentes
 en vivo, 18 skills de agente y 38 consejos. Gratis, bilingüe, sin registro y sin rastreo.
 
 <a href="https://vibeset.dev">
@@ -43,7 +43,7 @@ desventajas y un ejemplo de código que enseña de verdad qué pinta tiene. Busc
 extensión (`.py`, `.rs`), filtra por categoría, compara hasta tres a la vez, o haz un test corto que
 te recomienda uno según lo que quieras construir, tu nivel y lo que valoras.
 
-**78 recursos de frontend.** Las herramientas que merecen la tarde: generadores de interfaces con
+**77 recursos de frontend.** Las herramientas que merecen la tarde: generadores de interfaces con
 IA, bloques ya hechos, frameworks de CSS, librerías de componentes, animación, iconos, color, fondos,
 tipografía e inspiración.
 

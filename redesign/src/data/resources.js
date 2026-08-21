@@ -47,12 +47,6 @@ export const RESOURCES = [
     "en": "AI wireframes & sitemaps"
    },
    {
-    "name": "Dora",
-    "url": "https://www.dora.run",
-    "es": "Webs 3D animadas sin código",
-    "en": "Animated 3D sites, no-code"
-   },
-   {
     "name": "Refero Styles",
     "url": "https://styles.refero.design",
     "es": "Sistemas de diseño de webs reales, en formato que lee tu agente",
