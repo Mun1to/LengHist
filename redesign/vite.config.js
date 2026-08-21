@@ -376,6 +376,30 @@ function endpointsEnDesarrollo() {
         res.statusCode = 404
         res.end('{"error":"not found"}')
       })
+
+      // El MCP, otra vez la MISMA función que en producción. Un POST JSON-RPC.
+      server.middlewares.use('/api/mcp', async (req, res) => {
+        const mod = await server.ssrLoadModule('./functions/api/mcp.js')
+        const responder = async (r) => {
+          res.statusCode = r.status
+          r.headers.forEach((v, k) => res.setHeader(k, v))
+          res.end(await r.text())
+        }
+        if (req.method === 'OPTIONS') return responder(mod.onRequestOptions())
+        if (req.method === 'GET') return responder(await mod.onRequestGet())
+        if (req.method === 'POST') {
+          const trozos = []
+          for await (const c of req) trozos.push(c)
+          const request = new Request('http://localhost/api/mcp', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: Buffer.concat(trozos).toString('utf8'),
+          })
+          return responder(await mod.onRequestPost({ request }))
+        }
+        res.statusCode = 405
+        res.end('')
+      })
     },
   }
 }
