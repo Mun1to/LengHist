@@ -64,12 +64,14 @@ The endpoint speaks Streamable HTTP: a single `POST` with a JSON-RPC 2.0 message
 
 ### `search`
 
-Searches the catalogue. Returns metadata and the origin install command, never the code.
+Searches the catalogue: components, skills, design concepts (each with a ready-to-run prompt),
+tips and the resource directory. For components it returns metadata and the origin install command,
+never the code.
 
 | Argument | Type | Notes |
 | --- | --- | --- |
 | `query` | string | Free text. Matches name, description and labels, in both languages. |
-| `tipo` | `component` \| `skill` | Restrict to one kind. |
+| `tipo` | `component` \| `skill` \| `concept` \| `tip` \| `resource` | Restrict to one kind. Concepts, tips and resources are Vibeset's own CC BY knowledge, served whole. |
 | `grupo` | string | Catalogue group. Components: `canvas`, `cursor`, `scroll`, `texto`, `ui`. Skills: `web`, `codigo`, `flujo`, `escritura`. |
 | `arquetipo` | string | `marca-creativa`, `portfolio`, `lanzamiento`, `saas`, `fintech`, `ecommerce`, `editorial`, `evento`. Drops components that do not fit; skills are never filtered by this. |
 | `dial` | `ok` \| `any` | `ok` drops large-amplitude decorative motion that does not meet the house policy. |
@@ -172,7 +174,8 @@ in its own `components.json`. Vibeset only points the way.
 
 The line, and the whole reason the architecture looks like this (see [LICENSING.md](LICENSING.md)):
 
-- **Skills** are CC BY of the house, so they are served **whole**, body included.
+- **Skills, design concepts, tips and resources** are CC BY of the house, so they are served
+  **whole** (a skill's body, a concept's prompt, the tip text, the resource link).
 - **Components** (the 12 in the catalogue are from canvasui/arlan, not ours) and **everything
   federated** are served as **metadata plus the origin install command**, with `files` empty. Their
   code is never copied, never served.

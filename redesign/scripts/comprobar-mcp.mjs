@@ -67,5 +67,16 @@ const notif = await llamar({ jsonrpc: '2.0', method: 'notifications/initialized'
 if (notif.status === 202) bien('notificación devuelve 202')
 else mal(`notificación devolvió ${notif.status}`)
 
-console.log(fallos === 0 ? '\n  MCP en pie: 8 comprobaciones pasan' : `\n  ${fallos} comprobación(es) fallida(s)`)
+// 9. el conocimiento propio (conceptos) está en la búsqueda y get_item trae su prompt
+const con = await llamar({ jsonrpc: '2.0', id: 9, method: 'tools/call', params: { name: 'search', arguments: { tipo: 'concept', query: 'parallax' } } })
+const conRes = con.json?.result?.structuredContent?.results || []
+let conPrompt = false
+if (conRes[0]) {
+  const full = await llamar({ jsonrpc: '2.0', id: 10, method: 'tools/call', params: { name: 'get_item', arguments: { id: conRes[0].id } } })
+  conPrompt = Boolean(JSON.parse(full.json?.result?.content?.[0]?.text || '{}').prompt)
+}
+if (conRes.length && conPrompt) bien('search concept encuentra y get_item trae el prompt')
+else mal('el conocimiento (conceptos) no aparece o no trae prompt')
+
+console.log(fallos === 0 ? '\n  MCP en pie: 9 comprobaciones pasan' : `\n  ${fallos} comprobación(es) fallida(s)`)
 process.exit(fallos ? 1 : 0)

@@ -25,7 +25,8 @@ const INSTRUCTIONS = [
   'Vibeset is a catalogue of web components and agent skills, searchable with house design criteria.',
   'Use search to find pieces: pass arquetipo (the site archetype: fintech, saas, ecommerce, marca-creativa, portfolio, lanzamiento, editorial, evento) and dial:"ok" to get pieces that fit and respect motion-accessibility. The server drops heavy decorative WebGL for sober archetypes on its own.',
   'source:"own" is the curated Vibeset catalogue; source:"all" also reaches the federated third-party registries (~1,400 components). Federation is skipped when you filter by house criteria.',
-  'Use get_item for a skill\'s full SKILL.md or a component\'s metadata and origin install command. The server links to third-party code, it never rehosts it.',
+  'The catalogue also holds design concepts (each with a ready-to-run prompt), tips and a resource directory; reach them with tipo:"concept", "tip" or "resource".',
+  'Use get_item for a skill\'s full SKILL.md, a concept with its prompt, or a component\'s metadata and origin install command. The server links to third-party code, it never rehosts it.',
 ].join(' ')
 
 const CORS = {
@@ -38,12 +39,12 @@ const TOOLS = [
   {
     name: 'search',
     description:
-      'Busca componentes y skills en el catálogo de Vibeset. Filtra por tipo, por arquetipo de web (marca-creativa, portfolio, lanzamiento, saas, fintech, ecommerce, editorial, evento), por si el movimiento respeta la política de accesibilidad (dial), y por accesibilidad. Devuelve metadata y el comando de instalación del origen, nunca el código.',
+      'Busca en el catálogo de Vibeset: componentes, skills, conceptos de diseño web, consejos y recursos. Filtra por tipo, por arquetipo de web (marca-creativa, portfolio, lanzamiento, saas, fintech, ecommerce, editorial, evento), por si el movimiento respeta la política de accesibilidad (dial), y por accesibilidad. De los componentes devuelve metadata y el comando de instalación del origen, nunca el código; los conceptos traen un prompt listo para el agente.',
     inputSchema: {
       type: 'object',
       properties: {
         query: { type: 'string', description: 'Texto libre. Busca en nombre, descripción y etiquetas, en los dos idiomas.' },
-        tipo: { type: 'string', enum: ['component', 'skill'] },
+        tipo: { type: 'string', enum: ['component', 'skill', 'concept', 'tip', 'resource'] },
         grupo: { type: 'string', description: 'Grupo del catálogo. Componentes: canvas, cursor, scroll, texto, ui. Skills: web, codigo, flujo, escritura.' },
         arquetipo: { type: 'string', description: 'Deja fuera los componentes que no encajan en ese arquetipo. Las skills no se filtran por esto.' },
         dial: { type: 'string', enum: ['ok', 'any'], description: '"ok" descarta el movimiento decorativo de gran amplitud que no cumple la política de la casa.' },
