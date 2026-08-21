@@ -6,10 +6,11 @@
 //
 // Campos:
 // - namespace: el alias shadcn (@x) con el que se instala desde su origen.
-// - indexUrl: el registry.json índice del origen. Provisional hasta la fase de
-//   federación: scripts/comprobar-registro.mjs comprueba que cada uno esté vivo, y
-//   si un origen cae, la búsqueda degrada a «solo lo propio» sin romperse.
-// - verificado: si ya se comprobó que el indexUrl responde. Arranca en false.
+// - indexUrl: el registry.json índice del origen. scripts/comprobar-registro.mjs
+//   comprueba que cada uno esté vivo y devuelva items de verdad, y si un origen
+//   cae, la búsqueda degrada a «solo lo propio» sin romperse.
+// - verificado: si el indexUrl devuelve un registry JSON con items. Los cinco se
+//   comprobaron a mano el 2026-08-21 (items reales entre 63 y 664 por origen).
 // - license: la licencia declarada del origen. Da igual para la ley porque no se
 //   rehospeda ninguno, pero se muestra para que quien instale sepa a qué se atiene.
 export const REGISTRIES = [
@@ -18,9 +19,9 @@ export const REGISTRIES = [
     name: 'shadcn/ui',
     homepage: 'https://ui.shadcn.com',
     namespace: '@shadcn',
-    indexUrl: 'https://ui.shadcn.com/r/registry.json',
+    indexUrl: 'https://ui.shadcn.com/r/index.json',
     license: 'MIT',
-    verificado: false,
+    verificado: true,
     es: 'La base del ecosistema: componentes accesibles y sin estilo propio.',
     en: 'The base of the ecosystem: accessible, unstyled components.',
   },
@@ -31,7 +32,7 @@ export const REGISTRIES = [
     namespace: '@magicui',
     indexUrl: 'https://magicui.design/r/registry.json',
     license: 'MIT',
-    verificado: false,
+    verificado: true,
     es: 'Componentes animados listos para marketing, sobre shadcn.',
     en: 'Animated, marketing-ready components built on shadcn.',
   },
@@ -42,7 +43,7 @@ export const REGISTRIES = [
     namespace: '@reactbits',
     indexUrl: 'https://reactbits.dev/r/registry.json',
     license: 'MIT + Commons Clause',
-    verificado: false,
+    verificado: true,
     es: 'Colección de componentes React animados. Instalar sí, revender no.',
     en: 'A collection of animated React components. Fine to use, not to resell.',
   },
@@ -53,7 +54,7 @@ export const REGISTRIES = [
     namespace: '@aceternity',
     indexUrl: 'https://ui.aceternity.com/registry.json',
     license: 'proprietary',
-    verificado: false,
+    verificado: true,
     es: 'Efectos de alto impacto. Licencia propietaria: se enlaza, se instala desde su sitio.',
     en: 'High-impact effects. Proprietary licence: linked, installed from their own site.',
   },
@@ -64,7 +65,7 @@ export const REGISTRIES = [
     namespace: '@canvas-ui',
     indexUrl: 'https://canvasui.dev/r/registry.json',
     license: 'author-terms',
-    verificado: false,
+    verificado: true,
     es: 'La fuente real de 9 de los 12 efectos WebGL del catálogo propio.',
     en: 'The real source of 9 of the 12 WebGL effects in the own catalogue.',
   },

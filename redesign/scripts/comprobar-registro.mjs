@@ -14,10 +14,11 @@
 //      casa y SÍ tienen que traer su body. Si un componente trae un archivo de
 //      código, o una skill viene sin cuerpo, esto se pone rojo y para el commit.
 //
-// Además, de paso, mira si los registries externos que se van a federar siguen
-// vivos. Mientras un registry esté sin verificar (verificado: false), su caída se
-// avisa pero no tumba el script: sus URLs son provisionales hasta la fase de
-// federación. Un registry ya verificado que se cae sí cuenta como error.
+// Además valida los registries externos que se federan: que respondan y devuelvan
+// un registry JSON con items de verdad (un 200 con una SPA dentro no vale). Mientras
+// un registry esté sin verificar (verificado: false), su caída se avisa pero no
+// tumba el script. Un registry ya verificado que se cae, o que deja de devolver
+// items, sí cuenta como error.
 import { promises as dns } from 'node:dns'
 import { indiceRegistro, itemRegistro } from '../src/lib/registro.js'
 import { REGISTRIES } from '../src/data/registries.js'
@@ -79,7 +80,23 @@ async function revisar(url) {
     if (r.status === 404 || r.status === 410) return { estado: 'muerto', por: `devuelve ${r.status}` }
     if ([401, 403, 429].includes(r.status)) return { estado: 'bloqueado', por: `bloquea robots (${r.status})` }
     if (r.status >= 500) return { estado: 'dudoso', por: `el servidor devuelve ${r.status}` }
-    return { estado: 'vivo', por: String(r.status) }
+    // Un 200 no basta: media web devuelve su SPA con 200. Vale si es un registry
+    // JSON con items de verdad, en cualquiera de sus dos formas.
+    let txt
+    try {
+      txt = await r.text()
+    } catch {
+      return { estado: 'dudoso', por: 'no se pudo leer el cuerpo' }
+    }
+    let items = null
+    try {
+      const j = JSON.parse(txt)
+      items = Array.isArray(j.items) ? j.items.length : Array.isArray(j) ? j.length : null
+    } catch {
+      return { estado: 'no-registry', por: `responde ${r.status} pero no es JSON` }
+    }
+    if (items === null) return { estado: 'no-registry', por: 'es JSON pero no trae items' }
+    return { estado: 'vivo', por: `${items} items` }
   } catch (e) {
     return { estado: 'dudoso', por: e.name === 'AbortError' ? 'no contestó en 20s' : 'la conexión se cortó' }
   } finally {
@@ -90,10 +107,11 @@ async function revisar(url) {
 const vistos = await Promise.all(REGISTRIES.map((reg) => revisar(reg.indexUrl)))
 REGISTRIES.forEach((reg, i) => {
   const { estado, por } = vistos[i]
-  const marca = estado === 'vivo' ? '✓' : estado === 'muerto' ? '✗' : '?'
+  const roto = estado === 'muerto' || estado === 'no-registry'
+  const marca = estado === 'vivo' ? '✓' : roto ? '✗' : '?'
   const nota = reg.verificado ? '' : ' (sin verificar)'
   console.log(`  ${marca} ${reg.name}${nota}: ${estado} · ${por}\n      ${reg.indexUrl}`)
-  if (estado === 'muerto' && reg.verificado) errores++
+  if (roto && reg.verificado) errores++
 })
 
 if (errores === 0) console.log('\n  registro válido y sin fugas de código ajeno')

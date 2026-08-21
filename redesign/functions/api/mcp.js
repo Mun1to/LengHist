@@ -84,7 +84,8 @@ async function buscarFederado(query, limitePorOrigen) {
       })
       if (!r.ok) return []
       const data = await r.json()
-      const items = Array.isArray(data?.items) ? data.items : []
+      // Unos registries exponen { items: [...] }; otros, el array suelto.
+      const items = Array.isArray(data?.items) ? data.items : Array.isArray(data) ? data : []
       return items
         .filter((it) => it && it.name)
         .filter((it) => !q || `${it.name} ${it.title || ''} ${it.description || ''}`.toLowerCase().includes(q))
