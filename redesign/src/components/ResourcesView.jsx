@@ -22,8 +22,17 @@ function Monograma({ nombre, color }) {
   )
 }
 
+// A dónde lleva la ficha, en corto. Las 77 fichas tienen dominio propio y ahí
+// el host ya lo dice todo; la que apunta a un repositorio diría «github.com» a
+// secas, que no distingue el curso de midudev de cualquier otra cosa, así que
+// esas se llevan también el nombre de quien lo publica.
 const dominio = (url) => {
-  try { return new URL(url).hostname.replace(/^www\./, '') } catch { return '' }
+  try {
+    const { hostname, pathname } = new URL(url)
+    const host = hostname.replace(/^www\./, '')
+    const autor = pathname.split('/')[1]
+    return host === 'github.com' && autor ? `${host}/${autor}` : host
+  } catch { return '' }
 }
 
 export default function ResourcesView({ t, lang, groups, onClear, favorites, onToggleFav }) {
