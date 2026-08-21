@@ -75,8 +75,9 @@ Point any MCP client at the remote endpoint:
 npx mcp-remote https://vibeset.dev/api/mcp
 ```
 
-Three tools: `search` (by type, web archetype, motion policy and accessibility), `get_item` (a
-whole skill, or a component's metadata and install command) and `list_registries`. The same
+Four tools: `search` (components, skills, concepts, tips and resources, filtered by house criteria),
+`get_item` (a whole skill, a concept with its prompt, or a component's install command),
+`list_registries`, and `search_icons` (Iconify: ~334k open-source icons, each with its licence). The same
 catalogue is also a shadcn registry at `https://vibeset.dev/r/registry.json`, one item per
 `/r/{name}.json`, with the English half under `/r/en/`.
 

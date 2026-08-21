@@ -141,6 +141,28 @@ A **skill** comes with its whole `SKILL.md` inside (`files[0].content`) and a `C
 Enumerates the third-party registries Vibeset indexes and links (never rehosts): name, homepage,
 namespace, licence and whether the index URL has been verified to return a real registry.
 
+### `search_icons`
+
+Searches [Iconify](https://iconify.design) (236 icon sets, ~334,000 open-source icons), no API key.
+Each result carries the icon `name` (`prefix:name`), its `set`, the SPDX `license`, whether it is
+`commercial`-safe (computed from the licence), and the `svgUrl`. Vibeset links to Iconify's SVG, it
+does not rehost it.
+
+| Argument | Type | Notes |
+| --- | --- | --- |
+| `query` | string | Required. "home", "arrow-right", "cart"… |
+| `set` | string | Restrict to one set by its Iconify prefix (`lucide`, `tabler`, `mdi`, `ph`, `heroicons`, `simple-icons`…). |
+| `limit` | number | Cap the results. |
+
+```json
+{ "jsonrpc": "2.0", "id": 3, "method": "tools/call",
+  "params": { "name": "search_icons", "arguments": { "query": "home", "set": "lucide" } } }
+```
+
+Mind the licence: most sets are permissive (MIT, Apache, ISC, CC0), but a few are non-commercial or
+copyleft — the `commercial` field flags them. Simple Icons are CC0 but the logos are trademarks: link
+them, do not imply endorsement.
+
 ## The static registry
 
 The same catalogue is also a [shadcn registry](https://ui.shadcn.com/docs/registry), emitted to

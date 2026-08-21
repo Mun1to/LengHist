@@ -27,6 +27,7 @@ const INSTRUCTIONS = [
   'source:"own" is the curated Vibeset catalogue; source:"all" also reaches the federated third-party registries (~1,400 components). Federation is skipped when you filter by house criteria.',
   'The catalogue also holds design concepts (each with a ready-to-run prompt), tips and a resource directory; reach them with tipo:"concept", "tip" or "resource".',
   'Use get_item for a skill\'s full SKILL.md, a concept with its prompt, or a component\'s metadata and origin install command. The server links to third-party code, it never rehosts it.',
+  'For icons, use search_icons (Iconify: 236 sets, ~334k icons, no key): each result carries its set, SPDX licence, whether it is commercial-safe, and the SVG URL.',
 ].join(' ')
 
 const CORS = {
@@ -99,9 +100,33 @@ const TOOLS = [
       required: ['registries'],
     },
   },
+  {
+    name: 'search_icons',
+    description: 'Busca iconos en Iconify (236 sets, ~334.000 iconos open source). Devuelve, por icono, su nombre (prefix:name), el set, la licencia SPDX, si permite uso comercial y la URL del SVG. Sin API key.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Qué buscar: "home", "arrow-right", "cart"…' },
+        set: { type: 'string', description: 'Limita a un set por su prefijo Iconify (lucide, tabler, mdi, ph, heroicons, simple-icons…).' },
+        limit: { type: 'number' },
+      },
+      required: ['query'],
+    },
+    outputSchema: {
+      type: 'object',
+      properties: {
+        icons: { type: 'array', items: { type: 'object' } },
+        count: { type: 'number' },
+        total: { type: 'number' },
+      },
+      required: ['icons', 'count'],
+    },
+  },
 ]
 
 const CACHE_FED = 900
+const ICONIFY = 'https://api.iconify.design'
+const CACHE_ICONOS = 3600
 
 // Federación read-only: lee el índice (metadata pura) de cada registry externo,
 // cacheado en el borde, y devuelve título, descripción y el comando de instalación
@@ -157,6 +182,59 @@ function scoreFederado(it, q) {
   return 0
 }
 
+// Del SPDX de la licencia, si el icono se puede usar en un producto comercial. La
+// mayoría de sets de Iconify son permisivos, pero hay copyleft y no-comerciales, y
+// un icono servido «porque es open source» sin mirar la licencia sería un error.
+function comercialDe(spdx) {
+  if (!spdx) return 'desconocido'
+  const s = spdx.toUpperCase()
+  if (s.includes('NC')) return false
+  if (/^A?GPL|^LGPL/.test(s)) return 'copyleft'
+  if (s.startsWith('CC-BY-SA')) return 'atribución-compartir-igual'
+  if (s.startsWith('CC-BY')) return 'atribución'
+  return true // MIT, Apache, ISC, CC0, BSD, MPL, Unlicense…
+}
+
+// Busca iconos en la API pública de Iconify (sin key, desde el Worker). Devuelve el
+// nombre, el set, la licencia y la URL del SVG; nunca hospeda el SVG, enlaza al de
+// Iconify, que además ya trae la licencia de cada set en la respuesta de búsqueda.
+async function buscarIconos(query, set, limit) {
+  const q = String(query || '').trim()
+  if (!q) return { ok: false, mensaje: 'search_icons necesita una query.' }
+  const tope = Math.min(Math.max(1, Number(limit) || 24), 100)
+  const url = new URL(`${ICONIFY}/search`)
+  url.searchParams.set('query', q)
+  url.searchParams.set('limit', String(Math.max(tope, 32))) // Iconify: mínimo 32
+  if (set) url.searchParams.set('prefix', set)
+  const ctrl = new AbortController()
+  const reloj = setTimeout(() => ctrl.abort(), 8000)
+  try {
+    const r = await fetch(url, { headers: { accept: 'application/json' }, cf: { cacheTtl: CACHE_ICONOS, cacheEverything: true }, signal: ctrl.signal })
+    if (!r.ok) return { ok: false, mensaje: `Iconify respondió ${r.status}` }
+    const data = await r.json()
+    const cols = data.collections || {}
+    const icons = (data.icons || []).slice(0, tope).map((full) => {
+      const prefix = full.split(':')[0]
+      const col = cols[prefix] || {}
+      const lic = col.license || {}
+      return {
+        name: full,
+        set: col.name || prefix,
+        license: lic.spdx || lic.title || 'desconocida',
+        licenseUrl: lic.url || null,
+        author: col.author?.name || null,
+        commercial: comercialDe(lic.spdx),
+        svgUrl: `${ICONIFY}/${full.replace(':', '/')}.svg`,
+      }
+    })
+    return { ok: true, data: { icons, count: icons.length, total: data.total || icons.length } }
+  } catch (e) {
+    return { ok: false, mensaje: e.name === 'AbortError' ? 'Iconify no contestó en 8s' : 'no se pudo consultar Iconify' }
+  } finally {
+    clearTimeout(reloj)
+  }
+}
+
 const CRITERIO = 'La federación se omite al filtrar por criterio de la casa (arquetipo/dial/a11y): no se puede garantizar sobre piezas de terceros.'
 
 // Ejecuta una tool. La federación hace fetch a los registries externos.
@@ -195,6 +273,9 @@ async function ejecutarTool(name, args = {}) {
       name: r.name, homepage: r.homepage, namespace: r.namespace, license: r.license, verificado: r.verificado,
     }))
     return { ok: true, data: { registries } }
+  }
+  if (name === 'search_icons') {
+    return buscarIconos(args.query, args.set, args.limit)
   }
   return { ok: false, mensaje: `tool desconocida: ${name}` }
 }
