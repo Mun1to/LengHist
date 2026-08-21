@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './conceptDemos/demos.css'
 
 // Cada concepto tiene su demo en vivo. Se cargan por grupo y solo cuando la
@@ -72,20 +72,47 @@ function cargarGrupo(grupo) {
 
 export default function ConceptDemo({ nombre, etiqueta, lang }) {
   const grupo = DEMO_GRUPO[nombre]
-  const ref = useRef(null)
+  const vigia = useRef(null)
   const [Demo, setDemo] = useState(null)
   const [cerca, setCerca] = useState(false)
 
-  useEffect(() => {
-    const el = ref.current
+  // El nodo se observa con un ref de FUNCIÓN, no desde un efecto, y la
+  // diferencia no es de estilo.
+  //
+  // Con el efecto, el observador se creaba sobre el nodo que hubiera en ese
+  // momento; si React reemplazaba ese nodo después, el observador se quedaba
+  // mirando un elemento suelto, fuera ya del documento, que por definición no
+  // entra en pantalla nunca. Resultado: una demo que no arrancaba jamás.
+  //
+  // **Medido, no supuesto.** Entrando en `/concepts?q=marquee`, la única ficha
+  // que queda a la vista se quedaba con su caja vacía para siempre, ni con
+  // scroll ni esperando; y un observador nuevo creado a mano sobre ESE MISMO
+  // nodo sí lo veía al instante. Ese es el retrato de un nodo huérfano. El caso
+  // llega cuando la lista se filtra justo después del primer pintado, que es lo
+  // que pasa al abrir una ficha desde el buscador.
+  //
+  // Con el ref de función no hay hueco posible: React llama a esto con el nodo
+  // real en cuanto lo engancha, y con `null` al soltarlo.
+  const observar = useCallback((el) => {
+    vigia.current?.disconnect()
+    vigia.current = null
     if (!el || !grupo) return
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setCerca(true); io.disconnect() } },
-      { rootMargin: '260px' }
-    )
-    io.observe(el)
-    return () => io.disconnect()
+
+    // Si al engancharse ya está a la vista, no hay nada que esperar. Este atajo
+    // es además el que salva el caso de arriba aunque el observador fallara.
+    const r = el.getBoundingClientRect()
+    if (r.top < window.innerHeight + 260 && r.bottom > -260) { setCerca(true); return }
+
+    vigia.current = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return
+      setCerca(true)
+      vigia.current?.disconnect()
+      vigia.current = null
+    }, { rootMargin: '260px' })
+    vigia.current.observe(el)
   }, [grupo])
+
+  useEffect(() => () => vigia.current?.disconnect(), [])
 
   useEffect(() => {
     if (!cerca || !grupo) return
@@ -106,7 +133,7 @@ export default function ConceptDemo({ nombre, etiqueta, lang }) {
           aquí, así que las pistas de las demos de scroll y de puntero salían en
           la auditoría como si fueran texto nuestro. La etiqueta «demo» de arriba
           se queda fuera de la marca a propósito: esa sí es interfaz. */}
-      <div ref={ref} data-demo>
+      <div ref={observar} data-demo>
         {Demo ? <Demo lang={lang} /> : <div className="cd-box" />}
       </div>
     </div>
