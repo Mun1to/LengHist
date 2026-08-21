@@ -12,6 +12,7 @@
     "contadores": "node scripts/comprobar-contadores.mjs",
     "enlaces": "node scripts/comprobar-enlaces.mjs",
     "catalogo": "node scripts/comprobar-catalogo.mjs",
+    "registro": "node scripts/comprobar-registro.mjs",
     "auditar": "node scripts/auditar.mjs",
     "humo": "node scripts/humo.mjs"
   },
