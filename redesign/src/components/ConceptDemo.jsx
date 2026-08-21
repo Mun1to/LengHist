@@ -99,7 +99,14 @@ export default function ConceptDemo({ nombre, etiqueta, lang }) {
   return (
     <div className="mt-3">
       <div className="font-mono text-[12px] uppercase tracking-wider text-tinta-suave mb-1.5">{etiqueta}</div>
-      <div ref={ref}>
+      {/* `data-demo` marca dónde acaba la interfaz de Vibeset y empieza el
+          contenido del catálogo. Lo que hay dentro es la pieza que se enseña,
+          con sus pistas a 9px y sus colores propios, y exigirle los suelos de
+          la casa da fallos que no se pueden arreglar sin romper la demo. Faltaba
+          aquí, así que las pistas de las demos de scroll y de puntero salían en
+          la auditoría como si fueran texto nuestro. La etiqueta «demo» de arriba
+          se queda fuera de la marca a propósito: esa sí es interfaz. */}
+      <div ref={ref} data-demo>
         {Demo ? <Demo lang={lang} /> : <div className="cd-box" />}
       </div>
     </div>

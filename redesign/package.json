@@ -11,7 +11,8 @@
     "tarjeta": "node scripts/tarjeta-social.mjs",
     "contadores": "node scripts/comprobar-contadores.mjs",
     "enlaces": "node scripts/comprobar-enlaces.mjs",
-    "catalogo": "node scripts/comprobar-catalogo.mjs"
+    "catalogo": "node scripts/comprobar-catalogo.mjs",
+    "auditar": "node scripts/auditar.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.0.0",
