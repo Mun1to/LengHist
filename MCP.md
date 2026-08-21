@@ -58,7 +58,8 @@ pnpm dev
 ```
 
 The endpoint speaks Streamable HTTP: a single `POST` with a JSON-RPC 2.0 message, answered with
-`application/json`. A `GET` returns a small health object with the server name and its tools.
+`application/json`. A `GET` from a browser (`Accept: text/html`) returns a human landing page; a
+`GET` asking for JSON returns a small health object with the server name and its tools.
 
 ## Tools
 
