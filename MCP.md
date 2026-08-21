@@ -188,6 +188,18 @@ search. Verified 2026-08-21:
 | React Bits | 664 | MIT + Commons Clause | `@reactbits` |
 | Aceternity UI | 278 | proprietary | `@aceternity` |
 | canvasui | 210 | author terms | `@canvas-ui` |
+| Fancy Components | 158 | MIT | `@fancy` |
+| Animate UI | 580 | MIT + Commons Clause | `@animate-ui` |
+| Cnippet UI | 1130 | MIT | `@cnippet` |
+| Kokonut UI | 51 | MIT | `@kokonutui` |
+| SmoothUI | 178 | MIT | `@smoothui` |
+| React Aria (Adobe) | 156 | Apache-2.0 | `@react-aria` |
+| svgl | 665 | MIT (logos are trademarks) | `@svgl` |
+
+That is ~4,400 third-party components. It is a **curated selection** federated live; the full shadcn
+ecosystem is larger. The official directory at `https://ui.shadcn.com/r/registries.json` lists 289
+registries — adding one to the federation is a single row in
+[`redesign/src/data/registries.js`](redesign/src/data/registries.js).
 
 Namespaces are the shadcn convention: to install `@magicui/marquee` a project registers the namespace
 in its own `components.json`. Vibeset only points the way.

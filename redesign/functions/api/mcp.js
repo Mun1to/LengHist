@@ -24,7 +24,7 @@ const PROTOCOL = '2025-06-18'
 const INSTRUCTIONS = [
   'Vibeset is a catalogue of web components and agent skills, searchable with house design criteria.',
   'Use search to find pieces: pass arquetipo (the site archetype: fintech, saas, ecommerce, marca-creativa, portfolio, lanzamiento, editorial, evento) and dial:"ok" to get pieces that fit and respect motion-accessibility. The server drops heavy decorative WebGL for sober archetypes on its own.',
-  'source:"own" is the curated Vibeset catalogue; source:"all" also reaches the federated third-party registries (~1,400 components). Federation is skipped when you filter by house criteria.',
+  'source:"own" is the curated Vibeset catalogue; source:"all" also reaches the federated third-party registries (~4,400 components across 12 sources). Federation is skipped when you filter by house criteria.',
   'The catalogue also holds design concepts (each with a ready-to-run prompt), tips and a resource directory; reach them with tipo:"concept", "tip" or "resource".',
   'Use get_item for a skill\'s full SKILL.md, a concept with its prompt, or a component\'s metadata and origin install command. The server links to third-party code, it never rehosts it.',
   'For icons, use search_icons (Iconify: 236 sets, ~334k icons, no key): each result carries its set, SPDX licence, whether it is commercial-safe, and the SVG URL.',
