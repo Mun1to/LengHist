@@ -35,7 +35,7 @@ const DEPURACION = 9333
 // Las siete secciones en los DOS idiomas. El inglés no es una traducción que se
 // pinta encima: son páginas distintas, y un texto más largo puede desbordar un
 // control que en español cabía justo.
-const PAGINAS = ['/', '/languages', '/resources', '/concepts', '/components', '/skills', '/tips']
+const PAGINAS = ['/', '/start', '/languages', '/resources', '/concepts', '/components', '/skills', '/tips']
 const SECCIONES = [...PAGINAS, ...PAGINAS.map((r) => (r === '/' ? '/en' : `/en${r}`))]
 const CON_MOVIL = process.argv.includes('--movil')
 

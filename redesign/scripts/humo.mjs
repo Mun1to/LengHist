@@ -140,7 +140,35 @@ await esperar(900)
 const resultados = await ev(`document.body.innerText.match(/Rust/g)?.length ?? 0`)
 comprobar('buscador: encuentra «rust» tras cargar su índice', resultados > 0, `${resultados} apariciones`)
 
-// 7. El cambio de idioma desde el pie
+// 7. La guía: sus bloques, el nivel que viaja en la dirección, y el test dentro
+await ir('/start')
+const bloques = await ev(`document.querySelectorAll('main ol > li').length`)
+comprobar('guía: pinta sus bloques', bloques === 8, `${bloques} bloques`)
+comprobar('guía: cada bloque manda a alguna parte', await ev(`document.querySelectorAll('main ol a').length >= 10`),
+  `${await ev(`document.querySelectorAll('main ol a').length`)} enlaces`)
+comprobar('guía: el nivel por defecto es el de en medio',
+  (await ev(`document.querySelector('[aria-pressed="true"]')?.textContent.trim()`)) === 'He tocado algo',
+  await ev(`document.querySelector('[aria-pressed="true"]')?.textContent.trim()`))
+
+await ir('/start?nivel=cero')
+comprobar('guía: el nivel se lee de la dirección',
+  (await ev(`document.querySelector('[aria-pressed="true"]')?.textContent.trim()`)) === 'No he programado nunca',
+  await ev(`document.querySelector('[aria-pressed="true"]')?.textContent.trim()`))
+comprobar('guía: marca lo que te puedes saltar en vez de esconderlo',
+  await ev(`document.body.innerText.includes('te lo puedes saltar')`))
+comprobar('guía: el glosario solo sale en el nivel cero', await ev(`!!document.querySelector('main dl')`))
+
+// El test vive dentro de la guía desde que dejó de colgar de la barra.
+await ev(`[...document.querySelectorAll('main ol button')].find(b => /test/i.test(b.textContent))?.click()`)
+await esperar(900)
+comprobar('guía: el test se abre desde dentro',
+  await ev(`/Paso 1 de 3|Step 1 of 3/.test(document.body.innerText)`))
+
+await ir('/en/start')
+comprobar('guía: existe en inglés', (await ev(`document.querySelector('main h1')?.textContent.trim()`)) === 'Where to start',
+  await ev(`document.querySelector('main h1')?.textContent.trim()`))
+
+// 8. El cambio de idioma desde el pie
 await ir('/languages')
 await ev(`[...document.querySelectorAll('footer button')].find(e=>/ES\\s*\\/\\s*EN|EN\\s*\\/\\s*ES/.test(e.textContent))?.click()`)
 await esperar(1200)
