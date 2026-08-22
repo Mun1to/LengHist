@@ -67,6 +67,36 @@ export const RESOURCES = [
     "url": "https://autoskills.sh",
     "es": "Mira tu proyecto, ve con qué está hecho e instala las skills que le pegan",
     "en": "Reads your project, sees what it is built with and installs the skills that fit"
+   },
+   {
+    "name": "Claude Code",
+    "url": "https://claude.com/claude-code",
+    "es": "El agente de Anthropic en tu terminal: lee el proyecto entero y edita los archivos",
+    "en": "Anthropic's agent in your terminal: reads the whole project and edits the files"
+   },
+   {
+    "name": "Cursor",
+    "url": "https://cursor.com",
+    "es": "Editor con el agente dentro, hecho sobre VS Code",
+    "en": "Editor with the agent built in, forked from VS Code"
+   },
+   {
+    "name": "GitHub Copilot",
+    "url": "https://github.com/features/copilot",
+    "es": "El agente que se mete dentro del VS Code que ya tienes",
+    "en": "The agent that plugs into the VS Code you already have"
+   },
+   {
+    "name": "Cline",
+    "url": "https://cline.bot",
+    "es": "Agente de código abierto para VS Code, con el modelo que tú elijas",
+    "en": "Open source agent for VS Code, with whichever model you pick"
+   },
+   {
+    "name": "Aider",
+    "url": "https://aider.chat",
+    "es": "Agente de terminal que trabaja sobre tu repositorio y commitea solo",
+    "en": "Terminal agent that works on your repo and commits by itself"
    }
   ]
  },
