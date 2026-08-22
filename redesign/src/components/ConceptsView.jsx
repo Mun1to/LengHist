@@ -28,9 +28,9 @@ export default function ConceptsView({ t, lang, groups, onClear, favorites, onTo
   // final; la tercera columna, cuando cabe con el código cómodo.
   return (
     <section className="px-6 sm:px-10 py-12 max-w-[1800px] mx-auto">
-      <div className="flex items-baseline justify-between gap-4 mb-2">
+      <div className="flex flex-wrap items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.conceptsTitle}</h1>
-        <span className="font-mono text-xs text-tinta-suave shrink-0">{t.deTotal(total)}</span>
+        <span className="font-mono text-xs text-tinta-suave shrink-0 ml-auto">{t.deTotal(total)}</span>
       </div>
       <p className="text-tinta-suave mb-10 max-w-2xl">{t.conceptsSub}</p>
 

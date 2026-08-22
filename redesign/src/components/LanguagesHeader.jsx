@@ -13,9 +13,9 @@ export default function LanguagesHeader({ t, lang, filter, onFiltrar, total, sho
 
   return (
     <section className="px-6 sm:px-10 pt-12 pb-6">
-      <div className="flex items-baseline justify-between gap-4 mb-2">
+      <div className="flex flex-wrap items-baseline justify-between gap-4 mb-2">
         <h1 className="text-3xl font-extrabold tracking-tight">{t.gridTitle}</h1>
-        <span className="font-mono text-xs text-tinta-suave shrink-0">{t.gridSub(shown, total)}</span>
+        <span className="font-mono text-xs text-tinta-suave shrink-0 ml-auto">{t.gridSub(shown, total)}</span>
       </div>
       <p className="text-tinta-suave mb-6 max-w-2xl">{t.langsSub(total)}</p>
 
