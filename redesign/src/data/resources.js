@@ -531,6 +531,12 @@ export const RESOURCES = [
     "url": "https://collectui.com",
     "es": "Interfaces nuevas cada día, elegidas a mano",
     "en": "Hand-picked interface designs, daily"
+   },
+   {
+    "name": "Saaspo",
+    "url": "https://saaspo.com/industry/ai-saas-websites-inspiration",
+    "es": "Landings de productos de IA, para robar ideas",
+    "en": "AI product landing pages, to steal ideas from"
    }
   ]
  },
