@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import TopBar from './components/TopBar'
@@ -20,10 +20,11 @@ import { TOTALES } from './lib/totales'
 // queda mirando el logo no tiene por qué bajarse el catálogo entero. Se carga en
 // cuanto se pisa una sección, que es cuando hace falta de verdad.
 //
-// El quiz igual, y por lo mismo: compara lenguajes, así que necesita los cien, y
-// lo abre una minoría desde un botón de la barra.
+// La guía va aparte por lo mismo, y además se lleva dentro el test de lenguajes,
+// que antes colgaba de un botón de la barra y ahora vive donde su respuesta
+// significa algo.
 const Catalogo = lazy(() => import('./Catalogo'))
-const Quiz = lazy(() => import('./components/Quiz'))
+const Guia = lazy(() => import('./components/GuiaView'))
 
 export default function App() {
   // Ya no devuelve nada: el tema sigue al sistema en vivo y no hay interruptor
@@ -43,9 +44,8 @@ export default function App() {
   const t = I18N[lang]
   const activeNav = seccion ?? 'home'
   const rutaRota = seccion === null
-  const enCatalogo = !rutaRota && activeNav !== 'home'
-
-  const [quizOpen, setQuizOpen] = useState(false)
+  const enGuia = seccion === 'guia'
+  const enCatalogo = !rutaRota && !enGuia && activeNav !== 'home'
 
   // Cada cambio de página empieza arriba, como en cualquier sitio con enlaces.
   useEffect(() => { window.scrollTo({ top: 0 }) }, [location.pathname])
@@ -59,8 +59,8 @@ export default function App() {
   // porque para titular `/languages/rust` hay que tener el lenguaje delante y
   // los datos viven allí. Nunca se pisan: o se monta uno, o el otro.
   const meta = useMemo(
-    () => metaDePagina({ vista: rutaRota ? '404' : 'home', ficha: null, lang, t }),
-    [rutaRota, lang, t],
+    () => metaDePagina({ vista: rutaRota ? '404' : enGuia ? 'guia' : 'home', ficha: null, lang, t }),
+    [rutaRota, enGuia, lang, t],
   )
   // Y se calla mientras hay catálogo delante: si escribiera siempre, machacaría
   // el título que acaba de poner `Catalogo` en cuanto algo lo hiciera repintar.
@@ -80,6 +80,7 @@ export default function App() {
   }
 
   const irAlInicio = () => irA(rutaDe('home', null, lang))
+  const irALaGuia = () => irA(rutaDe('guia', null, lang))
   const abrirLenguaje = (name) => irA(rutaDe('languages', slugLenguaje(name), lang))
 
   // Un resultado del buscador deja la cosa abierta, no solo la sección: la ficha
@@ -106,7 +107,7 @@ export default function App() {
         totales={TOTALES}
         onLogoClick={irAlInicio}
         onAbrirResultado={abrirResultado}
-        onQuizClick={() => setQuizOpen(true)}
+        onQuizClick={irALaGuia}
       />
       <div className="flex">
         {enCatalogo ? (
@@ -128,7 +129,9 @@ export default function App() {
               >
                 {rutaRota
                   ? <NoEncontrado t={t} onHome={irAlInicio} />
-                  : <LandingView t={t} lang={lang} totals={TOTALES} onQuiz={() => setQuizOpen(true)} />}
+                  : enGuia
+                    ? <Suspense fallback={null}><Guia t={t} lang={lang} /></Suspense>
+                    : <LandingView t={t} lang={lang} totals={TOTALES} onQuiz={irALaGuia} />}
               </motion.div>
             </AnimatePresence>
           </main>
@@ -144,11 +147,6 @@ export default function App() {
           tendría cómo cambiarla. */}
       <Pie t={t} totals={TOTALES} lang={lang} onToggleLang={cambiarIdioma} />
 
-      {quizOpen && (
-        <Suspense fallback={null}>
-          <Quiz t={t} lang={lang} open onClose={() => setQuizOpen(false)} onSeeLanguage={abrirLenguaje} />
-        </Suspense>
-      )}
     </div>
   )
 }

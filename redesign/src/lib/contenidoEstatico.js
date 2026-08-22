@@ -23,7 +23,9 @@ import { RESOURCES } from '../data/resources.js'
 import { CONCEPTS } from '../data/concepts.js'
 import { COMPONENT_ITEMS, COMPONENT_GROUPS } from '../data/components.js'
 import { SKILL_ITEMS } from '../data/skills.js'
-import { CONSEJOS, CONSEJO_GRUPOS, trozosDe } from '../data/consejos.js'
+import { CONSEJOS, CONSEJO_GRUPOS } from '../data/consejos.js'
+import { trozosDe } from './marcado.js'
+import { NIVELES, PASOS } from '../data/guia.js'
 import { rutaDe, slugClave, slugLenguaje } from './rutas.js'
 
 const SECCIONES = ['languages', 'resources', 'concepts', 'components', 'skills', 'consejos']
@@ -44,9 +46,9 @@ const bloque = (titulo, valor) => {
   return `<h2>${esc(titulo)}</h2>${cuerpo}`
 }
 
-// El texto de un consejo lleva **negrita** y `código`: se reutiliza el mismo
-// troceador que usa la tarjeta en pantalla, para que digan lo mismo.
-const consejoHtml = (texto) => trozosDe(texto).map((t) =>
+// El texto de un consejo y el de la guía llevan **negrita** y `código`: se
+// reutiliza el mismo troceador que usan en pantalla, para que digan lo mismo.
+const marcadoHtml = (texto) => trozosDe(texto).map((t) =>
   t.tipo === 'fuerte' ? `<b>${esc(t.texto)}</b>`
     : t.tipo === 'codigo' ? `<code>${esc(t.texto)}</code>`
     : esc(t.texto)).join('')
@@ -164,8 +166,30 @@ const listaConsejos = (t, lang) => `
     const items = CONSEJOS.filter((c) => c.grupo === g.key)
     if (!items.length) return ''
     return `<h2>${esc(g.label[lang])}</h2>${ul(items.map((c) =>
-      consejoHtml(c[lang] ?? c.es) + (c.autor ? nota(`@${c.autor}`) : '')))}`
+      marcadoHtml(c[lang] ?? c.es) + (c.autor ? nota(`@${c.autor}`) : '')))}`
   }).join('')}`
+
+// La guía entera, con sus ocho bloques y todos los niveles. En pantalla el
+// nivel ATENÚA lo que no es tuyo pero no lo esconde, así que este HTML dice
+// exactamente lo mismo que se ve: si escondiera, el texto cocinado y la página
+// contarían cosas distintas, que es justo lo que penaliza un buscador.
+const guia = (t, lang) => `
+  <h1>${esc(t.guiaTitle)}</h1>
+  ${p(t.guiaSub)}
+  <h2>${esc(t.guiaNivelRotulo)}</h2>
+  ${ul(NIVELES.map((n) => `<b>${esc(n[lang].nombre)}</b>${nota(n[lang].pie)}`))}
+  ${PASOS.map((paso) => {
+    const d = paso[lang] ?? paso.es
+    const glosario = d.glosario
+      ? ul(d.glosario.map((g) => `<b>${esc(g.palabra)}</b>${nota(g.def)}`))
+      : ''
+    const enlaces = d.enlaces?.length
+      ? ul(d.enlaces.map((e) => a(rutaDe(e.seccion, null, lang) + (e.cat ? `?cat=${e.cat}` : ''), e.texto)))
+      : ''
+    return `<h2>${esc(d.titulo)}</h2><p>${marcadoHtml(d.texto)}</p>` +
+      glosario + (d.aviso ? p(d.aviso) : '') + enlaces
+  }).join('')}
+  ${p(t.guiaFinal)}`
 
 const noHay = (t) => `<h1>${esc(t.noHayTitulo)}</h1>${p(t.noHayTexto)}`
 
@@ -182,6 +206,7 @@ export function contenidoDePagina({ vista, ficha, lang, t }) {
     : vista === 'resources' ? listaRecursos(t, lang)
     : vista === 'concepts' ? listaConceptos(t, lang)
     : vista === 'consejos' ? listaConsejos(t, lang)
+    : vista === 'guia' ? guia(t, lang)
     : home(t, lang)
 
   return `${cabecera(t, vista, lang)}<main>${cuerpo}</main>${pie()}`

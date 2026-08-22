@@ -23,6 +23,9 @@ async function rutasDelSitio() {
   // son la misma cosa dicha de dos maneras, y no contenido duplicado.
   const deIdioma = (lang) => [
     { ruta: rutaDe('home', null, lang), prioridad: '1.0', vista: 'home', ficha: null, lang },
+    // La guia va detras de la portada y por delante del catalogo: es la puerta
+    // de entrada de quien llega sin saber que es esto.
+    { ruta: rutaDe('guia', null, lang), prioridad: '0.9', vista: 'guia', ficha: null, lang },
     ...['languages', 'resources', 'concepts', 'components', 'skills', 'consejos']
       .map((s) => ({ ruta: rutaDe(s, null, lang), prioridad: '0.9', vista: s, ficha: null, lang })),
     ...LANGUAGES.map((l) => ({

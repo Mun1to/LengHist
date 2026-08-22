@@ -2,10 +2,14 @@
 // la aplicación por dentro. Las rutas van en inglés, como el README y las claves
 // de navegación; «consejos» es la única que cambia de nombre al salir.
 
-export const SECCIONES = ['home', 'languages', 'resources', 'concepts', 'components', 'skills', 'consejos']
+export const SECCIONES = ['home', 'guia', 'languages', 'resources', 'concepts', 'components', 'skills', 'consejos']
 
 const RUTA_DE_SECCION = {
   home: '/',
+  // La guia no es una seccion del catalogo y no sale en el menu: se entra por el
+  // boton del hero y por el de la barra. Pero es una direccion de verdad, con su
+  // HTML cocinado y su sitio en el sitemap, porque es contenido y no un modal.
+  guia: '/start',
   languages: '/languages',
   resources: '/resources',
   concepts: '/concepts',

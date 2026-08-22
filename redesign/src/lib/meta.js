@@ -85,6 +85,7 @@ export function metaDePagina({ vista, ficha, lang, t }) {
     languages: [t.gridTitle, t.langsSub(TOTALES.langs)], resources: [t.resTitle, t.resSub],
     concepts: [t.conceptsTitle, t.conceptsSub], components: [t.compTitle, t.compSub],
     skills: [t.skillsTitle, t.skillsSub], consejos: [t.consejosTitle, t.consejosSub],
+    guia: [t.guiaTitle, t.guiaSub],
   }
   const [titulo, sub] = titulos[vista] ?? [marca, t.heroSub]
   // «Componentes de Vibeset» ya lleva la marca dentro: añadirla otra vez dejaba
