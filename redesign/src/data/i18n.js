@@ -74,7 +74,7 @@ export const I18N = {
     pieAportar: 'Aportar',
     pieLicencia: 'Licencia',
     pieAuditar: 'Audítalo tú',
-    gridTitle: 'Lenguajes',
+    gridTitle: 'Lenguajes de programación',
     gridSub: (n, total) => `Mostrando ${n} de ${total}`,
     // La cifra viene contada del catálogo. Escrita a mano («Cien lenguajes»)
     // envejece sola: el día que entre el ciento uno, el texto miente y nadie
@@ -245,7 +245,7 @@ export const I18N = {
     pieAportar: 'Contribute',
     pieLicencia: 'License',
     pieAuditar: 'Audit it yourself',
-    gridTitle: 'Languages',
+    gridTitle: 'Coding languages',
     gridSub: (n, total) => `Showing ${n} of ${total}`,
     langsSub: (n) => `${n} languages with comparable profiles: what they are for, who made them, what you write in them and how they really look.`,
     popularidad: 'Popularity',
