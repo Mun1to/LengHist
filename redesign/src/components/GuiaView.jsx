@@ -106,6 +106,12 @@ export default function GuiaView({ t, lang }) {
                   <Texto texto={d.texto} />
                 </p>
 
+                {d.texto2 && (
+                  <p className="text-[15px] leading-relaxed text-tinta max-w-[68ch] mb-4">
+                    <Texto texto={d.texto2} />
+                  </p>
+                )}
+
                 {d.glosario && (
                   <dl className="mb-4 max-w-[68ch]">
                     {d.glosario.map((g) => (

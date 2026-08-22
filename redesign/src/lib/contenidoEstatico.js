@@ -187,6 +187,7 @@ const guia = (t, lang) => `
       ? ul(d.enlaces.map((e) => a(rutaDe(e.seccion, null, lang) + (e.cat ? `?cat=${e.cat}` : ''), e.texto)))
       : ''
     return `<h2>${esc(d.titulo)}</h2><p>${marcadoHtml(d.texto)}</p>` +
+      (d.texto2 ? `<p>${marcadoHtml(d.texto2)}</p>` : '') +
       glosario + (d.aviso ? p(d.aviso) : '') + enlaces
   }).join('')}
   ${p(t.guiaFinal)}`

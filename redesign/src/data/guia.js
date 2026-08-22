@@ -132,6 +132,31 @@ export const PASOS = [
   },
 
   {
+    key: 'reglas',
+    para: ['cero', 'algo', 'pro'],
+    es: {
+      titulo: 'Tus reglas y tu estructura, escritas una vez',
+      texto: 'Un agente empieza **cada conversación desde cero**: no se acuerda de lo que decidisteis ayer. Si le explicas en cada chat cómo quieres las cosas, pagas ese peaje todos los días y el resultado cambia según el día. Se arregla escribiéndolo **una sola vez** en un archivo en la raíz del proyecto, que el agente lee solo antes de trabajar: `AGENTS.md` es el nombre estándar y ya lo leen casi todas las herramientas.',
+      texto2: 'La estructura hace lo mismo sin que la escribas: un agente decide dónde va un archivo nuevo mirando dónde están los demás. En un proyecto ordenado acierta; en uno desordenado desordena más, y cada encargo lo empeora un poco.',
+      aviso: 'Reglas cortas y comprobables. «Los textos van en `src/i18n`, nunca dentro del componente» sirve; «escribe código de calidad» no dice nada. Y cuando tengas que corregir lo mismo dos veces, esa corrección ya es una regla: escríbela ahí en vez de volver a decirla.',
+      enlaces: [
+        { seccion: 'skills', texto: 'Skills: reglas empaquetadas que tu agente lee solo' },
+        { seccion: 'consejos', cat: 'agente', texto: 'Consejos de trabajo con un agente' },
+      ],
+    },
+    en: {
+      titulo: 'Your rules and your structure, written down once',
+      texto: 'An agent starts **every conversation from scratch**: it does not remember what you two decided yesterday. If you explain how you like things in every chat, you pay that toll daily and the result changes from day to day. You fix it by writing it **once** in a file at the root of the project that the agent reads before it works: `AGENTS.md` is the standard name and nearly every tool reads it already.',
+      texto2: 'Structure does the same job without you writing anything: an agent decides where a new file goes by looking at where the others are. In a tidy project it gets it right; in a messy one it adds to the mess, and every request makes it slightly worse.',
+      aviso: 'Short, checkable rules. "Copy lives in `src/i18n`, never inside the component" works; "write quality code" says nothing. And when you have to correct the same thing twice, that correction is already a rule: write it down instead of saying it again.',
+      enlaces: [
+        { seccion: 'skills', texto: 'Skills: packaged rules your agent reads on its own' },
+        { seccion: 'consejos', cat: 'agente', texto: 'Tips for working with an agent' },
+      ],
+    },
+  },
+
+  {
     key: 'bucle',
     para: ['cero', 'algo', 'pro'],
     es: {

@@ -143,7 +143,7 @@ comprobar('buscador: encuentra «rust» tras cargar su índice', resultados > 0,
 // 7. La guía: sus bloques, el nivel que viaja en la dirección, y el test dentro
 await ir('/start')
 const bloques = await ev(`document.querySelectorAll('main ol > li').length`)
-comprobar('guía: pinta sus bloques', bloques === 8, `${bloques} bloques`)
+comprobar('guía: pinta sus bloques', bloques === 9, `${bloques} bloques`)
 comprobar('guía: cada bloque manda a alguna parte', await ev(`document.querySelectorAll('main ol a').length >= 10`),
   `${await ev(`document.querySelectorAll('main ol a').length`)} enlaces`)
 comprobar('guía: el nivel por defecto es el de en medio',
