@@ -35,16 +35,26 @@ const bajar = async (url) => {
   }
 }
 
-// El HTML más las primeras hojas de estilo que enlaza. Se cortan en seis: una
-// portada moderna trae docenas de trozos y no hace falta bajarlos todos para
-// saber si la técnica sigue viva.
+// El HTML más las primeras hojas de estilo Y los primeros scripts que enlaza.
+// Se cortan en seis de cada: una portada moderna trae docenas de trozos y no
+// hace falta bajarlos todos para saber si la técnica sigue viva.
+//
+// **Los scripts entraron el 2026-08-21 y abren media lista de conceptos.** Con
+// solo HTML y CSS, las técnicas que viven en JavaScript no se pueden probar:
+// un scroll reveal no deja rastro en una hoja de estilos, pero sí deja
+// `IntersectionObserver` en el bundle. Y esos marcadores son de los más
+// honestos que hay, porque son APIs del navegador: sobreviven a la
+// minificación, que se lleva por delante los nombres que elige quien programa.
 const bajarSitio = async (url) => {
   const { estado, texto } = await bajar(url)
   if (!estado) return { estado, todo: '' }
   const base = new URL(url)
-  const hojas = [...texto.matchAll(/href="([^"]+\.css[^"]*)"/g)].slice(0, 6).map((m) => m[1])
+  const enlazados = [
+    ...[...texto.matchAll(/href="([^"]+\.css[^"]*)"/g)].slice(0, 6),
+    ...[...texto.matchAll(/src="([^"]+\.js[^"]*)"/g)].slice(0, 6),
+  ].map((m) => m[1])
   const trozos = await Promise.all(
-    hojas.map((h) => bajar(new URL(h, base).href).then((r) => r.texto)),
+    enlazados.map((h) => bajar(new URL(h, base).href).then((r) => r.texto)),
   )
   return { estado, todo: texto + trozos.join('') }
 }

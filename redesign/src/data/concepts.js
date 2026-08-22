@@ -107,6 +107,14 @@ export const CONCEPTS = [
      "what": "Elements that appear or animate as they enter the viewport.",
      "use": "Reveal sections on scroll; with stagger it looks very elegant."
     },
+    "vistoEn": {
+     "sitio": "awwwards.com",
+     "url": "https://www.awwwards.com",
+     "prueba": "IntersectionObserver",
+     "visto": "2026-08-21",
+     "es": "las tarjetas aparecen al entrar en pantalla, con IntersectionObserver y no con un listener de scroll",
+     "en": "cards appear as they enter the viewport, with IntersectionObserver rather than a scroll listener"
+    },
     "prompt": {
      "es": "Haz que estos bloques aparezcan al entrar en pantalla, con IntersectionObserver y no con un listener de scroll. Que cada elemento se anime una sola vez y luego deje de observarse. Importante: el contenido tiene que estar en el HTML y visible por defecto, y que la animación solo lo esconda si hay JavaScript, para que no desaparezca en un buscador.",
      "en": "Make these blocks appear as they enter the viewport, with IntersectionObserver rather than a scroll listener. Animate each element once and then stop observing it. Important: the content must be in the HTML and visible by default, with the animation hiding it only when JavaScript runs, so it never disappears for a crawler."
@@ -228,6 +236,10 @@ export const CONCEPTS = [
     "en": {
      "what": "An element tilts in 3D following the mouse (perspective + rotateX/Y).",
      "use": "Product cards, avatars and highlighted elements."
+    },
+    "prompt": {
+     "es": "Haz que esta tarjeta se incline en 3D siguiendo al ratón. El contenedor lleva perspective y la tarjeta rotateX y rotateY calculados desde la posición del cursor dentro de ella. Suaviza el retorno al salir y limita el giro a unos 8 grados: más que eso marea y deforma el texto. En táctil no lo montes, que no hay cursor y el listener solo gasta.",
+     "en": "Make this card tilt in 3D following the mouse. The container gets perspective and the card rotateX/rotateY computed from the cursor position inside it. Ease it back on leave and cap the tilt around 8 degrees: more than that is dizzying and warps the text. Do not mount it on touch, where there is no cursor and the listener is pure waste."
     }
    },
    {
@@ -241,6 +253,10 @@ export const CONCEPTS = [
     "en": {
      "what": "A button attracts the cursor by moving slightly toward it.",
      "use": "CTAs and buttons that invite a click."
+    },
+    "prompt": {
+     "es": "Haz que este botón se acerque un poco al cursor cuando el ratón ronda cerca. Calcula la distancia al centro y muévelo con transform, como mucho unos 10px, volviendo a su sitio al salir. El área de detección puede ser mayor que el botón, pero el ÁREA PULSABLE no se mueve con él: si el botón huye del dedo, no lo pulsa nadie.",
+     "en": "Make this button drift toward the cursor when the mouse comes close. Compute the distance to its center and move it with transform, 10px at most, easing back on leave. The detection area can be larger than the button, but the CLICKABLE area must not move with it: a button that runs away never gets pressed."
     }
    },
    {
@@ -254,6 +270,10 @@ export const CONCEPTS = [
     "en": {
      "what": "A custom cursor that follows the mouse with easing (linear interpolation).",
      "use": "Creative brands and portfolios with personality."
+    },
+    "prompt": {
+     "es": "Sustituye el cursor por un punto que lo sigue con retardo, interpolando su posición en cada frame con requestAnimationFrame. Ojo con tres cosas: esconder el cursor del sistema deja sin pistas a quien no ve bien, así que hazlo solo en punteros finos con @media (pointer: fine); no lo montes en táctil; y déjalo desactivado con prefers-reduced-motion.",
+     "en": "Replace the cursor with a dot that trails it, interpolating its position each frame with requestAnimationFrame. Watch three things: hiding the system cursor removes affordances for people with low vision, so only do it under @media (pointer: fine); do not mount it on touch; and switch it off under prefers-reduced-motion."
     }
    },
    {
@@ -267,6 +287,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Tiny feedbacks on hover, focus and click (scale, color, shadow).",
      "use": "They make the UI feel alive; they reinforce each action."
+    },
+    "prompt": {
+     "es": "Dale respuesta a estos controles al pasar por encima, al enfocarlos y al pulsarlos: un cambio pequeño de escala, color o sombra, con su propia curva de easing y no la de fábrica. Que el estado de FOCO se vea tanto como el de hover, porque quien navega con teclado solo tiene ese. Nada por encima de 200ms: una micro-interacción lenta se siente como lag.",
+     "en": "Give these controls a response on hover, focus and press: a small change of scale, color or shadow, with its own easing curve rather than the default. Make the FOCUS state as visible as the hover one, because keyboard users only get that one. Nothing over 200ms: a slow micro-interaction reads as lag."
     },
     "vistoEn": {
      "sitio": "apple.com",
@@ -287,6 +311,10 @@ export const CONCEPTS = [
     "en": {
      "what": "A cursor or shapes that invert the color of what's underneath.",
      "use": "Eye-catching effect in portfolios and creative brands."
+    },
+    "prompt": {
+     "es": "Haz que este cursor a medida invierta el color de lo que tiene debajo, con mix-blend-mode: difference. Comprueba antes que ningún ancestro tenga un backdrop-filter ni un filter, porque cualquiera de los dos crea un contexto de apilado y el blend deja de ver el fondo. Y mira que el texto siga legible por debajo, que es lo que se rompe con esto.",
+     "en": "Make this custom cursor invert whatever is under it, with mix-blend-mode: difference. Check first that no ancestor has a backdrop-filter or a filter: either one creates a stacking context and the blend stops seeing the background. And check the text underneath stays readable, which is what this usually breaks."
     }
    },
    {
@@ -299,6 +327,10 @@ export const CONCEPTS = [
     "en": {
      "what": "A glow that follows the cursor inside a card or button.",
      "use": "Brings cards to life (used on this very site on hover)."
+    },
+    "prompt": {
+     "es": "Que estas tarjetas enciendan un resplandor que sigue al cursor. Guarda la posición del ratón en dos variables CSS desde JavaScript y pinta el brillo con un radial-gradient que las use, así el trabajo por frame es escribir dos números y no recalcular estilos. Un solo listener en el contenedor, no uno por tarjeta. El brillo va detrás del contenido y con pointer-events: none.",
+     "en": "Make these cards light up a glow that follows the cursor. Store the mouse position in two CSS variables from JavaScript and paint the glow with a radial-gradient that reads them, so the per-frame work is writing two numbers instead of recomputing styles. One listener on the container, not one per card. The glow sits behind the content with pointer-events: none."
     }
    }
   ]
@@ -322,6 +354,10 @@ export const CONCEPTS = [
      "what": "Frosted-glass effect: blurred, translucent background.",
      "use": "Modern floating bars, cards and menus."
     },
+    "prompt": {
+     "es": "Dale a este panel aspecto de cristal esmerilado: fondo semitransparente y backdrop-filter con blur y algo de saturate. Dos avisos que cambian el resultado: backdrop-filter crea contexto de apilado, así que si dentro hay algo con position: fixed dejará de cubrir la pantalla; y el texto encima de un fondo que se mueve tiene que seguir cumpliendo 4,5:1, así que sube la opacidad hasta que lo cumpla.",
+     "en": "Give this panel a frosted-glass look: semi-transparent background plus backdrop-filter with blur and a touch of saturate. Two warnings that change the outcome: backdrop-filter creates a stacking context, so anything position: fixed inside it stops covering the viewport; and text over a moving backdrop still has to clear 4.5:1, so raise the opacity until it does."
+    },
     "vistoEn": {
      "sitio": "tailwindcss.com",
      "url": "https://tailwindcss.com",
@@ -341,6 +377,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Surfaces with soft shadows that look like extruded plastic.",
      "use": "Buttons and controls with a tactile feel (watch the contrast)."
+    },
+    "prompt": {
+     "es": "Dale a estos controles el relieve de neumorfismo, con dos box-shadow (una clara arriba a la izquierda y una oscura abajo a la derecha) del MISMO color que el fondo. Antes de aceptarlo, mide el contraste: este estilo suele dejar los bordes por debajo de 3:1 y entonces no se ve dónde se puede pulsar. Si no llega, añade un borde o un cambio de fondo al enfocarlo.",
+     "en": "Give these controls the neumorphic relief, with two box-shadows (a light one top-left, a dark one bottom-right) in the SAME color as the background. Before accepting it, measure the contrast: this style usually leaves edges under 3:1 and then nobody can tell what is pressable. If it falls short, add a border or a background change on focus."
     }
    },
    {
@@ -353,6 +393,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Organic, diffuse gradients, often animated, used as background.",
      "use": "Lively backgrounds without clutter (like this very site)."
+    },
+    "prompt": {
+     "es": "Monta un fondo de aurora: varios radial-gradient de colores superpuestos y desenfocados, animándose despacio. Hazlo con CSS y transform, sin canvas y sin imágenes. Anima solo transform y opacity, nunca background-position, que repinta toda la superficie. Que el ciclo dure decenas de segundos y se pare con prefers-reduced-motion.",
+     "en": "Build an aurora background: several overlapping, blurred radial-gradients drifting slowly. Do it in CSS with transform, no canvas and no images. Animate transform and opacity only, never background-position, which repaints the whole surface. Make the cycle tens of seconds long and stop it under prefers-reduced-motion."
     },
     "vistoEn": {
      "sitio": "astro.build",
@@ -375,6 +419,10 @@ export const CONCEPTS = [
      "what": "Reveal or crop content with shapes (clip-path, mask).",
      "use": "Stylish reveals, uncovering text and image transitions."
     },
+    "prompt": {
+     "es": "Recorta esta sección con una forma usando clip-path, o difumina su borde con mask-image y un gradiente. Dos cosas: lo recortado sigue existiendo para un lector de pantalla, así que si sobra de verdad quítalo del DOM y no solo de la vista; y clip-path corta también el foco visible de los controles que queden en el borde, así que déjales margen.",
+     "en": "Crop this section into a shape with clip-path, or fade its edge with mask-image and a gradient. Two things: clipped content still exists for a screen reader, so if it is truly redundant remove it from the DOM and not just from view; and clip-path also cuts the focus ring of any control near the edge, so leave them room."
+    },
     "vistoEn": {
      "sitio": "vercel.com",
      "url": "https://vercel.com",
@@ -394,6 +442,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Native animated transition between two states or pages.",
      "use": "Theme changes and smooth navigation (used by this site's theme toggle)."
+    },
+    "prompt": {
+     "es": "Anima el cambio entre estos dos estados con la View Transitions API: envuelve la actualización del DOM en document.startViewTransition y comprueba antes que existe. Para que un elemento viaje de un estado a otro dale el mismo view-transition-name en los dos, y que ese nombre sea ÚNICO en la página: dos elementos con el mismo nombre a la vez cancelan la transición entera.",
+     "en": "Animate the change between these two states with the View Transitions API: wrap the DOM update in document.startViewTransition and check it exists first. To make an element travel between states give it the same view-transition-name in both, and keep that name UNIQUE on the page: two elements sharing one at the same time cancel the whole transition."
     },
     "vistoEn": {
      "sitio": "astro.build",
@@ -415,6 +467,10 @@ export const CONCEPTS = [
      "what": "Animated gray placeholders shown while the real content loads.",
      "use": "Perceived speed; they avoid blank screens."
     },
+    "prompt": {
+     "es": "Mientras carga, enseña un esqueleto con la forma de lo que va a venir, no un spinner: bloques del tamaño real del título, del texto y de la imagen, con un brillo que recorre. Que ocupe EXACTAMENTE el mismo espacio que el contenido final, porque si no el salto al llegar cuenta como CLS. Y márcalo con aria-hidden más un aria-busy en el contenedor.",
+     "en": "While loading, show a skeleton shaped like what is coming, not a spinner: blocks the real size of the title, the text and the image, with a shimmer running across. Make it take EXACTLY the same space as the final content, otherwise the jump when it arrives counts as CLS. Mark it aria-hidden and put aria-busy on the container."
+    },
     "vistoEn": {
      "sitio": "github.com",
      "url": "https://github.com",
@@ -435,6 +491,18 @@ export const CONCEPTS = [
     "en": {
      "what": "Animate text by letters or words (appear, slide, distort).",
      "use": "High-impact headlines and brand intros."
+    },
+    "vistoEn": {
+     "sitio": "gsap.com",
+     "url": "https://gsap.com",
+     "prueba": "tf-assets/SplitText",
+     "visto": "2026-08-21",
+     "es": "su propia portada carga SplitText, el plugin que parte el texto en letras",
+     "en": "its own home page loads SplitText, the plugin that splits text into letters"
+    },
+    "prompt": {
+     "es": "Anima este titular letra a letra al entrar. Parte el texto en spans y desplázalos con un pequeño retardo escalonado. Importante para que no se rompa nada: el titular tiene que seguir siendo UNA frase para quien la escuche, así que pon el texto completo en un aria-label del contenedor y aria-hidden en los trozos. Sin JavaScript, el titular se ve entero y quieto.",
+     "en": "Animate this heading letter by letter on entry. Split the text into spans and stagger their movement. Important so nothing breaks: the heading must still be ONE sentence for anyone listening, so put the full text in an aria-label on the container and aria-hidden on the pieces. With no JavaScript, the heading shows whole and static."
     }
    },
    {
@@ -447,6 +515,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Subtle grain texture over backgrounds and gradients.",
      "use": "Gives a warm, analog finish, less flat."
+    },
+    "prompt": {
+     "es": "Añade una capa de grano sutil sobre este fondo para quitarle el aspecto plástico. Genera la textura con un SVG de feTurbulence embebido como data URI, no con una imagen que haya que descargar. Ponla en un pseudoelemento con pointer-events: none, opacidad muy baja (0.03 a 0.06) y por debajo del contenido: si el texto pierde nitidez, te has pasado.",
+     "en": "Add a subtle grain layer over this background to take the plastic out of it. Generate the texture with an inline SVG feTurbulence as a data URI, not an image you have to download. Put it on a pseudo-element with pointer-events: none, very low opacity (0.03 to 0.06) and under the content: if the text loses sharpness, you overdid it."
     },
     "vistoEn": {
      "sitio": "linear.app",
@@ -467,6 +539,10 @@ export const CONCEPTS = [
     "en": {
      "what": "An initial loading screen or bar while the site gets ready.",
      "use": "Cover heavy resource loading, in moderation (never endless)."
+    },
+    "prompt": {
+     "es": "Monta una pantalla de carga inicial que se va cuando la página está lista. Y ponle un techo de tiempo: si a los dos segundos no ha terminado, se quita igual. Un preloader sin límite convierte cualquier fallo de red en una pantalla en blanco eterna. Que el contenido esté en el HTML detrás, no dentro del preloader, para que un buscador lo lea aunque el JavaScript no corra.",
+     "en": "Build an initial loading screen that leaves when the page is ready. Give it a hard time cap: if it has not finished in two seconds, it goes anyway. A preloader with no limit turns any network hiccup into a permanently blank page. Keep the content in the HTML behind it, not inside the preloader, so a crawler reads it even if the JavaScript never runs."
     }
    }
   ]
@@ -491,6 +567,10 @@ export const CONCEPTS = [
      "what": "Animate only transform and opacity, never top/left/width/height.",
      "use": "It's the only thing the GPU composes cheaply, giving 60fps with no jank."
     },
+    "prompt": {
+     "es": "Revisa las animaciones de este archivo y pásalas a transform y opacity. Cualquier cosa que anime top, left, width, height o margin obliga al navegador a recalcular la maquetación en cada frame; el mismo movimiento con translate no toca la maquetación. Enséñame qué has cambiado y por qué, y comprueba en el panel de rendimiento que ya no hay recálculos por frame.",
+     "en": "Go through the animations in this file and move them to transform and opacity. Anything animating top, left, width, height or margin forces a layout recalculation every frame; the same movement with translate touches no layout at all. Show me what you changed and why, and check in the performance panel that there are no per-frame recalculations left."
+    },
     "vistoEn": {
      "sitio": "apple.com",
      "url": "https://www.apple.com",
@@ -510,6 +590,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Tells the browser which property will change so it prepares a layer.",
      "use": "Use it sparingly: overusing it wastes memory."
+    },
+    "prompt": {
+     "es": "Avisa al navegador de lo que va a moverse en este elemento con will-change, y quítalo cuando la animación termine. La regla que se salta todo el mundo: will-change permanente en muchos elementos crea una capa de composición por cada uno y se come la memoria de vídeo, sobre todo en móvil. Es una pista para un momento concreto, no un atributo que se deja puesto.",
+     "en": "Tell the browser what is about to move on this element with will-change, and remove it when the animation ends. The rule everyone skips: a permanent will-change on many elements creates one compositing layer each and eats video memory, especially on mobile. It is a hint for a specific moment, not an attribute you leave on."
     },
     "vistoEn": {
      "sitio": "framer.com",
@@ -532,6 +616,10 @@ export const CONCEPTS = [
      "what": "LCP (<2.5s), INP (<200ms) and CLS (<0.1): Google's experience metrics.",
      "use": "If an effect worsens them, lower its intensity or move it to native CSS."
     },
+    "prompt": {
+     "es": "Mide los Core Web Vitals de esta página y arréglalos por orden de impacto. Para el LCP, encuentra qué elemento es el más grande de la primera pantalla y dale fetchpriority=\"high\", quitándole cualquier lazy loading. Para el CLS, reserva sitio con width y height o aspect-ratio en imágenes, iframes y anuncios. Dime los números antes y después, no solo lo que cambiaste.",
+     "en": "Measure this page's Core Web Vitals and fix them in order of impact. For LCP, find which element is the largest in the first viewport and give it fetchpriority=\"high\", removing any lazy loading from it. For CLS, reserve space with width and height or aspect-ratio on images, iframes and ads. Give me the numbers before and after, not just what you changed."
+    },
     "vistoEn": {
      "sitio": "developer.mozilla.org",
      "url": "https://developer.mozilla.org",
@@ -551,6 +639,10 @@ export const CONCEPTS = [
     "en": {
      "what": "System preference to reduce animations (accessibility).",
      "use": "Respect it to avoid motion sickness; or, if your brand decides, offer a switch to turn motion off."
+    },
+    "prompt": {
+     "es": "Repasa este proyecto y respeta prefers-reduced-motion en todas las animaciones, las de CSS y las de JavaScript. Reducir NO es apagarlo todo y dejar la interfaz muerta: los cambios de opacidad y los fundidos cortos se quedan; lo que se quita es el desplazamiento grande, el parallax, el zoom y el giro, que son los que marean de verdad.",
+     "en": "Go through this project and respect prefers-reduced-motion in every animation, CSS and JavaScript alike. Reducing is NOT killing everything and leaving a dead interface: opacity changes and short fades stay; what goes is large movement, parallax, zoom and spin, which are the ones that actually make people sick."
     },
     "vistoEn": {
      "sitio": "stripe.com",
@@ -573,6 +665,10 @@ export const CONCEPTS = [
      "what": "Content works and reads without JS; the effect goes on top.",
      "use": "Robustness: if JS fails, the site is still usable."
     },
+    "prompt": {
+     "es": "Comprueba qué queda de esta página con el JavaScript desactivado y arregla lo que se caiga. El contenido y la navegación tienen que funcionar sin JavaScript; los efectos van encima. En concreto: nada de texto que solo exista tras montar, los enlaces son etiquetas <a> con su href de verdad y los formularios tienen action y method. Dime qué se rompía antes de tocarlo.",
+     "en": "Check what is left of this page with JavaScript disabled and fix whatever falls over. Content and navigation must work without JavaScript; effects go on top. Specifically: no text that only exists after mounting, links are real <a> tags with a real href, and forms have action and method. Tell me what was broken before you touched it."
+    },
     "vistoEn": {
      "sitio": "apple.com",
      "url": "https://www.apple.com",
@@ -592,6 +688,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Design for mobile first and scale up.",
      "use": "Most traffic is mobile; effects must run at 60fps there too."
+    },
+    "prompt": {
+     "es": "Pasa este CSS a mobile-first: los estilos base son los del móvil y las media queries solo añaden hacia arriba con min-width. Comprueba a 320px de ancho, que es donde se rompe todo, y que ningún bloque desborde en horizontal. Para las imágenes, srcset con varios tamaños y sizes: servir la de escritorio a un móvil es la forma más habitual de hundir el LCP.",
+     "en": "Convert this CSS to mobile-first: base styles are the mobile ones and media queries only add upward with min-width. Test at 320px wide, which is where everything breaks, and make sure no block overflows horizontally. For images, srcset with several sizes plus sizes: serving the desktop one to a phone is the most common way to sink the LCP."
     },
     "vistoEn": {
      "sitio": "framer.com",
@@ -613,6 +713,10 @@ export const CONCEPTS = [
      "what": "Load images and resources only as they approach the viewport.",
      "use": "Speeds up initial load and saves data."
     },
+    "prompt": {
+     "es": "Pon loading=\"lazy\" en las imágenes y los iframes de esta página, pero NO en los de la primera pantalla: la imagen principal cargada de forma perezosa retrasa el LCP, que es justo lo contrario de lo que se busca. Añade width y height a todas para que reserven su sitio, y decoding=\"async\" a las que no sean críticas.",
+     "en": "Add loading=\"lazy\" to the images and iframes on this page, but NOT to the ones in the first viewport: lazy-loading the hero image delays the LCP, which is the opposite of the point. Give them all width and height so they reserve their space, and decoding=\"async\" on the non-critical ones."
+    },
     "vistoEn": {
      "sitio": "clerk.com",
      "url": "https://clerk.com",
@@ -633,6 +737,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Limit how often a function runs on frequent events (scroll, resize, input).",
      "use": "Avoids extra work and keeps things smooth."
+    },
+    "prompt": {
+     "es": "Limita cuántas veces se ejecuta esto en un evento que dispara sin parar, y elige bien cuál de los dos: DEBOUNCE si solo importa el final (una búsqueda mientras se escribe, un resize); THROTTLE si hace falta ir viendo el progreso (scroll, movimiento del ratón). Y si es scroll o movimiento, lo que quieres casi seguro es requestAnimationFrame en vez de un temporizador.",
+     "en": "Limit how often this runs on an event that fires constantly, and pick the right one: DEBOUNCE if only the end matters (a search-as-you-type, a resize); THROTTLE if you need to see the progress (scroll, pointer move). And if it is scroll or pointer, what you almost certainly want is requestAnimationFrame rather than a timer."
     }
    },
    {
@@ -645,6 +753,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Sync JS animations with the browser's screen refresh.",
      "use": "Smooth 60fps animations without clogging the main thread."
+    },
+    "prompt": {
+     "es": "Mueve esta animación a requestAnimationFrame, para que corra sincronizada con el refresco de la pantalla en vez de con un setInterval. Calcula el avance con el tiempo que llega en el callback y no con un incremento fijo, o irá al doble de velocidad en una pantalla de 120Hz. Cancela el bucle al desmontar con cancelAnimationFrame, que si no sigue corriendo invisible.",
+     "en": "Move this animation to requestAnimationFrame, so it runs in sync with the screen refresh instead of a setInterval. Compute progress from the timestamp the callback receives, not a fixed increment, or it runs twice as fast on a 120Hz display. Cancel the loop on unmount with cancelAnimationFrame, otherwise it keeps running invisibly."
     },
     "vistoEn": {
      "sitio": "vercel.com",
@@ -676,6 +788,10 @@ export const CONCEPTS = [
      "what": "Styles based on the container's size, not the window's.",
      "use": "Truly reusable components that adapt to their slot."
     },
+    "prompt": {
+     "es": "Haz que este componente se adapte al ancho de SU CONTENEDOR y no al de la ventana, con container queries. Declara container-type: inline-size en el padre y usa @container en el hijo. Ojo con container-type: size, que exige alto explícito y colapsa el elemento; para casi todo lo que quieres, inline-size es el correcto.",
+     "en": "Make this component adapt to the width of ITS CONTAINER rather than the viewport, with container queries. Declare container-type: inline-size on the parent and use @container on the child. Careful with container-type: size, which demands an explicit height and collapses the element; for almost everything you want, inline-size is the right one."
+    },
     "vistoEn": {
      "sitio": "vercel.com",
      "url": "https://vercel.com",
@@ -695,6 +811,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Font sizes that scale smoothly between a min and a max.",
      "use": "Type that looks good from mobile to large screens with no jumps."
+    },
+    "prompt": {
+     "es": "Pasa esta escala tipográfica a tamaños fluidos con clamp(), para que crezca sola entre el móvil y el escritorio sin saltos por breakpoint. Usa una unidad relativa en la parte que escala (rem con vw) y no vw a secas, porque con vw puro el texto deja de responder al zoom del navegador y eso incumple accesibilidad. Comprueba que a 200% de zoom sigue creciendo.",
+     "en": "Move this type scale to fluid sizes with clamp(), so it grows on its own between mobile and desktop with no breakpoint jumps. Use a relative unit in the scaling part (rem plus vw) rather than bare vw, because with pure vw the text stops responding to browser zoom, which fails accessibility. Check it still grows at 200% zoom."
     },
     "vistoEn": {
      "sitio": "vercel.com",
@@ -716,6 +836,10 @@ export const CONCEPTS = [
      "what": "The 'parent selector': style an element based on what it contains.",
      "use": "Styling logic previously impossible without JS."
     },
+    "prompt": {
+     "es": "Usa :has() para estilar este elemento según lo que contiene, en vez de añadir una clase desde JavaScript. Sirve para el padre de un input inválido, la tarjeta que lleva imagen o el formulario con un campo enfocado. Dos avisos: :has() no es perezoso y un selector muy amplio se evalúa mucho, así que acótalo; y comprueba que sin soporte la página sigue siendo usable.",
+     "en": "Use :has() to style this element based on what it contains, instead of adding a class from JavaScript. Good for the parent of an invalid input, the card that has an image, the form with a focused field. Two warnings: :has() is not lazy and a very broad selector gets evaluated a lot, so scope it; and check the page stays usable without support."
+    },
     "vistoEn": {
      "sitio": "vercel.com",
      "url": "https://vercel.com",
@@ -735,6 +859,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Organize CSS priority into layers to avoid specificity wars.",
      "use": "Keep CSS tidy in large projects."
+    },
+    "prompt": {
+     "es": "Organiza este CSS en capas con @layer para acabar con la guerra de especificidad. Declara el orden de las capas UNA vez y al principio (reset, base, componentes, utilidades), porque ese orden es lo que manda y no dónde esté escrita cada regla. Y ten claro que lo que queda FUERA de toda capa gana a todo lo que está dentro, que es justo al revés de lo que parece.",
+     "en": "Organize this CSS into layers with @layer to end the specificity war. Declare the layer order ONCE and up front (reset, base, components, utilities), because that order is what wins, not where each rule is written. And know that anything OUTSIDE every layer beats everything inside one, which is the opposite of what it looks like."
     },
     "vistoEn": {
      "sitio": "stripe.com",
@@ -756,6 +884,10 @@ export const CONCEPTS = [
      "what": "Mix two colors directly in CSS.",
      "use": "Generate shades, hovers and transparencies from a base color (used a lot on this site)."
     },
+    "prompt": {
+     "es": "Genera estos tonos con color-mix() en vez de escribir cada hex a mano: el hover, el borde y el estado desactivado salen del color base mezclado con el fondo o con transparent. Trabaja en oklch y no en srgb, que en srgb las mezclas pasan por grises sucios. Al terminar comprueba el contraste, que un tono derivado puede quedarse por debajo de 4,5:1 sin que se note.",
+     "en": "Generate these shades with color-mix() instead of hand-writing every hex: hover, border and disabled all come from the base color mixed with the background or with transparent. Work in oklch rather than srgb, because in srgb the mixes go through muddy greys. When you are done check the contrast: a derived shade can land under 4.5:1 without anyone noticing."
+    },
     "vistoEn": {
      "sitio": "tailwindcss.com",
      "url": "https://tailwindcss.com",
@@ -776,6 +908,10 @@ export const CONCEPTS = [
      "what": "Let a child element inherit the parent's grid lines.",
      "use": "Align cards and lists perfectly."
     },
+    "prompt": {
+     "es": "Alinea estas tarjetas entre sí con subgrid, para que sus títulos, textos y pies queden en la misma línea aunque tengan distinto contenido. La tarjeta declara grid-template-rows: subgrid y ocupa varias filas del padre con grid-row: span N. Es la forma de arreglarlo sin alturas fijas ni JavaScript midiendo, que es como se hacía antes y se rompía siempre.",
+     "en": "Line these cards up with subgrid, so their titles, bodies and footers sit on the same lines even with different content. The card declares grid-template-rows: subgrid and spans several parent rows with grid-row: span N. This is how you fix it without fixed heights or JavaScript measuring, which is how it used to be done and always broke."
+    },
     "vistoEn": {
      "sitio": "vercel.com",
      "url": "https://vercel.com",
@@ -795,6 +931,10 @@ export const CONCEPTS = [
     "en": {
      "what": "Properties by logical axis (inline/block) instead of left/right/top/bottom.",
      "use": "Automatic support for right-to-left (RTL) languages."
+    },
+    "prompt": {
+     "es": "Cambia en este CSS las propiedades físicas por las lógicas: margin-inline en vez de margin-left y margin-right, padding-block en vez de top y bottom, inset-inline-start en vez de left. Con eso la maquetación se da la vuelta sola en árabe o hebreo sin escribir una regla aparte. Empieza por los espaciados y los bordes, que es donde está el noventa por ciento.",
+     "en": "Swap the physical properties in this CSS for logical ones: margin-inline instead of margin-left and margin-right, padding-block instead of top and bottom, inset-inline-start instead of left. With that the layout flips itself for Arabic or Hebrew with no separate rules. Start with spacing and borders, which is where ninety percent of it lives."
     },
     "vistoEn": {
      "sitio": "stripe.com",
