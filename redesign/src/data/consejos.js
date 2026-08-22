@@ -182,13 +182,3 @@ export function tamanoDe(texto) {
   if (n <= 96) return 'medio'
   return 'largo'
 }
-
-// Negritas con **…** y código con `…`, que es lo único que se permite dentro de
-// un consejo: si necesita más formato, es que ya no es un consejo.
-export function trozosDe(texto) {
-  return texto.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean).map((t) => {
-    if (t.startsWith('**')) return { tipo: 'fuerte', texto: t.slice(2, -2) }
-    if (t.startsWith('`')) return { tipo: 'codigo', texto: t.slice(1, -1) }
-    return { tipo: 'texto', texto: t }
-  })
-}

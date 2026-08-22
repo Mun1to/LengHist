@@ -1,7 +1,8 @@
 import { Shuffle, Plus, ArrowUpRight } from 'lucide-react'
 import EmptyState from './EmptyState'
 import FavButton from './FavButton'
-import { CONSEJO_GRUPOS, tamanoDe, trozosDe } from '../data/consejos'
+import { CONSEJO_GRUPOS, tamanoDe } from '../data/consejos'
+import { trozosDe } from '../lib/marcado'
 import './consejos.css'
 
 // Muro de consejos: mensajes cortos mezclados, no ordenados por bloques. El
