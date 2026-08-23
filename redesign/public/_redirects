@@ -32,3 +32,15 @@
 
 # La ficha de skills que también cambió de dirección al mudarse el inglés.
 /en/skills/webindex  /en/skills/siteindex  301
+
+# El español no lleva prefijo: vive en la raíz, y el que cuelga de `/en` es el
+# inglés. Se hizo así para no mover 137 direcciones que ya estaban indexadas y
+# que la gente tiene guardadas, o sea que `/es` no ha existido nunca.
+#
+# Pero quien ve `/en` en la barra da por hecho que `/es` es la otra mitad y lo
+# escribe a mano, y hasta hoy se comía un 404. Estas dos líneas lo llevan a su
+# página de verdad. Van con 301 y no con 200 a propósito: con 200 habría dos
+# direcciones sirviendo lo mismo, que es contenido duplicado; con 301 se dice
+# «esto vive en la raíz» y no queda ninguna versión doble.
+/es  /  301
+/es/*  /:splat  301
