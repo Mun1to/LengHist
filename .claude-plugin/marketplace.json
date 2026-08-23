@@ -11,7 +11,7 @@
         "source": "url",
         "url": "https://github.com/Mun1to/Finito.git"
       },
-      "description": "Closes a working session with a summary you can read and a handoff block the next session resumes from.",
+      "description": "Closes a working session with a summary you can read, a handoff block for compacting now and a resume block for coming back another day.",
       "license": "MIT",
       "author": {
         "name": "Mun1to"

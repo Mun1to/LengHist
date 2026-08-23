@@ -1053,10 +1053,10 @@ always passes is testing nothing.`,
     files: ['SKILL.md'],
     es: {
       label: 'Finito',
-      what: 'Cierra la sesión con un resumen que se entiende y un bloque de traspaso con el que la siguiente sigue sin releer nada.',
+      what: 'Cierra la sesión con un resumen que se entiende y dos bloques de traspaso: uno para compactar ahora y otro para volver otro día.',
       when: 'Al terminar de trabajar, antes de cerrar la conversación o antes de compactarla.',
       description:
-        'Cierra una sesión de trabajo con un resumen entendible, los próximos pasos, el estado real del repositorio y un bloque de traspaso listo para pegar en la sesión siguiente o después de compactar. Úsalo al terminar de trabajar, cuando el usuario diga que lo deja por hoy, que va a compactar, o que le resumas lo que habéis hecho.',
+        'Cierra una sesión de trabajo con un resumen entendible, los próximos pasos, el estado real del repositorio incluido lo que falta por subir, y dos bloques de traspaso: uno para pegar justo después de compactar y otro para abrir una sesión nueva otro día. Úsalo al terminar de trabajar, cuando el usuario diga que lo deja por hoy, que va a compactar, o que le resumas lo que habéis hecho.',
       body: `# Finito
 
 Una sesión termina dos veces. Primero para la persona, que cierra el portátil y
@@ -1095,19 +1095,27 @@ que guardar, se dice y ya.
    en el móvil.
 3. **Próximos pasos**, máximo cinco, el más importante primero.
 4. **Qué se dejó apuntado**, en una línea.
-5. **El bloque de traspaso.**
+5. **El bloque de traspaso** y **el de retomar**.
 
-## El bloque de traspaso
+## Los dos bloques
 
-Va dentro de un bloque de código, para copiarlo de un clic y pegarlo al compactar
-o al abrir la sesión siguiente. Lleva cinco partes: el contexto del proyecto y sus
-normas no negociables; lo hecho en orden, con las rutas exactas y el porqué de
-cada decisión; el estado real, con la rama, lo que quedó sin commitear y lo que
-siga corriendo; lo que queda abierto, cada cosa con el dato para retomarla sin
-releer nada; y las trampas del día.
+Van dentro de un bloque de código cada uno, para copiarlos de un clic, y hacen
+trabajos distintos. Por eso son dos y no uno.
 
-La prueba es simple: ¿podría el siguiente agente continuar solo con este bloque?
-Si un detalle hace falta para seguir, entra.
+El **traspaso** se pega justo después de compactar, con la conversación todavía
+viva. Lleva cinco partes: el contexto del proyecto y sus normas no negociables; lo
+hecho en orden, con las rutas exactas y el porqué de cada decisión; el estado real,
+con la rama, lo que quedó sin commitear y lo que siga corriendo; lo que queda
+abierto, cada cosa con el dato para retomarla sin releer nada; y las trampas del
+día. La prueba es simple: ¿podría el siguiente agente continuar solo con este
+bloque? Si un detalle hace falta para seguir, entra.
+
+El de **retomar** se pega en frío, otro día, en una ventana nueva o en otra
+herramienta, donde no queda nada de hoy. Por eso empieza por dónde está el
+proyecto y no por lo que se hizo: la carpeta, el estado real con lo que falta por
+subir, la primera acción concreta y la trampa del día. Va escrito en primera
+persona para pegarlo tal cual, y es corto: si ocupa más que el traspaso, sobra la
+mitad.
 
 Las trampas son la parte que todo el mundo se salta y la única que se paga sola.
 Un fallo ya resuelto, resuelto otra vez desde cero, es lo más caro que tiene un
@@ -1117,15 +1125,16 @@ proyecto largo.
 
 - Proporción: una sesión de veinte minutos tiene un cierre de veinte minutos.
 - No des por hecho lo que no se hizo ni por verificado lo que no se ejecutó.
+- El estado del repositorio se dice siempre, aunque no quede nada pendiente.
 - Nunca hagas commit ni push por tu cuenta al cerrar. Recuérdalo y pregunta.
 - Los números, las versiones y las rutas van completos en las dos mitades.`,
     },
     en: {
       label: 'Finito',
-      what: 'Closes the session with a summary you can read and a handoff block the next session resumes from without re-reading anything.',
+      what: 'Closes the session with a summary you can read and two handover blocks: one for compacting now, one for coming back another day.',
       when: 'When you stop working, before closing the conversation or before compacting it.',
       description:
-        'Closes a working session with a readable summary, the next steps, the real state of the repository and a handoff block ready to paste into the next session or after compacting. Use it when you stop working, when the user says they are done for today, that they are about to compact, or asks for a summary of what you did.',
+        'Closes a working session with a readable summary, the next steps, the real state of the repository including what is left to push, and two blocks to carry on from: one to paste right after compacting and one to open a fresh session another day. Use it when you stop working, when the user says they are done for today, that they are about to compact, or asks for a summary of what you did.',
       body: `# Finito
 
 A session ends twice. First for the person, who closes the laptop and needs to know
@@ -1165,19 +1174,28 @@ new worth saving, say so and move on.
    gets read on a phone.
 3. **Next steps**, five maximum, most important first.
 4. **What got written down**, in one line.
-5. **The handoff block.**
+5. **The handoff block** and **the resume block**.
 
-## The handoff block
+## The two blocks
 
-It goes inside a code block, so it can be copied in one click and pasted when
-compacting or when opening the next session. It carries five parts: the project
-context and its non-negotiable conventions; what was done, in order, with exact
-paths and the reason behind each decision; the real state, with the branch, what is
-uncommitted and whatever is still running; what is left open, each item with the
-detail needed to resume without re-reading anything; and the day's gotchas.
+Each one goes inside a code block, so they can be copied in one click, and they do
+different jobs. That is why there are two and not one.
 
-The test is simple: could the next agent carry on with this block alone? If a
-detail is needed to continue, it goes in.
+The **handoff** is pasted right after compacting, while the conversation is still
+alive. It carries five parts: the project context and its non-negotiable
+conventions; what was done, in order, with exact paths and the reason behind each
+decision; the real state, with the branch, what is uncommitted and whatever is
+still running; what is left open, each item with the detail needed to resume
+without re-reading anything; and the day's gotchas. The test is simple: could the
+next agent carry on with this block alone? If a detail is needed to continue, it
+goes in.
+
+The **resume** block is pasted cold, days later, in a new window or in a different
+tool, where nothing of today survives. So it starts from where the project is, not
+from what was done: the folder, the real state including anything unpushed, the
+first concrete action and the trap from today. It is written in the first person,
+to be pasted as it is, and it is short: if it is longer than the handoff, half of
+it is filler.
 
 The gotchas are the part everybody skips and the only one that pays for itself. A
 bug already solved, solved again from scratch, is the most expensive thing in a
@@ -1187,6 +1205,7 @@ long project.
 
 - Proportion: a twenty minute session gets a twenty minute closing.
 - Do not assume work that was not done or call verified what was never run.
+- The state of the repository is always reported, even when nothing is pending.
 - Never commit or push on your own when closing. Mention it and ask.
 - Numbers, versions and paths go in full in both halves of the closing.`,
     },
