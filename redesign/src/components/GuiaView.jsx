@@ -81,15 +81,12 @@ export default function GuiaView({ t, lang }) {
       </div>
 
       <ol className="mt-10 flex flex-col gap-px">
-        {PASOS.map((paso, i) => {
+        {PASOS.map((paso) => {
           const d = paso[lang] ?? paso.es
           const tuyo = paso.para.includes(nivel)
           return (
             <li key={paso.key} className="relative border-t border-linea pt-7 pb-9">
               <div className="flex items-baseline gap-4 mb-3">
-                <span className="font-mono text-xs text-tinta-suave shrink-0 pt-1">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
                 <h2 className="text-xl font-bold tracking-tight">{d.titulo}</h2>
                 {/* Lo que no es de tu nivel no se esconde, se marca. Esconderlo
                     castiga a quien elige mal el nivel: se pierde cosas y ni
