@@ -295,13 +295,19 @@ export default function TopBar({
             <Enlaces t={t} lang={lang} claves={DERECHA} activeNav={activeNav} onAsomar={asomar} onCerrar={cerrarYa} />
             <div className="flex items-center gap-2 shrink-0 ml-auto">
               <BotonGitHub t={t} />
-              {/* El test entra a 1620px y no en `2xl` (1536), que es donde estaba:
-                  justo en ese ancho el botón dejaba 6px hasta el borde en vez de
-                  los 24 del relleno de la barra, o sea que aparecía pisando el
-                  margen. Medido. */}
+              {/* Entra en `xl` (1280) desde el 2026-08-23. Estuvo en 1620 por una
+                  razón que dejó de ser cierta: entonces el buscador medía 34rem y
+                  el botón, a 1536, dejaba 6px hasta el borde en vez de los 24 del
+                  relleno. El buscador bajó después a 30rem y nadie volvió a mirar
+                  este número, así que el botón se quedó pidiendo un monitor que
+                  casi nadie tiene: un portátil de 1920 con el escalado al 150% de
+                  Windows son 1280 CSS, y ahí no salía. Deja de dar igual desde que
+                  este botón dejó de abrir un test y pasó a ser la puerta de la
+                  guía. Medido a 1280: el borde derecho cae a 24px del de la barra,
+                  que es exactamente el relleno. */}
               <button
                 onClick={onQuizClick}
-                className={`pulsable hidden min-[1620px]:inline-flex items-center ${ALTO} px-4 bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-semibold whitespace-nowrap cursor-pointer`}
+                className={`pulsable hidden xl:inline-flex items-center ${ALTO} px-4 bg-blue-600 hover:bg-blue-500 text-white text-[13px] font-semibold whitespace-nowrap cursor-pointer`}
               >
                 {t.ctaQuiz}
               </button>
