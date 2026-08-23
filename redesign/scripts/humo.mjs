@@ -143,7 +143,7 @@ comprobar('buscador: encuentra «rust» tras cargar su índice', resultados > 0,
 // 7. La guía: sus bloques, el nivel que viaja en la dirección, y el test dentro
 await ir('/start')
 const bloques = await ev(`document.querySelectorAll('main ol > li').length`)
-comprobar('guía: pinta sus bloques', bloques === 9, `${bloques} bloques`)
+comprobar('guía: pinta sus bloques', bloques === 10, `${bloques} bloques`)
 comprobar('guía: cada bloque manda a alguna parte', await ev(`document.querySelectorAll('main ol a').length >= 10`),
   `${await ev(`document.querySelectorAll('main ol a').length`)} enlaces`)
 comprobar('guía: el nivel por defecto es el de en medio',
@@ -156,7 +156,17 @@ comprobar('guía: el nivel se lee de la dirección',
   await ev(`document.querySelector('[aria-pressed="true"]')?.textContent.trim()`))
 comprobar('guía: marca lo que te puedes saltar en vez de esconderlo',
   await ev(`document.body.innerText.includes('te lo puedes saltar')`))
-comprobar('guía: el glosario solo sale en el nivel cero', await ev(`!!document.querySelector('main dl')`))
+// Dos glosarios: el de palabras basicas es solo del nivel cero, el de vocabulario
+// de agentes sale en los tres, porque ese no lo sabe nadie por haber programado.
+const glosariosCero = await ev(`document.querySelectorAll('main dl').length`)
+comprobar('guía: el nivel cero ve los dos glosarios', glosariosCero === 2, `${glosariosCero} glosarios`)
+
+await ir('/start?nivel=pro')
+// Los dos siguen en la pagina: el diseno MARCA lo que no es tuyo, no lo esconde,
+// que es ademas lo que deja que el HTML cocinado diga lo mismo que la pantalla.
+const basicasSaltables = await ev(`(() => { const li = [...document.querySelectorAll('main ol > li')].find(l => l.querySelector('dl')); return li ? li.textContent.includes('te lo puedes saltar') : false })()`)
+comprobar('guía: al que ya programa, las palabras básicas le salen marcadas', basicasSaltables === true)
+await ir('/start?nivel=cero')
 
 // El test vive dentro de la guía desde que dejó de colgar de la barra.
 await ev(`[...document.querySelectorAll('main ol button')].find(b => /test/i.test(b.textContent))?.click()`)

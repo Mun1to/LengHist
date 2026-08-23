@@ -183,12 +183,13 @@ const guia = (t, lang) => `
     const glosario = d.glosario
       ? ul(d.glosario.map((g) => `<b>${esc(g.palabra)}</b>${nota(g.def)}`))
       : ''
+    const lista = d.lista ? ul(d.lista.map((x) => marcadoHtml(x))) : ''
     const enlaces = d.enlaces?.length
       ? ul(d.enlaces.map((e) => a(rutaDe(e.seccion, null, lang) + (e.cat ? `?cat=${e.cat}` : ''), e.texto)))
       : ''
     return `<h2>${esc(d.titulo)}</h2><p>${marcadoHtml(d.texto)}</p>` +
       (d.texto2 ? `<p>${marcadoHtml(d.texto2)}</p>` : '') +
-      glosario + (d.aviso ? p(d.aviso) : '') + enlaces
+      glosario + lista + (d.aviso ? p(d.aviso) : '') + enlaces
   }).join('')}
   ${p(t.guiaFinal)}`
 

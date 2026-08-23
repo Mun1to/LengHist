@@ -123,6 +123,16 @@ export default function GuiaView({ t, lang }) {
                   </dl>
                 )}
 
+                {d.lista && (
+                  <ul className="mb-4 max-w-[68ch] flex flex-col">
+                    {d.lista.map((x, j) => (
+                      <li key={j} className="text-sm text-tinta-suave border-t border-linea py-2.5 leading-relaxed">
+                        <Texto texto={x} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
                 {d.aviso && (
                   <p className="relative text-sm text-tinta-suave max-w-[68ch] border-l-2 border-linea-viva pl-4 py-1 mb-4">
                     {d.aviso}
