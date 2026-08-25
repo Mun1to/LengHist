@@ -1714,18 +1714,39 @@ something stored, it must ignore the browser language.`,
     nameEn: 'siteindex',
     repo: 'https://github.com/Mun1to/SiteIndex',
     plugin: 'siteindex@vibeset',
-    extra: [['allowed-tools', 'Read Edit Write Grep Glob WebFetch']],
-    files: ['SKILL.md', 'plantillas/robots.txt', 'plantillas/head-meta.html', 'plantillas/multiidioma.html', 'plantillas/jsonld.html', 'plantillas/sitemap.xml'],
+    extra: [['allowed-tools', 'Read Edit Write Grep Glob WebFetch Bash']],
+    files: ['SKILL.md', 'plantillas/inventario.sh', 'plantillas/SEO-ESTADO.md', 'plantillas/robots.txt', 'plantillas/head-meta.html', 'plantillas/multiidioma.html', 'plantillas/jsonld.html', 'plantillas/sitemap.xml', 'referencias/contenido.md', 'referencias/rendimiento.md', 'referencias/ia.md', 'referencias/local.md', 'referencias/recursos.md'],
     es: {
       label: 'SiteIndex',
-      what: 'Deja la web lista para que la encuentren los buscadores y los asistentes de IA, y acaba midiendo en vez de opinando.',
-      when: 'Al publicar una web nueva, al preparar un lanzamiento, o cuando llevas semanas y no sales en Google.',
+      what: 'Mira primero lo que ya tienes hecho, pregunta solo lo que no puede ver, y de ahí saca el plan para posicionar y que te encuentren.',
+      when: 'Al publicar una web nueva, al preparar un lanzamiento, cuando llevas semanas y no sales en Google, o cuando quieres posicionar y no sabes por dónde empezar.',
       description:
-        'Deja una web lista para que la encuentren los buscadores y los asistentes de IA: robots.txt que no bloquea lo que importa, sitemap real, canonical, metadatos Open Graph, JSON-LD, el multiidioma con hreflang y la decisión de qué bots de IA entran. Úsalo al publicar una web nueva, al auditar el SEO técnico de un sitio ya vivo, y cuando el usuario diga que no sale en Google, que no le indexa o que quiere que ChatGPT o Perplexity le citen.',
+        'Posiciona una web y la deja lista para que la encuentren los buscadores y los asistentes de IA. Empieza siempre barriendo el dominio para ver qué está ya hecho, incluida el alta en Search Console y Bing, y solo pregunta lo que no puede comprobar. Cubre robots.txt, sitemap, canonical, Open Graph, JSON-LD, la decisión de qué bots de IA entran, el multiidioma con hreflang, la intención de búsqueda y el contenido, los enlaces internos, la velocidad, el negocio local y la medición final.',
       body: `# SiteIndex
 
-Que la web sea descubrible: que los rastreadores puedan entrar, entiendan qué es
-cada página, y que además te puedan citar los asistentes de IA.
+Que la web sea descubrible (que los rastreadores entren y entiendan qué es cada
+página), merecedora (que haya un motivo para enseñarla por encima de otra) y
+medible (que al final se compruebe con datos).
+
+## Lo primero es mirar, no recomendar
+
+La fase 0 lanza un barrido contra el dominio de verdad y lee lo que sirve el
+servidor, que muchas veces no es lo que hay en el código: si www y http acaban
+todas en la misma dirección, qué bloquea el robots.txt y qué bots de IA nombra,
+cuántas URLs tiene el sitemap y si llevan fecha, la cabecera entera, los tipos de
+JSON-LD que ya están, qué analítica hay instalada, cuántas palabras trae el HTML
+sin ejecutar JavaScript, y los registros del DNS que delatan si la web ya está
+dada de alta en Search Console y en Bing.
+
+Solo después pregunta, de una vez y como mucho ocho cosas, lo que el barrido no
+puede ver: si alguien entra en Search Console y qué dice, quién es el cliente y
+qué escribiría para encontrarte, qué páginas dan dinero, contra quién compites,
+si hay ritmo de publicación y qué se intentó antes sin éxito.
+
+Todo lo que salga del barrido se escribe en una hoja de estado con tres columnas
+(ya está, falta, no aplica) y con quién puede arreglar cada cosa: el agente en el
+código, o tú en un panel donde el agente no entra. Cada línea del informe empieza
+por su estado real, así que nadie te vuelve a proponer lo que hiciste hace un año.
 
 ## Regla 0: los números se verifican, nunca se recitan
 
@@ -1734,36 +1755,39 @@ de Core Web Vitals, campos obligatorios de los datos estructurados y, sobre todo
 los nombres de los bots. Se comprueban en la fuente oficial en el momento. Si no
 se puede verificar, se dice que no está verificado. No se inventa.
 
-## El orden, que importa
+## Que puedan entrar
 
-**1. Los porteros.** Lee el robots.txt que ya hay antes de escribir nada. Bloquea
-solo lo inútil o duplicado y enlaza el sitemap. Recuerda que es un cartel, no un
-candado, y que bloquear ahí más poner noindex se anula solo: el bot nunca llega a
-leer la etiqueta.
+**Los porteros.** Lee el robots.txt que ya hay antes de escribir nada. Bloquea
+solo lo inútil o duplicado, y sobre todo los filtros de catálogo, que generan una
+URL por cada combinación. Es un cartel, no un candado, y bloquear ahí más poner
+noindex se anula solo: el bot nunca llega a leer la etiqueta. Nunca se bloquea el
+CSS ni el JavaScript que la página necesita para pintarse.
 
-**2. La decisión de IA, que es del cliente y no tuya.** Hay dos grupos y las
+**La decisión de IA, que es del cliente y no tuya.** Hay dos grupos y las
 consecuencias son distintas. Los de entrenamiento (GPTBot, ClaudeBot, CCBot,
-Google-Extended, Bytespider) se pueden bloquear sin perder visibilidad. Los de
-búsqueda y respuesta (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User,
-PerplexityBot, Perplexity-User) te borran de las respuestas de IA si los
-bloqueas. La trampa clásica: Google-Extended NO afecta a tu posición ni a tu
-indexación en Google, solo al entrenamiento de Gemini.
+Google-Extended, Bytespider, Applebot-Extended, meta-externalagent, Amazonbot) se
+pueden bloquear sin perder visibilidad. Los de búsqueda y respuesta
+(OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot,
+Perplexity-User) te borran de las respuestas de IA si los bloqueas. La trampa
+clásica: Google-Extended NO afecta a tu posición en Google, solo al entrenamiento
+de Gemini. Y la contraria, que casi nadie sabe: bloquearlo tampoco te saca de las
+AI Overviews, porque esas beben del índice normal de la Búsqueda.
 
-**3. Cimientos que no se negocian.** HTTPS, una sola versión canónica del dominio
+**Cimientos que no se negocian.** HTTPS, una sola versión canónica del dominio
 con 301 desde la otra, contenido presente en la versión móvil, 404 de verdad, y
 contenido visible en el HTML servido y no solo tras ejecutar JavaScript. Si la
 web lleva movimiento, cruza aquí con FrontLaxWeb: el storytelling al scroll es
 donde ese fallo nace, porque el texto acaba dentro de algo que solo existe cuando
 monta el JavaScript.
 
-**4. Sitemap y alta.** Solo URLs indexables y finales, nada con noindex ni
-redirigido. Se sube a Search Console y a Bing Webmaster Tools.
+## Que entiendan qué es cada página
 
-**5. La cabecera, página a página.** Título y descripción propios, un solo h1,
-canonical cuando el mismo contenido es alcanzable por varias URLs, y Open Graph
-con imagen, que es lo que se ve al pegar el enlace en un chat.
+**La cabecera, página a página.** Título y descripción propios, un solo h1,
+canonical cuando el mismo contenido es alcanzable por varias URLs, texto
+alternativo en las imágenes, y Open Graph con imagen, que es lo que se ve al
+pegar el enlace en un chat.
 
-**6. Varios idiomas.** Cada idioma con su propia URL (/es/, /en/), que es lo que
+**Varios idiomas.** Cada idioma con su propia URL (/es/, /en/), que es lo que
 significa esa barra que ves en tantas direcciones: no es detección, es que son
 páginas distintas. Se anotan con hreflang, y las tres reglas que más se rompen
 son que cada versión se liste a sí misma, que los enlaces sean de ida y vuelta, y
@@ -1771,19 +1795,56 @@ que haya un x-default. El canonical de cada idioma apunta a SÍ MISMO: si el de
 /es/ apunta a /en/, acabas de sacar la versión española del índice. Y nada de
 redirigir automáticamente por idioma o por país, que es el error gordo: Googlebot
 rastrea sin cabecera Accept-Language y sobre todo desde IPs de Estados Unidos,
-así que cae siempre en la misma versión y las demás no se indexan nunca. Se
-detecta, se sugiere con un aviso, y decide la persona.
+así que cae siempre en la misma versión y las demás no se indexan nunca.
 
-**7. JSON-LD.** Que describa lo que se VE en la página, y validado antes de darlo
-por bueno.
+**JSON-LD.** Que describa lo que se VE en la página, y validado antes de darlo
+por bueno. Eso sí: Google dice por escrito que los datos estructurados no hacen
+falta para salir en sus funciones de IA, así que no se venden como truco.
 
-**8. Que te citen las IA.** Responde en las dos o tres primeras frases debajo de
-cada encabezado y desarrolla después. Tablas para comparar, listas para procesos,
-preguntas frecuentes reales. Y revisa el robots.txt antes de culpar al contenido.
+**Arquitectura y enlaces internos.** Lo que da dinero, a pocos clics de la
+portada. Cero páginas huérfanas, porque el sitemap no sustituye a un enlace.
+Texto de enlace descriptivo, enlaces de verdad y no botones de JavaScript, y
+grupos por tema con la página principal y las específicas enlazadas en las dos
+direcciones.
 
-**9. Medir, que es donde acaba el trabajo.** Search Console, PageSpeed, los logs
-del servidor para ver qué bots entran de verdad, y preguntar tú mismo a los
-asistentes una vez al mes para ver si te citan.
+## Que merezca la pena enseñarla
+
+**El contenido, que es lo que de verdad posiciona.** Se sacan las preguntas
+reales (las de los clientes, las del buscador interno, las de Search Console), se
+clasifican por intención (saber, comparar, ir, comprar), y cada intención tiene
+UNA página. Se responde arriba, en las dos o tres primeras frases. Se firma y se
+fecha de verdad. Y se revisa lo viejo antes de escribir lo nuevo, que suele rendir
+más. Con las preguntas de autoevaluación que publica Google delante, y sabiendo
+que E-E-A-T no es una etiqueta que se activa.
+
+**Velocidad.** LCP, INP y CLS, medidos con visitantes reales y no con una
+simulación. Imágenes, tipografías, JavaScript y servidor, por ese orden. La
+velocidad no te saca del pozo si el contenido no responde, pero decide entre dos
+páginas parecidas.
+
+**Negocio local, si atiendes en una zona.** Google dice que el resultado local se
+decide por relevancia, distancia y popularidad. La distancia no se toca; el perfil
+de empresa completo, los datos coherentes en toda la web y las reseñas atendidas,
+sí. Y no se puede pagar por salir mejor: lo dice Google con esas palabras.
+
+## Que se sepa y se compruebe
+
+**Alta y avisos.** Search Console con propiedad de dominio, Bing Webmaster Tools
+como segunda opinión, e IndexNow para avisar en cuanto publicas. Google no
+participa en IndexNow, así que complementa, no sustituye.
+
+**Que te citen las IA.** Google publicó su guía oficial en mayo de 2026 y es
+tajante: no hay algoritmo aparte, sus funciones de IA se apoyan en los mismos
+sistemas de la Búsqueda, y no hacen falta archivos especiales ni marcado ni
+Markdown para aparecer. Lo que sí controla lo que pueden usar de tu página son las
+etiquetas de fragmento, y cortarlas es cortar tu propia presencia. AEO y GEO,
+hechos bien, son SEO.
+
+**Medir, que es donde acaba el trabajo.** Search Console comparando dos periodos,
+las consultas donde ya sales en posición baja (la lista de trabajo más rentable
+que existe), PageSpeed, los logs del servidor, y preguntar tú mismo a los
+asistentes una vez al mes para ver si te citan y junto a quién. Con la fecha
+anotada, que si no, no se puede comparar.
 
 ## Los fallos que más veces rompen una indexación
 
@@ -1791,25 +1852,48 @@ Antes de tocar nada en una web que no sale, descarta por orden: un noindex
 olvidado de la fase de desarrollo, un Disallow de todo el sitio heredado del
 entorno de pruebas, un sitio nuevo sin dar de alta y sin un solo enlace entrante,
 las dos versiones del dominio vivas a la vez, un canonical que apunta a otra
-página, contenido que solo existe tras ejecutar JavaScript, y una redirección
-automática por idioma en un sitio multiidioma.
+página, contenido que solo existe tras ejecutar JavaScript, una redirección
+automática por idioma, páginas huérfanas, y el caso más común en webs correctas:
+indexada, pero sin ningún motivo para salir.
 
 ## Lo que queda fuera
 
-Entregabilidad de correo, geo SEO local y enlaces entrantes. Se dice de frente en
-vez de improvisar, y para el correo se dan las herramientas: Spamhaus y MXToolbox
-Email Health, las dos en la sección de recursos de este sitio.`,
+Escribir el contenido, la publicidad de pago, la entregabilidad del correo y las
+auditorías de sitios enormes que necesitan rastreador de pago. Se dice de frente
+en vez de improvisar, y para el correo se dan las herramientas: Spamhaus y
+MXToolbox Email Health, las dos en la sección de recursos de este sitio.`,
     },
     en: {
       label: 'SiteIndex',
-      what: 'Leaves a site ready to be found by search engines and AI assistants, and ends in a measurement instead of an opinion.',
-      when: 'When shipping a new site, preparing a launch, or when weeks have passed and it still does not show up.',
+      what: 'Looks at what you already have first, asks only what it cannot see, and turns that into the plan to rank and get found.',
+      when: 'When shipping a new site, preparing a launch, when weeks have passed and it still does not show up, or when you want to rank and do not know where to start.',
       description:
-        'Leaves a website ready to be found by search engines and AI assistants: a robots.txt that does not block what matters, a real sitemap, canonical tags, Open Graph metadata, JSON-LD, multilingual URLs with hreflang and the decision on which AI crawlers get in. Use it when shipping a new site, when auditing the technical SEO of a live one, and when the user says they do not show up on Google, that it is not indexed, or that they want ChatGPT or Perplexity to cite them.',
+        'Gets a website found and ranked by search engines and AI assistants. It always starts by sweeping the live domain to see what is already done, including whether the site is verified in Search Console and Bing, and only asks about what it cannot check. Covers robots.txt, sitemap, canonical, Open Graph, JSON-LD, the AI crawler decision, multilingual URLs with hreflang, search intent and content, internal links, speed, local business and the final measurement.',
       body: `# SiteIndex
 
-Make the site discoverable: crawlers can get in, they understand what each page
-is, and AI assistants can cite you.
+Make the site discoverable (crawlers get in and understand what each page is),
+worth showing (there is a reason to rank it above someone else) and measurable
+(it ends in data, not in an opinion).
+
+## Look first, recommend later
+
+Phase 0 runs a sweep against the live domain and reads what the server actually
+serves, which is often not what the repository says: whether www and http all end
+up at the same address, what robots.txt blocks and which AI bots it names, how
+many URLs the sitemap carries and whether they are dated, the whole head, the
+JSON-LD types already there, which analytics is installed, how many words the
+HTML has before JavaScript runs, and the DNS records that reveal whether the site
+is **already verified in Search Console and Bing**.
+
+Only then does it ask, in one go and at most eight things, what the sweep cannot
+see: whether anyone opens Search Console and what it says, who the customer is
+and what they would type to find you, which pages bring money, who you compete
+with, whether anything gets published and what was tried before without success.
+
+Everything goes into a status sheet with three columns (done, missing, not
+applicable) and who can fix each item: the agent in the code, or you in a panel
+the agent cannot reach. Every line of the report starts with its real status, so
+nobody hands you back the work you did a year ago.
 
 ## Rule 0: numbers get verified, never recited
 
@@ -1818,71 +1902,109 @@ thresholds, required fields for structured data and, above all, bot names. Check
 them against the official source at the moment of use. If it cannot be verified,
 say it is not verified. Do not invent it.
 
-## The order, which matters
+## So they can get in
 
-**1. The gatekeepers.** Read the robots.txt that already exists before writing
-anything. Block only what is useless or duplicated, and link the sitemap.
-Remember it is a sign, not a lock, and that blocking there plus a noindex tag
-cancels itself out: the bot never gets to read the tag.
+**The gatekeepers.** Read the robots.txt that already exists before writing
+anything. Block only what is useless or duplicated, especially catalogue filters,
+which spawn a URL per combination. It is a sign, not a lock, and blocking there
+plus a noindex tag cancels itself out: the bot never gets to read the tag. Never
+block the CSS or JavaScript the page needs to render.
 
-**2. The AI decision, which belongs to the client and not to you.** Two groups,
-two different consequences. Training crawlers (GPTBot, ClaudeBot, CCBot,
-Google-Extended, Bytespider) can be blocked without losing visibility. Search and
-answer crawlers (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User,
-PerplexityBot, Perplexity-User) remove you from AI answers if you block them. The
-classic trap: Google-Extended does NOT affect your Google Search ranking or
-indexing, only Gemini training.
+**The AI decision, which belongs to the client and not to you.** Two groups, two
+different consequences. Training crawlers (GPTBot, ClaudeBot, CCBot,
+Google-Extended, Bytespider, Applebot-Extended, meta-externalagent, Amazonbot)
+can be blocked without losing visibility. Search and answer crawlers
+(OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot,
+Perplexity-User) remove you from AI answers if you block them. The classic trap:
+Google-Extended does NOT affect your Google ranking, only Gemini training. And the
+reverse, which almost nobody knows: blocking it does not keep you out of AI
+Overviews either, because those draw from the regular Search index.
 
-**3. Foundations that are not negotiable.** HTTPS, a single canonical version of
-the domain with a 301 from the other, content present in the mobile version, real
+**Foundations that are not negotiable.** HTTPS, a single canonical version of the
+domain with a 301 from the other, content present in the mobile version, real
 404s, and content visible in the served HTML rather than only after JavaScript
 runs. If the site has motion, cross over to FrontLaxWeb here: scroll storytelling
 is where that failure is born, because the copy ends up inside something that only
 exists once JavaScript mounts.
 
-**4. Sitemap and registration.** Only indexable, final URLs, nothing with noindex
-or redirected. Submit it to Search Console and Bing Webmaster Tools.
+## So they understand each page
 
-**5. The head, page by page.** Its own title and description, a single h1, a
-canonical when the same content is reachable through several URLs, and Open Graph
-with an image, which is what shows when the link is pasted in a chat.
+**The head, page by page.** Its own title and description, a single h1, a
+canonical when the same content is reachable through several URLs, alt text on
+images, and Open Graph with an image, which is what shows when the link is pasted
+in a chat.
 
-**6. Several languages.** One URL per language (/es/, /en/): that slash you see
-in so many addresses is not detection, it is that they are separate pages. They
-are annotated with hreflang, and the three rules that break most often are that
-each version must list itself, that the links must go both ways, and that there
-must be an x-default. Each language canonical points at ITSELF: if the one on
-/es/ points to /en/, the Spanish version has just been removed from the index.
-And no automatic redirect by language or country, which is the big one: Googlebot
-crawls without an Accept-Language header and mostly from US addresses, so it
-lands on the same version every time and the rest never get indexed. Detect,
-suggest with a banner, let the person choose.
+**Several languages.** One URL per language (/es/, /en/): that slash you see in so
+many addresses is not detection, it is that they are separate pages. They are
+annotated with hreflang, and the three rules that break most often are that each
+version must list itself, that the links must go both ways, and that there must be
+an x-default. Each language canonical points at ITSELF: if the one on /es/ points
+to /en/, the Spanish version has just been removed from the index. And no
+automatic redirect by language or country, which is the big one: Googlebot crawls
+without an Accept-Language header and mostly from US addresses, so it lands on the
+same version every time and the rest never get indexed.
 
-**7. JSON-LD.** It must describe what is VISIBLE on the page, and be validated
-before it is trusted.
+**JSON-LD.** It must describe what is VISIBLE on the page, and be validated before
+it is trusted. That said, Google states in writing that structured data is not
+required to appear in its AI features, so it is not sold as a trick.
 
-**8. Getting cited by AI.** Answer in the first two or three sentences under each
-heading, then expand. Tables to compare, lists for processes, real FAQs. And
-audit the robots.txt before blaming the content.
+**Architecture and internal links.** What earns money sits a few clicks from the
+homepage. No orphan pages, because a sitemap is not a substitute for a link.
+Descriptive anchor text, real links instead of JavaScript buttons, and topic
+clusters linked both ways.
 
-**9. Measure, which is where the work ends.** Search Console, PageSpeed, server
-logs to see which bots actually come in, and asking the assistants your own key
-questions once a month to see whether they cite you.
+## So it is worth showing
+
+**Content, which is what actually ranks.** Pull the real questions (from
+customers, from the site search, from Search Console), sort them by intent (know,
+compare, go, buy), and give each intent ONE page. Answer at the top, in the first
+two or three sentences. Sign it and date it honestly. And revise the old page
+before writing a new one, which usually pays better. With Google's own
+self-assessment questions in front of you, and knowing E-E-A-T is not a tag you
+switch on.
+
+**Speed.** LCP, INP and CLS, measured with real visitors rather than a simulation.
+Images, fonts, JavaScript and server, in that order. Speed will not save content
+that does not answer the query, but it decides between two similar pages.
+
+**Local business, if you serve an area.** Google says local results come down to
+relevance, distance and prominence. Distance cannot be changed; a complete
+verified profile, consistent details across the site and answered reviews can. And
+you cannot pay for better local ranking: Google says so in those words.
+
+## So people know, and so you can check
+
+**Registration and pings.** Search Console as a domain property, Bing Webmaster
+Tools as the second opinion, and IndexNow to announce the moment you publish.
+Google does not take part in IndexNow, so it complements rather than replaces.
+
+**Getting cited by AI.** Google published its official guidance in May 2026 and it
+is blunt: there is no separate algorithm, its AI features run on the same Search
+systems, and you do not need special files, markup or Markdown to appear. What
+does control what they can use from your page are the snippet directives, and
+cutting those cuts your own presence. AEO and GEO, done properly, are SEO.
+
+**Measure, which is where the work ends.** Search Console comparing two periods,
+the queries where you already rank low (the most profitable to-do list there is),
+PageSpeed, server logs, and asking the assistants your own key questions once a
+month to see whether they cite you and who they cite alongside. With the date
+written down, or there is nothing to compare against later.
 
 ## The failures that break indexing most often
 
-Before touching anything on a site that does not show up, rule these out in
-order: a noindex left over from development, a site-wide Disallow inherited from
-staging, a new site never registered and with no inbound links, both domain
-versions live at once, a canonical pointing at another page, content that only
-exists after JavaScript runs, and an automatic language redirect on a
-multilingual site.
+Before touching anything on a site that does not show up, rule these out in order:
+a noindex left over from development, a site-wide Disallow inherited from staging,
+a new site never registered and with no inbound links, both domain versions live
+at once, a canonical pointing at another page, content that only exists after
+JavaScript runs, an automatic language redirect, orphan pages, and the most common
+case on perfectly built sites: indexed, with no reason to be shown.
 
 ## What is out of scope
 
-Email deliverability, local geo SEO and link building. Say so plainly instead of
-improvising, and for email hand over the tools: Spamhaus and MXToolbox Email
-Health, both in the resources section of this site.`,
+Writing the content, paid advertising, email deliverability, and full audits of
+very large sites that need a paid crawler. Say so plainly instead of improvising,
+and for email hand over the tools: Spamhaus and MXToolbox Email Health, both in
+the resources section of this site.`,
     },
   },
 
