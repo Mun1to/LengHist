@@ -1715,13 +1715,13 @@ something stored, it must ignore the browser language.`,
     repo: 'https://github.com/Mun1to/SiteIndex',
     plugin: 'siteindex@vibeset',
     extra: [['allowed-tools', 'Read Edit Write Grep Glob WebFetch Bash']],
-    files: ['SKILL.md', 'plantillas/inventario.sh', 'plantillas/SEO-ESTADO.md', 'plantillas/robots.txt', 'plantillas/head-meta.html', 'plantillas/multiidioma.html', 'plantillas/jsonld.html', 'plantillas/sitemap.xml', 'referencias/contenido.md', 'referencias/rendimiento.md', 'referencias/ia.md', 'referencias/local.md', 'referencias/recursos.md'],
+    files: ['SKILL.md', 'plantillas/inventario.sh', 'plantillas/SEO-ESTADO.md', 'plantillas/robots.txt', 'plantillas/head-meta.html', 'plantillas/multiidioma.html', 'plantillas/jsonld.html', 'plantillas/pagina-producto.md', 'plantillas/sitemap.xml', 'referencias/contenido.md', 'referencias/producto-digital.md', 'referencias/rendimiento.md', 'referencias/ia.md', 'referencias/local.md', 'referencias/recursos.md'],
     es: {
       label: 'SiteIndex',
-      what: 'Mira primero lo que ya tienes hecho, pregunta solo lo que no puede ver, y de ahí saca el plan para posicionar y que te encuentren.',
+      what: 'Mira primero lo que ya tienes hecho, pregunta solo lo que no puede ver, y de ahí saca el plan para posicionar tu web o tu producto digital.',
       when: 'Al publicar una web nueva, al preparar un lanzamiento, cuando llevas semanas y no sales en Google, o cuando quieres posicionar y no sabes por dónde empezar.',
       description:
-        'Posiciona una web y la deja lista para que la encuentren los buscadores y los asistentes de IA. Empieza siempre barriendo el dominio para ver qué está ya hecho, incluida el alta en Search Console y Bing, y solo pregunta lo que no puede comprobar. Cubre robots.txt, sitemap, canonical, Open Graph, JSON-LD, la decisión de qué bots de IA entran, el multiidioma con hreflang, la intención de búsqueda y el contenido, los enlaces internos, la velocidad, el negocio local y la medición final.',
+        'Posiciona una web y la deja lista para que la encuentren los buscadores y los asistentes de IA. Empieza siempre barriendo el dominio para ver qué está ya hecho, incluida el alta en Search Console y Bing, y solo pregunta lo que no puede comprobar. Cubre robots.txt, sitemap, canonical, Open Graph, JSON-LD, la decisión de qué bots de IA entran, el multiidioma con hreflang, la intención de búsqueda y el contenido, los enlaces internos, la velocidad, el negocio local, la página de un producto digital y la medición final.',
       body: `# SiteIndex
 
 Que la web sea descubrible (que los rastreadores entren y entiendan qué es cada
@@ -1822,6 +1822,16 @@ simulación. Imágenes, tipografías, JavaScript y servidor, por ese orden. La
 velocidad no te saca del pozo si el contenido no responde, pero decide entre dos
 páginas parecidas.
 
+**Producto digital, si lo que vendes o regalas es software.** Nadie busca tu nombre hasta
+que ya te conoce, así que la portada se gana por categoría y problema, no por la marca.
+Las páginas que traen usuarios son los casos de uso, la comparativa, el "alternativa a X",
+los precios, la descarga, la documentación indexable y el changelog con fechas reales. Un
+asistente solo te recomienda si puede leer en la página qué es, en qué sistema funciona,
+cuánto cuesta, con qué licencia, qué datos toca y cómo se instala. Y la mitad del
+descubrimiento pasa fuera de tu web: gestores de paquetes, directorios de alternativas,
+plataformas de lanzamiento y GitHub. Ojo con generar cien páginas "alternativa a" desde
+una plantilla: eso es abuso de contenido a escala y páginas puerta a la vez.
+
 **Negocio local, si atiendes en una zona.** Google dice que el resultado local se
 decide por relevancia, distancia y popularidad. La distancia no se toca; el perfil
 de empresa completo, los datos coherentes en toda la web y las reseñas atendidas,
@@ -1846,6 +1856,17 @@ que existe), PageSpeed, los logs del servidor, y preguntar tú mismo a los
 asistentes una vez al mes para ver si te citan y junto a quién. Con la fecha
 anotada, que si no, no se puede comparar.
 
+## Los consejos que más rinden
+
+Empieza por las consultas que ya están en la página dos de Google, que es donde menos
+trabajo hace falta para ganar visitas. Actualiza antes de publicar. Escribe títulos que
+digan lo que la persona gana, no el nombre interno. Responde en las tres primeras frases.
+Enlaza desde tus páginas fuertes a las que quieres subir. Publica el precio en texto.
+Menos páginas y mejores, porque lo flojo arrastra a lo bueno. Comprueba lo que ve el bot y
+no lo que ves tú. Firma, fecha y cuenta cómo lo hiciste. Convierte en páginas las dudas
+que te llegan por correo. Avisa al publicar, en vez de esperar al rastreo. Si hay vídeo,
+pon la transcripción. Y repite las mismas mediciones cada mes, con la fecha puesta.
+
 ## Los fallos que más veces rompen una indexación
 
 Antes de tocar nada en una web que no sale, descarta por orden: un noindex
@@ -1865,10 +1886,10 @@ MXToolbox Email Health, las dos en la sección de recursos de este sitio.`,
     },
     en: {
       label: 'SiteIndex',
-      what: 'Looks at what you already have first, asks only what it cannot see, and turns that into the plan to rank and get found.',
+      what: 'Looks at what you already have first, asks only what it cannot see, and turns that into the plan to rank your site or your digital product.',
       when: 'When shipping a new site, preparing a launch, when weeks have passed and it still does not show up, or when you want to rank and do not know where to start.',
       description:
-        'Gets a website found and ranked by search engines and AI assistants. It always starts by sweeping the live domain to see what is already done, including whether the site is verified in Search Console and Bing, and only asks about what it cannot check. Covers robots.txt, sitemap, canonical, Open Graph, JSON-LD, the AI crawler decision, multilingual URLs with hreflang, search intent and content, internal links, speed, local business and the final measurement.',
+        'Gets a website found and ranked by search engines and AI assistants. It always starts by sweeping the live domain to see what is already done, including whether the site is verified in Search Console and Bing, and only asks about what it cannot check. Covers robots.txt, sitemap, canonical, Open Graph, JSON-LD, the AI crawler decision, multilingual URLs with hreflang, search intent and content, internal links, speed, local business, the page of a digital product and the final measurement.',
       body: `# SiteIndex
 
 Make the site discoverable (crawlers get in and understand what each page is),
@@ -1967,6 +1988,17 @@ switch on.
 Images, fonts, JavaScript and server, in that order. Speed will not save content
 that does not answer the query, but it decides between two similar pages.
 
+**Digital product, if what you sell or give away is software.** Nobody searches for your
+name until they already know you, so the homepage has to win on category and problem
+rather than on the brand. The pages that bring users are use cases, the comparison, the
+"alternative to X", pricing, download, indexable documentation and a changelog with real
+dates. An assistant only recommends you if it can read on the page what it is, which
+system it runs on, what it costs, under which licence, what data it touches and how to
+install it. And half the discovery happens off your own site: package managers,
+alternative directories, launch platforms and GitHub. Careful with spinning a hundred
+"alternative to" pages off one template: that is scaled content abuse and doorway pages at
+the same time.
+
 **Local business, if you serve an area.** Google says local results come down to
 relevance, distance and prominence. Distance cannot be changed; a complete
 verified profile, consistent details across the site and answered reviews can. And
@@ -1989,6 +2021,17 @@ the queries where you already rank low (the most profitable to-do list there is)
 PageSpeed, server logs, and asking the assistants your own key questions once a
 month to see whether they cite you and who they cite alongside. With the date
 written down, or there is nothing to compare against later.
+
+## The tips that pay off most
+
+Start with the queries already sitting on page two, where the least work turns into the
+most visits. Revise before you publish. Write titles that say what the person gains, not
+your internal product name. Answer in the first three sentences. Link from your strong
+pages to the ones you want to lift. Put the price in text. Fewer and better pages, because
+the weak ones drag the good ones down. Check what the bot sees rather than what you see.
+Sign it, date it and say how you made it. Turn the questions that reach your inbox into
+pages. Announce new content instead of waiting for the crawl. If there is video, publish
+the transcript. And repeat the same measurements every month, with the date written down.
 
 ## The failures that break indexing most often
 
