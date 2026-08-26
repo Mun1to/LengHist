@@ -1212,6 +1212,230 @@ long project.
   },
 
   {
+    key: 'criteria',
+    group: 'flujo',
+    name: 'criteria',
+    nameEn: 'criteria',
+    repo: 'https://github.com/Mun1to/Criteria',
+    plugin: 'criteria@vibeset',
+    extra: [['disable-model-invocation', 'true']],
+    files: ['SKILL.md'],
+    es: {
+      label: 'Criteria',
+      what: 'Convierte varias preguntas sueltas en un formulario HTML de un archivo, con barra de progreso y un botón que copia todas las respuestas de una vez.',
+      when: 'Cuando haya que decidir varias cosas de tipo distinto a la vez y prefieras rellenar un formulario a dictarlas una por una.',
+      description:
+        'Convierte varias preguntas sueltas (nombres, prioridades, alcance, gustos de diseño) en un cuestionario HTML de un solo archivo, con barra de progreso, opción "Otra" siempre disponible y el lenguaje visual del proyecto donde se pide (o uno neutro si no hay otro), con un botón que junta todas las respuestas en un bloque de texto listo para pegar de vuelta en el chat. Úsalo cuando el usuario diga "hazme un cuestionario", "criteria", "pregúntame con un formulario", "que lo rellene y te lo pego", o cuando haya que decidir varias cosas de tipo distinto (texto libre, elegir una opción, elegir varias, puntuar del 0 al 10) y dictarlas una por una sea más lento que rellenar un formulario y copiar.',
+      body: `# Criteria
+
+Para cuando hay que preguntar **varias cosas de tipo distinto** de golpe (no solo "elige la
+2"), y quien contesta prefiere rellenarlas con teclado y ratón y devolver **todo el bloque de
+una vez**, en vez de contestar cada pregunta una por una en el chat.
+
+No sustituye a otras formas de preguntar, las completa:
+
+- Un interrogatorio **en el chat**, pregunta a pregunta, sigue siendo mejor cuando hace falta
+  razonar entre una respuesta y la siguiente antes de poder formular la que viene después.
+- Un cuestionario en **Markdown** sigue siendo mejor para un tercero (un cliente, un
+  colaborador) que no tiene un agente de código instalado y solo puede leer texto plano.
+- **Criteria** es un formulario en el **navegador**, para quien ya tiene un agente de código
+  delante, cuando las preguntas se pueden hacer todas de golpe y lo que sobra es tener que
+  dictarlas o teclearlas una a una.
+
+## Proceso
+
+### 1. Reúne las preguntas
+
+Las que hagan falta para la decisión. Para cada una decide su tipo:
+
+- \`texto\` - una línea corta (un nombre, una cifra).
+- \`parrafo\` - varias líneas (una explicación, un contexto).
+- \`opcion\` - elegir una sola de una lista. La opción "Otra:" con texto libre se añade siempre
+  sola, no hay que pedirla ni marcarla.
+- \`multiple\` - elegir varias de una lista. Misma "Otra:" siempre presente.
+- \`escala\` - puntuar en un rango (0-10, 1-5), con etiquetas en los extremos si ayudan.
+
+Una pregunta por decisión: si una pregunta lleva dos cosas dentro, son dos preguntas.
+
+### 2. Adapta la paleta al proyecto donde estás trabajando
+
+Esto no es opcional: el cuestionario **no lleva siempre el mismo look**, lleva el de la
+conversación en la que se pide. Antes de generar el archivo, mira si el proyecto activo tiene su
+propio sistema de diseño (un \`App.css\`, un \`globals.css\`, tokens de Tailwind, variables de tema
+ya definidas) y localiza sus colores, sus radios y su tipografía. Si lo tiene, sustituye en la
+plantilla los valores del bloque marcado \`PALETA\` (los \`--bg\`, \`--text\`, \`--accent\`, \`--ok\`,
+\`--warn\`, \`--bad\`, \`--radio\`, \`font-family\`...) por los suyos. El bloque \`ESTRUCTURA\` que viene
+debajo no se toca nunca: usa siempre \`var(--algo)\`, así que hereda el cambio de piel solo. Si el
+proyecto no tiene un sistema de diseño propio identificable (una tarea sin web, o un repo sin
+frontend), se deja la paleta neutra de la plantilla, ya verificada por contraste WCAG 2.1.
+
+### 3. Genera el archivo
+
+Copia \`references/plantilla.html\` de esta skill a una carpeta temporal de la sesión (nunca
+dentro del código del proyecto: es un archivo de trabajo, no un artefacto del producto) como
+\`criteria-<tema>.html\`, y sustituye estas tres cosas dentro del \`<script>\` (más la paleta del
+paso 2 si aplica), sin tocar el resto del archivo:
+
+\`\`\`js
+const TITULO = "...";           // qué se está decidiendo, en cuatro palabras
+const SUBTITULO = "...";        // una frase: para qué sirve esto y qué pasa al terminar
+const PREGUNTAS = [ ... ];      // el array de preguntas, con las formas de arriba
+\`\`\`
+
+El resto del archivo (estilos de estructura, render, barra de progreso, copiar) ya funciona: no
+se reescribe nunca a mano, para no reintroducir un fallo ya resuelto.
+
+### 4. Ábrelo tú mismo
+
+Abre el archivo en el navegador por su cuenta (en Windows, \`Start-Process\` sobre la ruta; en
+macOS, \`open\`; en Linux, \`xdg-open\`), sin pedir permiso y sin limitarse a dejar la ruta escrita
+para que otro la abra a mano. En el chat, una sola línea: qué se está preguntando y que se
+pegue el bloque cuando se termine. Nunca la lista de preguntas repetida en la terminal: quien
+tiene que leerla y responderla ya la tiene delante, en el formulario.
+
+### 5. Cuando llegue el bloque pegado
+
+Viene en el formato \`P1. <pregunta>\\n→ <respuesta>\`. Las que digan \`(sin responder)\` son las que
+se dejaron en blanco: no se inventan, se preguntan de nuevo en el chat si hacen falta para
+cerrar la decisión, o se aparcan si no son bloqueantes. Con lo demás, se arma el prompt o se
+toma la decisión que motivó el cuestionario.
+
+## Lo que ya trae la plantilla, y por qué no hay que tocarlo
+
+- **Cero CDN, un solo archivo.** Tiene que verse igual sin internet.
+- **Tema del sistema, sin botón.** \`prefers-color-scheme\` decide claro u oscuro solo: esto no es
+  un catálogo que haya que mirar en los dos temas a la vez, es un formulario de un uso.
+- **La paleta por defecto** (\`--bg\`, \`--panel\`, \`--accent\`...) es la que se usa en el paso 2
+  cuando el proyecto no tiene la suya propia, con el contraste ya medido por WCAG 2.1. Si un hex
+  se toca alguna vez, se vuelve a medir, no se ajusta mirando.
+- **Barra de progreso arriba**, siempre visible mientras se hace scroll (\`position: sticky\`), con
+  el contador de respondidas al lado. No es solo un número perdido al pie de página.
+- **"Otra:" siempre presente** en toda pregunta de opción o múltiple, con su hueco de texto
+  libre. Es obligatorio en la plantilla, no algo que haya que acordarse de pedir.
+- **Nada es obligatorio de responder.** Un formulario donde todo es obligatorio no lo rellena
+  nadie rápido; el botón copia igual con preguntas en blanco, marcadas como tal.
+- **Copiar con red.** Intenta \`navigator.clipboard\`, y si el navegador lo bloquea (pasa a veces
+  en \`file://\`), deja el texto seleccionado en una caja visible para que un Ctrl+C manual
+  funcione igual.
+- **Autoguardado en \`localStorage\`.** Si se cierra la pestaña sin querer a mitad, lo que ya se
+  escribió sigue ahí al reabrir el mismo archivo.
+
+## Cuándo NO usar esto
+
+Si hay una sola cosa que decidir, o si las preguntas dependen unas de otras (la segunda no se
+puede formular hasta saber la respuesta de la primera), esto es un interrogatorio en el chat,
+no Criteria: aquí todas las preguntas se hacen a la vez y de una sola tacada.`,
+    },
+    en: {
+      label: 'Criteria',
+      what: 'Turns several loose questions into a one-file HTML form with a progress bar and a button that copies every answer at once.',
+      when: 'When you need to decide several different things at once and would rather fill in a form than answer them one by one.',
+      description:
+        'Turns several loose questions (names, priorities, scope, design taste) into a one-file HTML questionnaire with a progress bar, an always-available "Other" option and the visual language of the project it is asked in (or a neutral one if there is none), with a button that gathers every answer into one block of text ready to paste back into the chat. Use it when the user says "make me a questionnaire", "criteria", "ask me with a form", "let me fill it in and paste it to you", or when several different kinds of things need deciding (free text, pick one, pick several, rate 0-10) and dictating or typing them one by one is slower than filling in a form and copying.',
+      body: `# Criteria
+
+For when several different kinds of questions need asking at once (not just "pick option 2"),
+and whoever is answering would rather fill them in with a keyboard and mouse and hand back
+**the whole block in one go**, instead of answering each question one at a time in the chat.
+
+It does not replace other ways of asking, it completes them:
+
+- A back-and-forth **in the chat**, question by question, is still better when each answer
+  needs reasoning through before the next question can even be written.
+- A **Markdown** questionnaire is still better for a third party (a client, a collaborator)
+  who has no coding agent installed and can only read plain text.
+- **Criteria** is a form in the **browser**, for whoever already has a coding agent in front
+  of them, when the questions can all be asked at once and dictating or typing them one by one
+  is what is left over.
+
+## Process
+
+### 1. Gather the questions
+
+Whatever the decision needs. For each one, pick its type:
+
+- \`texto\` (text) - a short line (a name, a number).
+- \`parrafo\` (paragraph) - several lines (an explanation, some context).
+- \`opcion\` (single choice) - pick one from a list. The "Other:" free-text option is always
+  added on its own, nothing needs to ask for it.
+- \`multiple\` (multiple choice) - pick several from a list. Same always-on "Other:".
+- \`escala\` (scale) - rate on a range (0-10, 1-5), with labels at the ends if they help.
+
+One question per decision: if a question carries two things inside it, that is two questions.
+
+### 2. Match the palette to the project you are working in
+
+This is not optional: the questionnaire **does not always look the same**, it looks like the
+conversation it was asked in. Before generating the file, check whether the active project has
+its own design system (an \`App.css\`, a \`globals.css\`, Tailwind tokens, theme variables already
+defined) and find its colors, its border radii and its typeface. If it has one, replace the
+values in the block marked \`PALETA\` (the \`--bg\`, \`--text\`, \`--accent\`, \`--ok\`, \`--warn\`,
+\`--bad\`, \`--radio\`, \`font-family\`...) with its own. The \`ESTRUCTURA\` block below is never
+touched: it always uses \`var(--something)\`, so it inherits the skin change on its own. If the
+project has no identifiable design system of its own (a task with no website, or a repo with no
+frontend), the template's neutral default palette is kept, already checked for WCAG 2.1
+contrast.
+
+### 3. Generate the file
+
+Copy this skill's \`references/plantilla.html\` into a temporary session folder (never inside the
+project's own code: it is a working file, not a product artifact) as \`criteria-<topic>.html\`,
+and replace these three things inside the \`<script>\` (plus the palette from step 2, if it
+applies), without touching the rest of the file:
+
+\`\`\`js
+const TITULO = "...";           // what is being decided, in four words
+const SUBTITULO = "...";        // one sentence: what this is for and what happens when it's done
+const PREGUNTAS = [ ... ];      // the questions array, using the shapes above
+\`\`\`
+
+The rest of the file (structural styles, rendering, progress bar, copying) already works: it is
+never rewritten by hand, so as not to reintroduce a bug that was already fixed.
+
+### 4. Open it yourself
+
+Open the file in the browser on your own (on Windows, \`Start-Process\` on the path; on macOS,
+\`open\`; on Linux, \`xdg-open\`), without asking permission and without just leaving the path
+written down for someone else to open by hand. In the chat, one line: what is being asked and
+that the block should be pasted back once it is done. Never repeat the question list in the
+terminal: whoever has to read and answer it already has it in front of them, in the form.
+
+### 5. When the pasted block comes back
+
+It arrives in the shape \`P1. <question>\\n→ <answer>\`. The ones saying \`(no answer)\` are the
+ones left blank: they are not made up, they get asked again in the chat if the decision needs
+them to close, or set aside if they are not blocking. With the rest, build the prompt or make
+the decision the questionnaire was for.
+
+## What the template already has, and why it stays untouched
+
+- **Zero CDN, one file.** It has to look the same with no internet connection.
+- **System theme, no toggle.** \`prefers-color-scheme\` decides light or dark on its own: this is
+  not a catalog that needs checking in both themes at once, it is a single-use form.
+- **The default palette** (\`--bg\`, \`--panel\`, \`--accent\`...) is the one used in step 2 when the
+  project has none of its own, with contrast already measured against WCAG 2.1. If a hex value
+  is ever touched, it gets measured again, never adjusted by eye.
+- **A progress bar up top**, always visible while scrolling (\`position: sticky\`), with the
+  answered count next to it. Not just a number lost at the bottom of the page.
+- **"Other:" always present** on every single- or multiple-choice question, with its free-text
+  slot. It is built into the template, not something to remember to ask for.
+- **Nothing is required.** A form where everything is mandatory does not get filled in quickly
+  by anyone; the button still copies with blank questions, marked as such.
+- **Copying with a safety net.** It tries \`navigator.clipboard\`, and if the browser blocks it
+  (which happens sometimes on a local \`file://\` page), it leaves the text selected in a visible
+  box so a manual Ctrl+C still works.
+- **Autosaved to \`localStorage\`.** If the tab gets closed by accident halfway through, whatever
+  was already typed is still there when the same file is reopened.
+
+## When NOT to use this
+
+If there is only one thing to decide, or if the questions depend on each other (the second one
+cannot be written until the first is answered), that is a back-and-forth in the chat, not
+Criteria: here every question gets asked at once, in a single pass.`,
+    },
+  },
+
+  {
     key: 'plan-antes-de-codigo',
     group: 'flujo',
     name: 'plan-antes-de-codigo',
