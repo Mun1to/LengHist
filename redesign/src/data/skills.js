@@ -1262,6 +1262,12 @@ nota? }\`, donde \`ayuda\` es una frase pequeña debajo (por qué importa esa op
 insignia corta al lado (por ejemplo \`"recomendada"\`). No hay que elegir un formato para toda la
 lista: una pregunta puede mezclar opciones simples con otras que llevan ayuda o nota.
 
+Si el cuestionario es largo y las preguntas caen en grupos claros (como "la escalera de precios",
+"el móvil", "el dinero"), cualquier pregunta admite un \`seccion: "Título del grupo"\` opcional. En
+cuanto cambia de una pregunta a la siguiente, se inserta sola una cabecera con letra automática
+(A, B, C...) antes de esa tarjeta. Es solo agrupación visual: la numeración P1, P2... y el formato
+de respuesta no cambian.
+
 **Cómo distinguir \`opcion\` de \`multiple\`, sin adivinar:** pregúntate si dos de las respuestas
 podrían ser ciertas a la vez. "¿Cuánto cuesta al mes?" es \`opcion\`, porque un precio excluye a los
 demás. "¿Qué justifica pagar esto?" o "¿qué debe hacer la app?" casi siempre son \`multiple\`, porque
@@ -1354,6 +1360,8 @@ toma la decisión que motivó el cuestionario.
 - **Opciones con ayuda e insignia**, cuando la lista sola no basta: cada opción admite una frase
   de explicación debajo y una insignia corta al lado (por ejemplo "recomendada"), sin tener que
   escribir HTML a mano ni salirse de la plantilla.
+- **Secciones con letra automática**, para cuestionarios largos: agrupar preguntas bajo un
+  \`seccion\` no cambia su numeración ni el formato de respuesta, solo añade un separador visual.
 - **Nada es obligatorio de responder.** Un formulario donde todo es obligatorio no lo rellena
   nadie rápido; el botón copia igual con preguntas en blanco, marcadas como tal.
 - **Copiar con red.** Intenta \`navigator.clipboard\`, y si el navegador lo bloquea (pasa a veces
@@ -1409,6 +1417,12 @@ Each option of \`opcion\` or \`multiple\` can be plain text, or carry more: \`{ 
 nota? }\`, where \`ayuda\` is a short line underneath (why that option matters) and \`nota\` is a
 short badge next to it (for example \`"recommended"\`). The whole list does not need one format:
 a question can mix plain options with others that carry help text or a badge.
+
+If the questionnaire is long and its questions fall into clear groups (like "the pricing ladder",
+"mobile", "money"), any question accepts an optional \`seccion: "Group title"\`. As soon as it
+changes from one question to the next, a header with an automatic letter (A, B, C...) is inserted
+on its own before that card. It is purely visual grouping: the P1, P2... numbering and the answer
+format do not change.
 
 **How to tell \`opcion\` from \`multiple\` apart, without guessing:** ask whether two of the
 answers could be true at once. "How much does it cost a month?" is \`opcion\`, because one price
@@ -1504,6 +1518,8 @@ the decision the questionnaire was for.
 - **Options with help text and a badge**, for when the plain list is not enough: any option can
   carry a short explanation underneath and a short badge next to it (like "recommended"), with
   no hand-written HTML and no need to leave the template.
+- **Sections with an automatic letter**, for long questionnaires: grouping questions under a
+  \`seccion\` does not change their numbering or the answer format, it just adds a visual divider.
 - **Nothing is required.** A form where everything is mandatory does not get filled in quickly
   by anyone; the button still copies with blank questions, marked as such.
 - **Copying with a safety net.** It tries \`navigator.clipboard\`, and if the browser blocks it
