@@ -83,7 +83,7 @@
         "source": "url",
         "url": "https://github.com/Mun1to/Criteria.git"
       },
-      "description": "Turns several loose questions into a one-file HTML questionnaire with a progress bar, a mandatory \"Other\" option and a button that copies every answer back as one block of text.",
+      "description": "Turns several loose questions into a one-file HTML questionnaire with a progress bar, real multi-select checkboxes, a mandatory \"Other\" option and a button that copies every answer back as one block of text.",
       "license": "MIT",
       "author": {
         "name": "Mun1to"

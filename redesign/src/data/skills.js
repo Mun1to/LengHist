@@ -1257,6 +1257,27 @@ Las que hagan falta para la decisión. Para cada una decide su tipo:
 
 Una pregunta por decisión: si una pregunta lleva dos cosas dentro, son dos preguntas.
 
+Cada opción de \`opcion\` o \`multiple\` puede ser solo texto, o llevar más: \`{ texto, ayuda?,
+nota? }\`, donde \`ayuda\` es una frase pequeña debajo (por qué importa esa opción) y \`nota\` es una
+insignia corta al lado (por ejemplo \`"recomendada"\`). No hay que elegir un formato para toda la
+lista: una pregunta puede mezclar opciones simples con otras que llevan ayuda o nota.
+
+**Cómo distinguir \`opcion\` de \`multiple\`, sin adivinar:** pregúntate si dos de las respuestas
+podrían ser ciertas a la vez. "¿Cuánto cuesta al mes?" es \`opcion\`, porque un precio excluye a los
+demás. "¿Qué justifica pagar esto?" o "¿qué debe hacer la app?" casi siempre son \`multiple\`, porque
+varias razones o varias funciones pueden ser verdad al mismo tiempo. Por defecto, ante la duda,
+\`multiple\` cuesta menos que forzar una sola respuesta a algo que no lo es: peca de dejar elegir de
+más, no de menos.
+
+**Esto no es negociable, ni siquiera si el cuestionario necesita más diseño del que trae la
+plantilla.** El título, la ayuda y la insignia de arriba ya cubren el caso más común de "necesito
+explicar cada opción y marcar la recomendada". Si aun así hace falta algo que de verdad no cabe
+(una tabla comparativa entera, un aviso grande), se puede construir a mano un diseño más rico,
+pero el comportamiento no se negocia: toda pregunta de opción lleva su "Otra:" con texto libre, y
+toda pregunta donde dos respuestas puedan ser ciertas a la vez usa checkboxes, no radios. Un
+cuestionario hecho a mano sin esto no es una versión simplificada de Criteria, es un cuestionario
+roto que parece Criteria.
+
 ### 2. Adapta la paleta al proyecto donde estás trabajando
 
 Esto no es opcional: el cuestionario **no lleva siempre el mismo look**, lleva el de la
@@ -1269,21 +1290,34 @@ debajo no se toca nunca: usa siempre \`var(--algo)\`, así que hereda el cambio 
 proyecto no tiene un sistema de diseño propio identificable (una tarea sin web, o un repo sin
 frontend), se deja la paleta neutra de la plantilla, ya verificada por contraste WCAG 2.1.
 
-### 3. Genera el archivo
+### 3. Genera el archivo, sin leer la plantilla entera
 
-Copia \`references/plantilla.html\` de esta skill a una carpeta temporal de la sesión (nunca
-dentro del código del proyecto: es un archivo de trabajo, no un artefacto del producto) como
-\`criteria-<tema>.html\`, y sustituye estas tres cosas dentro del \`<script>\` (más la paleta del
-paso 2 si aplica), sin tocar el resto del archivo:
+\`references/plantilla.html\` no cambia nunca de un cuestionario a otro salvo en tres puntos, así
+que no hace falta cargarla en el contexto para tocarlos: se copia el archivo tal cual (\`cp\` /
+\`Copy-Item\`, nunca dentro del código del proyecto, es un archivo de trabajo) a
+\`criteria-<tema>.html\` en una carpeta temporal de la sesión, y la sustitución de los tres
+marcadores se hace con un comando de una sola pasada que lee y escribe el archivo sin que su
+contenido pase por el modelo:
 
-\`\`\`js
-const TITULO = "...";           // qué se está decidiendo, en cuatro palabras
-const SUBTITULO = "...";        // una frase: para qué sirve esto y qué pasa al terminar
-const PREGUNTAS = [ ... ];      // el array de preguntas, con las formas de arriba
+\`\`\`bash
+python3 - "<ruta-al-copia>" <<'EOF'
+import json, sys
+p = sys.argv[1]
+html = open(p, encoding="utf-8").read()
+html = html.replace("__TITULO__", "...")            # qué se está decidiendo, en cuatro palabras
+html = html.replace("__SUBTITULO__", "...")          # una frase: para qué sirve y qué pasa al terminar
+html = html.replace("__PREGUNTAS_JSON__", json.dumps([
+    # ...las preguntas, con las formas del paso 1...
+], ensure_ascii=False))
+open(p, "w", encoding="utf-8").write(html)
+EOF
 \`\`\`
 
-El resto del archivo (estilos de estructura, render, barra de progreso, copiar) ya funciona: no
-se reescribe nunca a mano, para no reintroducir un fallo ya resuelto.
+En PowerShell, lo mismo con \`-replace\` sobre \`Get-Content -Raw\` y \`Set-Content -Encoding utf8\`. Si
+el paso 2 exige otra paleta, esos mismos comandos añaden más \`-replace\`/\`.replace()\` sobre los
+valores del bloque \`PALETA\`; el bloque \`ESTRUCTURA\` nunca se toca. No se usan las herramientas de
+leer y editar archivo sobre \`plantilla.html\` ni sobre la copia: no hace falta, y cargar un HTML de
+cientos de líneas en el contexto solo para cambiar tres valores es gastar tokens de más.
 
 ### 4. Ábrelo tú mismo
 
@@ -1311,7 +1345,15 @@ toma la decisión que motivó el cuestionario.
 - **Barra de progreso arriba**, siempre visible mientras se hace scroll (\`position: sticky\`), con
   el contador de respondidas al lado. No es solo un número perdido al pie de página.
 - **"Otra:" siempre presente** en toda pregunta de opción o múltiple, con su hueco de texto
-  libre. Es obligatorio en la plantilla, no algo que haya que acordarse de pedir.
+  libre. Es obligatorio en la plantilla, no algo que haya que acordarse de pedir. Escribir ahí la
+  marca sola, sin tener que clicar antes su casilla, y la selección se recuerda al recargar la
+  página igual que el resto de respuestas.
+- **Selección múltiple de verdad, y avisada.** \`multiple\` usa casillas, no radios: se puede
+  marcar más de una a la vez, el bloque final las junta separadas por comas, y la pregunta lleva
+  sola la insignia "elige una o varias" para que se note sin tener que probar a marcar dos.
+- **Opciones con ayuda e insignia**, cuando la lista sola no basta: cada opción admite una frase
+  de explicación debajo y una insignia corta al lado (por ejemplo "recomendada"), sin tener que
+  escribir HTML a mano ni salirse de la plantilla.
 - **Nada es obligatorio de responder.** Un formulario donde todo es obligatorio no lo rellena
   nadie rápido; el botón copia igual con preguntas en blanco, marcadas como tal.
 - **Copiar con red.** Intenta \`navigator.clipboard\`, y si el navegador lo bloquea (pasa a veces
@@ -1363,6 +1405,27 @@ Whatever the decision needs. For each one, pick its type:
 
 One question per decision: if a question carries two things inside it, that is two questions.
 
+Each option of \`opcion\` or \`multiple\` can be plain text, or carry more: \`{ texto, ayuda?,
+nota? }\`, where \`ayuda\` is a short line underneath (why that option matters) and \`nota\` is a
+short badge next to it (for example \`"recommended"\`). The whole list does not need one format:
+a question can mix plain options with others that carry help text or a badge.
+
+**How to tell \`opcion\` from \`multiple\` apart, without guessing:** ask whether two of the
+answers could be true at once. "How much does it cost a month?" is \`opcion\`, because one price
+rules out the rest. "What justifies paying for this?" or "what should the app do?" are almost
+always \`multiple\`, because several reasons or several features can be true at the same time. By
+default, when in doubt, \`multiple\` costs less than forcing a single answer onto something that
+is not one: it errs on letting people pick too much, not too little.
+
+**This is not negotiable, not even when the questionnaire needs more design than the template
+ships with.** The title, the help text and the badge above already cover the most common case of
+"I need to explain each option and mark the recommended one". If something still genuinely does
+not fit (a full comparison table, a large warning banner), a richer design can be hand-built, but
+the behaviour does not get negotiated away: every single-choice question carries its free-text
+"Other:", and every question where two answers could both be true uses checkboxes, not radios.
+A hand-built questionnaire without this is not a simplified version of Criteria, it is a broken
+questionnaire that looks like one.
+
 ### 2. Match the palette to the project you are working in
 
 This is not optional: the questionnaire **does not always look the same**, it looks like the
@@ -1376,21 +1439,35 @@ project has no identifiable design system of its own (a task with no website, or
 frontend), the template's neutral default palette is kept, already checked for WCAG 2.1
 contrast.
 
-### 3. Generate the file
+### 3. Generate the file, without reading the whole template
 
-Copy this skill's \`references/plantilla.html\` into a temporary session folder (never inside the
-project's own code: it is a working file, not a product artifact) as \`criteria-<topic>.html\`,
-and replace these three things inside the \`<script>\` (plus the palette from step 2, if it
-applies), without touching the rest of the file:
+\`references/plantilla.html\` never changes between one questionnaire and the next except in
+three spots, so there is no need to load it into context to touch them: copy the file as-is
+(\`cp\` / \`Copy-Item\`, never inside the project's own code, it is a working file) to
+\`criteria-<topic>.html\` in a temporary session folder, and substitute the three placeholders
+with a single-pass command that reads and writes the file without its content ever passing
+through the model:
 
-\`\`\`js
-const TITULO = "...";           // what is being decided, in four words
-const SUBTITULO = "...";        // one sentence: what this is for and what happens when it's done
-const PREGUNTAS = [ ... ];      // the questions array, using the shapes above
+\`\`\`bash
+python3 - "<path-to-copy>" <<'EOF'
+import json, sys
+p = sys.argv[1]
+html = open(p, encoding="utf-8").read()
+html = html.replace("__TITULO__", "...")            # what is being decided, in four words
+html = html.replace("__SUBTITULO__", "...")          # one sentence: what this is for and what happens when it's done
+html = html.replace("__PREGUNTAS_JSON__", json.dumps([
+    # ...the questions, using the shapes from step 1...
+], ensure_ascii=False))
+open(p, "w", encoding="utf-8").write(html)
+EOF
 \`\`\`
 
-The rest of the file (structural styles, rendering, progress bar, copying) already works: it is
-never rewritten by hand, so as not to reintroduce a bug that was already fixed.
+In PowerShell, the same thing with \`-replace\` over \`Get-Content -Raw\` and
+\`Set-Content -Encoding utf8\`. If step 2 calls for a different palette, those same commands add
+more \`-replace\`/\`.replace()\` calls over the \`PALETA\` block's values; the \`ESTRUCTURA\` block is
+never touched. The read-and-edit-file tools are not used on \`plantilla.html\` or on the copy:
+there is no need to, and loading a hundreds-of-lines HTML file into context just to change three
+values is spending tokens for nothing.
 
 ### 4. Open it yourself
 
@@ -1418,7 +1495,15 @@ the decision the questionnaire was for.
 - **A progress bar up top**, always visible while scrolling (\`position: sticky\`), with the
   answered count next to it. Not just a number lost at the bottom of the page.
 - **"Other:" always present** on every single- or multiple-choice question, with its free-text
-  slot. It is built into the template, not something to remember to ask for.
+  slot. It is built into the template, not something to remember to ask for. Typing there marks
+  it on its own, no need to click its checkbox first, and the pick survives a page reload just
+  like the rest of the answers.
+- **Real multi-select, and it says so.** \`multiple\` uses checkboxes, not radios: more than one
+  can be picked at once, the final block joins them with commas, and the question carries its
+  own "pick one or several" badge so it is never mistaken for single choice.
+- **Options with help text and a badge**, for when the plain list is not enough: any option can
+  carry a short explanation underneath and a short badge next to it (like "recommended"), with
+  no hand-written HTML and no need to leave the template.
 - **Nothing is required.** A form where everything is mandatory does not get filled in quickly
   by anyone; the button still copies with blank questions, marked as such.
 - **Copying with a safety net.** It tries \`navigator.clipboard\`, and if the browser blocks it
