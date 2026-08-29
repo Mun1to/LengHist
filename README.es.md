@@ -7,8 +7,8 @@
 
 ### Un sitio con todo lo que necesitas para construir en la web
 
-100 lenguajes de programación, 83 herramientas de frontend, 41 técnicas de diseño, 12 componentes
-en vivo, 18 skills de agente y 38 consejos, más un servidor MCP para agentes. Gratis, bilingüe, sin registro y sin rastreo.
+100 lenguajes de programación, 83 herramientas de frontend, 41 técnicas de diseño, 15 componentes
+en vivo, 19 skills de agente y 38 consejos, más un servidor MCP para agentes. Gratis, bilingüe, sin registro y sin rastreo.
 
 <a href="https://vibeset.dev">
   <img alt="Abrir vibeset.dev" src=".github/assets/boton-abrir.svg" width="268">
@@ -51,11 +51,13 @@ tipografía e inspiración.
 glassmorphism, View Transitions, container queries, Core Web Vitals y más. Cada uno con qué es, para
 qué sirve y un ejemplo copiable con lo mínimo que hay que escribir.
 
-**12 componentes en vivo.** Tela, despegado, ASCII, tramado, brillo cromático, relieve y más, cada
+**15 componentes en vivo.** Tela, despegado, ASCII, tramado, brillo cromático, relieve y más, cada
 uno corriendo a tamaño real con sus mandos a la vista. Mueve los controles y copia el código con tus
-valores ya puestos. Cada efecto lleva el crédito y el enlace de su autor original.
+valores ya puestos. Tres son nuestros y MIT, el header de píldora deslizante, el acordeón de
+preguntas y la matrioska parallax; el resto son efectos de terceros, cada uno con el crédito y el
+enlace de su autor.
 
-**18 skills de agente.** Instrucciones que le das una vez a tu agente de código y ya se sabe para
+**19 skills de agente.** Instrucciones que le das una vez a tu agente de código y ya se sabe para
 siempre: revisar una pantalla en móvil, auditar accesibilidad, revisar un diff, depurar hasta la
 causa real, escribir el mensaje de un commit. Copias el `SKILL.md`, lo pegas en su carpeta, o
 instalas con dos comandos las seis que se publican como plugin: `/plugin marketplace add

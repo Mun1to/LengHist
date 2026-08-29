@@ -7,8 +7,8 @@
 
 ### One place with everything you need to build for the web
 
-100 programming languages, 83 frontend tools, 41 design techniques, 12 live components,
-18 agent skills and 38 tips, plus an MCP server for agents. Free, bilingual, no sign-up, no tracking.
+100 programming languages, 83 frontend tools, 41 design techniques, 15 live components,
+19 agent skills and 38 tips, plus an MCP server for agents. Free, bilingual, no sign-up, no tracking.
 
 <a href="https://vibeset.dev">
   <img alt="Open vibeset.dev" src=".github/assets/boton-open.svg" width="268">
@@ -51,11 +51,12 @@ and inspiration.
 View Transitions, container queries, Core Web Vitals and more. Each one with what it is, what it is
 for, and a copyable example of the smallest code that makes it work.
 
-**12 live components.** Cloth, peel, ASCII, dithering, chromatic bloom, emboss and more, each one
+**15 live components.** Cloth, peel, ASCII, dithering, chromatic bloom, emboss and more, each one
 running at full size with its controls exposed. Move the knobs and copy the code with your values
-already in it. Every effect credits and links its original author.
+already in it. Three of them are ours and MIT, the sliding pill header, the FAQ accordion and the
+matryoshka parallax; the rest are third-party effects, each crediting and linking its author.
 
-**18 agent skills.** Instructions you hand your coding agent once and it knows for good: check a
+**19 agent skills.** Instructions you hand your coding agent once and it knows for good: check a
 screen on mobile, audit accessibility, review a diff, debug down to the root cause, write a commit
 message. Copy the `SKILL.md`, drop it in its folder, or install the six published as plugins with
 two commands: `/plugin marketplace add Mun1to/Vibeset` and then `/plugin install <name>@vibeset`.
