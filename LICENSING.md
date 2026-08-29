@@ -141,11 +141,17 @@ license. They are kept in their own folders, unmodified except where noted in th
 Neither author ships a licence file with the code they publish. They distribute it for people to use
 in their projects, but **the MIT licence of this repository does not extend to those files**. If you
 want to reuse one of those effects, take it from the author's own site and follow their terms, not
-these. Every effect in Vibeset credits its source with a link on its page.
+these. Every third-party effect in Vibeset credits its source with a link on its page.
+
+The components in `redesign/src/components/propios/` are the opposite case and were added on
+2026-08-29: they were written for Vibeset, they are MIT like the rest of the code in this
+repository, and there is no external author to credit. Their page links the source file instead of
+an origin site.
 
 The MCP server (`redesign/functions/api/mcp.js`) holds the same line. It serves the catalogue
-metadata (CC BY) and the full body of the skills, but for the components it serves only their origin
-install command, never the code in `canvasui/` or `arlan/`. The same goes for the external registries
+metadata (CC BY) and the full body of the skills, but for third-party components it serves only
+their origin install command, never the code in `canvasui/` or `arlan/`. Components written here are
+declared MIT and point at their file in this repository. The same goes for the external registries
 it federates: it indexes and links them, it does not rehost them.
 
 The photographs in `redesign/public/demo/` come from [Lorem Picsum](https://picsum.photos) and are
@@ -179,4 +185,5 @@ Permission for a specific case is easier to grant than to guess.
 > cámbiale el nombre, quita el logo y pon el crédito donde se vea.
 >
 > Y ojo, **los efectos de `canvasui/` y `arlan/` no son míos**: están aquí con crédito y enlace,
-> pero para reutilizarlos hay que ir a sus autores.
+> pero para reutilizarlos hay que ir a sus autores. Los de `propios/` sí lo son, y esos van con el
+> resto del código: MIT, y te los llevas sin pedir permiso.
