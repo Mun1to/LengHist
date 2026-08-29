@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import './propios.css'
+import './HeaderPildora.css'
 
 // Header de píldora deslizante. Código PROPIO, no de canvasui ni de arlan: es la
 // primera pieza de la casa que sale al catálogo, portada desde el original en

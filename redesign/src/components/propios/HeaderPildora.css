@@ -1,0 +1,68 @@
+/* Estilos de el header de píldora deslizante, una pieza PROPIA del catálogo de Vibeset (MIT).
+   Un archivo por pieza para que se pueda copiar sola: te llevas este CSS y su
+   `.jsx` y no arrastras nada de las demás.
+
+   Esta superficie es oscura SIEMPRE, como el resto de los marcos de Componentes,
+   así que van tonos literales y no los tokens de tema: sobre un fondo que no
+   cambia, un token que sí cambia se sale de contraste. */
+
+.hp-marco {
+  display: grid;
+  align-content: center;
+  background: #0e0f11;
+  overflow: hidden;
+}
+
+.hp-barra {
+  background: #17181a;
+  border-block: 1px solid #2a2c30;
+  display: grid;
+  place-items: center;
+  padding: 0.75rem 1rem;
+}
+
+.hp-menu {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* La píldora vive DETRÁS de los enlaces y no participa del layout: si fuera un
+   hermano en el flujo, moverla empujaría el menú. */
+.hp-pildora {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100px;   /* medidas BASE: el JS escala desde aquí */
+  height: 36px;
+  margin-top: -18px;
+  background: #2c2f34;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease;
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.hp-menu.senalado .hp-pildora { opacity: 1 }
+
+.hp-menu a {
+  position: relative;  /* por encima de la píldora */
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  color: #a8adb6;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  white-space: nowrap;
+  /* El color sí se transiciona: cambiar de color no es movimiento y no marea. */
+  transition: color 0.16s ease;
+}
+
+.hp-menu a:hover,
+.hp-menu a:focus-visible { color: #f4f6f8 }
+
+.hp-menu a:focus-visible {
+  outline: 2px solid #f4f6f8;
+  outline-offset: 2px;
+}

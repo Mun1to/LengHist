@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import './propios.css'
+import './MatrioskaParallax.css'
 
 // Matrioska parallax. Código PROPIO, portado de la receta 16 de FrontLaxWeb
 // (`plantillas/vanilla/matrioska-parallax.html`, con gemela en React).

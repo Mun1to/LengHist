@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './propios.css'
+import './AcordeonFaq.css'
 
 // Acordeón de preguntas frecuentes. Código PROPIO, portado del original de
 // `_componentes/faq-acordeon/Faq.tsx`, que salió de la web de VoCript.

@@ -1,0 +1,75 @@
+/* Estilos de la matrioska parallax, una pieza PROPIA del catálogo de Vibeset (MIT).
+   Un archivo por pieza para que se pueda copiar sola: te llevas este CSS y su
+   `.jsx` y no arrastras nada de las demás.
+
+   Esta superficie es oscura SIEMPRE, como el resto de los marcos de Componentes,
+   así que van tonos literales y no los tokens de tema: sobre un fondo que no
+   cambia, un token que sí cambia se sale de contraste. */
+
+.mp-marco {
+  position: relative;
+  background: #0b0b12;
+  overflow: hidden;
+}
+
+/* La caja que se desplaza va ENCIMA y vacía: recoge la rueda y el dedo, y lo
+   único que hay dentro es el espaciador que da recorrido. La escena se pinta
+   debajo y no se mueve, porque lo que viaja es la cámara, no la página. */
+.mp-scroller {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #27272a transparent;
+}
+
+.mp-escena {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.mp-capa {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  will-change: transform, opacity;
+}
+
+/* El contenido de cada capa deja el CENTRO VACÍO a propósito: ahí es
+   exactamente donde asoma la capa siguiente. */
+.mp-anillo {
+  display: grid;
+  place-items: center;
+  align-content: space-between;
+  /* Se mide por el ALTO y no por el ancho: la caja de la demo es panoramica, y
+     un cuadrado del 68% del ancho se sale por arriba y por abajo. */
+  height: 76%;
+  aspect-ratio: 1;
+  padding: 0.9rem;
+  border: 1px solid currentColor;
+  color: #52525b;
+}
+
+.mp-rotulo {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Montado sobre la linea de arriba, como el rotulo de un plano. */
+  margin-top: -1.4rem;
+  padding-inline: 0.5em;
+  background: #0b0b12;
+}
+
+.mp-titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #e4e4e7;
+}

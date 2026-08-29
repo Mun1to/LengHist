@@ -1,0 +1,83 @@
+/* Estilos de el acordeón de preguntas, una pieza PROPIA del catálogo de Vibeset (MIT).
+   Un archivo por pieza para que se pueda copiar sola: te llevas este CSS y su
+   `.jsx` y no arrastras nada de las demás.
+
+   Esta superficie es oscura SIEMPRE, como el resto de los marcos de Componentes,
+   así que van tonos literales y no los tokens de tema: sobre un fondo que no
+   cambia, un token que sí cambia se sale de contraste. */
+
+.af-marco {
+  background: #0f172a;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+.af-caja {
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: 1.25rem 1.5rem;
+}
+
+.af-titulo {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #f1f5f9;
+}
+
+.af-item { border-bottom: 1px solid #1e293b }
+
+.af-pregunta {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  color: #f1f5f9;
+  cursor: pointer;
+}
+
+.af-pregunta:hover { color: #60a5fa }
+.af-pregunta:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px }
+
+.af-flecha {
+  flex-shrink: 0;
+  color: #94a3b8;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+}
+
+/* Animar una altura que no se conoce de antemano: la fila de la rejilla pasa de
+   0fr a 1fr. El porqué largo está en el comentario del componente. */
+.af-cajon {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition-property: grid-template-rows, opacity, padding-bottom;
+  transition-timing-function: ease-in-out;
+}
+
+.af-cajon[data-abierta] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  padding-bottom: 0.7rem;
+}
+
+.af-cajon p {
+  margin: 0;
+  overflow: hidden;  /* imprescindible: es lo que recorta mientras se anima */
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
