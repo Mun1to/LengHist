@@ -460,16 +460,16 @@ export const CONCEPTS = [
     "name": "Skeleton loaders",
     "tag": "CSS",
     "es": {
-     "what": "Placeholders grises animados que se muestran mientras carga el contenido real.",
-     "use": "Percepción de rapidez; evitan pantallas en blanco."
+     "what": "Bloques con la forma de lo que va a venir, mientras carga el contenido real. Dos versiones: quieto o con un brillo que lo recorre.",
+     "use": "Percepción de rapidez; evitan la pantalla en blanco y el salto de maquetación al llegar."
     },
     "en": {
-     "what": "Animated gray placeholders shown while the real content loads.",
-     "use": "Perceived speed; they avoid blank screens."
+     "what": "Blocks shaped like what is coming, shown while the real content loads. Two versions: still, or with a shimmer running across.",
+     "use": "Perceived speed; they avoid the blank screen and the layout jump on arrival."
     },
     "prompt": {
-     "es": "Mientras carga, enseña un esqueleto con la forma de lo que va a venir, no un spinner: bloques del tamaño real del título, del texto y de la imagen, con un brillo que recorre. Que ocupe EXACTAMENTE el mismo espacio que el contenido final, porque si no el salto al llegar cuenta como CLS. Y márcalo con aria-hidden más un aria-busy en el contenedor.",
-     "en": "While loading, show a skeleton shaped like what is coming, not a spinner: blocks the real size of the title, the text and the image, with a shimmer running across. Make it take EXACTLY the same space as the final content, otherwise the jump when it arrives counts as CLS. Mark it aria-hidden and put aria-busy on the container."
+     "es": "Mientras carga, enseña un esqueleto con la forma de lo que va a venir, no un spinner: bloques del tamaño real del título, del texto y de la imagen. Dame las dos versiones, la fija y la del brillo que recorre, y usa la fija cuando haya muchos bloques a la vez, porque cada uno animado es una capa que el navegador repinta sin parar. Que ocupe EXACTAMENTE el mismo espacio que el contenido final, porque si no el salto al llegar cuenta como CLS. Apaga el brillo en prefers-reduced-motion, y márcalo con aria-hidden más un aria-busy en el contenedor.",
+     "en": "While loading, show a skeleton shaped like what is coming, not a spinner: blocks the real size of the title, the text and the image. Give me both versions, the flat one and the one with a shimmer running across, and use the flat one when many blocks show at once, because each animated one is a layer the browser repaints nonstop. Make it take EXACTLY the same space as the final content, otherwise the jump when it arrives counts as CLS. Turn the shimmer off under prefers-reduced-motion, and mark it aria-hidden with aria-busy on the container."
     },
     "vistoEn": {
      "sitio": "github.com",

@@ -171,7 +171,14 @@ button.onpointerleave = () => {
     ['js', `document.startViewTransition(() => renderNextView())`],
   ],
 
-  'Skeleton loaders': css(`.skeleton {
+  'Skeleton loaders': css(`/* flat: a still block, nothing to repaint */
+.skeleton {
+  background: #27272a;
+  border-radius: 4px;
+}
+
+/* with shimmer: the gradient runs across the block */
+.skeleton-shimmer {
   background: linear-gradient(90deg,
     #27272a, #3f3f46, #27272a);
   background-size: 200% 100%;
@@ -179,6 +186,10 @@ button.onpointerleave = () => {
 }
 @keyframes shine {
   to { background-position: -200% 0 }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer { animation: none }
 }`),
 
   'Tipografía cinética': [

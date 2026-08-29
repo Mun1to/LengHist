@@ -197,6 +197,15 @@
 }
 .cd-aurora { position: absolute; inset: -30%; animation: cd-aurora 12s ease-in-out infinite; filter: blur(14px) }
 
+/* Las dos versiones que hay que elegir al montar uno, y por eso la demo las
+   enseña juntas: misma forma y mismo hueco, y lo único que cambia es si algo se
+   mueve. La fija no pinta nada cada fotograma, así que es la que aguanta una
+   lista larga de bloques. */
+.cd-skeleton-fijo {
+  background: #27272a;
+  border-radius: 4px;
+}
+
 @keyframes cd-shine { to { background-position: -200% 0 } }
 .cd-skeleton {
   background: linear-gradient(90deg, #27272a, #3f3f46, #27272a);
@@ -204,6 +213,13 @@
   animation: cd-shine 1.4s ease-in-out infinite;
   border-radius: 4px;
 }
+
+/* El hueco de un avatar es redondo, y el bloque que lo sustituye también tiene
+   que serlo: la ficha promete «la forma de lo que va a venir» y enseñaba un
+   cuadrado que al cargar se volvía círculo. El `rounded-full` de Tailwind no
+   basta aquí porque sus utilidades viven en una @layer y este archivo no, y lo
+   que queda fuera de toda capa gana a lo que está dentro. */
+.cd-skeleton-redondo { border-radius: 999px }
 
 .cd-char { display: inline-block; animation: cd-char-in .6s both }
 @keyframes cd-char-in { from { opacity: 0; transform: translateY(16px) rotate(6deg) } }

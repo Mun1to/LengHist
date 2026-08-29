@@ -101,6 +101,36 @@ export function ViewTransitions({ lang }) {
   )
 }
 
+// Una ficha de perfil a medio cargar. El relleno se le pasa desde fuera para
+// poder pintar la misma ficha con las dos versiones y compararlas de verdad:
+// por separado no se ve que ocupan el mismo hueco, que es medio motivo de
+// montar un esqueleto en vez de un spinner.
+function FichaEsqueleto({ cargado, relleno, rotulo, t }) {
+  return (
+    <div className="flex flex-col gap-2 min-w-0">
+      <div className="flex gap-2 items-center">
+        {cargado
+          ? <div className="w-8 h-8 rounded-full bg-blue-500 shrink-0" />
+          : <div className={`${relleno} cd-skeleton-redondo w-8 h-8 shrink-0`} />}
+        <div className="flex-1 min-w-0 flex flex-col gap-1.5">
+          {cargado ? (
+            <>
+              <div className="font-bold text-[11px] text-zinc-100 truncate">Munir Torres</div>
+              <div className="text-[10px] text-zinc-400 truncate">{t.bioPerfil}</div>
+            </>
+          ) : (
+            <>
+              <div className={`${relleno} h-2.5 w-[60%]`} />
+              <div className={`${relleno} h-2.5 w-[85%]`} />
+            </>
+          )}
+        </div>
+      </div>
+      <span className="cd-nota">{rotulo}</span>
+    </div>
+  )
+}
+
 export function Skeleton({ lang }) {
   const t = textoDe(lang)
   const [cargado, setCargado] = useState(false)
@@ -120,26 +150,12 @@ export function Skeleton({ lang }) {
   }, [])
 
   return (
-    <div className="cd-box p-3">
-      <div className="flex gap-3 items-center">
-        {cargado
-          ? <div className="w-10 h-10 rounded-full bg-blue-500 shrink-0" />
-          : <div className="cd-skeleton w-10 h-10 rounded-full shrink-0" />}
-        <div className="flex-1 flex flex-col gap-2">
-          {cargado ? (
-            <>
-              <div className="font-bold text-zinc-100">Munir Torres</div>
-              <div className="text-[11px] text-zinc-400">{t.construyendo}</div>
-            </>
-          ) : (
-            <>
-              <div className="cd-skeleton h-3 w-[60%]" />
-              <div className="cd-skeleton h-3 w-[85%]" />
-            </>
-          )}
-        </div>
+    <div className="cd-box p-3 flex flex-col justify-center">
+      <div className="grid grid-cols-2 gap-3">
+        <FichaEsqueleto cargado={cargado} relleno="cd-skeleton-fijo" rotulo={t.esqueletoFijo} t={t} />
+        <FichaEsqueleto cargado={cargado} relleno="cd-skeleton" rotulo={t.esqueletoBrillo} t={t} />
       </div>
-      <button className="cd-btn mt-4" onClick={reiniciar}>{t.volverCargar}</button>
+      <button className="cd-btn mt-3 self-start" onClick={reiniciar}>{t.volverCargar}</button>
     </div>
   )
 }

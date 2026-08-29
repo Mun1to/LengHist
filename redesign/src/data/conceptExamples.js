@@ -174,7 +174,14 @@ boton.onpointerleave = () => {
     ['js', `document.startViewTransition(() => cambiarDeVista())`],
   ],
 
-  'Skeleton loaders': css(`.skeleton {
+  'Skeleton loaders': css(`/* fijo: un bloque quieto, y nada que repintar */
+.esqueleto {
+  background: #27272a;
+  border-radius: 4px;
+}
+
+/* con brillo: el degradado recorre el bloque */
+.esqueleto-brillo {
   background: linear-gradient(90deg,
     #27272a, #3f3f46, #27272a);
   background-size: 200% 100%;
@@ -182,6 +189,10 @@ boton.onpointerleave = () => {
 }
 @keyframes brillo {
   to { background-position: -200% 0 }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .esqueleto-brillo { animation: none }
 }`),
 
   'Tipografía cinética': [
