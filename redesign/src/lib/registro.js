@@ -11,19 +11,26 @@
 //     instale.
 //
 // Regla dura de licencias (LICENSING.md): las skills, los conceptos, los consejos y
-// los recursos son CC BY de la casa y se sirven ENTEROS. Los 12 componentes son de
-// canvasui/arlan y NO son nuestros: se sirven como metadata + comando de instalación
-// del origen, con files SIEMPRE vacío. Lo mismo vale para lo federado.
+// los recursos son CC BY de la casa y se sirven ENTEROS. En componentes hay que
+// mirar el `origin`, porque desde el 2026-08-29 ya no son todos de fuera:
+//   - canvasui/arlan NO son nuestros. Metadata más el comando de instalación del
+//     origen, con files SIEMPRE vacío, y licencia `third-party`. Igual lo federado.
+//   - `propio` es código de la casa, MIT, y así se declara. Hoy también va con files
+//     vacío, pero por un motivo distinto y que no es de licencia: esta lib es pura y
+//     no lee del disco. Mientras tanto apunta al archivo en GitHub, que es honesto y
+//     comprobable. Declarar `third-party` sobre código propio sí sería mentir.
 import { COMPONENT_ITEMS } from '../data/components.js'
 import { SKILL_ITEMS, authorOf, repoOf } from '../data/skills.js'
 import { CONCEPTS } from '../data/concepts.js'
 import { CONSEJOS } from '../data/consejos.js'
 import { RESOURCES } from '../data/resources.js'
 import { META_CASA } from '../data/registro-meta.js'
+import { slugClave } from './rutas.js'
 
 const SCHEMA_REGISTRO = 'https://ui.shadcn.com/schema/registry.json'
 const SCHEMA_ITEM = 'https://ui.shadcn.com/schema/registry-item.json'
 const HOMEPAGE = 'https://vibeset.dev'
+const REPO = 'https://github.com/Mun1to/Vibeset'
 const ATRIBUCION = 'Content from Vibeset by Munir Torres — https://vibeset.dev — CC BY 4.0'
 
 // Del comando de instalación de origen saca la dependencia de registry shadcn.
@@ -45,6 +52,7 @@ function slug(s) {
 
 function normalizarComponente(item) {
   const meta = META_CASA[item.key] || {}
+  const deLaCasa = item.origin === 'propio'
   return {
     id: `component:${item.key}`,
     source: 'own',
@@ -53,8 +61,14 @@ function normalizarComponente(item) {
     name: item.name,
     grupo: item.group,
     origin: item.origin,
+    deLaCasa,
+    clase: item.clase || 'pieza',
+    // Una pieza de la casa no tiene web de origen: su sitio es su ficha aquí.
+    fuente: deLaCasa && item.component
+      ? `${REPO}/blob/main/redesign/src/components/propios/${item.component}.jsx`
+      : null,
     install: item.install || null,
-    homepage: item.url,
+    homepage: item.url || (deLaCasa ? `${HOMEPAGE}/components/${slugClave(item.key)}` : null),
     deps: item.deps || [],
     labels: item.labels || [],
     tag: item.tag,
@@ -248,13 +262,17 @@ export function itemRegistro(id, lang = 'es') {
       homepage: x.homepage,
       dependencies: x.deps,
       registryDependencies: depDeInstall(x.install),
-      files: [], // guardia dura: NUNCA el código de canvasui/arlan
+      // Guardia dura: NUNCA el código de canvasui/arlan. Los propios también van
+      // vacíos hoy, pero por no leer del disco desde una lib pura, no por licencia.
+      files: [],
       meta: {
         ...x.meta,
         origen: x.origin,
+        clase: x.clase,
         install: x.install,
         instalacion: x.install ? 'shadcn' : 'manual',
-        licencia: 'third-party', // ver LICENSING.md, se enlaza al origen
+        licencia: x.deLaCasa ? 'MIT' : 'third-party',
+        ...(x.deLaCasa ? { atribucion: ATRIBUCION, codigo: x.fuente } : {}),
       },
     }
   }
