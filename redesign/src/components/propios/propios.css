@@ -1,0 +1,217 @@
+/* Estilos de las piezas PROPIAS del catálogo de componentes. Prefijo por pieza
+   para no chocar con nada del resto del sitio, igual que hace `demos.css`.
+
+   Estas superficies son oscuras SIEMPRE, como el resto de los marcos de
+   Componentes, así que aquí van tonos literales y no los tokens de tema: sobre
+   un fondo que no cambia, un token que sí cambia se sale de contraste. */
+
+/* --- Header de píldora deslizante --- */
+
+.hp-marco {
+  display: grid;
+  align-content: center;
+  background: #0e0f11;
+  overflow: hidden;
+}
+
+.hp-barra {
+  background: #17181a;
+  border-block: 1px solid #2a2c30;
+  display: grid;
+  place-items: center;
+  padding: 0.75rem 1rem;
+}
+
+.hp-menu {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* La píldora vive DETRÁS de los enlaces y no participa del layout: si fuera un
+   hermano en el flujo, moverla empujaría el menú. */
+.hp-pildora {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100px;   /* medidas BASE: el JS escala desde aquí */
+  height: 36px;
+  margin-top: -18px;
+  background: #2c2f34;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease;
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.hp-menu.senalado .hp-pildora { opacity: 1 }
+
+.hp-menu a {
+  position: relative;  /* por encima de la píldora */
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  color: #a8adb6;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  white-space: nowrap;
+  /* El color sí se transiciona: cambiar de color no es movimiento y no marea. */
+  transition: color 0.16s ease;
+}
+
+.hp-menu a:hover,
+.hp-menu a:focus-visible { color: #f4f6f8 }
+
+.hp-menu a:focus-visible {
+  outline: 2px solid #f4f6f8;
+  outline-offset: 2px;
+}
+
+/* --- Acordeón de preguntas frecuentes --- */
+
+.af-marco {
+  background: #0f172a;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #334155 transparent;
+}
+
+.af-caja {
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: 1.25rem 1.5rem;
+}
+
+.af-titulo {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #f1f5f9;
+}
+
+.af-item { border-bottom: 1px solid #1e293b }
+
+.af-pregunta {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  color: #f1f5f9;
+  cursor: pointer;
+}
+
+.af-pregunta:hover { color: #60a5fa }
+.af-pregunta:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px }
+
+.af-flecha {
+  flex-shrink: 0;
+  color: #94a3b8;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+}
+
+/* Animar una altura que no se conoce de antemano: la fila de la rejilla pasa de
+   0fr a 1fr. El porqué largo está en el comentario del componente. */
+.af-cajon {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition-property: grid-template-rows, opacity, padding-bottom;
+  transition-timing-function: ease-in-out;
+}
+
+.af-cajon[data-abierta] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  padding-bottom: 0.7rem;
+}
+
+.af-cajon p {
+  margin: 0;
+  overflow: hidden;  /* imprescindible: es lo que recorta mientras se anima */
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+/* --- Matrioska parallax --- */
+
+.mp-marco {
+  position: relative;
+  background: #0b0b12;
+  overflow: hidden;
+}
+
+/* La caja que se desplaza va ENCIMA y vacía: recoge la rueda y el dedo, y lo
+   único que hay dentro es el espaciador que da recorrido. La escena se pinta
+   debajo y no se mueve, porque lo que viaja es la cámara, no la página. */
+.mp-scroller {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #27272a transparent;
+}
+
+.mp-escena {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.mp-capa {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  will-change: transform, opacity;
+}
+
+/* El contenido de cada capa deja el CENTRO VACÍO a propósito: ahí es
+   exactamente donde asoma la capa siguiente. */
+.mp-anillo {
+  display: grid;
+  place-items: center;
+  align-content: space-between;
+  /* Se mide por el ALTO y no por el ancho: la caja de la demo es panoramica, y
+     un cuadrado del 68% del ancho se sale por arriba y por abajo. */
+  height: 76%;
+  aspect-ratio: 1;
+  padding: 0.9rem;
+  border: 1px solid currentColor;
+  color: #52525b;
+}
+
+.mp-rotulo {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  /* Montado sobre la linea de arriba, como el rotulo de un plano. */
+  margin-top: -1.4rem;
+  padding-inline: 0.5em;
+  background: #0b0b12;
+}
+
+.mp-titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #e4e4e7;
+}

@@ -7,7 +7,7 @@ import CodeBlock from './CodeBlock'
 import FavButton from './FavButton'
 import CopiarEnlace from './CopiarEnlace'
 import useHtmlInCanvas from '../hooks/useHtmlInCanvas'
-import { usageSnippet } from '../data/components'
+import { usageSnippet, nombreDe } from '../data/components'
 import { rutaDe } from '../lib/rutas'
 
 export default function ComponentDetail({ t, lang, item, values, onChange, onReset, fav, onToggleFav }) {
@@ -30,7 +30,7 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
       </Link>
 
       <div className="flex items-start justify-between gap-4">
-        <h1 className="text-3xl font-extrabold tracking-tight">{item.name}</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight">{nombreDe(item, lang)}</h1>
         <div className="flex items-center gap-2 shrink-0">
           <CopiarEnlace t={t} />
           <FavButton active={fav} onClick={onToggleFav} label={t.favoritos} />
@@ -42,6 +42,10 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
       </div>
 
       <p className="text-tinta-suave mt-4 max-w-2xl leading-relaxed">{item.desc[lang]}</p>
+
+      {item.clase === 'receta' && (
+        <p className="text-sm text-tinta-fuerte mt-3 max-w-2xl">{t.compReceta}</p>
+      )}
 
       {item.url ? (
         <a
@@ -81,7 +85,23 @@ export default function ComponentDetail({ t, lang, item, values, onChange, onRes
         )}
       </div>
 
-      {/* Crédito al pie: discreto, pero con el enlace exacto de donde salió. */}
+      {/* Crédito al pie: discreto, pero con el enlace exacto de donde salió. Una
+          pieza de la casa no tiene autor externo al que acreditar, así que lo que
+          se enlaza es su archivo, que es lo útil: el código entero, sin registro
+          de por medio. */}
+      {item.origin === 'propio' && item.component && (
+        <div className="mt-12 pt-5 border-t border-linea/60">
+          <a
+            href={`https://github.com/Mun1to/Vibeset/blob/main/redesign/src/components/propios/${item.component}.jsx`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-6 font-mono text-[12px] text-tinta-suave hover:text-tinta transition-colors break-all"
+          >
+            {t.compCodigo} · MIT
+          </a>
+        </div>
+      )}
+
       {item.url && (
         <div className="mt-12 pt-5 border-t border-linea/60">
           <a

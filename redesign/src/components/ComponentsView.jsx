@@ -5,6 +5,7 @@ import FavButton from './FavButton'
 import ComponentDemo from './ComponentDemo'
 import { Encuadre } from './Plano'
 import { rutaDe, slugClave } from '../lib/rutas'
+import { nombreDe } from '../data/components'
 
 // Cada demo se monta al acercarse a la pantalla y se suelta al alejarse:
 // así se ven todas vivas sin tener seis contextos WebGL abiertos a la vez.
@@ -54,7 +55,7 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
           onClick={onClick}
           role="button"
           tabIndex={0}
-          aria-label={item.name}
+          aria-label={nombreDe(item, lang)}
           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}
           data-demo
           className="group relative h-56 overflow-hidden bg-zinc-950 border border-zinc-800 cursor-pointer hover:border-zinc-600 focus-visible:border-blue-500 outline-none transition-colors"
@@ -69,7 +70,7 @@ function Card({ t, lang, item, values, fav, onToggleFav }) {
           que recibir el ratón, así que no puede ser ella el enlace. */}
       <Link to={ruta} className="flex items-baseline gap-3 min-h-6 py-0.5 mt-2 px-0.5 group/nombre">
         <h2 className="font-bold text-sm text-tinta group-hover/nombre:text-blue-600 dark:group-hover/nombre:text-blue-400 transition-colors shrink-0">
-          {item.name}
+          {nombreDe(item, lang)}
         </h2>
         <span className="font-mono text-[12px] text-tinta-suave truncate">{item.tag[lang]}</span>
       </Link>

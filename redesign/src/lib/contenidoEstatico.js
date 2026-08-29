@@ -21,7 +21,7 @@
 import { LANGUAGES } from '../data/languages.js'
 import { RESOURCES } from '../data/resources.js'
 import { CONCEPTS } from '../data/concepts.js'
-import { COMPONENT_ITEMS, COMPONENT_GROUPS } from '../data/components.js'
+import { COMPONENT_ITEMS, COMPONENT_GROUPS, nombreDe } from '../data/components.js'
 import { SKILL_ITEMS } from '../data/skills.js'
 import { CONSEJOS, CONSEJO_GRUPOS } from '../data/consejos.js'
 import { trozosDe } from './marcado.js'
@@ -132,7 +132,7 @@ const listaComponentes = (t, lang) => `
     const items = COMPONENT_ITEMS.filter((c) => c.group === g.key)
     if (!items.length) return ''
     return `<h2>${esc(g.label[lang])}</h2>${ul(items.map((c) =>
-      a(rutaDe('components', slugClave(c.key), lang), c.name) + nota(c.tag?.[lang])))}`
+      a(rutaDe('components', slugClave(c.key), lang), nombreDe(c, lang)) + nota(c.tag?.[lang])))}`
   }).join('')}`
 
 const fichaComponente = (c, t, lang) => `

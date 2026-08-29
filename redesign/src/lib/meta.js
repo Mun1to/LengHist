@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { TOTALES } from './totales.js'
 import { traducirRuta } from './rutas.js'
+import { nombreDe } from '../data/components.js'
 
 // Con una sola URL, el título y la descripción de la pestaña valían para todo el
 // sitio. Ahora que cada ficha tiene la suya, cada una dice lo suyo: es lo que se
@@ -74,7 +75,7 @@ export function metaDePagina({ vista, ficha, lang, t }) {
 
   if (ficha) {
     if (vista === 'languages') return { titulo: `${ficha.name} · ${marca}`, descripcion: recortar(ficha[lang].fullDesc) }
-    if (vista === 'components') return { titulo: `${ficha.name} · ${marca}`, descripcion: recortar(ficha.desc[lang]) }
+    if (vista === 'components') return { titulo: `${nombreDe(ficha, lang)} · ${marca}`, descripcion: recortar(ficha.desc[lang]) }
     if (vista === 'skills') return { titulo: `${ficha[lang].label} · ${marca}`, descripcion: recortar(ficha[lang].what) }
   }
 

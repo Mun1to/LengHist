@@ -19,6 +19,13 @@ const ChromaGlowDemo = lazy(() => import('./arlan/ArlanDemos').then((m) => ({ de
 const EmbossDemo = lazy(() => import('./arlan/ArlanDemos').then((m) => ({ default: m.EmbossDemo })))
 const ColorDepthDemo = lazy(() => import('./arlan/colorDepth/ColorDepthDemo'))
 
+// Piezas PROPIAS (src/components/propios/). Van perezosas por lo mismo que las
+// otras: nadie mira quince demos a la vez. Aquí no hay shader ni three.js, así
+// que pesan poco, pero el patrón se mantiene para no tener dos reglas.
+const HeaderPildora = lazy(() => import('./propios/HeaderPildora'))
+const AcordeonFaq = lazy(() => import('./propios/AcordeonFaq'))
+const MatrioskaParallax = lazy(() => import('./propios/MatrioskaParallax'))
+
 // La superficie sobre la que actúan los efectos vive en SuperficieDemo: es el
 // catálogo de Vibeset dibujado con bloques de color y texto, no una foto de
 // banco de imágenes. Aquí solo se elige cuál toca a cada efecto.
@@ -158,6 +165,51 @@ export default function ComponentDemo({ item, values, lang, compact = false, t }
         <Bend {...values} style={FILL}>
           <TallContent compact={compact} t={t} />
         </Bend>
+      </Suspense>
+    )
+  }
+
+  if (item.key === 'headerPildora') {
+    // El menú dice las secciones de verdad de este sitio: un menú de mentira con
+    // «Item 1, Item 2» no enseña cómo se comporta la píldora con anchos desiguales,
+    // que es justo lo que hace la pieza.
+    return (
+      <Suspense fallback={<Loading t={t} />}>
+        <HeaderPildora
+          {...values}
+          style={FILL}
+          items={[t.nav.languages, t.nav.resources, t.nav.concepts, t.nav.skills, t.nav.consejos]}
+        />
+      </Suspense>
+    )
+  }
+
+  if (item.key === 'acordeonFaq') {
+    return (
+      <Suspense fallback={<Loading t={t} />}>
+        <AcordeonFaq
+          {...values}
+          style={FILL}
+          titulo={compact ? null : t.demoFaqTitulo}
+          items={t.demoFaq}
+        />
+      </Suspense>
+    )
+  }
+
+  if (item.key === 'matrioska') {
+    return (
+      <Suspense fallback={<Loading t={t} />}>
+        <MatrioskaParallax
+          {...values}
+          style={FILL}
+          capas={t.demoCapas.map((c) => (
+            <div key={c.rotulo} className="mp-anillo">
+              <span className="mp-rotulo">{c.rotulo}</span>
+              <span className="mp-titulo">{c.titulo}</span>
+            </div>
+          ))}
+        />
       </Suspense>
     )
   }

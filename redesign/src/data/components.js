@@ -1,7 +1,18 @@
-// Catálogo de componentes. Cada uno usa el código original de su autor, copiado
-// sin reescribir: canvasui.dev en src/components/canvasui/ y arlan.me/vault en
-// src/components/arlan/. El único cambio propio es el respaldo para navegadores
-// sin html-in-canvas (ver canvasui/htmlFallback.ts).
+// Catálogo de componentes. Aquí conviven dos cosas que NO se licencian igual, y
+// las distingue el campo `origin`:
+//
+//   - `canvasui` y `arlan` son de TERCEROS. Se usa el código original de su autor,
+//     copiado sin reescribir (src/components/canvasui/ y src/components/arlan/), y
+//     de ellos se sirve metadata más el comando de instalación del origen, nunca
+//     el código. El único cambio propio ahí es el respaldo para navegadores sin
+//     html-in-canvas (ver canvasui/htmlFallback.ts).
+//   - `propio` es código de la casa, en src/components/propios/, MIT como el resto
+//     del repositorio. De estos SÍ se enseña y se sirve el código entero.
+//
+// Y conviven también dos clases de cosa, que las separa `clase`: PIEZAS que se
+// copian y funcionan solas, y RECETAS que enseñan una técnica (hoy, la matrioska).
+// Es una decisión de Munir del 2026-08-29 tomada a sabiendas, y por eso la web lo
+// dice en la propia sección en vez de dejar que el visitante lo deduzca.
 
 export const COMPONENT_GROUPS = [
   { key: 'canvas', label: { es: 'Canvas y WebGL', en: 'Canvas & WebGL' } },
@@ -485,9 +496,97 @@ export const COMPONENT_ITEMS = [
       { key: 'label', type: 'text', maxLength: 18, label: { es: 'Texto del botón', en: 'Button label' } },
     ],
   },
+  // --- Piezas PROPIAS. Las tres primeras del catálogo, publicadas el 2026-08-29.
+  // No llevan `install` porque no viven en ningún registro de shadcn: son nuestras,
+  // así que lo que se enseña es el código, no un comando que instale el de otro. Y
+  // llevan `component` porque el nombre del archivo no sale de capitalizar un
+  // título con tildes y preposiciones dentro.
+  {
+    key: 'headerPildora',
+    group: 'ui',
+    origin: 'propio',
+    clase: 'pieza',
+    component: 'HeaderPildora',
+    name: 'Header de píldora deslizante',
+    nameEn: 'Sliding pill header',
+    url: null,
+    install: null,
+    deps: [],
+    labels: ['spring', 'sin dependencias', 'teclado'],
+    tag: {
+      es: 'una sola píldora viaja hasta el item señalado',
+      en: 'a single pill travels to the item you point at',
+    },
+    desc: {
+      es: 'Lo genérico es dar a cada item su propio fondo, y entonces el ojo ve cinco luces encendiéndose y apagándose, que no significan nada. Con un único objeto que se mueve, el ojo lee continuidad: es la misma cosa, que ahora está en otro sitio. La mueve un spring y no una transición, así que al recorrer el menú deprisa redirige a media trayectoria en vez de encadenar viajes. Recórrelo también con el tabulador.',
+      en: 'The generic move is to give every item its own background, and then the eye just sees five lights blinking on and off, which mean nothing. With a single object that moves, the eye reads continuity: it is the same thing, now somewhere else. A spring moves it, not a transition, so sweeping the menu fast redirects mid-flight instead of queueing trips. Try it with the tab key too.',
+    },
+    defaults: { respuesta: 0.34, amortiguacion: 0.68, gain: 1 },
+    controls: [
+      { key: 'respuesta', type: 'range', min: 0.12, max: 0.8, step: 0.02, label: { es: 'Respuesta', en: 'Response' } },
+      { key: 'amortiguacion', type: 'range', min: 0.3, max: 1, step: 0.02, label: { es: 'Amortiguación', en: 'Damping' } },
+      { key: 'gain', type: 'range', min: 0, max: 1, step: 0.05, label: { es: 'Movimiento', en: 'Motion' } },
+    ],
+  },
+  {
+    key: 'acordeonFaq',
+    group: 'ui',
+    origin: 'propio',
+    clase: 'pieza',
+    component: 'AcordeonFaq',
+    name: 'Acordeón de preguntas',
+    nameEn: 'FAQ accordion',
+    url: null,
+    install: null,
+    deps: [],
+    labels: ['sin dependencias', 'indexable', 'ARIA'],
+    tag: {
+      es: 'se abre una a la vez, y la respuesta siempre está en el HTML',
+      en: 'one open at a time, and the answer is always in the HTML',
+    },
+    desc: {
+      es: 'Al pulsar otra pregunta, la que estaba se cierra en el mismo movimiento: es un solo índice en el estado, y es lo que evita el acordeón que se va llenando hasta que no se ve ninguna. Dos decisiones que se pierden al copiarlo de memoria: la respuesta SIEMPRE está en el DOM, porque si solo existe al abrirla un buscador no la lee nunca; y el alto se anima con una rejilla de 0fr a 1fr, no con un max-height puesto a ojo que recorta las respuestas largas.',
+      en: 'Opening another question closes the previous one in the same movement: it is a single index in state, and it is what prevents the accordion that fills up until nothing is readable. Two decisions people lose when copying from memory: the answer is ALWAYS in the DOM, because if it only exists once open a search engine never reads it; and the height animates with a 0fr to 1fr grid row, not with a guessed max-height that clips the long answers.',
+    },
+    defaults: { duracion: 400 },
+    controls: [
+      { key: 'duracion', type: 'range', min: 0, max: 900, step: 20, label: { es: 'Duración', en: 'Duration' } },
+    ],
+  },
+  {
+    key: 'matrioska',
+    group: 'scroll',
+    origin: 'propio',
+    clase: 'receta',
+    component: 'MatrioskaParallax',
+    name: 'Matrioska parallax',
+    nameEn: 'Matryoshka parallax',
+    url: null,
+    install: null,
+    deps: [],
+    labels: ['scroll', 'sin dependencias', 'receta'],
+    tag: {
+      es: 'el scroll mueve una cámara, no la página',
+      en: 'the scroll moves a camera, not the page',
+    },
+    desc: {
+      es: 'Capas que se anidan y avanzan a distinta velocidad según el scroll: no hay desplazamiento lateral, lo que crece es el mundo. La cuenta entera cabe en tres líneas: la cámara avanza medida en capas, cada capa mira a cuántas queda de distancia, y esa distancia se convierte en escala elevando dos a ella. Con el dial de movimiento a cero la escala se queda en uno y el efecto degrada a un fundido encadenado: se queda sin trayecto, pero no se rompe.',
+      en: 'Layers that nest and advance at different speeds as you scroll: there is no sideways travel, what grows is the world. The whole maths fits in three lines: the camera advances measured in layers, each layer checks how many layers away it is, and that distance becomes scale by raising two to it. With the motion dial at zero the scale stays at one and the effect degrades to a cross-fade: it loses the journey, but it does not break.',
+    },
+    defaults: { gain: 1, pantallasPorCapa: 1 },
+    controls: [
+      { key: 'gain', type: 'range', min: 0, max: 1, step: 0.05, label: { es: 'Movimiento', en: 'Motion' } },
+      { key: 'pantallasPorCapa', type: 'range', min: 0.4, max: 2, step: 0.1, label: { es: 'Recorrido', en: 'Travel' } },
+    ],
+  },
 ]
 
 // Solo las props que el usuario haya cambiado, como hacen las webs de componentes.
+// El nombre de una pieza de la casa sí se traduce: «Header de píldora deslizante»
+// en inglés no dice nada. Los de canvasui y arlan no tienen `nameEn` porque son
+// nombres propios (Bubble, Cloth) y esos no se traducen.
+export const nombreDe = (item, lang) => (lang === 'en' && item.nameEn) || item.name
+
 export function changedProps(item, values) {
   const out = {}
   for (const [k, v] of Object.entries(values)) {
@@ -508,8 +607,10 @@ export function usageSnippet(item, values) {
   // `component` manda cuando el nombre del archivo no sale de capitalizar el título.
   const tag = item.component ||
     item.name.replace(/(?:^|\s)(\w)/g, (_, c) => c.toUpperCase()).replace(/\s+/g, '')
-  const importLine = item.origin === 'canvasui'
-    ? `import ${tag} from "@/components/canvasui/${tag}"\n\n`
+  const CARPETA = { canvasui: 'canvasui', propio: 'propios' }
+  const carpeta = CARPETA[item.origin]
+  const importLine = carpeta
+    ? `import ${tag} from "@/components/${carpeta}/${tag}"\n\n`
     : ''
 
   const attrs = props.length ? `\n  ${props.join('\n  ')}\n` : ''
