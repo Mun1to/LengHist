@@ -1257,6 +1257,21 @@ Las que hagan falta para la decisión. Para cada una decide su tipo:
 
 Una pregunta por decisión: si una pregunta lleva dos cosas dentro, son dos preguntas.
 
+**Antes de dar la lista por cerrada, pasa cada pregunta por dos filtros, sin excepción:**
+
+- **¿hace falta de verdad?** Si la respuesta no va a cambiar nada de lo que se hace después,
+  la pregunta sobra. No se pregunta por rellenar el cuestionario ni "por si acaso": cada
+  pregunta de más es tiempo perdido de quien tiene que contestarla.
+- **¿se entiende a la primera lectura?** Frase corta, una sola idea, sin jerga que quien
+  responde no tenga por qué conocer. Si hace falta contexto para que la pregunta se entienda,
+  ese contexto va en \`ayuda\` (ver debajo), nunca amontonado dentro del título hasta hacerlo
+  largo o técnico.
+
+Repasa la lista entera con estos dos filtros antes de pasar al paso 2: quita toda pregunta que
+no vaya a cambiar nada, y reescribe toda pregunta que haya que releer dos veces para saber qué
+está pidiendo. Un cuestionario de cuarenta preguntas donde media docena son ruido no es más
+completo que uno de treinta y cuatro, es solo más largo y más pesado de rellenar.
+
 Cada opción de \`opcion\` o \`multiple\` puede ser solo texto, o llevar más: \`{ texto, ayuda?,
 nota? }\`, donde \`ayuda\` es una frase pequeña debajo (por qué importa esa opción) y \`nota\` es una
 insignia corta al lado (por ejemplo \`"recomendada"\`). No hay que elegir un formato para toda la
@@ -1412,6 +1427,21 @@ Whatever the decision needs. For each one, pick its type:
 - \`escala\` (scale) - rate on a range (0-10, 1-5), with labels at the ends if they help.
 
 One question per decision: if a question carries two things inside it, that is two questions.
+
+**Before treating the list as final, run every question through two filters, no exceptions:**
+
+- **Is it actually needed?** If the answer would not change anything done afterward, the
+  question does not belong. Do not ask to pad out the form or "just in case": every extra
+  question wastes the time of whoever has to answer it.
+- **Does it read clearly the first time?** A short sentence, one single idea, no jargon the
+  person answering has no reason to know. If a question needs context to make sense, that
+  context goes in \`ayuda\` (see below), never crammed into the title until it turns long or
+  technical.
+
+Go through the whole list with these two filters before moving to step 2: drop every question
+that would not change anything, and rewrite every question that needs a second read to figure
+out what it is even asking. A forty-question form where half a dozen are noise is not more
+thorough than a thirty-four-question one, it is just longer and more tiring to fill in.
 
 Each option of \`opcion\` or \`multiple\` can be plain text, or carry more: \`{ texto, ayuda?,
 nota? }\`, where \`ayuda\` is a short line underneath (why that option matters) and \`nota\` is a
