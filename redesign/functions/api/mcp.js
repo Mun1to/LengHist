@@ -232,6 +232,22 @@ export function onRequestOptions() {
 // tarjeta de salud JSON para todo lo demás. No es un stream SSE; las tools usan POST.
 export function onRequestGet({ request } = {}) {
   const acepta = request?.headers?.get('accept') || ''
+
+  // Un cliente MCP abre este GET para quedarse escuchando un stream SSE. Aquí no
+  // hay stream, y la spec del transporte Streamable HTTP manda decirlo con un
+  // 405: es la única respuesta que el cliente entiende como «este servidor no
+  // tiene canal de escucha», y con ella deja de intentarlo.
+  //
+  // Devolver 200 con la tarjeta de salud, que es lo que hacía antes, provoca lo
+  // contrario: el cliente recibe un cuerpo que se cierra al instante, lo lee como
+  // una conexión caída y reconecta en el acto. El 2026-08-31 una sola máquina en
+  // Japón dio 117.764 vueltas a ese bucle en nueve horas, a tres por segundo, y
+  // se comió el 117% del cupo diario de Pages Functions. No era un ataque: era
+  // este `return` de aquí.
+  if (acepta.includes('text/event-stream')) {
+    return new Response(null, { status: 405, headers: { Allow: 'POST, OPTIONS', ...CORS } })
+  }
+
   if (acepta.includes('text/html')) {
     // El idioma del visitante decide es/en, como el resto del sitio. Vary para que
     // una caché no le sirva a un inglés la versión que pidió un español.
